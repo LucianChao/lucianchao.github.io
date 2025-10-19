@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Markdown on SteamedFish&#39;s Blog</title>
-    <link>http://localhost:1313/tags/markdown/</link>
+    <link>https://lucianchao.github.io/tags/markdown/</link>
     <description>Recent content in Markdown on SteamedFish&#39;s Blog</description>
     <generator>Hugo -- 0.151.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Sun, 19 Oct 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://lucianchao.github.io/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>我的第一篇文章</title>
-      <link>http://localhost:1313/post/first_post/</link>
+      <link>https://lucianchao.github.io/post/first_post/</link>
       <pubDate>Sun, 19 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/post/first_post/</guid>
+      <guid>https://lucianchao.github.io/post/first_post/</guid>
       <description>&lt;p&gt;这里是文章正文，可以写内容、插入图片、使用 shortcode 等。&lt;/p&gt;</description>
     </item>
   </channel>
