@@ -9,9 +9,16 @@
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Java SE从入门到跑路（一·基础语法篇）</title>
+      <link>http://localhost:1313/post/java-se-basics-tutorial/</link>
+      <pubDate>Thu, 23 Oct 2025 23:43:16 +0000</pubDate>
+      <guid>http://localhost:1313/post/java-se-basics-tutorial/</guid>
+      <description>全面掌握 Java SE 基础语法！详细讲解注释、字面量、变量、数据类型、类型转换、关键字与标识符、运算符等核心知识，配合实例与代码演示，帮助你从零打好 Java 基础。</description>
+    </item>
+    <item>
       <title>Markdown基础语法</title>
       <link>http://localhost:1313/post/markdown-basic-syntax/</link>
-      <pubDate>Sun, 19 Oct 2025 16:43:44 +0000</pubDate>
+      <pubDate>Thu, 23 Oct 2025 23:36:28 +0000</pubDate>
       <guid>http://localhost:1313/post/markdown-basic-syntax/</guid>
       <description>&lt;p&gt;这篇文章不仅仅是介绍，也是学习&lt;/p&gt;
 &lt;p&gt;&lt;img alt=&#34;MSG&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/msg.png&#34;&gt;&lt;/p&gt;

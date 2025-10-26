@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Java- Java SE on SteamedFish&#39;s Blog</title>
+    <link>http://localhost:1313/tags/java--java-se/</link>
+    <description>Recent content in Java- Java SE on SteamedFish&#39;s Blog</description>
+    <generator>Hugo -- 0.151.2</generator>
+    <language>zh</language>
+    <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
+    <lastBuildDate>Fri, 24 Oct 2025 15:31:59 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/java--java-se/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java-SE之从入门到跑路（一）</title>
+      <link>http://localhost:1313/post/2025-10-23-java-se/</link>
+      <pubDate>Thu, 23 Oct 2025 23:43:16 +0000</pubDate>
+      <guid>http://localhost:1313/post/2025-10-23-java-se/</guid>
+      <description>&lt;h2 id=&#34;写在前面&#34;&gt;写在前面&lt;/h2&gt;
+&lt;p&gt;本文作为JavaSE系列的第一篇文章，我会尽可能详细的解释一些基础知识和常用的编辑器（本文统一使用 &lt;strong&gt;IDEA&lt;/strong&gt; ）操作并附上图片说明，但本文过后我将不再过多赘述，若有读者遇见不懂的难题，可以翻看本篇文章或自行查阅相关资料。&lt;/p&gt;
+&lt;p&gt;关于我的系统环境以及Java、JavaSE、SDK、JVM是什么？等等问题，后面可能会出一篇《JavaSE前置篇》来进行说明，但目前没有这个打算，因为一开始想写这个系列，也仅仅是想对之前学习的一些知识进行一个归纳和总结。 &lt;br&gt;
+或许写完JavaSE系列后可能会抽出空来进行补充。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
