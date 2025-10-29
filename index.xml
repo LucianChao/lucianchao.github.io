@@ -9,6 +9,15 @@
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <atom:link href="https://www.steamedfish.top/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Java SE从入门到跑路（四·面向对象之类与对象篇）</title>
+      <link>https://www.steamedfish.top/post/java-se-oop/</link>
+      <pubDate>Mon, 27 Oct 2025 20:15:32 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-se-oop/</guid>
+      <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;少年，恭喜你！你已经成功打开了&lt;strong&gt;新世界的大门&lt;/strong&gt;！看到这里你的Java学习之路才刚刚开始！从这章起，我们将真正的学习到Java的核心思想，甚至可以说是编程界最伟大的思想之一——&lt;strong&gt;面对对象&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;前面我们已经学会了使用&lt;strong&gt;流程控制&lt;/strong&gt;、&lt;strong&gt;数组和方法&lt;/strong&gt;，能够让程序按照逻辑顺序执行、批量存储数据(&lt;strong&gt;数组&lt;/strong&gt;)、并通过&lt;strong&gt;方法&lt;/strong&gt;复用代码，减少重复劳动。&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Java SE从入门到跑路（三·数组与方法篇）</title>
       <link>https://www.steamedfish.top/post/java-se-arrays-methods/</link>
       <pubDate>Mon, 27 Oct 2025 11:21:39 +0800</pubDate>
