@@ -7,7 +7,10 @@
 <meta name="robots" content="index, follow">
 <title>Java SE从入门到跑路（四·面向对象之类与对象篇） | SteamedFish&#39;s Blog</title>
 <meta name="keywords" content="Java, Java SE, OOP, 对象, 教学, 类, 面对对象, 封装">
-<meta name="description" content="前言
+<meta name="description" content="
+JAVA——万事万物皆对象
+
+前言
 少年，恭喜你！你已经成功打开了新世界的大门！看到这里你的Java学习之路才刚刚开始！从这章起，我们将真正的学习到Java的核心思想，甚至可以说是编程界最伟大的思想之一——面对对象
 前面我们已经学会了使用流程控制、数组和方法，能够让程序按照逻辑顺序执行、批量存储数据(数组)、并通过方法复用代码，减少重复劳动。">
 <meta name="author" content="">
@@ -60,13 +63,13 @@
 </noscript><meta property="og:url" content="https://www.steamedfish.top/post/java-se-oop/">
   <meta property="og:site_name" content="SteamedFish&#39;s Blog">
   <meta property="og:title" content="Java SE从入门到跑路（四·面向对象之类与对象篇）">
-  <meta property="og:description" content="前言 少年，恭喜你！你已经成功打开了新世界的大门！看到这里你的Java学习之路才刚刚开始！从这章起，我们将真正的学习到Java的核心思想，甚至可以说是编程界最伟大的思想之一——面对对象
+  <meta property="og:description" content=" JAVA——万事万物皆对象 前言 少年，恭喜你！你已经成功打开了新世界的大门！看到这里你的Java学习之路才刚刚开始！从这章起，我们将真正的学习到Java的核心思想，甚至可以说是编程界最伟大的思想之一——面对对象
 前面我们已经学会了使用流程控制、数组和方法，能够让程序按照逻辑顺序执行、批量存储数据(数组)、并通过方法复用代码，减少重复劳动。">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2025-10-27T20:15:32+08:00">
-    <meta property="article:modified_time" content="2025-10-29T07:07:31+00:00">
+    <meta property="article:modified_time" content="2025-10-29T07:21:51+00:00">
     <meta property="article:tag" content="Java">
     <meta property="article:tag" content="Java SE">
     <meta property="article:tag" content="OOP">
@@ -75,7 +78,10 @@
     <meta property="article:tag" content="类">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java SE从入门到跑路（四·面向对象之类与对象篇）">
-<meta name="twitter:description" content="前言
+<meta name="twitter:description" content="
+JAVA——万事万物皆对象
+
+前言
 少年，恭喜你！你已经成功打开了新世界的大门！看到这里你的Java学习之路才刚刚开始！从这章起，我们将真正的学习到Java的核心思想，甚至可以说是编程界最伟大的思想之一——面对对象
 前面我们已经学会了使用流程控制、数组和方法，能够让程序按照逻辑顺序执行、批量存储数据(数组)、并通过方法复用代码，减少重复劳动。">
 
@@ -106,15 +112,15 @@
   "@type": "BlogPosting",
   "headline": "Java SE从入门到跑路（四·面向对象之类与对象篇）",
   "name": "Java SE从入门到跑路（四·面向对象之类与对象篇）",
-  "description": "前言 少年，恭喜你！你已经成功打开了新世界的大门！看到这里你的Java学习之路才刚刚开始！从这章起，我们将真正的学习到Java的核心思想，甚至可以说是编程界最伟大的思想之一——面对对象\n前面我们已经学会了使用流程控制、数组和方法，能够让程序按照逻辑顺序执行、批量存储数据(数组)、并通过方法复用代码，减少重复劳动。\n",
+  "description": " JAVA——万事万物皆对象 前言 少年，恭喜你！你已经成功打开了新世界的大门！看到这里你的Java学习之路才刚刚开始！从这章起，我们将真正的学习到Java的核心思想，甚至可以说是编程界最伟大的思想之一——面对对象\n前面我们已经学会了使用流程控制、数组和方法，能够让程序按照逻辑顺序执行、批量存储数据(数组)、并通过方法复用代码，减少重复劳动。\n",
   "keywords": [
     "Java", "Java SE", "OOP", "对象", "教学", "类", "面对对象", "封装"
   ],
-  "articleBody": "前言 少年，恭喜你！你已经成功打开了新世界的大门！看到这里你的Java学习之路才刚刚开始！从这章起，我们将真正的学习到Java的核心思想，甚至可以说是编程界最伟大的思想之一——面对对象\n前面我们已经学会了使用流程控制、数组和方法，能够让程序按照逻辑顺序执行、批量存储数据(数组)、并通过方法复用代码，减少重复劳动。\n但是——你可能也发现了：\n随着程序越来越复杂，变量越来越多，方法也越来越多。\n代码虽然能运行，但看起来杂乱无章，难以维护。 例如：\n你写了一个学生成绩管理程序，学生有姓名、年龄、成绩等信息； 然后你又写了一个老师管理程序，老师也有姓名、工号、科目； 接着你开始写学校的管理逻辑，发现各种变量传来传去，一不小心还会传错。 这时候，你可能会想：\n有没有一种方法，能让数据和操作更自然地绑定在一起， 让程序像我们现实世界一样，有“人”“学生”“老师”这样的对象？\n没错！这就是我们即将要学习的——面向对象编程（Object-Oriented Programming, OOP）。\n什么是对象？ 或许你或多或少听过\n“Java是一门面对对象的编程语言”\n那什么是对象呢？ 在现实世界中，一切皆为对象： 你是一个对象，我是一个对象，一只狗、一台电脑、一本书，也都是对象。\n每个对象都有自己的属性（是什么）和行为（能做什么）。\n举个例子：\n对象\r属性\r行为\r学生\r姓名、年龄、成绩\r学习、考试、玩游戏\r狗\r品种、颜色、体重\r吠叫、奔跑、吃饭\r电脑\r品牌、CPU、内存\r运行程序、播放音乐、联网\r在编程的世界里，我们用类（class）来描述这些对象的“模板”， 再用对象（object）**来表示具体的实例。\n你可以把“类”理解为图纸，而“对象”就是根据这张图纸造出的产品。\n为什么要面对对象？ 面向对象编程（OOP）的核心思想是：\n用“对象”的方式去模拟真实世界，从而让代码更加自然、清晰、可维护。 他让我们：\n把数据和行为绑定在一起（更符合人的思维习惯）； 让大型程序可以模块化，彼此独立、互不干扰； 让代码更容易扩展和复用。 类与对象(Class \u0026 Object) 1.类的定义 类（Class）可以看作是一类事物的模板或设计图。\n在 Java 中定义一个类的基本语法是这样的：\nclass 类名 { // 成员变量（属性） // 成员方法（行为） } 举个例子，我们定义一个学生类： 学生都有：\n姓名（name） 年龄（age） 这些共同特征就可以抽象成一个类：\nclass Student { String name; // 学生姓名 int age; // 学生年龄 void study() { System.out.println(name + \" 正在学习 Java！\"); } } 这里的 Student 就是一个类，它描述了“学生”这个概念中共同的属性。 在这个类中：\nname 和 age 是 属性（成员变量）； study() 是 方法（行为）。 2.对象的创建与使用 对象（Object）是根据类创建出来的具体实例。\n类就像“图纸”，对象就是“根据图纸造出来的东西”。\n对象的创建 创建对象的语法是：\n类名 对象名 = new 类名(); 比如：\npublic class Test { public static void main(String[] args) { Student s1 = new Student(); // 创建对象 s1.name = \"小明\"; s1.age = 18; s1.study(); // 调用方法 } } 输出：\n小明 正在学习 Java！ 这就是最基础的类与对象的使用。 每一个 new 都会在内存中创建一个新的独立对象。\n多个对象与内存独立性 当你写下：\nStudent s = new Student(); 内存中发生了以下事情：\n在堆内存(Heap) 中分配空间存储对象的数据；\n在栈内存(Stack) 中保存对象的引用（地址）；\n当对象不再被引用时，Java 的垃圾回收机制(GC) 会自动回收它。\n所以：\n当我们只创建一个对象并重复引用它：\nStudent s1 = new Student(); Student s2 = s1; //s1创建了一个新对象并引用它 //把s1的引用赋值给s2 //s2和s1引用着同一个对象 此时 s1 和 s2 指向同一个对象，修改其中一个，另一个也会变。\n当我们创建多个对象时，它们之间是相互独立的。\nStudent s1 = new Student(); s1.name = \"小明\"; Student s2 = new Student(); s2.name = \"小红\"; s1.study(); // 输出：小明 正在学习 Java！ s2.study(); // 输出：小红 正在学习 Java！ 在上面的示例中，s1 就是一个“学生对象”，它拥有独立的数据空间。 如果再创建一个 s2，两个对象各自拥有自己的 name，互不干扰。 它们就像两台独立运行的电脑，拥有自己的内存空间。\n构造方法(Constructor) 有时候我们希望在创建对象的同时就给它赋值，这就要用到构造方法。\n构造方法是用来创建对象时进行初始化的特殊方法。\n1.构造方法的特点 方法名必须和类名相同； 没有返回值类型； 可以带参数，也可以不带参数。 2.构造方法的概念 它的名字必须和类名相同，且没有返回类型。\npublic class Student { String name; int age; // 构造方法 public Student(String n, int a) { name = n; age = a; } void showInfo() { System.out.println(\"姓名：\" + name + \"，年龄：\" + age); } } 创建对象时会自动调用构造方法\n示例：\npublic class Test { public static void main(String[] args) { Student s = new Student(\"小明\", 18); s.showInfo(); } } 输出：\n姓名：小明，年龄：18 信息\n如果你不写构造方法，Java 会自动提供一个无参构造方法。\n2.构造方法重载 一个类可以有多个构造方法，只要参数不同：\npublic class Student { String name; int age; public Student() { System.out.println(\"无参构造方法被调用\"); } public Student(String n, int a) { name = n; age = a; } } 3.this关键字 this 表示当前对象的引用。\n当方法或构造函数中，参数名和成员变量相同时，可以用 this 来区分：\nclass Student { String name; int age; Student(String name, int age) { this.name = name; // this.name 表示成员变量 this.age = age; } } this 表示“当前对象自己”。\n类与对象的实例 看这个示例：\nclass Student { String name; int age; double score; Student(String name, int age, double score) { this.name = name; this.age = age; this.score = score; } void show() { System.out.println(\"姓名：\" + name + \"，年龄：\" + age + \"，成绩：\" + score); } } public class Test { public static void main(String[] args) { Student s1 = new Student(\"小明\", 18, 95.5); Student s2 = new Student(\"小红\", 17, 88.0); s1.show(); s2.show(); } } 输出：\n姓名：小明，年龄：18，成绩：95.5 姓名：小红，年龄：17，成绩：88.0 思考与练习 写一个 Dog 类，包含属性：name、color、age，并添加方法 bark() 输出 “汪汪汪！”. 用两种不同方式创建对象（带参和无参构造），打印信息。 思考：如果我在方法里创建一个对象，方法执行结束后，对象还在吗？ 封装(Encapsulation) 刚才我们认识了“类与对象”——学会了怎么创造世界的“事物”。\n但如果你仔细想一想，会发现一个问题：\n我们的对象太“开放”了。\n任何人都能直接修改对象的属性，比如：\nStudent s = new Student(); s.age = -10; // ？？？ 这对吗？这不对！ 年纪不能是负数！\n我们希望某些数据只能通过特定的方式修改，这就引出了今天的主角：封装（Encapsulation）。\n1.什么是封装？ 简单来说:\n封装就是把对象的属性和实现细节隐藏起来，只暴露出安全的访问方式。\n好比一台电视机：\n外面只有电源键、音量键； 里面的电路你看不到，也不能乱动。 同样的，在程序中，我们通过： private 隐藏属性； public 方法提供控制访问的接口。 2.访问控制修饰符 Java提供了四种访问级别，用来控制“谁能访问什么”：\n修饰符\r同类中\r同包中\r子类中\r其他包\rpublic\r✅\r✅\r✅\r✅\rprotected\r✅\r✅\r✅\r❌\r(默认)\r✅\r✅\r❌\r❌\rprivate\r✅\r❌\r❌\r❌\r最常用的组合是：\n属性 → private（隐藏数据）\n方法 → public（提供访问入口）\n3.封装的实现方式 来看一个没有封装的类：\nclass Student { String name; int age; } 我们可以直接修改它：\nStudent s = new Student(); s.name = \"小明\"; s.age = -20; // 不合理！ 这时我们把它改成封装版：\nclass Student { private String name; private int age; // 提供公开的“入口” public void setName(String n) { name = n; } public String getName() { return name; } public void setAge(int a) { if (a \u003e 0 \u0026\u0026 a \u003c 120) { age = a; } else { System.out.println(\"年龄不合法！\"); } } public int getAge() { return age; } } 使用方法：\npublic class Test { public static void main(String[] args) { Student s = new Student(); s.setName(\"小明\"); s.setAge(-20); // 输出：年龄不合法！ s.setAge(18); System.out.println(s.getName() + \" 今年 \" + s.getAge() + \" 岁\"); } } 输出：\n年龄不合法！ 小明 今年 18 岁 4.封装的优点 保证数据安全 不让外部直接篡改敏感数据。 简化使用方式 使用者只需调用方法，不需要关心内部实现。 便于修改维护 内部逻辑可以随时优化，而对外接口保持不变。 举个例子： 以后我们想在 setAge() 里加上 “如果年龄大于18就自动标记成年”， 外部代码完全不用改，只要我们在方法里处理就行。\n5. this的再认识 在封装中，this 通常用来区分成员变量和方法参数。\npublic void setName(String name) { this.name = name; } this.name 表示当前对象的成员变量， 右边的 name 是传入的参数。\n6.构造方法与封装结合 我们可以在构造方法中使用封装的思想：\nclass Student { private String name; private int age; public Student(String name, int age) { setName(name); setAge(age); } // getter / setter 同上 } 这样即使在创建对象时，也会经过合法性检查。\n",
-  "wordCount" : "3423",
+  "articleBody": " JAVA——万事万物皆对象 前言 少年，恭喜你！你已经成功打开了新世界的大门！看到这里你的Java学习之路才刚刚开始！从这章起，我们将真正的学习到Java的核心思想，甚至可以说是编程界最伟大的思想之一——面对对象\n前面我们已经学会了使用流程控制、数组和方法，能够让程序按照逻辑顺序执行、批量存储数据(数组)、并通过方法复用代码，减少重复劳动。\n但是——你可能也发现了：\n随着程序越来越复杂，变量越来越多，方法也越来越多。\n代码虽然能运行，但看起来杂乱无章，难以维护。 例如：\n你写了一个学生成绩管理程序，学生有姓名、年龄、成绩等信息； 然后你又写了一个老师管理程序，老师也有姓名、工号、科目； 接着你开始写学校的管理逻辑，发现各种变量传来传去，一不小心还会传错。 这时候，你可能会想：\n有没有一种方法，能让数据和操作更自然地绑定在一起， 让程序像我们现实世界一样，有“人”“学生”“老师”这样的对象？\n没错！这就是我们即将要学习的——面向对象编程（Object-Oriented Programming, OOP）。\n什么是对象？ 或许你或多或少听过\n“Java是一门面对对象的编程语言”\n那什么是对象呢？ 在现实世界中，一切皆为对象： 你是一个对象，我是一个对象，一只狗、一台电脑、一本书，也都是对象。\n每个对象都有自己的属性（是什么）和行为（能做什么）。\n举个例子：\n对象\r属性\r行为\r学生\r姓名、年龄、成绩\r学习、考试、玩游戏\r狗\r品种、颜色、体重\r吠叫、奔跑、吃饭\r电脑\r品牌、CPU、内存\r运行程序、播放音乐、联网\r在编程的世界里，我们用类（class）来描述这些对象的“模板”， 再用对象（object）来表示具体的实例。\n你可以把“类”理解为图纸，而“对象”就是根据这张图纸造出的产品。\n为什么要面对对象？ 面向对象编程（OOP）的核心思想是：\n用“对象”的方式去模拟真实世界，从而让代码更加自然、清晰、可维护。 他让我们：\n把数据和行为绑定在一起（更符合人的思维习惯）； 让大型程序可以模块化，彼此独立、互不干扰； 让代码更容易扩展和复用。 类与对象(Class \u0026 Object) 1.类的定义 类（Class）可以看作是一类事物的模板或设计图。\n在 Java 中定义一个类的基本语法是这样的：\nclass 类名 { // 成员变量（属性） // 成员方法（行为） } 举个例子，我们定义一个学生类： 学生都有：\n姓名（name） 年龄（age） 这些共同特征就可以抽象成一个类：\nclass Student { String name; // 学生姓名 int age; // 学生年龄 void study() { System.out.println(name + \" 正在学习 Java！\"); } } 这里的 Student 就是一个类，它描述了“学生”这个概念中共同的属性。 在这个类中：\nname 和 age 是 属性（成员变量）； study() 是 方法（行为）。 2.对象的创建与使用 对象（Object）是根据类创建出来的具体实例。\n类就像“图纸”，对象就是“根据图纸造出来的东西”。\n对象的创建 创建对象的语法是：\n类名 对象名 = new 类名(); 比如：\npublic class Test { public static void main(String[] args) { Student s1 = new Student(); // 创建对象 s1.name = \"小明\"; s1.age = 18; s1.study(); // 调用方法 } } 输出：\n小明 正在学习 Java！ 这就是最基础的类与对象的使用。 每一个 new 都会在内存中创建一个新的独立对象。\n多个对象与内存独立性 当你写下：\nStudent s = new Student(); 内存中发生了以下事情：\n在堆内存(Heap) 中分配空间存储对象的数据；\n在栈内存(Stack) 中保存对象的引用（地址）；\n当对象不再被引用时，Java 的垃圾回收机制(GC) 会自动回收它。\n所以：\n当我们只创建一个对象并重复引用它：\nStudent s1 = new Student(); Student s2 = s1; //s1创建了一个新对象并引用它 //把s1的引用赋值给s2 //s2和s1引用着同一个对象 此时 s1 和 s2 指向同一个对象，修改其中一个，另一个也会变。\n当我们创建多个对象时，它们之间是相互独立的。\nStudent s1 = new Student(); s1.name = \"小明\"; Student s2 = new Student(); s2.name = \"小红\"; s1.study(); // 输出：小明 正在学习 Java！ s2.study(); // 输出：小红 正在学习 Java！ 在上面的示例中，s1 就是一个“学生对象”，它拥有独立的数据空间。 如果再创建一个 s2，两个对象各自拥有自己的 name，互不干扰。 它们就像两台独立运行的电脑，拥有自己的内存空间。\n构造方法(Constructor) 有时候我们希望在创建对象的同时就给它赋值，这就要用到构造方法。\n构造方法是用来创建对象时进行初始化的特殊方法。\n1.构造方法的特点 方法名必须和类名相同； 没有返回值类型； 可以带参数，也可以不带参数。 2.构造方法的概念 它的名字必须和类名相同，且没有返回类型。\npublic class Student { String name; int age; // 构造方法 public Student(String n, int a) { name = n; age = a; } void showInfo() { System.out.println(\"姓名：\" + name + \"，年龄：\" + age); } } 创建对象时会自动调用构造方法\n示例：\npublic class Test { public static void main(String[] args) { Student s = new Student(\"小明\", 18); s.showInfo(); } } 输出：\n姓名：小明，年龄：18 信息\n如果你不写构造方法，Java 会自动提供一个无参构造方法。\n2.构造方法重载 一个类可以有多个构造方法，只要参数不同：\npublic class Student { String name; int age; public Student() { System.out.println(\"无参构造方法被调用\"); } public Student(String n, int a) { name = n; age = a; } } 3.this关键字 this 表示当前对象的引用。\n当方法或构造函数中，参数名和成员变量相同时，可以用 this 来区分：\nclass Student { String name; int age; Student(String name, int age) { this.name = name; // this.name 表示成员变量 this.age = age; } } this 表示“当前对象自己”。\n类与对象的实例 看这个示例：\nclass Student { String name; int age; double score; Student(String name, int age, double score) { this.name = name; this.age = age; this.score = score; } void show() { System.out.println(\"姓名：\" + name + \"，年龄：\" + age + \"，成绩：\" + score); } } public class Test { public static void main(String[] args) { Student s1 = new Student(\"小明\", 18, 95.5); Student s2 = new Student(\"小红\", 17, 88.0); s1.show(); s2.show(); } } 输出：\n姓名：小明，年龄：18，成绩：95.5 姓名：小红，年龄：17，成绩：88.0 思考与练习 写一个 Dog 类，包含属性：name、color、age，并添加方法 bark() 输出 “汪汪汪！”. 用两种不同方式创建对象（带参和无参构造），打印信息。 思考：如果我在方法里创建一个对象，方法执行结束后，对象还在吗？ 封装(Encapsulation) 刚才我们认识了“类与对象”——学会了怎么创造世界的“事物”。\n但如果你仔细想一想，会发现一个问题：\n我们的对象太“开放”了。\n任何人都能直接修改对象的属性，比如：\nStudent s = new Student(); s.age = -10; // ？？？ 这对吗？这不对！ 年纪不能是负数！\n我们希望某些数据只能通过特定的方式修改，这就引出了今天的主角：封装（Encapsulation）。\n1.什么是封装？ 简单来说:\n封装就是把对象的属性和实现细节隐藏起来，只暴露出安全的访问方式。\n好比一台电视机：\n外面只有电源键、音量键； 里面的电路你看不到，也不能乱动。 同样的，在程序中，我们通过： private 隐藏属性； public 方法提供控制访问的接口。 2.访问控制修饰符 Java提供了四种访问级别，用来控制“谁能访问什么”：\n修饰符\r同类中\r同包中\r子类中\r其他包\rpublic\r✅\r✅\r✅\r✅\rprotected\r✅\r✅\r✅\r❌\r(默认)\r✅\r✅\r❌\r❌\rprivate\r✅\r❌\r❌\r❌\r最常用的组合是：\n属性 → private（隐藏数据）\n方法 → public（提供访问入口）\n3.封装的实现方式 来看一个没有封装的类：\nclass Student { String name; int age; } 我们可以直接修改它：\nStudent s = new Student(); s.name = \"小明\"; s.age = -20; // 不合理！ 这时我们把它改成封装版：\nclass Student { private String name; private int age; // 提供公开的“入口” public void setName(String n) { name = n; } public String getName() { return name; } public void setAge(int a) { if (a \u003e 0 \u0026\u0026 a \u003c 120) { age = a; } else { System.out.println(\"年龄不合法！\"); } } public int getAge() { return age; } } 使用方法：\npublic class Test { public static void main(String[] args) { Student s = new Student(); s.setName(\"小明\"); s.setAge(-20); // 输出：年龄不合法！ s.setAge(18); System.out.println(s.getName() + \" 今年 \" + s.getAge() + \" 岁\"); } } 输出：\n年龄不合法！ 小明 今年 18 岁 4.封装的优点 保证数据安全 不让外部直接篡改敏感数据。 简化使用方式 使用者只需调用方法，不需要关心内部实现。 便于修改维护 内部逻辑可以随时优化，而对外接口保持不变。 举个例子： 以后我们想在 setAge() 里加上 “如果年龄大于18就自动标记成年”， 外部代码完全不用改，只要我们在方法里处理就行。\n5. this的再认识 在封装中，this 通常用来区分成员变量和方法参数。\npublic void setName(String name) { this.name = name; } this.name 表示当前对象的成员变量， 右边的 name 是传入的参数。\n6.构造方法与封装结合 我们可以在构造方法中使用封装的思想：\nclass Student { private String name; private int age; public Student(String name, int age) { setName(name); setAge(age); } // getter / setter 同上 } 这样即使在创建对象时，也会经过合法性检查。\n",
+  "wordCount" : "3434",
   "inLanguage": "zh",
   "datePublished": "2025-10-27T20:15:32+08:00",
-  "dateModified": "2025-10-29T07:07:31.536304949Z",
+  "dateModified": "2025-10-29T07:21:51.154328674Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/java-se-oop/"
@@ -223,6 +229,8 @@
 
         <div class="inner"><ul>
                 <li>
+                    <a href="#java%e4%b8%87%e4%ba%8b%e4%b8%87%e7%89%a9%e7%9a%86%e5%af%b9%e8%b1%a1" aria-label="JAVA——万事万物皆对象">JAVA——万事万物皆对象</a></li>
+                <li>
                     <a href="#%e5%89%8d%e8%a8%80" aria-label="前言">前言</a><ul>
                         
                 <li>
@@ -285,7 +293,10 @@
     </details>
 </div>
 
-  <div class="post-content"><h1 id="前言">前言<a hidden class="anchor" aria-hidden="true" href="#前言">#</a></h1>
+  <div class="post-content"><blockquote>
+<h1 id="java万事万物皆对象">JAVA——万事万物皆对象<a hidden class="anchor" aria-hidden="true" href="#java万事万物皆对象">#</a></h1>
+</blockquote>
+<h1 id="前言">前言<a hidden class="anchor" aria-hidden="true" href="#前言">#</a></h1>
 <p>少年，恭喜你！你已经成功打开了<strong>新世界的大门</strong>！看到这里你的Java学习之路才刚刚开始！从这章起，我们将真正的学习到Java的核心思想，甚至可以说是编程界最伟大的思想之一——<strong>面对对象</strong></p>
 <p>前面我们已经学会了使用<strong>流程控制</strong>、<strong>数组和方法</strong>，能够让程序按照逻辑顺序执行、批量存储数据(<strong>数组</strong>)、并通过<strong>方法</strong>复用代码，减少重复劳动。</p>
 <p>但是——你可能也发现了：<br>
@@ -502,7 +513,7 @@
       </tr>
   </tbody>
 </table><p>在编程的世界里，我们用<strong>类</strong>（class）来描述这些<strong>对象的“模板”</strong>，
-再用<strong>对象</strong>（object）**来表示具体的实例。</p>
+再用<strong>对象</strong>（object）来表示具体的实例。</p>
 <p>你可以把“类”理解为图纸，而“对象”就是根据这张图纸造出的产品。</p>
 <h2 id="为什么要面对对象">为什么要面对对象？<a hidden class="anchor" aria-hidden="true" href="#为什么要面对对象">#</a></h2>
 <p>面向对象编程（OOP）的核心思想是：</p>
