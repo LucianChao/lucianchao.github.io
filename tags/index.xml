@@ -7,27 +7,41 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Wed, 29 Oct 2025 11:19:30 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 30 Oct 2025 03:09:10 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java</title>
       <link>https://www.steamedfish.top/tags/java/</link>
-      <pubDate>Mon, 27 Oct 2025 20:15:32 +0800</pubDate>
+      <pubDate>Thu, 30 Oct 2025 09:52:31 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/java/</guid>
       <description></description>
     </item>
     <item>
       <title>Java SE</title>
       <link>https://www.steamedfish.top/tags/java-se/</link>
-      <pubDate>Mon, 27 Oct 2025 20:15:32 +0800</pubDate>
+      <pubDate>Thu, 30 Oct 2025 09:52:31 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/java-se/</guid>
       <description></description>
     </item>
     <item>
       <title>OOP</title>
       <link>https://www.steamedfish.top/tags/oop/</link>
-      <pubDate>Mon, 27 Oct 2025 20:15:32 +0800</pubDate>
+      <pubDate>Thu, 30 Oct 2025 09:52:31 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/oop/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Static</title>
+      <link>https://www.steamedfish.top/tags/static/</link>
+      <pubDate>Thu, 30 Oct 2025 09:52:31 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/static/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>教学</title>
+      <link>https://www.steamedfish.top/tags/%E6%95%99%E5%AD%A6/</link>
+      <pubDate>Thu, 30 Oct 2025 09:52:31 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E6%95%99%E5%AD%A6/</guid>
       <description></description>
     </item>
     <item>
@@ -42,13 +56,6 @@
       <link>https://www.steamedfish.top/tags/%E5%B0%81%E8%A3%85/</link>
       <pubDate>Mon, 27 Oct 2025 20:15:32 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/%E5%B0%81%E8%A3%85/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>教学</title>
-      <link>https://www.steamedfish.top/tags/%E6%95%99%E5%AD%A6/</link>
-      <pubDate>Mon, 27 Oct 2025 20:15:32 +0800</pubDate>
-      <guid>https://www.steamedfish.top/tags/%E6%95%99%E5%AD%A6/</guid>
       <description></description>
     </item>
     <item>

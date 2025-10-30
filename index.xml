@@ -9,6 +9,21 @@
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <atom:link href="https://www.steamedfish.top/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Java SE从入门到跑路（五·谁说一定要对象？static登场！）</title>
+      <link>https://www.steamedfish.top/post/java-se-static/</link>
+      <pubDate>Thu, 30 Oct 2025 09:52:31 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-se-static/</guid>
+      <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;当我们设计了一个类，然后根据这个类又new了一个对象，当这个对象被创建时，内存会为它分配一块空间，当我们创建多个对象时，他们各自占据一块内存&lt;br&gt;
+有些时候，我们并不想new一个对象，而是只是想使用某一个功能&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;想统计某个类被创建了多少次，结果发现得在外面数；&lt;/li&gt;
+&lt;li&gt;想在多个对象之间共享某个数据，比如“总人数”“游戏全局分数”等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这时，&lt;code&gt;static&lt;/code&gt; 关键字就登场了。&lt;br&gt;
+它的意思很简单：&lt;strong&gt;属于类，而不是属于对象&lt;/strong&gt;。&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Java SE从入门到跑路（四·面向对象之类与对象篇）</title>
       <link>https://www.steamedfish.top/post/java-se-oop/</link>
       <pubDate>Mon, 27 Oct 2025 20:15:32 +0800</pubDate>
