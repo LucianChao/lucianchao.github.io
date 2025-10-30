@@ -7,8 +7,50 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 30 Oct 2025 07:47:24 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 30 Oct 2025 11:01:51 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java</title>
+      <link>https://www.steamedfish.top/tags/java/</link>
+      <pubDate>Thu, 30 Oct 2025 15:51:12 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/java/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Java SE</title>
+      <link>https://www.steamedfish.top/tags/java-se/</link>
+      <pubDate>Thu, 30 Oct 2025 15:51:12 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/java-se/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>OOP</title>
+      <link>https://www.steamedfish.top/tags/oop/</link>
+      <pubDate>Thu, 30 Oct 2025 15:51:12 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/oop/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>多态</title>
+      <link>https://www.steamedfish.top/tags/%E5%A4%9A%E6%80%81/</link>
+      <pubDate>Thu, 30 Oct 2025 15:51:12 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E5%A4%9A%E6%80%81/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>继承</title>
+      <link>https://www.steamedfish.top/tags/%E7%BB%A7%E6%89%BF/</link>
+      <pubDate>Thu, 30 Oct 2025 15:51:12 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E7%BB%A7%E6%89%BF/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>教学</title>
+      <link>https://www.steamedfish.top/tags/%E6%95%99%E5%AD%A6/</link>
+      <pubDate>Thu, 30 Oct 2025 15:51:12 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E6%95%99%E5%AD%A6/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Final</title>
       <link>https://www.steamedfish.top/tags/final/</link>
@@ -17,38 +59,10 @@
       <description></description>
     </item>
     <item>
-      <title>Java</title>
-      <link>https://www.steamedfish.top/tags/java/</link>
-      <pubDate>Thu, 30 Oct 2025 07:46:37 +0000</pubDate>
-      <guid>https://www.steamedfish.top/tags/java/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Java SE</title>
-      <link>https://www.steamedfish.top/tags/java-se/</link>
-      <pubDate>Thu, 30 Oct 2025 07:46:37 +0000</pubDate>
-      <guid>https://www.steamedfish.top/tags/java-se/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>OOP</title>
-      <link>https://www.steamedfish.top/tags/oop/</link>
-      <pubDate>Thu, 30 Oct 2025 07:46:37 +0000</pubDate>
-      <guid>https://www.steamedfish.top/tags/oop/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Static</title>
       <link>https://www.steamedfish.top/tags/static/</link>
       <pubDate>Thu, 30 Oct 2025 07:46:37 +0000</pubDate>
       <guid>https://www.steamedfish.top/tags/static/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>教学</title>
-      <link>https://www.steamedfish.top/tags/%E6%95%99%E5%AD%A6/</link>
-      <pubDate>Thu, 30 Oct 2025 07:46:37 +0000</pubDate>
-      <guid>https://www.steamedfish.top/tags/%E6%95%99%E5%AD%A6/</guid>
       <description></description>
     </item>
     <item>

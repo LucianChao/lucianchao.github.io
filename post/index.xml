@@ -7,8 +7,31 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 30 Oct 2025 07:47:24 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 30 Oct 2025 11:01:51 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java Se Abstract Interface</title>
+      <link>https://www.steamedfish.top/post/java-se-abstract-interface/</link>
+      <pubDate>Thu, 30 Oct 2025 19:00:44 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-se-abstract-interface/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Java SE从入门到跑路（六·继承与多态）</title>
+      <link>https://www.steamedfish.top/post/java-se-inheritance-polymorphism/</link>
+      <pubDate>Thu, 30 Oct 2025 15:51:12 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-se-inheritance-polymorphism/</guid>
+      <description>&lt;p&gt;到目前为止，我们已经能写出功能完整的程序，&lt;br&gt;
+使用类、对象、方法来组织逻辑，也学会了 &lt;code&gt;static&lt;/code&gt; 与 &lt;code&gt;final&lt;/code&gt; 的妙用。&lt;/p&gt;
+&lt;p&gt;但是，当项目越来越大时，你可能会发现：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不同类之间有很多相似的代码；&lt;/li&gt;
+&lt;li&gt;某些功能需要在不同类之间共享或稍作修改；&lt;/li&gt;
+&lt;li&gt;想要让程序更灵活，却发现改一处要动全身。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;于是，Java 提供了两个强大的“法宝”：  &lt;br&gt;
+&lt;strong&gt;继承&lt;/strong&gt;（Inheritance） 和 &lt;strong&gt;多态&lt;/strong&gt;（Polymorphism）。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Java SE从入门到跑路（五·static与final：静与常的艺术）</title>
       <link>https://www.steamedfish.top/post/java-se-static-final/</link>
