@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>String on SteamedFish&#39;s Blog</title>
+    <link>https://www.steamedfish.top/tags/string/</link>
+    <description>Recent content in String on SteamedFish&#39;s Blog</description>
+    <generator>Hugo -- 0.152.2</generator>
+    <language>zh</language>
+    <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
+    <lastBuildDate>Fri, 31 Oct 2025 09:49:56 +0000</lastBuildDate>
+    <atom:link href="https://www.steamedfish.top/tags/string/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java SE从入门到跑路（十·常用类详解）</title>
+      <link>https://www.steamedfish.top/post/java-se-common-classes/</link>
+      <pubDate>Fri, 31 Oct 2025 17:02:54 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-se-common-classes/</guid>
+      <description>&lt;h1 id=&#34;string-类&#34;&gt;String 类&lt;/h1&gt;
+&lt;h2 id=&#34;1-string的概念与不可变性&#34;&gt;1. String的概念与不可变性&lt;/h2&gt;
+&lt;p&gt;String 是 Java 中最常用的类，用来表示一串字符，比如 &amp;ldquo;Hello&amp;rdquo;、&amp;ldquo;Java&amp;rdquo;。&lt;br&gt;
+但有一个关键点必须记住：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;String 对象是不可变的（immutable）&lt;/strong&gt;
+也就是说，一旦创建，就不能修改。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

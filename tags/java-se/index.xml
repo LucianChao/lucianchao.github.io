@@ -7,8 +7,96 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 30 Oct 2025 11:01:51 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 31 Oct 2025 09:49:56 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/java-se/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java SE从入门到跑路（十·常用类详解）</title>
+      <link>https://www.steamedfish.top/post/java-se-common-classes/</link>
+      <pubDate>Fri, 31 Oct 2025 17:02:54 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-se-common-classes/</guid>
+      <description>&lt;h1 id=&#34;string-类&#34;&gt;String 类&lt;/h1&gt;
+&lt;h2 id=&#34;1-string的概念与不可变性&#34;&gt;1. String的概念与不可变性&lt;/h2&gt;
+&lt;p&gt;String 是 Java 中最常用的类，用来表示一串字符，比如 &amp;ldquo;Hello&amp;rdquo;、&amp;ldquo;Java&amp;rdquo;。&lt;br&gt;
+但有一个关键点必须记住：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;String 对象是不可变的（immutable）&lt;/strong&gt;
+也就是说，一旦创建，就不能修改。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Java SE从入门到跑路（十·包与访问控制）</title>
+      <link>https://www.steamedfish.top/post/java-se-package-access/</link>
+      <pubDate>Fri, 31 Oct 2025 16:22:36 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-se-package-access/</guid>
+      <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;没啥好说的，Java中简单却又不可缺少的一部分，干就完了兄弟&lt;/p&gt;
+&lt;h1 id=&#34;包package&#34;&gt;包（Package）&lt;/h1&gt;
+&lt;h2 id=&#34;1什么是包&#34;&gt;1.什么是包？&lt;/h2&gt;
+&lt;p&gt;包就像文件夹，用来&lt;strong&gt;存放类文件&lt;/strong&gt;，防止命名冲突。 &lt;br&gt;
+在 Java 中，类名可能重复，但包名不同就没问题。&lt;/p&gt;
+&lt;p&gt;定义包语法：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;包名&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;示例：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;com.school.student&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这个类的完整名字其实是：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;com&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;school&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;student&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Student&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;2包的命名规则&#34;&gt;2.包的命名规则&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;一般使用 公司域名倒写 + 模块名
+&lt;ul&gt;
+&lt;li&gt;例如：com.baidu.map、org.apache.commons&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;全部小写&lt;/li&gt;
+&lt;li&gt;用“.”分隔层级&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;3包的使用&#34;&gt;3.包的使用&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;err&#34;&gt;└─&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;com&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     &lt;span class=&#34;err&#34;&gt;└─&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;demo&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;   
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         &lt;span class=&#34;err&#34;&gt;├─&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;Student&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;java&lt;/span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         &lt;span class=&#34;err&#34;&gt;└─&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;Test&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;java&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;&lt;code&gt;Student.java&lt;/code&gt;&lt;/strong&gt;：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Java SE从入门到跑路（九·异常处理）</title>
+      <link>https://www.steamedfish.top/post/java-se-exception/</link>
+      <pubDate>Fri, 31 Oct 2025 15:06:47 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-se-exception/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;世界不会因为错误而崩溃&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;写代码的时候，谁都希望程序顺顺利利地跑完。&lt;br&gt;
+但理想很丰满，现实很骨感。&lt;br&gt;
+比如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;除以0导致程序崩溃；&lt;/li&gt;
+&lt;li&gt;文件没找到；&lt;/li&gt;
+&lt;li&gt;用户输入了奇怪的内容；&lt;/li&gt;
+&lt;li&gt;网络突然断开……&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果我们不处理这些“异常情况”，程序一旦出错就直接&lt;strong&gt;终止&lt;/strong&gt;。&lt;br&gt;
+但 Java 的设计哲学是：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Java SE从入门到跑路（八·内部类）</title>
+      <link>https://www.steamedfish.top/post/java-se-inner-class/</link>
+      <pubDate>Thu, 30 Oct 2025 19:21:03 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-se-inner-class/</guid>
+      <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;前几章我们讲了类、对象、继承、多态，以及 static 与 final。&lt;br&gt;
+现在我们要介绍一个更灵活、更优雅的工具：&lt;strong&gt;内部类&lt;/strong&gt;（Inner Class）。  &lt;br&gt;
+内部类的意思很简单：在一个类里再定义一个类。 &lt;br&gt;
+你可能会问：“为什么要这么做？”&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当某个类只会在另一个类中使用时，把它放在外部类里更清晰；&lt;/li&gt;
+&lt;li&gt;内部类可以访问外部类的成员，即便是 private 也可以；&lt;/li&gt;
+&lt;li&gt;匿名内部类可以快速实现接口或抽象类，让代码更紧凑。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本章，我们会详细讲解 四种内部类：&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Java SE从入门到跑路（六·继承与多态）</title>
       <link>https://www.steamedfish.top/post/java-se-inheritance-polymorphism/</link>
