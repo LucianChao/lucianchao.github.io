@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Java SE从入门到跑路（十·常用类详解） | SteamedFish&#39;s Blog</title>
+<title>Java SE从入门到跑路（十一·常用类详解） | SteamedFish&#39;s Blog</title>
 <meta name="keywords" content="Arrays, Java, Java SE, Math, OOP, String, StringBuilder, Time, 教学, BigDecimal">
 <meta name="description" content="String 类
 1. String的概念与不可变性
@@ -63,7 +63,7 @@ String 对象是不可变的（immutable）
     </style>
 </noscript><meta property="og:url" content="https://www.steamedfish.top/post/java-se-common-classes/">
   <meta property="og:site_name" content="SteamedFish&#39;s Blog">
-  <meta property="og:title" content="Java SE从入门到跑路（十·常用类详解）">
+  <meta property="og:title" content="Java SE从入门到跑路（十一·常用类详解）">
   <meta property="og:description" content="String 类 1. String的概念与不可变性 String 是 Java 中最常用的类，用来表示一串字符，比如 “Hello”、“Java”。
 但有一个关键点必须记住：
 String 对象是不可变的（immutable） 也就是说，一旦创建，就不能修改。">
@@ -71,7 +71,7 @@ String 对象是不可变的（immutable） 也就是说，一旦创建，就不
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2025-10-31T17:02:54+08:00">
-    <meta property="article:modified_time" content="2025-10-31T09:49:56+00:00">
+    <meta property="article:modified_time" content="2025-11-01T06:14:24+00:00">
     <meta property="article:tag" content="Arrays">
     <meta property="article:tag" content="Java">
     <meta property="article:tag" content="Java SE">
@@ -79,7 +79,7 @@ String 对象是不可变的（immutable） 也就是说，一旦创建，就不
     <meta property="article:tag" content="OOP">
     <meta property="article:tag" content="String">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java SE从入门到跑路（十·常用类详解）">
+<meta name="twitter:title" content="Java SE从入门到跑路（十一·常用类详解）">
 <meta name="twitter:description" content="String 类
 1. String的概念与不可变性
 String 是 Java 中最常用的类，用来表示一串字符，比如 &ldquo;Hello&rdquo;、&ldquo;Java&rdquo;。
@@ -103,7 +103,7 @@ String 对象是不可变的（immutable）
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "Java SE从入门到跑路（十·常用类详解）",
+      "name": "Java SE从入门到跑路（十一·常用类详解）",
       "item": "https://www.steamedfish.top/post/java-se-common-classes/"
     }
   ]
@@ -113,17 +113,17 @@ String 对象是不可变的（immutable）
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Java SE从入门到跑路（十·常用类详解）",
-  "name": "Java SE从入门到跑路（十·常用类详解）",
+  "headline": "Java SE从入门到跑路（十一·常用类详解）",
+  "name": "Java SE从入门到跑路（十一·常用类详解）",
   "description": "String 类 1. String的概念与不可变性 String 是 Java 中最常用的类，用来表示一串字符，比如 \u0026ldquo;Hello\u0026rdquo;、\u0026ldquo;Java\u0026rdquo;。\n但有一个关键点必须记住：\nString 对象是不可变的（immutable） 也就是说，一旦创建，就不能修改。\n",
   "keywords": [
     "Arrays", "Java", "Java SE", "Math", "OOP", "String", "StringBuilder", "Time", "教学", "BigDecimal"
   ],
-  "articleBody": "String 类 1. String的概念与不可变性 String 是 Java 中最常用的类，用来表示一串字符，比如 “Hello”、“Java”。\n但有一个关键点必须记住：\nString 对象是不可变的（immutable） 也就是说，一旦创建，就不能修改。\nString s = \"Hello\"; s = s + \" Java\"; 这里并不是修改了 s，而是创建了一个新的字符串 “Hello Java”。 原来的 “Hello” 被丢弃。\n这就是为什么字符串拼接频繁时性能会下降。\n2.创建方式 String s1 = \"Hello\"; // 直接赋值（推荐） String s2 = new String(\"Hi\"); // 通过构造方法 第一种方式会把字符串放入“字符串常量池”，节省内存。 第二种每次都会创建新对象。\n3.String的常用方法 .length()获取长度 String str = \"hello\"; int len = str.length(); // 5 注意：返回的是字符数，不是字节数，中文也算一个字符。\n.charAt()取指定下标字符 char c = \"java\".charAt(1); // 'a' 注意：索引从 0 开始，越界会抛出 StringIndexOutOfBoundsException。\n.equals()和.equalsIgnoreCase()内容比较 boolean b1 = \"abc\".equals(\"abc\"); // true boolean b2 = \"abc\".equalsIgnoreCase(\"ABC\"); // true equals 区分大小写，equalsIgnoreCase 忽略大小写。\n.contains()是否包含子串 boolean b = \"hello\".contains(\"he\"); // true .startsWith()是否以指定前缀/.endsWith()后缀开头/结尾 \"hello\".startsWith(\"he\"); // true \"hello\".endsWith(\"lo\"); // true .indexOf()和.lastIndexOf()查找子串位置 int first = \"hello\".indexOf(\"l\"); // 2 int last = \"hello\".lastIndexOf(\"l\"); // 3 如果未找到返回 -1。\n.substring()截取子串 String s1 = \"hello\".substring(2); // \"llo\" String s2 = \"hello\".substring(1, 4); // \"ell\" 注意：substring(begin, end) 包含 begin，不包含 end。\n.toLowerCase()和.toUpperCase()转大小写 \"JAVA\".toLowerCase(); // \"java\" \"java\".toUpperCase(); // \"JAVA\" .trim()去除首尾空格 String s = \" abc \".trim(); // \"abc\" 中间的空格不会被去掉。\n.replace()替换字符或子串 String s1 = \"hello\".replace('l', 'x'); // \"hexxo\" String s2 = \"hello world\".replace(\"world\", \"Java\"); // \"hello Java\" 注意：replace 会返回新字符串，原字符串不变。\n.split()分割字符串 String s = \"apple,banana,orange\"; String[] arr = s.split(\",\"); // [\"apple\", \"banana\", \"orange\"] 参数是正则表达式，可以用 \\s+ 按空格分割等。\n.isEmpty()判断是否为空 String s1 = \"\"; boolean b1 = s1.isEmpty(); // true String s2 = null; boolean b2 = (s2 == null || s2.isEmpty()); // true 空串指长度为 0，不包括 null。isEmpty() 不能直接调用在 null 上，会抛出 NullPointerException。\n.concat()拼接字符串：两两拼接 String s1 = \"Hello\"; String s2 = \"World\"; String s3 = s1.concat(s2); // \"HelloWorld\" 注意：与 + 类似，仍会创建新对象，频繁拼接效率低。\n.join()拼接字符串：多元素 String s = String.join(\", \", \"apple\", \"banana\", \"orange\"); // \"apple, banana, orange\" ",
-  "wordCount" : "1015",
+  "articleBody": "String 类 1. String的概念与不可变性 String 是 Java 中最常用的类，用来表示一串字符，比如 “Hello”、“Java”。\n但有一个关键点必须记住：\nString 对象是不可变的（immutable） 也就是说，一旦创建，就不能修改。\nString s = \"Hello\"; s = s + \" Java\"; 这里并不是修改了 s，而是创建了一个新的字符串 “Hello Java”。 原来的 “Hello” 被丢弃。\n这就是为什么字符串拼接频繁时性能会下降。\n2.创建方式 String s1 = \"Hello\"; // 直接赋值（推荐） String s2 = new String(\"Hi\"); // 通过构造方法 第一种方式会把字符串放入“字符串常量池”，节省内存。 第二种每次都会创建新对象。\n3.String的常用方法 .length()获取长度 String str = \"hello\"; int len = str.length(); // 5 注意：返回的是字符数，不是字节数，中文也算一个字符。\n.charAt()取指定下标字符 char c = \"java\".charAt(1); // 'a' 注意：索引从 0 开始，越界会抛出 StringIndexOutOfBoundsException。\n.equals()和.equalsIgnoreCase()内容比较 boolean b1 = \"abc\".equals(\"abc\"); // true boolean b2 = \"abc\".equalsIgnoreCase(\"ABC\"); // true equals 区分大小写，equalsIgnoreCase 忽略大小写。\n.contains()是否包含子串 boolean b = \"hello\".contains(\"he\"); // true .startsWith()是否以指定前缀/.endsWith()后缀开头/结尾 \"hello\".startsWith(\"he\"); // true \"hello\".endsWith(\"lo\"); // true .indexOf()和.lastIndexOf()查找子串位置 int first = \"hello\".indexOf(\"l\"); // 2 int last = \"hello\".lastIndexOf(\"l\"); // 3 如果未找到返回 -1。\n.substring()截取子串 String s1 = \"hello\".substring(2); // \"llo\" String s2 = \"hello\".substring(1, 4); // \"ell\" 注意：substring(begin, end) 包含 begin，不包含 end。\n.toLowerCase()和.toUpperCase()转大小写 \"JAVA\".toLowerCase(); // \"java\" \"java\".toUpperCase(); // \"JAVA\" .trim()去除首尾空格 String s = \" abc \".trim(); // \"abc\" 中间的空格不会被去掉。\n.replace()替换字符或子串 String s1 = \"hello\".replace('l', 'x'); // \"hexxo\" String s2 = \"hello world\".replace(\"world\", \"Java\"); // \"hello Java\" 注意：replace 会返回新字符串，原字符串不变。\n.split()分割字符串 String s = \"apple,banana,orange\"; String[] arr = s.split(\",\"); // [\"apple\", \"banana\", \"orange\"] 参数是正则表达式，可以用 \\s+ 按空格分割等。\n.isEmpty()判断是否为空 String s1 = \"\"; boolean b1 = s1.isEmpty(); // true String s2 = null; boolean b2 = (s2 == null || s2.isEmpty()); // true 空串指长度为 0，不包括 null。isEmpty() 不能直接调用在 null 上，会抛出 NullPointerException。\n.concat()拼接字符串：两两拼接 String s1 = \"Hello\"; String s2 = \"World\"; String s3 = s1.concat(s2); // \"HelloWorld\" 注意：与 + 类似，仍会创建新对象，频繁拼接效率低。\n.join()拼接字符串：多元素 String s = String.join(\", \", \"apple\", \"banana\", \"orange\"); // \"apple, banana, orange\" StringBuilder 类 1.StringBuilder 的概念 StringBuilder 是可变字符串类，用于频繁修改字符串时性能优于 String。\n线程不安全，但单线程效率高。\n2.StringBuilder 的常用方法 public class StringBuilderDemo { public static void main(String[] args) { StringBuilder sb = new StringBuilder(\"Hello\"); // append() 添加 sb.append(\" Java\"); System.out.println(sb); // Hello Java // insert() 插入 sb.insert(6, \"World \"); System.out.println(sb); // Hello World Java // delete() 删除指定范围（包前不包后） sb.delete(6, 12); System.out.println(sb); // Hello Java // deleteCharAt() 删除指定下标字符 sb.deleteCharAt(5); System.out.println(sb); // HelloJava // replace() 替换指定范围（包前不包后） sb.replace(5, 9, \" World\"); System.out.println(sb); // Hello World // reverse() 反转 sb.reverse(); System.out.println(sb); // dlroW olleH // charAt() 获取字符 char c = sb.charAt(0); System.out.println(c); // d // setCharAt() 修改指定下标字符 sb.setCharAt(0, 'D'); System.out.println(sb); // DlroW olleH // length() 获取长度 System.out.println(sb.length()); // 11 // capacity() 获取容量 System.out.println(sb.capacity()); // 默认 16+当前长度 } } 注意：StringBuilder 修改原对象，不会产生新对象。\nStringBuffer 类 1. StringBuffer 的概念 StringBuffer 与 StringBuilder 类似，也是可变字符串。\n线程安全，适合多线程环境，但效率略低于 StringBuilder。\n2. 常用方法 StringBuffer 的方法几乎和 StringBuilder 一样：\nappend()、insert()、delete()、deleteCharAt()、replace()、reverse()、charAt()、setCharAt()、length()、capacity()\nStringBuffer sb = new StringBuffer(\"Hello\"); sb.append(\" Java\"); System.out.println(sb); // Hello Java 区别主要是线程安全：方法加了 synchronized，多线程下不会出现数据错乱。\nStringJoiner 类 1. StringJoiner 的概念 StringJoiner 是 Java 8 新增，用于拼接字符串，支持指定分隔符、前缀和后缀。\n适合拼接集合或数组元素，灵活控制格式。\n2.常用方法 import java.util.StringJoiner; public class StringJoinerDemo { public static void main(String[] args) { // 使用分隔符 StringJoiner sj = new StringJoiner(\", \"); sj.add(\"Apple\"); sj.add(\"Banana\"); sj.add(\"Orange\"); System.out.println(sj); // Apple, Banana, Orange // 使用前缀和后缀 StringJoiner sj2 = new StringJoiner(\", \", \"[\", \"]\"); sj2.add(\"Java\"); sj2.add(\"Python\"); System.out.println(sj2); // [Java, Python] // merge() 合并两个 StringJoiner StringJoiner sj3 = new StringJoiner(\" | \"); sj3.add(\"C\"); sj3.add(\"C++\"); sj2.merge(sj3); System.out.println(sj2); // [Java, Python, C | C++] } } 注意：StringJoiner 不可变，add 会修改对象本身。\nArrays类 Arrays是工具类，用于操作数组，常用方法很多。\nimport java.util.Arrays; public class ArraysDemo { public static void main(String[] args) { int[] arr = {5, 2, 8, 1}; // sort() 排序 Arrays.sort(arr); System.out.println(Arrays.toString(arr)); // [1, 2, 5, 8] // binarySearch() 二分查找，数组必须先排序 int index = Arrays.binarySearch(arr, 5); System.out.println(index); // 2 // copyOf() 复制数组 int[] arr2 = Arrays.copyOf(arr, arr.length); System.out.println(Arrays.toString(arr2)); // [1, 2, 5, 8] // copyOfRange() 复制指定范围 int[] arr3 = Arrays.copyOfRange(arr, 1, 3); System.out.println(Arrays.toString(arr3)); // [2, 5] // fill() 填充数组 int[] arr4 = new int[5]; Arrays.fill(arr4, 9); System.out.println(Arrays.toString(arr4)); // [9, 9, 9, 9, 9] // equals() 比较数组内容 System.out.println(Arrays.equals(arr, arr2)); // true // toString() 转字符串 System.out.println(Arrays.toString(arr)); // [1, 2, 5, 8] // deepToString() 多维数组 int[][] arr5 = {{1,2},{3,4}}; System.out.println(Arrays.deepToString(arr5)); // [[1, 2], [3, 4]] } } 注意：\nbinarySearch 必须在有序数组上使用，否则结果不正确。 多维数组比较需要 deepEquals 或 deepToString。 Math类 Math是数学工具类，提供基本数学运算。\npublic class MathDemo { public static void main(String[] args) { double x = -3.5, y = 2.7; // abs() 绝对值 System.out.println(Math.abs(x)); // 3.5 // ceil() 向上取整 System.out.println(Math.ceil(y)); // 3.0 // floor() 向下取整 System.out.println(Math.floor(y)); // 2.0 // round() 四舍五入 System.out.println(Math.round(y)); // 3 // max() / min() System.out.println(Math.max(x, y)); // 2.7 System.out.println(Math.min(x, y)); // -3.5 // pow() 幂 System.out.println(Math.pow(2, 3)); // 8.0 // sqrt() 平方根 System.out.println(Math.sqrt(16)); // 4.0 // random() 生成 [0,1) 随机数 System.out.println(Math.random()); } } 注意：\nMath.random() 返回 double 类型，范围 [0,1)。 ceil 和 floor 返回 double，round 返回 long。 时间类(Time) Java 8 引入了新的时间 API（java.time 包），推荐使用 LocalDate、LocalTime、LocalDateTime 等类。\nimport java.time.LocalDate; import java.time.LocalTime; import java.time.LocalDateTime; import java.time.format.DateTimeFormatter; public class TimeDemo { public static void main(String[] args) { // LocalDate 获取日期 LocalDate date = LocalDate.now(); System.out.println(date); // 2025-10-31 // LocalTime 获取时间 LocalTime time = LocalTime.now(); System.out.println(time); // 19:45:23.123 // LocalDateTime 获取日期时间 LocalDateTime dateTime = LocalDateTime.now(); System.out.println(dateTime); // 2025-10-31T19:45:23.123 // 自定义格式化 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(\"yyyy/MM/dd HH:mm:ss\"); String str = dateTime.format(formatter); System.out.println(str); // 2025/10/31 19:45:23 // 解析字符串为时间 LocalDateTime dt2 = LocalDateTime.parse(\"2025/10/31 19:45:23\", formatter); System.out.println(dt2); // 2025-10-31T19:45:23 // 日期运算 LocalDate tomorrow = date.plusDays(1); LocalDate yesterday = date.minusDays(1); System.out.println(tomorrow); System.out.println(yesterday); } } 注意：\nLocalDate、LocalTime、LocalDateTime 都是不可变对象，方法如 plusDays 返回新对象。 DateTimeFormatter 用于格式化和解析，格式必须匹配。 BigDecimal类 BigDecimal 用于高精度运算，尤其适合金融计算。\nimport java.math.BigDecimal; import java.math.RoundingMode; public class BigDecimalDemo { public static void main(String[] args) { BigDecimal a = new BigDecimal(\"10.123\"); BigDecimal b = new BigDecimal(\"3.12\"); // 加 BigDecimal sum = a.add(b); System.out.println(sum); // 13.243 // 减 BigDecimal diff = a.subtract(b); System.out.println(diff); // 7.003 // 乘 BigDecimal prod = a.multiply(b); System.out.println(prod); // 31.58776 // 除 BigDecimal div = a.divide(b, 2, RoundingMode.HALF_UP); System.out.println(div); // 3.25 （保留 2 位小数，四舍五入） // 设置小数位 BigDecimal scaled = a.setScale(1, RoundingMode.DOWN); System.out.println(scaled); // 10.1 // 比较大小 int cmp = a.compareTo(b); // 1 表示 a \u003e b System.out.println(cmp); } } 注意：\n构造 BigDecimal 时最好使用字符串，以避免浮点数精度误差。 BigDecimal 对象不可变，运算会生成新对象。 除法必须指定舍入方式，否则可能抛出 ArithmeticException。 ",
+  "wordCount" : "2515",
   "inLanguage": "zh",
   "datePublished": "2025-10-31T17:02:54+08:00",
-  "dateModified": "2025-10-31T09:49:56.27834926Z",
+  "dateModified": "2025-11-01T06:14:24.261620432Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/java-se-common-classes/"
@@ -219,15 +219,9 @@ String 对象是不可变的（immutable）
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://www.steamedfish.top/">主页</a>&nbsp;»&nbsp;<a href="https://www.steamedfish.top/post/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
-      Java SE从入门到跑路（十·常用类详解）
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
+      Java SE从入门到跑路（十一·常用类详解）
     </h1>
-    <div class="post-meta"><span title='2025-10-31 17:02:54 +0800 +0800'>2025-10-31</span>&nbsp;·&nbsp;<span>3 分钟</span>
+    <div class="post-meta"><span title='2025-10-31 17:02:54 +0800 +0800'>2025-10-31</span>&nbsp;·&nbsp;<span>6 分钟</span>
 
 </div>
   </header> <div class="toc">
@@ -274,12 +268,42 @@ String 对象是不可变的（immutable）
                 <li>
                     <a href="#concat%e6%8b%bc%e6%8e%a5%e5%ad%97%e7%ac%a6%e4%b8%b2%e4%b8%a4%e4%b8%a4%e6%8b%bc%e6%8e%a5" aria-label=".concat()拼接字符串：两两拼接">.concat()拼接字符串：两两拼接</a></li>
                 <li>
-                    <a href="#join%e6%8b%bc%e6%8e%a5%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%a4%9a%e5%85%83%e7%b4%a0" aria-label=".join()拼接字符串：多元素">.join()拼接字符串：多元素</a>
+                    <a href="#join%e6%8b%bc%e6%8e%a5%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%a4%9a%e5%85%83%e7%b4%a0" aria-label=".join()拼接字符串：多元素">.join()拼接字符串：多元素</a></li></ul>
+                </li></ul>
                 </li>
-            </ul>
-            </li>
-            </ul>
-            </li>
+                <li>
+                    <a href="#stringbuilder-%e7%b1%bb" aria-label="StringBuilder 类">StringBuilder 类</a><ul>
+                        
+                <li>
+                    <a href="#1stringbuilder-%e7%9a%84%e6%a6%82%e5%bf%b5" aria-label="1.StringBuilder 的概念">1.StringBuilder 的概念</a></li>
+                <li>
+                    <a href="#2stringbuilder-%e7%9a%84%e5%b8%b8%e7%94%a8%e6%96%b9%e6%b3%95" aria-label="2.StringBuilder 的常用方法">2.StringBuilder 的常用方法</a></li></ul>
+                </li>
+                <li>
+                    <a href="#stringbuffer-%e7%b1%bb" aria-label="StringBuffer 类">StringBuffer 类</a><ul>
+                        
+                <li>
+                    <a href="#1-stringbuffer-%e7%9a%84%e6%a6%82%e5%bf%b5" aria-label="1. StringBuffer 的概念">1. StringBuffer 的概念</a></li>
+                <li>
+                    <a href="#2-%e5%b8%b8%e7%94%a8%e6%96%b9%e6%b3%95" aria-label="2. 常用方法">2. 常用方法</a></li></ul>
+                </li>
+                <li>
+                    <a href="#stringjoiner-%e7%b1%bb" aria-label="StringJoiner 类">StringJoiner 类</a><ul>
+                        
+                <li>
+                    <a href="#1-stringjoiner-%e7%9a%84%e6%a6%82%e5%bf%b5" aria-label="1. StringJoiner 的概念">1. StringJoiner 的概念</a></li>
+                <li>
+                    <a href="#2%e5%b8%b8%e7%94%a8%e6%96%b9%e6%b3%95" aria-label="2.常用方法">2.常用方法</a></li></ul>
+                </li>
+                <li>
+                    <a href="#arrays%e7%b1%bb" aria-label="Arrays类">Arrays类</a></li>
+                <li>
+                    <a href="#math%e7%b1%bb" aria-label="Math类">Math类</a></li>
+                <li>
+                    <a href="#%e6%97%b6%e9%97%b4%e7%b1%bbtime" aria-label="时间类(Time)">时间类(Time)</a></li>
+                <li>
+                    <a href="#bigdecimal%e7%b1%bb" aria-label="BigDecimal类">BigDecimal类</a>
+                </li>
             </ul>
         </div>
     </details>
@@ -389,7 +413,290 @@ String 对象是不可变的（immutable）
 <h3 id="join拼接字符串多元素">.join()拼接字符串：多元素<a hidden class="anchor" aria-hidden="true" href="#join拼接字符串多元素">#</a></h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">String</span><span class="p">.</span><span class="na">join</span><span class="p">(</span><span class="s">&#34;, &#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;apple&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;banana&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;orange&#34;</span><span class="p">);</span><span class="w"> 
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// &#34;apple, banana, orange&#34;</span><span class="w">
-</span></span></span></code></pre></div>
+</span></span></span></code></pre></div><hr>
+<h1 id="stringbuilder-类">StringBuilder 类<a hidden class="anchor" aria-hidden="true" href="#stringbuilder-类">#</a></h1>
+<h2 id="1stringbuilder-的概念">1.StringBuilder 的概念<a hidden class="anchor" aria-hidden="true" href="#1stringbuilder-的概念">#</a></h2>
+<p><code>StringBuilder</code> 是可变字符串类，用于频繁修改字符串时性能优于 <code>String</code>。</p>
+<blockquote>
+<p>线程不安全，但单线程效率高。</p>
+</blockquote>
+<hr>
+<h2 id="2stringbuilder-的常用方法">2.StringBuilder 的常用方法<a hidden class="anchor" aria-hidden="true" href="#2stringbuilder-的常用方法">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">StringBuilderDemo</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">StringBuilder</span><span class="w"> </span><span class="n">sb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringBuilder</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// append() 添加</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">sb</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">&#34; Java&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sb</span><span class="p">);</span><span class="w"> </span><span class="c1">// Hello Java</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// insert() 插入</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">sb</span><span class="p">.</span><span class="na">insert</span><span class="p">(</span><span class="n">6</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;World &#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sb</span><span class="p">);</span><span class="w"> </span><span class="c1">// Hello World Java</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// delete() 删除指定范围（包前不包后）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">sb</span><span class="p">.</span><span class="na">delete</span><span class="p">(</span><span class="n">6</span><span class="p">,</span><span class="w"> </span><span class="n">12</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sb</span><span class="p">);</span><span class="w"> </span><span class="c1">// Hello Java</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// deleteCharAt() 删除指定下标字符</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">sb</span><span class="p">.</span><span class="na">deleteCharAt</span><span class="p">(</span><span class="n">5</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sb</span><span class="p">);</span><span class="w"> </span><span class="c1">// HelloJava</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// replace() 替换指定范围（包前不包后）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">sb</span><span class="p">.</span><span class="na">replace</span><span class="p">(</span><span class="n">5</span><span class="p">,</span><span class="w"> </span><span class="n">9</span><span class="p">,</span><span class="w"> </span><span class="s">&#34; World&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sb</span><span class="p">);</span><span class="w"> </span><span class="c1">// Hello World</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// reverse() 反转</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">sb</span><span class="p">.</span><span class="na">reverse</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sb</span><span class="p">);</span><span class="w"> </span><span class="c1">// dlroW olleH</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// charAt() 获取字符</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sb</span><span class="p">.</span><span class="na">charAt</span><span class="p">(</span><span class="n">0</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w"> </span><span class="c1">// d</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// setCharAt() 修改指定下标字符</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">sb</span><span class="p">.</span><span class="na">setCharAt</span><span class="p">(</span><span class="n">0</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;D&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sb</span><span class="p">);</span><span class="w"> </span><span class="c1">// DlroW olleH</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// length() 获取长度</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sb</span><span class="p">.</span><span class="na">length</span><span class="p">());</span><span class="w"> </span><span class="c1">// 11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// capacity() 获取容量</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sb</span><span class="p">.</span><span class="na">capacity</span><span class="p">());</span><span class="w"> </span><span class="c1">// 默认 16+当前长度</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>注意：<code>StringBuilder</code> 修改原对象，<strong>不会产生新对象</strong>。</p>
+</blockquote>
+<hr>
+<h1 id="stringbuffer-类">StringBuffer 类<a hidden class="anchor" aria-hidden="true" href="#stringbuffer-类">#</a></h1>
+<h2 id="1-stringbuffer-的概念">1. StringBuffer 的概念<a hidden class="anchor" aria-hidden="true" href="#1-stringbuffer-的概念">#</a></h2>
+<p><code>StringBuffer</code> 与 <code>StringBuilder</code> 类似，也是可变字符串。</p>
+<blockquote>
+<p>线程安全，适合多线程环境，但效率略低于 <code>StringBuilder</code>。</p>
+</blockquote>
+<hr>
+<h2 id="2-常用方法">2. 常用方法<a hidden class="anchor" aria-hidden="true" href="#2-常用方法">#</a></h2>
+<p><code>StringBuffer</code> 的方法几乎和 <code>StringBuilder</code> 一样：</p>
+<p><code>append()</code>、<code>insert()</code>、<code>delete()</code>、<code>deleteCharAt()</code>、<code>replace()</code>、<code>reverse()</code>、<code>charAt()</code>、<code>setCharAt()</code>、<code>length()</code>、<code>capacity()</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">StringBuffer</span><span class="w"> </span><span class="n">sb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringBuffer</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">sb</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">&#34; Java&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sb</span><span class="p">);</span><span class="w"> </span><span class="c1">// Hello Java</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>区别主要是线程安全：方法加了 <code>synchronized</code>，多线程下不会出现数据错乱。</p>
+</blockquote>
+<hr>
+<h1 id="stringjoiner-类">StringJoiner 类<a hidden class="anchor" aria-hidden="true" href="#stringjoiner-类">#</a></h1>
+<h2 id="1-stringjoiner-的概念">1. StringJoiner 的概念<a hidden class="anchor" aria-hidden="true" href="#1-stringjoiner-的概念">#</a></h2>
+<p><code>StringJoiner</code> 是 <strong>Java 8 新增</strong>，用于拼接字符串，支持指定分隔符、前缀和后缀。</p>
+<p>适合拼接集合或数组元素，灵活控制格式。</p>
+<h2 id="2常用方法">2.常用方法<a hidden class="anchor" aria-hidden="true" href="#2常用方法">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.StringJoiner</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">StringJoinerDemo</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 使用分隔符</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">StringJoiner</span><span class="w"> </span><span class="n">sj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringJoiner</span><span class="p">(</span><span class="s">&#34;, &#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">sj</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">&#34;Apple&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">sj</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">&#34;Banana&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">sj</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">&#34;Orange&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sj</span><span class="p">);</span><span class="w"> </span><span class="c1">// Apple, Banana, Orange</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 使用前缀和后缀</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">StringJoiner</span><span class="w"> </span><span class="n">sj2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringJoiner</span><span class="p">(</span><span class="s">&#34;, &#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;[&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;]&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">sj2</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">&#34;Java&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">sj2</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">&#34;Python&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sj2</span><span class="p">);</span><span class="w"> </span><span class="c1">// [Java, Python]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// merge() 合并两个 StringJoiner</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">StringJoiner</span><span class="w"> </span><span class="n">sj3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringJoiner</span><span class="p">(</span><span class="s">&#34; | &#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">sj3</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">&#34;C&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">sj3</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">&#34;C++&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">sj2</span><span class="p">.</span><span class="na">merge</span><span class="p">(</span><span class="n">sj3</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sj2</span><span class="p">);</span><span class="w"> </span><span class="c1">// [Java, Python, C | C++]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>注意：<code>StringJoiner</code> 不可变，<code>add</code> 会修改对象本身。</p>
+</blockquote>
+<hr>
+<h1 id="arrays类">Arrays类<a hidden class="anchor" aria-hidden="true" href="#arrays类">#</a></h1>
+<p><code>Arrays</code>是<strong>工具类</strong>，用于操作数组，常用方法很多。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.Arrays</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ArraysDemo</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">arr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">5</span><span class="p">,</span><span class="w"> </span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="n">8</span><span class="p">,</span><span class="w"> </span><span class="n">1</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// sort() 排序</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Arrays</span><span class="p">.</span><span class="na">sort</span><span class="p">(</span><span class="n">arr</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Arrays</span><span class="p">.</span><span class="na">toString</span><span class="p">(</span><span class="n">arr</span><span class="p">));</span><span class="w"> </span><span class="c1">// [1, 2, 5, 8]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// binarySearch() 二分查找，数组必须先排序</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arrays</span><span class="p">.</span><span class="na">binarySearch</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="w"> </span><span class="n">5</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">index</span><span class="p">);</span><span class="w"> </span><span class="c1">// 2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// copyOf() 复制数组</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">arr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arrays</span><span class="p">.</span><span class="na">copyOf</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="w"> </span><span class="n">arr</span><span class="p">.</span><span class="na">length</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Arrays</span><span class="p">.</span><span class="na">toString</span><span class="p">(</span><span class="n">arr2</span><span class="p">));</span><span class="w"> </span><span class="c1">// [1, 2, 5, 8]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// copyOfRange() 复制指定范围</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">arr3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arrays</span><span class="p">.</span><span class="na">copyOfRange</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="w"> </span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Arrays</span><span class="p">.</span><span class="na">toString</span><span class="p">(</span><span class="n">arr3</span><span class="p">));</span><span class="w"> </span><span class="c1">// [2, 5]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// fill() 填充数组</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">arr4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">[</span><span class="n">5</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Arrays</span><span class="p">.</span><span class="na">fill</span><span class="p">(</span><span class="n">arr4</span><span class="p">,</span><span class="w"> </span><span class="n">9</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Arrays</span><span class="p">.</span><span class="na">toString</span><span class="p">(</span><span class="n">arr4</span><span class="p">));</span><span class="w"> </span><span class="c1">// [9, 9, 9, 9, 9]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// equals() 比较数组内容</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Arrays</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="w"> </span><span class="n">arr2</span><span class="p">));</span><span class="w"> </span><span class="c1">// true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// toString() 转字符串</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Arrays</span><span class="p">.</span><span class="na">toString</span><span class="p">(</span><span class="n">arr</span><span class="p">));</span><span class="w"> </span><span class="c1">// [1, 2, 5, 8]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// deepToString() 多维数组</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="o">[][]</span><span class="w"> </span><span class="n">arr5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="n">1</span><span class="p">,</span><span class="n">2</span><span class="p">},{</span><span class="n">3</span><span class="p">,</span><span class="n">4</span><span class="p">}};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Arrays</span><span class="p">.</span><span class="na">deepToString</span><span class="p">(</span><span class="n">arr5</span><span class="p">));</span><span class="w"> </span><span class="c1">// [[1, 2], [3, 4]]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>注意：</p>
+<ul>
+<li><code>binarySearch</code> 必须在有序数组上使用，否则结果不正确。</li>
+<li>多维数组比较需要 <code>deepEquals</code> 或 <code>deepToString</code>。</li>
+</ul>
+</blockquote>
+<hr>
+<h1 id="math类">Math类<a hidden class="anchor" aria-hidden="true" href="#math类">#</a></h1>
+<p><code>Math</code>是数学工具类，提供基本数学运算。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MathDemo</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">3</span><span class="p">.</span><span class="na">5</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">2</span><span class="p">.</span><span class="na">7</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// abs() 绝对值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">x</span><span class="p">));</span><span class="w"> </span><span class="c1">// 3.5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// ceil() 向上取整</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">ceil</span><span class="p">(</span><span class="n">y</span><span class="p">));</span><span class="w"> </span><span class="c1">// 3.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// floor() 向下取整</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">floor</span><span class="p">(</span><span class="n">y</span><span class="p">));</span><span class="w"> </span><span class="c1">// 2.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// round() 四舍五入</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">round</span><span class="p">(</span><span class="n">y</span><span class="p">));</span><span class="w"> </span><span class="c1">// 3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// max() / min()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">));</span><span class="w"> </span><span class="c1">// 2.7</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">min</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">));</span><span class="w"> </span><span class="c1">// -3.5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// pow() 幂</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">pow</span><span class="p">(</span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">));</span><span class="w"> </span><span class="c1">// 8.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// sqrt() 平方根</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">sqrt</span><span class="p">(</span><span class="n">16</span><span class="p">));</span><span class="w"> </span><span class="c1">// 4.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// random() 生成 [0,1) 随机数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">random</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>注意：</p>
+<ul>
+<li><code>Math.random()</code> 返回 <code>double</code> 类型，范围 <code>[0,1)</code>。</li>
+<li><code>ceil</code> 和 <code>floor</code> 返回 <code>double</code>，<code>round</code> 返回 <code>long</code>。</li>
+</ul>
+</blockquote>
+<hr>
+<h1 id="时间类time">时间类(Time)<a hidden class="anchor" aria-hidden="true" href="#时间类time">#</a></h1>
+<p>Java 8 引入了新的时间 API（java.time 包），推荐使用 <strong>LocalDate</strong>、<strong>LocalTime</strong>、<strong>LocalDateTime</strong> 等类。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.time.LocalDate</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.time.LocalTime</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.time.LocalDateTime</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.time.format.DateTimeFormatter</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">TimeDemo</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// LocalDate 获取日期</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">LocalDate</span><span class="w"> </span><span class="n">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LocalDate</span><span class="p">.</span><span class="na">now</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">date</span><span class="p">);</span><span class="w"> </span><span class="c1">// 2025-10-31</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// LocalTime 获取时间</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">LocalTime</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LocalTime</span><span class="p">.</span><span class="na">now</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">time</span><span class="p">);</span><span class="w"> </span><span class="c1">// 19:45:23.123</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// LocalDateTime 获取日期时间</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">dateTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">dateTime</span><span class="p">);</span><span class="w"> </span><span class="c1">// 2025-10-31T19:45:23.123</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 自定义格式化</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DateTimeFormatter</span><span class="w"> </span><span class="n">formatter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DateTimeFormatter</span><span class="p">.</span><span class="na">ofPattern</span><span class="p">(</span><span class="s">&#34;yyyy/MM/dd HH:mm:ss&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dateTime</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="n">formatter</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">str</span><span class="p">);</span><span class="w"> </span><span class="c1">// 2025/10/31 19:45:23</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 解析字符串为时间</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">dt2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="s">&#34;2025/10/31 19:45:23&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">formatter</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">dt2</span><span class="p">);</span><span class="w"> </span><span class="c1">// 2025-10-31T19:45:23</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 日期运算</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">LocalDate</span><span class="w"> </span><span class="n">tomorrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">date</span><span class="p">.</span><span class="na">plusDays</span><span class="p">(</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">LocalDate</span><span class="w"> </span><span class="n">yesterday</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">date</span><span class="p">.</span><span class="na">minusDays</span><span class="p">(</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">tomorrow</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">yesterday</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>注意：</p>
+<ul>
+<li><code>LocalDate</code>、<code>LocalTime</code>、<code>LocalDateTime</code> 都是不可变对象，方法如 <code>plusDays</code> 返回新对象。</li>
+<li><code>DateTimeFormatter</code> 用于格式化和解析，格式必须匹配。</li>
+</ul>
+</blockquote>
+<hr>
+<h1 id="bigdecimal类">BigDecimal类<a hidden class="anchor" aria-hidden="true" href="#bigdecimal类">#</a></h1>
+<p><code>BigDecimal</code> 用于高精度运算，尤其适合金融计算。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.math.BigDecimal</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.math.RoundingMode</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">BigDecimalDemo</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BigDecimal</span><span class="p">(</span><span class="s">&#34;10.123&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BigDecimal</span><span class="p">(</span><span class="s">&#34;3.12&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 加</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">b</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sum</span><span class="p">);</span><span class="w"> </span><span class="c1">// 13.243</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 减</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">diff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">subtract</span><span class="p">(</span><span class="n">b</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">diff</span><span class="p">);</span><span class="w"> </span><span class="c1">// 7.003</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 乘</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">prod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">multiply</span><span class="p">(</span><span class="n">b</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">prod</span><span class="p">);</span><span class="w"> </span><span class="c1">// 31.58776</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 除</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">div</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">divide</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="n">RoundingMode</span><span class="p">.</span><span class="na">HALF_UP</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">div</span><span class="p">);</span><span class="w"> </span><span class="c1">// 3.25 （保留 2 位小数，四舍五入）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 设置小数位</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">scaled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">setScale</span><span class="p">(</span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="n">RoundingMode</span><span class="p">.</span><span class="na">DOWN</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">scaled</span><span class="p">);</span><span class="w"> </span><span class="c1">// 10.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 比较大小</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">cmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">compareTo</span><span class="p">(</span><span class="n">b</span><span class="p">);</span><span class="w"> </span><span class="c1">// 1 表示 a &gt; b</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">cmp</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>注意：</p>
+<ul>
+<li>构造 BigDecimal 时最好使用字符串，以避免浮点数精度误差。</li>
+<li>BigDecimal 对象不可变，运算会生成新对象。</li>
+<li>除法必须指定舍入方式，否则可能抛出 ArithmeticException。</li>
+</ul>
+</blockquote>
+
 
   </div>
 
