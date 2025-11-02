@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>List on SteamedFish&#39;s Blog</title>
+    <link>https://www.steamedfish.top/tags/list/</link>
+    <description>Recent content in List on SteamedFish&#39;s Blog</description>
+    <generator>Hugo -- 0.152.2</generator>
+    <language>zh</language>
+    <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
+    <lastBuildDate>Sun, 02 Nov 2025 02:47:57 +0000</lastBuildDate>
+    <atom:link href="https://www.steamedfish.top/tags/list/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java SE从入门到跑路（十二·集合框架详解）</title>
+      <link>https://www.steamedfish.top/post/java-se-collections/</link>
+      <pubDate>Sat, 01 Nov 2025 14:16:16 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-se-collections/</guid>
+      <description>&lt;h1 id=&#34;集合框架collections-framework&#34;&gt;集合框架（Collections Framework）&lt;/h1&gt;
+&lt;h2 id=&#34;1-为什么需要集合&#34;&gt;1. 为什么需要集合&lt;/h2&gt;
+&lt;p&gt;在前几章中，我们用数组或对象数组来存储多个元素：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;arr&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;但是数组存在一些限制：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;长度固定，无法动态扩展；&lt;/li&gt;
+&lt;li&gt;缺少便捷的方法进行增删查找；&lt;/li&gt;
+&lt;li&gt;不同类型的数据处理不方便（除非用 &lt;code&gt;Object[]&lt;/code&gt;）。
+为了解决这些问题，Java 提供了 &lt;strong&gt;集合框架（Collections Framework）&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;集合框架的核心思想：&lt;strong&gt;提供一套通用的数据结构和操作接口，让我们能方便地存储、访问、修改、排序和查找数据&lt;/strong&gt;.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

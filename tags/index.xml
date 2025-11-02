@@ -7,8 +7,162 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sat, 01 Nov 2025 06:14:24 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 02 Nov 2025 02:47:57 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java</title>
+      <link>https://www.steamedfish.top/tags/java/</link>
+      <pubDate>Sun, 02 Nov 2025 02:31:48 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/java/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Java SE</title>
+      <link>https://www.steamedfish.top/tags/java-se/</link>
+      <pubDate>Sun, 02 Nov 2025 02:31:48 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/java-se/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>OOP</title>
+      <link>https://www.steamedfish.top/tags/oop/</link>
+      <pubDate>Sun, 02 Nov 2025 02:31:48 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/oop/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>教学</title>
+      <link>https://www.steamedfish.top/tags/%E6%95%99%E5%AD%A6/</link>
+      <pubDate>Sun, 02 Nov 2025 02:31:48 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E6%95%99%E5%AD%A6/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Runnable</title>
+      <link>https://www.steamedfish.top/tags/runnable/</link>
+      <pubDate>Sun, 02 Nov 2025 02:22:51 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/runnable/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Thread</title>
+      <link>https://www.steamedfish.top/tags/thread/</link>
+      <pubDate>Sun, 02 Nov 2025 02:22:51 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/thread/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>多线程</title>
+      <link>https://www.steamedfish.top/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</link>
+      <pubDate>Sun, 02 Nov 2025 02:22:51 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>线程池</title>
+      <link>https://www.steamedfish.top/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/</link>
+      <pubDate>Sun, 02 Nov 2025 02:22:51 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>HTTP</title>
+      <link>https://www.steamedfish.top/tags/http/</link>
+      <pubDate>Sat, 01 Nov 2025 09:11:10 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/http/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Socket</title>
+      <link>https://www.steamedfish.top/tags/socket/</link>
+      <pubDate>Sat, 01 Nov 2025 09:11:10 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/socket/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>URL</title>
+      <link>https://www.steamedfish.top/tags/url/</link>
+      <pubDate>Sat, 01 Nov 2025 09:11:10 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/url/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>网络编程</title>
+      <link>https://www.steamedfish.top/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Sat, 01 Nov 2025 09:11:10 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>File</title>
+      <link>https://www.steamedfish.top/tags/file/</link>
+      <pubDate>Sat, 01 Nov 2025 16:30:11 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/file/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>I/O流</title>
+      <link>https://www.steamedfish.top/tags/i/o%E6%B5%81/</link>
+      <pubDate>Sat, 01 Nov 2025 16:30:11 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/i/o%E6%B5%81/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Stream</title>
+      <link>https://www.steamedfish.top/tags/stream/</link>
+      <pubDate>Sat, 01 Nov 2025 16:30:11 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/stream/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Lambda</title>
+      <link>https://www.steamedfish.top/tags/lambda/</link>
+      <pubDate>Sat, 01 Nov 2025 16:04:42 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/lambda/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>函数式编程</title>
+      <link>https://www.steamedfish.top/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Sat, 01 Nov 2025 16:04:42 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Generic</title>
+      <link>https://www.steamedfish.top/tags/generic/</link>
+      <pubDate>Sat, 01 Nov 2025 15:37:59 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/generic/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>泛型</title>
+      <link>https://www.steamedfish.top/tags/%E6%B3%9B%E5%9E%8B/</link>
+      <pubDate>Sat, 01 Nov 2025 15:37:59 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E6%B3%9B%E5%9E%8B/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>List</title>
+      <link>https://www.steamedfish.top/tags/list/</link>
+      <pubDate>Sat, 01 Nov 2025 14:16:16 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/list/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Map</title>
+      <link>https://www.steamedfish.top/tags/map/</link>
+      <pubDate>Sat, 01 Nov 2025 14:16:16 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/map/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Set</title>
+      <link>https://www.steamedfish.top/tags/set/</link>
+      <pubDate>Sat, 01 Nov 2025 14:16:16 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/set/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Arrays</title>
       <link>https://www.steamedfish.top/tags/arrays/</link>
@@ -24,31 +178,10 @@
       <description></description>
     </item>
     <item>
-      <title>Java</title>
-      <link>https://www.steamedfish.top/tags/java/</link>
-      <pubDate>Fri, 31 Oct 2025 17:02:54 +0800</pubDate>
-      <guid>https://www.steamedfish.top/tags/java/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Java SE</title>
-      <link>https://www.steamedfish.top/tags/java-se/</link>
-      <pubDate>Fri, 31 Oct 2025 17:02:54 +0800</pubDate>
-      <guid>https://www.steamedfish.top/tags/java-se/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Math</title>
       <link>https://www.steamedfish.top/tags/math/</link>
       <pubDate>Fri, 31 Oct 2025 17:02:54 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/math/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>OOP</title>
-      <link>https://www.steamedfish.top/tags/oop/</link>
-      <pubDate>Fri, 31 Oct 2025 17:02:54 +0800</pubDate>
-      <guid>https://www.steamedfish.top/tags/oop/</guid>
       <description></description>
     </item>
     <item>
@@ -70,13 +203,6 @@
       <link>https://www.steamedfish.top/tags/time/</link>
       <pubDate>Fri, 31 Oct 2025 17:02:54 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/time/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>教学</title>
-      <link>https://www.steamedfish.top/tags/%E6%95%99%E5%AD%A6/</link>
-      <pubDate>Fri, 31 Oct 2025 17:02:54 +0800</pubDate>
-      <guid>https://www.steamedfish.top/tags/%E6%95%99%E5%AD%A6/</guid>
       <description></description>
     </item>
     <item>
