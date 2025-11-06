@@ -7,13 +7,13 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sun, 02 Nov 2025 02:47:57 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 06 Nov 2025 09:33:55 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/generic/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java SE从入门到跑路（十三·泛型）</title>
-      <link>https://www.steamedfish.top/post/java-se-generic-basics/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-generic-basics/</link>
       <pubDate>Sat, 01 Nov 2025 15:37:59 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-generic-basics/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-generic-basics/</guid>
       <description>&lt;h1 id=&#34;泛型&#34;&gt;泛型&lt;/h1&gt;
 &lt;h2 id=&#34;泛型的概念&#34;&gt;泛型的概念&lt;/h2&gt;
 &lt;p&gt;在没有泛型之前，集合类可以存放任意类型的对象：&lt;/p&gt;

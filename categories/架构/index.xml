@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>架构 on SteamedFish&#39;s Blog</title>
+    <link>https://www.steamedfish.top/categories/%E6%9E%B6%E6%9E%84/</link>
+    <description>Recent content in 架构 on SteamedFish&#39;s Blog</description>
+    <generator>Hugo -- 0.152.2</generator>
+    <language>zh</language>
+    <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
+    <lastBuildDate>Thu, 06 Nov 2025 09:33:55 +0000</lastBuildDate>
+    <atom:link href="https://www.steamedfish.top/categories/%E6%9E%B6%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>B/S架构与HTTP协议及其简单应用</title>
+      <link>https://www.steamedfish.top/post/b/s/</link>
+      <pubDate>Wed, 05 Nov 2025 08:45:35 +0000</pubDate>
+      <guid>https://www.steamedfish.top/post/b/s/</guid>
+      <description>&lt;h1 id=&#34;bs架构&#34;&gt;B/S架构&lt;/h1&gt;
+&lt;h2 id=&#34;什么是bs架构&#34;&gt;什么是B/S架构？&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;B/S架构&lt;/strong&gt; ，全称&lt;strong&gt;Browser/Server 架构&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;是指用户只需使用&lt;strong&gt;Web浏览器&lt;/strong&gt;（Browser）作为&lt;strong&gt;客户端&lt;/strong&gt;，通过网络访问&lt;strong&gt;服务器端&lt;/strong&gt;（Server）上部署的应用程序即可使用系统功能。  &lt;br&gt;
+常见示例：网页端系统，如校园外卖系统、教务系统、网上银行、微信网页版等。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -7,13 +7,13 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sun, 02 Nov 2025 02:47:57 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 06 Nov 2025 09:33:55 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/%E5%86%85%E9%83%A8%E7%B1%BB/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java SE从入门到跑路（八·内部类）</title>
-      <link>https://www.steamedfish.top/post/java-se-inner-class/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-inner-class/</link>
       <pubDate>Thu, 30 Oct 2025 19:21:03 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-inner-class/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-inner-class/</guid>
       <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;前几章我们讲了类、对象、继承、多态，以及 static 与 final。&lt;br&gt;
 现在我们要介绍一个更灵活、更优雅的工具：&lt;strong&gt;内部类&lt;/strong&gt;（Inner Class）。  &lt;br&gt;

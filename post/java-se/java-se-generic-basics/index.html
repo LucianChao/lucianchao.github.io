@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Java SE从入门到跑路（十三·泛型） | SteamedFish&#39;s Blog</title>
+<meta name="keywords" content="Java, Java SE, OOP, 教学, 泛型, Generic">
+<meta name="description" content="泛型
+泛型的概念
+在没有泛型之前，集合类可以存放任意类型的对象：
+ArrayList list = new ArrayList();
+list.add(&#34;Hello&#34;);
+list.add(123);
+这样做的问题是：
+
+类型不安全（编译时不检查类型）
+取出时必须强制类型转换
+容易出错
+
+泛型（Generic）就是为了解决这些问题。
+它在编译期就能检查类型安全，减少类型转换。
+ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
+list.add(&#34;Hello&#34;);
+// list.add(123); // 编译错误
+String s = list.get(0); // 不需要强制转换
+
+2.泛型的声明和使用
+泛型类
+在类名后加上 &lt;T&gt;，T 表示“类型参数”。">
+<meta name="author" content="">
+<link rel="canonical" href="https://www.steamedfish.top/post/java-se/java-se-generic-basics/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.steamedfish.top/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.steamedfish.top/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.steamedfish.top/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://www.steamedfish.top/post/java-se/java-se-generic-basics/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://www.steamedfish.top/post/java-se/java-se-generic-basics/">
+  <meta property="og:site_name" content="SteamedFish&#39;s Blog">
+  <meta property="og:title" content="Java SE从入门到跑路（十三·泛型）">
+  <meta property="og:description" content="泛型 泛型的概念 在没有泛型之前，集合类可以存放任意类型的对象：
+ArrayList list = new ArrayList(); list.add(&#34;Hello&#34;); list.add(123); 这样做的问题是：
+类型不安全（编译时不检查类型） 取出时必须强制类型转换 容易出错 泛型（Generic）就是为了解决这些问题。
+它在编译期就能检查类型安全，减少类型转换。
+ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;(); list.add(&#34;Hello&#34;); // list.add(123); // 编译错误 String s = list.get(0); // 不需要强制转换 2.泛型的声明和使用 泛型类 在类名后加上 &lt;T&gt;，T 表示“类型参数”。">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-11-01T15:37:59+08:00">
+    <meta property="article:modified_time" content="2025-11-06T09:33:55+00:00">
+    <meta property="article:tag" content="Java">
+    <meta property="article:tag" content="Java SE">
+    <meta property="article:tag" content="OOP">
+    <meta property="article:tag" content="教学">
+    <meta property="article:tag" content="泛型">
+    <meta property="article:tag" content="Generic">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java SE从入门到跑路（十三·泛型）">
+<meta name="twitter:description" content="泛型
+泛型的概念
+在没有泛型之前，集合类可以存放任意类型的对象：
+ArrayList list = new ArrayList();
+list.add(&#34;Hello&#34;);
+list.add(123);
+这样做的问题是：
+
+类型不安全（编译时不检查类型）
+取出时必须强制类型转换
+容易出错
+
+泛型（Generic）就是为了解决这些问题。
+它在编译期就能检查类型安全，减少类型转换。
+ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
+list.add(&#34;Hello&#34;);
+// list.add(123); // 编译错误
+String s = list.get(0); // 不需要强制转换
+
+2.泛型的声明和使用
+泛型类
+在类名后加上 &lt;T&gt;，T 表示“类型参数”。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.steamedfish.top/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Java SE从入门到跑路（十三·泛型）",
+      "item": "https://www.steamedfish.top/post/java-se/java-se-generic-basics/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Java SE从入门到跑路（十三·泛型）",
+  "name": "Java SE从入门到跑路（十三·泛型）",
+  "description": "泛型 泛型的概念 在没有泛型之前，集合类可以存放任意类型的对象：\nArrayList list = new ArrayList(); list.add(\u0026#34;Hello\u0026#34;); list.add(123); 这样做的问题是：\n类型不安全（编译时不检查类型） 取出时必须强制类型转换 容易出错 泛型（Generic）就是为了解决这些问题。\n它在编译期就能检查类型安全，减少类型转换。\nArrayList\u0026lt;String\u0026gt; list = new ArrayList\u0026lt;\u0026gt;(); list.add(\u0026#34;Hello\u0026#34;); // list.add(123); // 编译错误 String s = list.get(0); // 不需要强制转换 2.泛型的声明和使用 泛型类 在类名后加上 \u0026lt;T\u0026gt;，T 表示“类型参数”。\n",
+  "keywords": [
+    "Java", "Java SE", "OOP", "教学", "泛型", "Generic"
+  ],
+  "articleBody": "泛型 泛型的概念 在没有泛型之前，集合类可以存放任意类型的对象：\nArrayList list = new ArrayList(); list.add(\"Hello\"); list.add(123); 这样做的问题是：\n类型不安全（编译时不检查类型） 取出时必须强制类型转换 容易出错 泛型（Generic）就是为了解决这些问题。\n它在编译期就能检查类型安全，减少类型转换。\nArrayList\u003cString\u003e list = new ArrayList\u003c\u003e(); list.add(\"Hello\"); // list.add(123); // 编译错误 String s = list.get(0); // 不需要强制转换 2.泛型的声明和使用 泛型类 在类名后加上 ，T 表示“类型参数”。\nclass Box\u003cT\u003e { private T value; public void set(T value) { this.value = value; } public T get() { return value; } } Box\u003cString\u003e b1 = new Box\u003c\u003e(); b1.set(\"Java\"); System.out.println(b1.get()); 这里的 T 可以替换成任何合法的类型名，例如 E、K、V、U，取决于场景。\n多类型参数 泛型类可以有多个类型参数：\nclass Pair\u003cK, V\u003e { private K key; private V value; public Pair(K key, V value) { this.key = key; this.value = value; } public K getKey() { return key; } public V getValue() { return value; } } 使用：\nPair\u003cString, Integer\u003e student = new Pair\u003c\u003e(\"Alice\", 18); System.out.println(student.getKey() + \" - \" + student.getValue()); 泛型方法 泛型不仅可以用在类上，也可以用在方法上：\npublic class Tool { public static \u003cT\u003e void printArray(T[] arr) { for (T t : arr) { System.out.print(t + \" \"); } System.out.println(); } } 调用时可以自动推断类型：\nInteger[] nums = {1, 2, 3}; String[] strs = {\"A\", \"B\"}; Tool.printArray(nums); Tool.printArray(strs); 泛型接口 interface Pair\u003cK, V\u003e { K getKey(); V getValue(); } class KeyValue\u003cK, V\u003e implements Pair\u003cK, V\u003e { private K key; private V value; KeyValue(K key, V value) { this.key = key; this.value = value; } public K getKey() { return key; } public V getValue() { return value; } } 示例：\nPair\u003cString, Integer\u003e p = new KeyValue\u003c\u003e(\"Age\", 20); System.out.println(p.getKey() + \": \" + p.getValue()); 泛型的类型擦除 Java 的泛型是伪泛型，在运行时会被类型擦除（Type Erasure）：\n编译后所有泛型信息会被去掉； 泛型参数会被替换为 Object 或者限定类型。 例如：\nList\u003cString\u003e a = new ArrayList\u003c\u003e(); List\u003cInteger\u003e b = new ArrayList\u003c\u003e(); System.out.println(a.getClass() == b.getClass()); // true 因此在运行时无法区分 List 和 List。\n泛型通配符与边界限定 泛型的强类型约束让代码更安全，但有时也会让我们“过于严格”。\n比如：\nList\u003cInteger\u003e list1 = new ArrayList\u003c\u003e(); List\u003cDouble\u003e list2 = new ArrayList\u003c\u003e(); 虽然 Integer 和 Double 都是 Number 的子类，但：\nvoid printList(List\u003cNumber\u003e list) { ... } 无法接受 List，因为 List 不是 List 的子类。\n为了解决这种情况，Java 提供了 通配符 ?。\n1.无界通配符 ? ? 表示“某种未知类型”，常用于只读的场景：\npublic static void printList(List\u003c?\u003e list) { for (Object obj : list) { System.out.print(obj + \" \"); } } 调用时可以传入任何类型的列表：\nprintList(List.of(\"Java\", \"C++\", \"Python\")); printList(List.of(1, 2, 3, 4)); 注意： 使用 List\u003c?\u003e 时，不能向其中添加元素（除了 null），因为编译器不知道它到底是什么类型。\n2.上界通配符 ? extends T 表示 某个未知类型是 T 的子类。\n典型用途：读取时安全，写入时受限。\npublic static double sum(List\u003c? extends Number\u003e list) { double total = 0; for (Number n : list) { total += n.doubleValue(); } return total; } 调用:\nList\u003cInteger\u003e ints = List.of(1, 2, 3); List\u003cDouble\u003e doubles = List.of(2.5, 3.5); System.out.println(sum(ints)); // ✅ OK System.out.println(sum(doubles)); // ✅ OK 3.下界通配符 ? super T 表示 某个未知类型是 T 的父类。 典型用途：写入时安全，读取时受限。\npublic static void addNumbers(List\u003c? super Integer\u003e list) { list.add(10); list.add(20); } 调用：\nList\u003cNumber\u003e nums = new ArrayList\u003c\u003e(); addNumbers(nums); // ✅ OK ? super Integer 意味着可以安全地向其中加入 Integer 或其子类对象。\n4.通配符的比较 通配符\r含义\r可读？\r可写？\r常用场景\r?\r任意类型\r✅\r❌\r只读列表\r? extends T\rT 的子类\r✅\r❌\r上界读取（只读）\r? super T\rT 的父类\r❌（只能读 Object）\r✅\r下界写入（只写）\r记忆口诀\n“extends 读，super 写”\n",
+  "wordCount" : "1098",
+  "inLanguage": "zh",
+  "datePublished": "2025-11-01T15:37:59+08:00",
+  "dateModified": "2025-11-06T09:33:55.546161957Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.steamedfish.top/post/java-se/java-se-generic-basics/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SteamedFish's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.steamedfish.top/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://www.steamedfish.top/" accesskey="h" title="SteamedFish&#39;s Blog (Alt + H)">SteamedFish&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://www.steamedfish.top/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/categories/" title="Categories">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/tags/" title="Tags">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://www.steamedfish.top/">主页</a>&nbsp;»&nbsp;<a href="https://www.steamedfish.top/post/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Java SE从入门到跑路（十三·泛型）
+    </h1>
+    <div class="post-meta"><span title='2025-11-01 15:37:59 +0800 +0800'>2025-11-01</span>&nbsp;·&nbsp;<span>3 分钟</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e6%b3%9b%e5%9e%8b" aria-label="泛型">泛型</a><ul>
+                        
+                <li>
+                    <a href="#%e6%b3%9b%e5%9e%8b%e7%9a%84%e6%a6%82%e5%bf%b5" aria-label="泛型的概念">泛型的概念</a></li>
+                <li>
+                    <a href="#2%e6%b3%9b%e5%9e%8b%e7%9a%84%e5%a3%b0%e6%98%8e%e5%92%8c%e4%bd%bf%e7%94%a8" aria-label="2.泛型的声明和使用">2.泛型的声明和使用</a><ul>
+                        
+                <li>
+                    <a href="#%e6%b3%9b%e5%9e%8b%e7%b1%bb" aria-label="泛型类">泛型类</a></li>
+                <li>
+                    <a href="#%e5%a4%9a%e7%b1%bb%e5%9e%8b%e5%8f%82%e6%95%b0" aria-label="多类型参数">多类型参数</a></li>
+                <li>
+                    <a href="#%e6%b3%9b%e5%9e%8b%e6%96%b9%e6%b3%95" aria-label="泛型方法">泛型方法</a></li>
+                <li>
+                    <a href="#%e6%b3%9b%e5%9e%8b%e6%8e%a5%e5%8f%a3" aria-label="泛型接口">泛型接口</a></li>
+                <li>
+                    <a href="#%e6%b3%9b%e5%9e%8b%e7%9a%84%e7%b1%bb%e5%9e%8b%e6%93%a6%e9%99%a4" aria-label="泛型的类型擦除">泛型的类型擦除</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%b3%9b%e5%9e%8b%e9%80%9a%e9%85%8d%e7%ac%a6%e4%b8%8e%e8%be%b9%e7%95%8c%e9%99%90%e5%ae%9a" aria-label="泛型通配符与边界限定">泛型通配符与边界限定</a><ul>
+                        
+                <li>
+                    <a href="#1%e6%97%a0%e7%95%8c%e9%80%9a%e9%85%8d%e7%ac%a6-" aria-label="1.无界通配符 ?">1.无界通配符 ?</a></li>
+                <li>
+                    <a href="#2%e4%b8%8a%e7%95%8c%e9%80%9a%e9%85%8d%e7%ac%a6--extends-t" aria-label="2.上界通配符 ? extends T">2.上界通配符 ? extends T</a></li>
+                <li>
+                    <a href="#3%e4%b8%8b%e7%95%8c%e9%80%9a%e9%85%8d%e7%ac%a6--super-t" aria-label="3.下界通配符 ? super T">3.下界通配符 ? super T</a></li>
+                <li>
+                    <a href="#4%e9%80%9a%e9%85%8d%e7%ac%a6%e7%9a%84%e6%af%94%e8%be%83" aria-label="4.通配符的比较">4.通配符的比较</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="泛型">泛型<a hidden class="anchor" aria-hidden="true" href="#泛型">#</a></h1>
+<h2 id="泛型的概念">泛型的概念<a hidden class="anchor" aria-hidden="true" href="#泛型的概念">#</a></h2>
+<p>在没有泛型之前，集合类可以存放任意类型的对象：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ArrayList</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">123</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>这样做的问题是：</p>
+<ul>
+<li><strong>类型不安全</strong>（编译时不检查类型）</li>
+<li><strong>取出时必须强制类型转换</strong></li>
+<li><strong>容易出错</strong></li>
+</ul>
+<p>泛型（Generic）就是为了解决这些问题。<br>
+它在编译期就能检查类型安全，减少类型转换。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// list.add(123); // 编译错误</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 不需要强制转换</span><span class="w">
+</span></span></span></code></pre></div><hr>
+<h2 id="2泛型的声明和使用">2.泛型的声明和使用<a hidden class="anchor" aria-hidden="true" href="#2泛型的声明和使用">#</a></h2>
+<h3 id="泛型类">泛型类<a hidden class="anchor" aria-hidden="true" href="#泛型类">#</a></h3>
+<p>在类名后加上 <code>&lt;T&gt;</code>，T 表示“类型参数”。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Box</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="nf">get</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Box</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Box</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">b1</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">&#34;Java&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">b1</span><span class="p">.</span><span class="na">get</span><span class="p">());</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>这里的 <code>T</code> 可以替换成任何合法的类型名，例如 <code>E</code>、<code>K</code>、<code>V</code>、<code>U</code>，取决于场景。</p>
+</blockquote>
+<hr>
+<h3 id="多类型参数">多类型参数<a hidden class="anchor" aria-hidden="true" href="#多类型参数">#</a></h3>
+<p>泛型类可以有多个类型参数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Pair</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="n">key</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Pair</span><span class="p">(</span><span class="n">K</span><span class="w"> </span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">key</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="nf">getKey</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">key</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="nf">getValue</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>使用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Pair</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Pair</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="s">&#34;Alice&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">18</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">student</span><span class="p">.</span><span class="na">getKey</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34; - &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">student</span><span class="p">.</span><span class="na">getValue</span><span class="p">());</span><span class="w">
+</span></span></span></code></pre></div><h3 id="泛型方法">泛型方法<a hidden class="anchor" aria-hidden="true" href="#泛型方法">#</a></h3>
+<p>泛型不仅可以用在类上，也可以用在方法上：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Tool</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">printArray</span><span class="p">(</span><span class="n">T</span><span class="o">[]</span><span class="w"> </span><span class="n">arr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">arr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34; &#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>调用时可以自动推断类型：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Integer</span><span class="o">[]</span><span class="w"> </span><span class="n">nums</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">strs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#34;A&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;B&#34;</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Tool</span><span class="p">.</span><span class="na">printArray</span><span class="p">(</span><span class="n">nums</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Tool</span><span class="p">.</span><span class="na">printArray</span><span class="p">(</span><span class="n">strs</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><hr>
+<h3 id="泛型接口">泛型接口<a hidden class="anchor" aria-hidden="true" href="#泛型接口">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">Pair</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">K</span><span class="w"> </span><span class="nf">getKey</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">V</span><span class="w"> </span><span class="nf">getValue</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">KeyValue</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Pair</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="n">key</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">KeyValue</span><span class="p">(</span><span class="n">K</span><span class="w"> </span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">key</span><span class="p">;</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="nf">getKey</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">key</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="nf">getValue</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>示例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Pair</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">KeyValue</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="s">&#34;Age&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">20</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="na">getKey</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="na">getValue</span><span class="p">());</span><span class="w">
+</span></span></span></code></pre></div><hr>
+<h3 id="泛型的类型擦除">泛型的类型擦除<a hidden class="anchor" aria-hidden="true" href="#泛型的类型擦除">#</a></h3>
+<p>Java 的泛型是<strong>伪泛型</strong>，在运行时会被<strong>类型擦除</strong>（Type Erasure）：</p>
+<ul>
+<li>编译后所有泛型信息会被去掉；</li>
+<li>泛型参数会被替换为 <code>Object</code> 或者限定类型。</li>
+</ul>
+<p>例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="na">getClass</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="na">getClass</span><span class="p">());</span><span class="w"> </span><span class="c1">// true</span><span class="w">
+</span></span></span></code></pre></div><p>因此在运行时无法区分 <code>List&lt;String&gt;</code> 和 <code>List&lt;Integer&gt;</code>。</p>
+<hr>
+<h1 id="泛型通配符与边界限定">泛型通配符与边界限定<a hidden class="anchor" aria-hidden="true" href="#泛型通配符与边界限定">#</a></h1>
+<p>泛型的强类型约束让代码更安全，但有时也会让我们“过于严格”。<br>
+比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></div><p>虽然 <code>Integer</code> 和 <code>Double</code> 都是 <code>Number</code> 的子类，但：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">printList</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Number</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>无法接受 <code>List&lt;Integer&gt;</code>，因为 <code>List&lt;Integer&gt;</code> 不是 <code>List&lt;Number&gt;</code> 的子类。</p>
+<p>为了解决这种情况，Java 提供了 <strong>通配符 <code>?</code></strong>。</p>
+<hr>
+<h2 id="1无界通配符-">1.无界通配符 <code>?</code><a hidden class="anchor" aria-hidden="true" href="#1无界通配符-">#</a></h2>
+<p><code>?</code> 表示“某种未知类型”，常用于只读的场景：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">printList</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">list</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">obj</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">list</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="n">obj</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34; &#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>调用时可以传入任何类型的列表：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">printList</span><span class="p">(</span><span class="n">List</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&#34;Java&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;C++&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;Python&#34;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">printList</span><span class="p">(</span><span class="n">List</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">,</span><span class="w"> </span><span class="n">4</span><span class="p">));</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>注意：
+使用 <code>List&lt;?&gt;</code> 时，不能向其中添加元素（除了 <code>null</code>），因为编译器不知道它到底是什么类型。</p>
+</blockquote>
+<hr>
+<h2 id="2上界通配符--extends-t">2.上界通配符 <code>? extends T</code><a hidden class="anchor" aria-hidden="true" href="#2上界通配符--extends-t">#</a></h2>
+<p>表示 <strong>某个未知类型是 T 的子类</strong>。<br>
+典型用途：<strong>读取时安全，写入时受限</strong>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Number</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Number</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">list</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">total</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="na">doubleValue</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">total</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>调用:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">List</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">doubles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">List</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">2</span><span class="p">.</span><span class="na">5</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">.</span><span class="na">5</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sum</span><span class="p">(</span><span class="n">ints</span><span class="p">));</span><span class="w">    </span><span class="c1">// ✅ OK</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sum</span><span class="p">(</span><span class="n">doubles</span><span class="p">));</span><span class="w"> </span><span class="c1">// ✅ OK</span><span class="w">
+</span></span></span></code></pre></div><hr>
+<h2 id="3下界通配符--super-t">3.下界通配符 <code>? super T</code><a hidden class="anchor" aria-hidden="true" href="#3下界通配符--super-t">#</a></h2>
+<p>表示 <strong>某个未知类型是 T 的父类</strong>。
+典型用途：<strong>写入时安全，读取时受限</strong>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addNumbers</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">super</span><span class="w"> </span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">10</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">20</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>调用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">Number</span><span class="o">&gt;</span><span class="w"> </span><span class="n">nums</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">addNumbers</span><span class="p">(</span><span class="n">nums</span><span class="p">);</span><span class="w"> </span><span class="c1">// ✅ OK</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p><code>? super Integer</code> 意味着可以安全地向其中加入 Integer 或其子类对象。</p>
+</blockquote>
+<hr>
+<h2 id="4通配符的比较">4.通配符的比较<a hidden class="anchor" aria-hidden="true" href="#4通配符的比较">#</a></h2>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th>通配符</th>
+          <th>含义</th>
+          <th>可读？</th>
+          <th>可写？</th>
+          <th>常用场景</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>?</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">任意类型</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">✅</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">❌</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">只读列表</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>? extends T</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">T 的子类</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">✅</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">❌</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">上界读取（只读）</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>? super T</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">T 的父类</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">❌（只能读 Object）</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">✅</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">下界写入（只写）</td>
+      </tr>
+  </tbody>
+</table><p>记忆口诀</p>
+<blockquote>
+<p>&ldquo;<strong>extends 读，super 写</strong>&rdquo;</p>
+</blockquote>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://www.steamedfish.top/tags/java/">Java</a></li>
+      <li><a href="https://www.steamedfish.top/tags/java-se/">Java SE</a></li>
+      <li><a href="https://www.steamedfish.top/tags/oop/">OOP</a></li>
+      <li><a href="https://www.steamedfish.top/tags/%E6%95%99%E5%AD%A6/">教学</a></li>
+      <li><a href="https://www.steamedfish.top/tags/%E6%B3%9B%E5%9E%8B/">泛型</a></li>
+      <li><a href="https://www.steamedfish.top/tags/generic/">Generic</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span><a href="https://www.steamedfish.top/">©2025 SteamedFish&rsquo;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

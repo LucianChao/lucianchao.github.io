@@ -7,13 +7,13 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sun, 02 Nov 2025 02:47:57 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 06 Nov 2025 09:33:55 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java SE从入门到跑路（十四·Lambda 与 Stream API）</title>
-      <link>https://www.steamedfish.top/post/java-se-lambda-stream/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-lambda-stream/</link>
       <pubDate>Sat, 01 Nov 2025 16:04:42 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-lambda-stream/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-lambda-stream/</guid>
       <description>&lt;h1 id=&#34;lambda-表达式&#34;&gt;Lambda 表达式&lt;/h1&gt;
 &lt;h2 id=&#34;lambda-表达式概念与语法&#34;&gt;Lambda 表达式概念与语法&lt;/h2&gt;
 &lt;p&gt;Lambda 表达式是 Java 8 引入的一种简洁写法，用来替代匿名内部类。

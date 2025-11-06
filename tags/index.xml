@@ -7,8 +7,22 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sun, 02 Nov 2025 02:47:57 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 06 Nov 2025 09:33:55 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>B/S架构</title>
+      <link>https://www.steamedfish.top/tags/b/s%E6%9E%B6%E6%9E%84/</link>
+      <pubDate>Wed, 05 Nov 2025 08:45:35 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/b/s%E6%9E%B6%E6%9E%84/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>HTTP协议</title>
+      <link>https://www.steamedfish.top/tags/http%E5%8D%8F%E8%AE%AE/</link>
+      <pubDate>Wed, 05 Nov 2025 08:45:35 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/http%E5%8D%8F%E8%AE%AE/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Java</title>
       <link>https://www.steamedfish.top/tags/java/</link>

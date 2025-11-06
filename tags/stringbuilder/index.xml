@@ -7,13 +7,13 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sun, 02 Nov 2025 02:47:57 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 06 Nov 2025 09:33:55 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/stringbuilder/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java SE从入门到跑路（十一·常用类详解）</title>
-      <link>https://www.steamedfish.top/post/java-se-common-classes/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-common-classes/</link>
       <pubDate>Fri, 31 Oct 2025 17:02:54 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-common-classes/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-common-classes/</guid>
       <description>&lt;h1 id=&#34;string-类&#34;&gt;String 类&lt;/h1&gt;
 &lt;h2 id=&#34;1-string的概念与不可变性&#34;&gt;1. String的概念与不可变性&lt;/h2&gt;
 &lt;p&gt;String 是 Java 中最常用的类，用来表示一串字符，比如 &amp;ldquo;Hello&amp;rdquo;、&amp;ldquo;Java&amp;rdquo;。&lt;br&gt;

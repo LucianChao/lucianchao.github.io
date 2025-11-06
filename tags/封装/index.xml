@@ -7,13 +7,13 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sun, 02 Nov 2025 02:47:57 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 06 Nov 2025 09:33:55 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/%E5%B0%81%E8%A3%85/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java SE从入门到跑路（四·面向对象之类与对象篇）</title>
-      <link>https://www.steamedfish.top/post/java-se-oop/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-oop/</link>
       <pubDate>Mon, 27 Oct 2025 20:15:32 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-oop/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-oop/</guid>
       <description>&lt;blockquote&gt;
 &lt;h1 id=&#34;java万事万物皆对象&#34;&gt;JAVA——万事万物皆对象&lt;/h1&gt;
 &lt;/blockquote&gt;

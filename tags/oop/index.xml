@@ -7,13 +7,13 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sun, 02 Nov 2025 02:47:57 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 06 Nov 2025 09:33:55 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/oop/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java SE从入门到跑路（十八·反射与注解）</title>
-      <link>https://www.steamedfish.top/post/java-se-reflection-annotation/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-reflection-annotation/</link>
       <pubDate>Sun, 02 Nov 2025 02:31:48 +0000</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-reflection-annotation/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-reflection-annotation/</guid>
       <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;在今天这一章，我们将走进一个“神秘”的领域：反射（Reflection）与注解（Annotation）。   &lt;br&gt;
 这两个概念是 Java 高级编程中非常重要的内容，也是框架（如 Spring、MyBatis）运作的核心机制。   &lt;br&gt;
@@ -21,9 +21,9 @@
     </item>
     <item>
       <title>Java SE从入门到跑路（十七·多线程与并发）</title>
-      <link>https://www.steamedfish.top/post/java-se-thread-and-concurrency/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-thread-and-concurrency/</link>
       <pubDate>Sun, 02 Nov 2025 02:22:51 +0000</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-thread-and-concurrency/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-thread-and-concurrency/</guid>
       <description>&lt;h1 id=&#34;多线程与并发&#34;&gt;多线程与并发&lt;/h1&gt;
 &lt;h2 id=&#34;线程基础&#34;&gt;线程基础&lt;/h2&gt;
 &lt;h3 id=&#34;1什么是线程&#34;&gt;1.什么是线程&lt;/h3&gt;
@@ -37,9 +37,9 @@
     </item>
     <item>
       <title>Java SE从入门到跑路（十六·网络编程基础）</title>
-      <link>https://www.steamedfish.top/post/java-se-network/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-network/</link>
       <pubDate>Sat, 01 Nov 2025 09:11:10 +0000</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-network/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-network/</guid>
       <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;在现代应用中，几乎所有程序都离不开网络通信。Java 提供了丰富的网络 API，让我们可以轻松进行客户端和服务器通信。
 本章，我们将介绍 &lt;strong&gt;URL、HTTP 请求&lt;/strong&gt; 以及 &lt;strong&gt;Socket 编程&lt;/strong&gt;。&lt;/p&gt;
@@ -63,9 +63,9 @@
     </item>
     <item>
       <title>Java SE从入门到跑路（十五·I/O 与文件操作）</title>
-      <link>https://www.steamedfish.top/post/java-se-io-file/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-io-file/</link>
       <pubDate>Sat, 01 Nov 2025 16:30:11 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-io-file/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-io-file/</guid>
       <description>&lt;h1 id=&#34;java-io-与文件操作&#34;&gt;Java I/O 与文件操作&lt;/h1&gt;
 &lt;h2 id=&#34;1io-概述&#34;&gt;1.I/O 概述&lt;/h2&gt;
 &lt;p&gt;Java 提供了丰富的 &lt;strong&gt;输入输出（I/O）&lt;/strong&gt; 机制，用于处理数据的读写，包括文件、控制台、网络等。&lt;/p&gt;
@@ -81,9 +81,9 @@
     </item>
     <item>
       <title>Java SE从入门到跑路（十四·Lambda 与 Stream API）</title>
-      <link>https://www.steamedfish.top/post/java-se-lambda-stream/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-lambda-stream/</link>
       <pubDate>Sat, 01 Nov 2025 16:04:42 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-lambda-stream/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-lambda-stream/</guid>
       <description>&lt;h1 id=&#34;lambda-表达式&#34;&gt;Lambda 表达式&lt;/h1&gt;
 &lt;h2 id=&#34;lambda-表达式概念与语法&#34;&gt;Lambda 表达式概念与语法&lt;/h2&gt;
 &lt;p&gt;Lambda 表达式是 Java 8 引入的一种简洁写法，用来替代匿名内部类。
@@ -112,9 +112,9 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（十三·泛型）</title>
-      <link>https://www.steamedfish.top/post/java-se-generic-basics/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-generic-basics/</link>
       <pubDate>Sat, 01 Nov 2025 15:37:59 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-generic-basics/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-generic-basics/</guid>
       <description>&lt;h1 id=&#34;泛型&#34;&gt;泛型&lt;/h1&gt;
 &lt;h2 id=&#34;泛型的概念&#34;&gt;泛型的概念&lt;/h2&gt;
 &lt;p&gt;在没有泛型之前，集合类可以存放任意类型的对象：&lt;/p&gt;
@@ -140,9 +140,9 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（十二·集合框架详解）</title>
-      <link>https://www.steamedfish.top/post/java-se-collections/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-collections/</link>
       <pubDate>Sat, 01 Nov 2025 14:16:16 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-collections/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-collections/</guid>
       <description>&lt;h1 id=&#34;集合框架collections-framework&#34;&gt;集合框架（Collections Framework）&lt;/h1&gt;
 &lt;h2 id=&#34;1-为什么需要集合&#34;&gt;1. 为什么需要集合&lt;/h2&gt;
 &lt;p&gt;在前几章中，我们用数组或对象数组来存储多个元素：&lt;/p&gt;
@@ -158,9 +158,9 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（十一·常用类详解）</title>
-      <link>https://www.steamedfish.top/post/java-se-common-classes/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-common-classes/</link>
       <pubDate>Fri, 31 Oct 2025 17:02:54 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-common-classes/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-common-classes/</guid>
       <description>&lt;h1 id=&#34;string-类&#34;&gt;String 类&lt;/h1&gt;
 &lt;h2 id=&#34;1-string的概念与不可变性&#34;&gt;1. String的概念与不可变性&lt;/h2&gt;
 &lt;p&gt;String 是 Java 中最常用的类，用来表示一串字符，比如 &amp;ldquo;Hello&amp;rdquo;、&amp;ldquo;Java&amp;rdquo;。&lt;br&gt;
@@ -171,9 +171,9 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（十·包与访问控制）</title>
-      <link>https://www.steamedfish.top/post/java-se-package-access/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-package-access/</link>
       <pubDate>Fri, 31 Oct 2025 16:22:36 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-package-access/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-package-access/</guid>
       <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;没啥好说的，Java中简单却又不可缺少的一部分，干就完了兄弟&lt;/p&gt;
 &lt;h1 id=&#34;包package&#34;&gt;包（Package）&lt;/h1&gt;
@@ -208,9 +208,9 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（九·异常处理）</title>
-      <link>https://www.steamedfish.top/post/java-se-exception/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-exception/</link>
       <pubDate>Fri, 31 Oct 2025 15:06:47 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-exception/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-exception/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;世界不会因为错误而崩溃&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -229,9 +229,9 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（八·内部类）</title>
-      <link>https://www.steamedfish.top/post/java-se-inner-class/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-inner-class/</link>
       <pubDate>Thu, 30 Oct 2025 19:21:03 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-inner-class/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-inner-class/</guid>
       <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;前几章我们讲了类、对象、继承、多态，以及 static 与 final。&lt;br&gt;
 现在我们要介绍一个更灵活、更优雅的工具：&lt;strong&gt;内部类&lt;/strong&gt;（Inner Class）。  &lt;br&gt;
@@ -246,9 +246,9 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（六·继承与多态）</title>
-      <link>https://www.steamedfish.top/post/java-se-inheritance-polymorphism/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-inheritance-polymorphism/</link>
       <pubDate>Thu, 30 Oct 2025 15:51:12 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-inheritance-polymorphism/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-inheritance-polymorphism/</guid>
       <description>&lt;p&gt;到目前为止，我们已经能写出功能完整的程序，&lt;br&gt;
 使用类、对象、方法来组织逻辑，也学会了 &lt;code&gt;static&lt;/code&gt; 与 &lt;code&gt;final&lt;/code&gt; 的妙用。&lt;/p&gt;
 &lt;p&gt;但是，当项目越来越大时，你可能会发现：&lt;/p&gt;
@@ -262,9 +262,9 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（五·static与final：静与常的艺术）</title>
-      <link>https://www.steamedfish.top/post/java-se-static-final/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-static-final/</link>
       <pubDate>Thu, 30 Oct 2025 07:46:37 +0000</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-static-final/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-static-final/</guid>
       <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;在学完类与对象之后，你已经可以独立地定义自己的世界：
 创建对象、设计方法、组织数据。   &lt;br&gt;
@@ -277,9 +277,9 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（四·面向对象之类与对象篇）</title>
-      <link>https://www.steamedfish.top/post/java-se-oop/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-oop/</link>
       <pubDate>Mon, 27 Oct 2025 20:15:32 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-oop/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-oop/</guid>
       <description>&lt;blockquote&gt;
 &lt;h1 id=&#34;java万事万物皆对象&#34;&gt;JAVA——万事万物皆对象&lt;/h1&gt;
 &lt;/blockquote&gt;

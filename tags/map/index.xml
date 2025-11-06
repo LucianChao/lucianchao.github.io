@@ -7,13 +7,13 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sun, 02 Nov 2025 02:47:57 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 06 Nov 2025 09:33:55 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/map/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java SE从入门到跑路（十二·集合框架详解）</title>
-      <link>https://www.steamedfish.top/post/java-se-collections/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-collections/</link>
       <pubDate>Sat, 01 Nov 2025 14:16:16 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-collections/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-collections/</guid>
       <description>&lt;h1 id=&#34;集合框架collections-framework&#34;&gt;集合框架（Collections Framework）&lt;/h1&gt;
 &lt;h2 id=&#34;1-为什么需要集合&#34;&gt;1. 为什么需要集合&lt;/h2&gt;
 &lt;p&gt;在前几章中，我们用数组或对象数组来存储多个元素：&lt;/p&gt;

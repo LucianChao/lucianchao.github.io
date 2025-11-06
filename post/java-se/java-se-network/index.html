@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Java SE从入门到跑路（十六·网络编程基础） | SteamedFish&#39;s Blog</title>
+<meta name="keywords" content="HTTP, Java, Java SE, OOP, Socket, 教学, 网络编程, URL">
+<meta name="description" content="前言
+在现代应用中，几乎所有程序都离不开网络通信。Java 提供了丰富的网络 API，让我们可以轻松进行客户端和服务器通信。
+本章，我们将介绍 URL、HTTP 请求 以及 Socket 编程。
+网络编程基础
+1.URL基础
+URL（Uniform Resource Locator 表示统一资源定位符，即网络上的地址。
+常见用法：
+import java.net.URL;
+
+public class TestURL {
+    public static void main(String[] args) throws Exception {
+        URL url = new URL(&#34;https://www.example.com/index.html&#34;);
+        System.out.println(&#34;协议: &#34; &#43; url.getProtocol());      // https
+        System.out.println(&#34;主机: &#34; &#43; url.getHost());          // www.example.com
+        System.out.println(&#34;文件: &#34; &#43; url.getFile());          // /index.html
+        System.out.println(&#34;端口: &#34; &#43; url.getPort());          // -1 表示使用默认端口
+    }
+}
+
+注意：URL 只是表示地址，不会主动去访问网络。要访问，需要配合 URLConnection 或 HttpURLConnection。">
+<meta name="author" content="">
+<link rel="canonical" href="https://www.steamedfish.top/post/java-se/java-se-network/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.steamedfish.top/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.steamedfish.top/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.steamedfish.top/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://www.steamedfish.top/post/java-se/java-se-network/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://www.steamedfish.top/post/java-se/java-se-network/">
+  <meta property="og:site_name" content="SteamedFish&#39;s Blog">
+  <meta property="og:title" content="Java SE从入门到跑路（十六·网络编程基础）">
+  <meta property="og:description" content="前言 在现代应用中，几乎所有程序都离不开网络通信。Java 提供了丰富的网络 API，让我们可以轻松进行客户端和服务器通信。 本章，我们将介绍 URL、HTTP 请求 以及 Socket 编程。
+网络编程基础 1.URL基础 URL（Uniform Resource Locator 表示统一资源定位符，即网络上的地址。 常见用法：
+import java.net.URL; public class TestURL { public static void main(String[] args) throws Exception { URL url = new URL(&#34;https://www.example.com/index.html&#34;); System.out.println(&#34;协议: &#34; &#43; url.getProtocol()); // https System.out.println(&#34;主机: &#34; &#43; url.getHost()); // www.example.com System.out.println(&#34;文件: &#34; &#43; url.getFile()); // /index.html System.out.println(&#34;端口: &#34; &#43; url.getPort()); // -1 表示使用默认端口 } } 注意：URL 只是表示地址，不会主动去访问网络。要访问，需要配合 URLConnection 或 HttpURLConnection。">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-11-01T09:11:10+00:00">
+    <meta property="article:modified_time" content="2025-11-06T09:33:55+00:00">
+    <meta property="article:tag" content="HTTP">
+    <meta property="article:tag" content="Java">
+    <meta property="article:tag" content="Java SE">
+    <meta property="article:tag" content="OOP">
+    <meta property="article:tag" content="Socket">
+    <meta property="article:tag" content="教学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java SE从入门到跑路（十六·网络编程基础）">
+<meta name="twitter:description" content="前言
+在现代应用中，几乎所有程序都离不开网络通信。Java 提供了丰富的网络 API，让我们可以轻松进行客户端和服务器通信。
+本章，我们将介绍 URL、HTTP 请求 以及 Socket 编程。
+网络编程基础
+1.URL基础
+URL（Uniform Resource Locator 表示统一资源定位符，即网络上的地址。
+常见用法：
+import java.net.URL;
+
+public class TestURL {
+    public static void main(String[] args) throws Exception {
+        URL url = new URL(&#34;https://www.example.com/index.html&#34;);
+        System.out.println(&#34;协议: &#34; &#43; url.getProtocol());      // https
+        System.out.println(&#34;主机: &#34; &#43; url.getHost());          // www.example.com
+        System.out.println(&#34;文件: &#34; &#43; url.getFile());          // /index.html
+        System.out.println(&#34;端口: &#34; &#43; url.getPort());          // -1 表示使用默认端口
+    }
+}
+
+注意：URL 只是表示地址，不会主动去访问网络。要访问，需要配合 URLConnection 或 HttpURLConnection。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.steamedfish.top/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Java SE从入门到跑路（十六·网络编程基础）",
+      "item": "https://www.steamedfish.top/post/java-se/java-se-network/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Java SE从入门到跑路（十六·网络编程基础）",
+  "name": "Java SE从入门到跑路（十六·网络编程基础）",
+  "description": "前言 在现代应用中，几乎所有程序都离不开网络通信。Java 提供了丰富的网络 API，让我们可以轻松进行客户端和服务器通信。 本章，我们将介绍 URL、HTTP 请求 以及 Socket 编程。\n网络编程基础 1.URL基础 URL（Uniform Resource Locator 表示统一资源定位符，即网络上的地址。 常见用法：\nimport java.net.URL; public class TestURL { public static void main(String[] args) throws Exception { URL url = new URL(\u0026#34;https://www.example.com/index.html\u0026#34;); System.out.println(\u0026#34;协议: \u0026#34; + url.getProtocol()); // https System.out.println(\u0026#34;主机: \u0026#34; + url.getHost()); // www.example.com System.out.println(\u0026#34;文件: \u0026#34; + url.getFile()); // /index.html System.out.println(\u0026#34;端口: \u0026#34; + url.getPort()); // -1 表示使用默认端口 } } 注意：URL 只是表示地址，不会主动去访问网络。要访问，需要配合 URLConnection 或 HttpURLConnection。\n",
+  "keywords": [
+    "HTTP", "Java", "Java SE", "OOP", "Socket", "教学", "网络编程", "URL"
+  ],
+  "articleBody": "前言 在现代应用中，几乎所有程序都离不开网络通信。Java 提供了丰富的网络 API，让我们可以轻松进行客户端和服务器通信。 本章，我们将介绍 URL、HTTP 请求 以及 Socket 编程。\n网络编程基础 1.URL基础 URL（Uniform Resource Locator 表示统一资源定位符，即网络上的地址。 常见用法：\nimport java.net.URL; public class TestURL { public static void main(String[] args) throws Exception { URL url = new URL(\"https://www.example.com/index.html\"); System.out.println(\"协议: \" + url.getProtocol()); // https System.out.println(\"主机: \" + url.getHost()); // www.example.com System.out.println(\"文件: \" + url.getFile()); // /index.html System.out.println(\"端口: \" + url.getPort()); // -1 表示使用默认端口 } } 注意：URL 只是表示地址，不会主动去访问网络。要访问，需要配合 URLConnection 或 HttpURLConnection。\n2.发送 HTTP 请求 使用 HttpURLConnection 可以发送 GET 或 POST 请求。\nimport java.net.*; import java.io.*; public class HttpGetExample { public static void main(String[] args) throws Exception { URL url = new URL(\"https://www.example.com/\"); HttpURLConnection conn = (HttpURLConnection) url.openConnection(); conn.setRequestMethod(\"GET\"); BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream())); String line; while ((line = in.readLine()) != null) { System.out.println(line); } in.close(); } } 注意：\nGET 请求参数直接放在 URL 后面 POST 请求需要写入 OutputStream HttpURLConnection 默认不会自动处理重定向 Socket编程基础 Socket 是网络通信的核心类，可以实现客户端与服务器端的数据传输。 Java 中主要有两类：\nServerSocket：服务器端，用于监听客户端连接 Socket：客户端，用于连接服务器 1.服务器端示例 import java.io.*; import java.net.*; public class ServerExample { public static void main(String[] args) throws IOException { ServerSocket server = new ServerSocket(8888); // 监听端口8888 System.out.println(\"服务器启动，等待连接...\"); Socket client = server.accept(); // 阻塞，等待客户端连接 System.out.println(\"客户端已连接: \" + client.getInetAddress()); BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream())); PrintWriter out = new PrintWriter(client.getOutputStream(), true); String msg; while ((msg = in.readLine()) != null) { System.out.println(\"收到客户端消息: \" + msg); out.println(\"服务器回复: \" + msg); } in.close(); out.close(); client.close(); server.close(); } } 注意：\naccept() 是阻塞方法，会一直等待客户端连接 BufferedReader 和 PrintWriter 常用来读写文本数据 真实项目中，通常使用多线程处理多个客户端 2.客户端示例 import java.io.*; import java.net.*; public class ClientExample { public static void main(String[] args) throws IOException { Socket socket = new Socket(\"localhost\", 8888); // 连接服务器 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); PrintWriter out = new PrintWriter(socket.getOutputStream(), true); out.println(\"你好，服务器！\"); String response = in.readLine(); System.out.println(\"服务器返回: \" + response); in.close(); out.close(); socket.close(); } } 注意：\n客户端必须知道服务器 IP 和端口 数据发送后需要 flush() 或使用自动刷新 (PrintWriter 的第二个参数为 true 3. 多客户端处理（多线程服务器） 服务器通常需要同时处理多个客户端连接。Java 常用 多线程 实现：\nimport java.io.*; import java.net.*; public class MultiServer { public static void main(String[] args) throws IOException { ServerSocket server = new ServerSocket(8888); System.out.println(\"多客户端服务器启动，等待连接...\"); while (true) { Socket client = server.accept(); System.out.println(\"客户端已连接: \" + client.getInetAddress()); new Thread(new ClientHandler(client)).start(); // 每个客户端一个线程 } } } class ClientHandler implements Runnable { private Socket client; public ClientHandler(Socket client) { this.client = client; } public void run() { try { BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream())); PrintWriter out = new PrintWriter(client.getOutputStream(), true); String msg; while ((msg = in.readLine()) != null) { System.out.println(\"收到客户端消息: \" + msg); out.println(\"服务器回复: \" + msg); } in.close(); out.close(); client.close(); } catch (IOException e) { System.out.println(\"客户端异常: \" + e.getMessage()); } } } 说明：\n每个客户端都创建一个 ClientHandler 线程处理通信 可避免单线程服务器阻塞，提高并发处理能力 4.常见Socket异常 异常类型\r说明\rIOException\r读写流错误或连接断开\rBindException\r端口被占用，服务器启动失败\rConnectException\r客户端连接失败，服务器未启动或端口错误\rSocketTimeoutException\r设置超时时间后，连接或读取超时\r提示：\n服务器端一般要捕获并处理异常，避免整个服务崩溃 客户端也要捕获异常，做重连或提示用户 5.Socket注意事项 3.5 Socket 注意事项\n关闭顺序：先关闭流，再关闭 Socket，最后关闭 ServerSocket 端口冲突：同一端口只能被一个服务器绑定 防火墙：端口需允许访问，否则客户端无法连接 字符编码：发送中文时需注意编码一致，避免乱码 阻塞与超时：accept() 和 readLine() 都是阻塞的，可通过 setSoTimeout() 设置超时 UDP通信（DatagramSocket） UDP（User Datagram Protocol，用户数据报协议）是一种无连接、不可靠的传输协议，特点是 速度快、开销小，但不能保证数据一定到达。\nJava 中使用 DatagramSocket 和 DatagramPacket 实现\n1. UDP发送端示例 import java.net.*; public class UDPClient { public static void main(String[] args) throws Exception { DatagramSocket socket = new DatagramSocket(); String message = \"Hello UDP\"; byte[] data = message.getBytes(); InetAddress address = InetAddress.getByName(\"localhost\"); DatagramPacket packet = new DatagramPacket(data, data.length, address, 9999); socket.send(packet); System.out.println(\"消息已发送: \" + message); socket.close(); } } 说明：\nDatagramSocket 用于发送和接收数据 DatagramPacket 封装要发送的数据、目标地址和端口 UDP 发送无需建立连接 2.UDP接收端示例 import java.net.*; public class UDPServer { public static void main(String[] args) throws Exception { DatagramSocket socket = new DatagramSocket(9999); byte[] buf = new byte[1024]; DatagramPacket packet = new DatagramPacket(buf, buf.length); System.out.println(\"UDP服务器等待接收...\"); socket.receive(packet); String msg = new String(packet.getData(), 0, packet.getLength()); System.out.println(\"收到消息: \" + msg); socket.close(); } } 说明：\n接收端也使用 DatagramSocket 绑定端口 receive() 会阻塞，直到收到数据 packet.getLength() 获取实际接收字节长度 3.UDP多客户端处理 UDP 是无连接的，所以一个 DatagramSocket 可以接收来自多个客户端的数据包。每个数据包都包含 发送方地址和端口，可用来回复消息。\nimport java.net.*; public class UDPServerMulti { public static void main(String[] args) throws Exception { DatagramSocket socket = new DatagramSocket(9999); byte[] buf = new byte[1024]; System.out.println(\"UDP服务器多客户端模式启动...\"); while (true) { DatagramPacket packet = new DatagramPacket(buf, buf.length); socket.receive(packet); // 阻塞等待数据 String msg = new String(packet.getData(), 0, packet.getLength()); System.out.println(\"收到来自 \" + packet.getAddress() + \":\" + packet.getPort() + \" 的消息: \" + msg); // 回复客户端 String reply = \"服务器收到: \" + msg; byte[] replyData = reply.getBytes(); DatagramPacket replyPacket = new DatagramPacket( replyData, replyData.length, packet.getAddress(), packet.getPort()); socket.send(replyPacket); } } } 说明：\nUDP 无需区分客户端线程，每个数据包都有来源信息 可以在循环中处理任意多个客户端请求 因为 UDP 不可靠，数据可能丢失或乱序 4.UDP注意事项 不保证数据到达：\nUDP 不会重发，丢包情况需应用层处理。 无顺序保证： 多个包可能乱序到达，需自行编号处理。 数据大小限制：\n一个 UDP 包最大 64KB，但实际建议小于 512B–1024B，避免分片。 快速、开销小：\n因为无需建立连接和确认机制，所以适合 实时性要求高 的场景，如视频、语音、游戏。 ",
+  "wordCount" : "2415",
+  "inLanguage": "zh",
+  "datePublished": "2025-11-01T09:11:10.276Z",
+  "dateModified": "2025-11-06T09:33:55.547161961Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.steamedfish.top/post/java-se/java-se-network/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SteamedFish's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.steamedfish.top/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://www.steamedfish.top/" accesskey="h" title="SteamedFish&#39;s Blog (Alt + H)">SteamedFish&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://www.steamedfish.top/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/categories/" title="Categories">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/tags/" title="Tags">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://www.steamedfish.top/">主页</a>&nbsp;»&nbsp;<a href="https://www.steamedfish.top/post/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Java SE从入门到跑路（十六·网络编程基础）
+    </h1>
+    <div class="post-meta"><span title='2025-11-01 09:11:10.276 +0000 UTC'>2025-11-01</span>&nbsp;·&nbsp;<span>5 分钟</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%89%8d%e8%a8%80" aria-label="前言">前言</a></li>
+                <li>
+                    <a href="#%e7%bd%91%e7%bb%9c%e7%bc%96%e7%a8%8b%e5%9f%ba%e7%a1%80" aria-label="网络编程基础">网络编程基础</a><ul>
+                        
+                <li>
+                    <a href="#1url%e5%9f%ba%e7%a1%80" aria-label="1.URL基础">1.URL基础</a></li>
+                <li>
+                    <a href="#2%e5%8f%91%e9%80%81-http-%e8%af%b7%e6%b1%82" aria-label="2.发送 HTTP 请求">2.发送 HTTP 请求</a></li></ul>
+                </li>
+                <li>
+                    <a href="#socket%e7%bc%96%e7%a8%8b%e5%9f%ba%e7%a1%80" aria-label="Socket编程基础">Socket编程基础</a><ul>
+                        
+                <li>
+                    <a href="#1%e6%9c%8d%e5%8a%a1%e5%99%a8%e7%ab%af%e7%a4%ba%e4%be%8b" aria-label="1.服务器端示例">1.服务器端示例</a></li>
+                <li>
+                    <a href="#2%e5%ae%a2%e6%88%b7%e7%ab%af%e7%a4%ba%e4%be%8b" aria-label="2.客户端示例">2.客户端示例</a></li>
+                <li>
+                    <a href="#3-%e5%a4%9a%e5%ae%a2%e6%88%b7%e7%ab%af%e5%a4%84%e7%90%86%e5%a4%9a%e7%ba%bf%e7%a8%8b%e6%9c%8d%e5%8a%a1%e5%99%a8" aria-label="3. 多客户端处理（多线程服务器）">3. 多客户端处理（多线程服务器）</a></li>
+                <li>
+                    <a href="#4%e5%b8%b8%e8%a7%81socket%e5%bc%82%e5%b8%b8" aria-label="4.常见Socket异常">4.常见Socket异常</a></li>
+                <li>
+                    <a href="#5socket%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" aria-label="5.Socket注意事项">5.Socket注意事项</a></li></ul>
+                </li>
+                <li>
+                    <a href="#udp%e9%80%9a%e4%bf%a1datagramsocket" aria-label="UDP通信（DatagramSocket）">UDP通信（DatagramSocket）</a><ul>
+                        
+                <li>
+                    <a href="#1-udp%e5%8f%91%e9%80%81%e7%ab%af%e7%a4%ba%e4%be%8b" aria-label="1. UDP发送端示例">1. UDP发送端示例</a></li>
+                <li>
+                    <a href="#2udp%e6%8e%a5%e6%94%b6%e7%ab%af%e7%a4%ba%e4%be%8b" aria-label="2.UDP接收端示例">2.UDP接收端示例</a></li>
+                <li>
+                    <a href="#3udp%e5%a4%9a%e5%ae%a2%e6%88%b7%e7%ab%af%e5%a4%84%e7%90%86" aria-label="3.UDP多客户端处理">3.UDP多客户端处理</a></li>
+                <li>
+                    <a href="#4udp%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" aria-label="4.UDP注意事项">4.UDP注意事项</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="前言">前言<a hidden class="anchor" aria-hidden="true" href="#前言">#</a></h1>
+<p>在现代应用中，几乎所有程序都离不开网络通信。Java 提供了丰富的网络 API，让我们可以轻松进行客户端和服务器通信。
+本章，我们将介绍 <strong>URL、HTTP 请求</strong> 以及 <strong>Socket 编程</strong>。</p>
+<h1 id="网络编程基础">网络编程基础<a hidden class="anchor" aria-hidden="true" href="#网络编程基础">#</a></h1>
+<h2 id="1url基础">1.URL基础<a hidden class="anchor" aria-hidden="true" href="#1url基础">#</a></h2>
+<p><code>URL（Uniform Resource Locator</code> 表示统一资源定位符，即网络上的地址。
+常见用法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.net.URL</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">TestURL</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">URL</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">URL</span><span class="p">(</span><span class="s">&#34;https://www.example.com/index.html&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;协议: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">url</span><span class="p">.</span><span class="na">getProtocol</span><span class="p">());</span><span class="w">      </span><span class="c1">// https</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;主机: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">url</span><span class="p">.</span><span class="na">getHost</span><span class="p">());</span><span class="w">          </span><span class="c1">// www.example.com</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;文件: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">url</span><span class="p">.</span><span class="na">getFile</span><span class="p">());</span><span class="w">          </span><span class="c1">// /index.html</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;端口: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">url</span><span class="p">.</span><span class="na">getPort</span><span class="p">());</span><span class="w">          </span><span class="c1">// -1 表示使用默认端口</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>注意：URL 只是表示地址，不会主动去访问网络。要访问，需要配合 <code>URLConnection</code> 或 <code>HttpURLConnection</code>。</p>
+</blockquote>
+<hr>
+<h2 id="2发送-http-请求">2.发送 HTTP 请求<a hidden class="anchor" aria-hidden="true" href="#2发送-http-请求">#</a></h2>
+<p>使用 <code>HttpURLConnection</code> 可以发送 <code>GET</code> 或 <code>POST</code> 请求。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.net.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">HttpGetExample</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">URL</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">URL</span><span class="p">(</span><span class="s">&#34;https://www.example.com/&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">HttpURLConnection</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">HttpURLConnection</span><span class="p">)</span><span class="w"> </span><span class="n">url</span><span class="p">.</span><span class="na">openConnection</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">conn</span><span class="p">.</span><span class="na">setRequestMethod</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">BufferedReader</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BufferedReader</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">InputStreamReader</span><span class="p">(</span><span class="n">conn</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">()));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">line</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">((</span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="na">readLine</span><span class="p">())</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">line</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">in</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>注意：</p>
+<ul>
+<li>GET 请求参数直接放在 URL 后面</li>
+<li>POST 请求需要写入 OutputStream</li>
+<li>HttpURLConnection 默认不会自动处理重定向</li>
+</ul>
+</blockquote>
+<hr>
+<h1 id="socket编程基础">Socket编程基础<a hidden class="anchor" aria-hidden="true" href="#socket编程基础">#</a></h1>
+<p>Socket 是网络通信的核心类，可以实现客户端与服务器端的数据传输。
+Java 中主要有两类：</p>
+<ul>
+<li>ServerSocket：服务器端，用于监听客户端连接</li>
+<li>Socket：客户端，用于连接服务器</li>
+</ul>
+<hr>
+<h2 id="1服务器端示例">1.服务器端示例<a hidden class="anchor" aria-hidden="true" href="#1服务器端示例">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.net.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ServerExample</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ServerSocket</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ServerSocket</span><span class="p">(</span><span class="n">8888</span><span class="p">);</span><span class="w"> </span><span class="c1">// 监听端口8888</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;服务器启动，等待连接...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Socket</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="na">accept</span><span class="p">();</span><span class="w"> </span><span class="c1">// 阻塞，等待客户端连接</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;客户端已连接: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="na">getInetAddress</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">BufferedReader</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BufferedReader</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">InputStreamReader</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">()));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">PrintWriter</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PrintWriter</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="na">getOutputStream</span><span class="p">(),</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">msg</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">((</span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="na">readLine</span><span class="p">())</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;收到客户端消息: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">msg</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;服务器回复: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">msg</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">in</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">out</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">client</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">server</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>注意：</p>
+<ul>
+<li>accept() 是阻塞方法，会一直等待客户端连接</li>
+<li>BufferedReader 和 PrintWriter 常用来读写文本数据</li>
+<li>真实项目中，通常使用多线程处理多个客户端</li>
+</ul>
+<hr>
+<h2 id="2客户端示例">2.客户端示例<a hidden class="anchor" aria-hidden="true" href="#2客户端示例">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.net.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ClientExample</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Socket</span><span class="w"> </span><span class="n">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Socket</span><span class="p">(</span><span class="s">&#34;localhost&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">8888</span><span class="p">);</span><span class="w"> </span><span class="c1">// 连接服务器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">BufferedReader</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BufferedReader</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">InputStreamReader</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">()));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">PrintWriter</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PrintWriter</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="na">getOutputStream</span><span class="p">(),</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;你好，服务器！&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="na">readLine</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;服务器返回: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">response</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">in</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">out</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">socket</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>注意：</p>
+<ul>
+<li>客户端必须知道服务器 IP 和端口</li>
+<li>数据发送后需要 flush() 或使用自动刷新 (PrintWriter 的第二个参数为 true</li>
+</ul>
+<hr>
+<h2 id="3-多客户端处理多线程服务器">3. 多客户端处理（多线程服务器）<a hidden class="anchor" aria-hidden="true" href="#3-多客户端处理多线程服务器">#</a></h2>
+<p>服务器通常需要同时处理多个客户端连接。Java 常用 <strong>多线程</strong> 实现：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.net.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MultiServer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ServerSocket</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ServerSocket</span><span class="p">(</span><span class="n">8888</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;多客户端服务器启动，等待连接...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">Socket</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="na">accept</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;客户端已连接: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="na">getInetAddress</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">new</span><span class="w"> </span><span class="n">Thread</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ClientHandler</span><span class="p">(</span><span class="n">client</span><span class="p">)).</span><span class="na">start</span><span class="p">();</span><span class="w"> </span><span class="c1">// 每个客户端一个线程</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">ClientHandler</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Runnable</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Socket</span><span class="w"> </span><span class="n">client</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">ClientHandler</span><span class="p">(</span><span class="n">Socket</span><span class="w"> </span><span class="n">client</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">run</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">BufferedReader</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BufferedReader</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">InputStreamReader</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">()));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">PrintWriter</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PrintWriter</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="na">getOutputStream</span><span class="p">(),</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">msg</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">((</span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="na">readLine</span><span class="p">())</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;收到客户端消息: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">msg</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;服务器回复: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">msg</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">in</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">out</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">client</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">IOException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;客户端异常: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>说明：</p>
+<ul>
+<li>每个客户端都创建一个 ClientHandler 线程处理通信</li>
+<li>可避免单线程服务器阻塞，提高并发处理能力</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="4常见socket异常">4.常见Socket异常<a hidden class="anchor" aria-hidden="true" href="#4常见socket异常">#</a></h2>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th>异常类型</th>
+          <th>说明</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>IOException</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">读写流错误或连接断开</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>BindException</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">端口被占用，服务器启动失败</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>ConnectException</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">客户端连接失败，服务器未启动或端口错误</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>SocketTimeoutException</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">设置超时时间后，连接或读取超时</td>
+      </tr>
+  </tbody>
+</table><p>提示：</p>
+<ul>
+<li>服务器端一般要捕获并处理异常，避免整个服务崩溃</li>
+<li>客户端也要捕获异常，做重连或提示用户</li>
+</ul>
+<hr>
+<h2 id="5socket注意事项">5.Socket注意事项<a hidden class="anchor" aria-hidden="true" href="#5socket注意事项">#</a></h2>
+<p>3.5 Socket 注意事项</p>
+<ol>
+<li>关闭顺序：先关闭流，再关闭 Socket，最后关闭 ServerSocket</li>
+<li>端口冲突：同一端口只能被一个服务器绑定</li>
+<li>防火墙：端口需允许访问，否则客户端无法连接</li>
+<li>字符编码：发送中文时需注意编码一致，避免乱码</li>
+<li>阻塞与超时：<code>accept()</code> 和 <code>readLine()</code> 都是阻塞的，可通过 <code>setSoTimeout()</code> 设置超时</li>
+</ol>
+<hr>
+<h1 id="udp通信datagramsocket">UDP通信（DatagramSocket）<a hidden class="anchor" aria-hidden="true" href="#udp通信datagramsocket">#</a></h1>
+<p>UDP（User Datagram Protocol，用户数据报协议）是一种无连接、不可靠的传输协议，特点是 <strong>速度快、开销小</strong>，但不能保证数据一定到达。</p>
+<p>Java 中使用 DatagramSocket 和 DatagramPacket 实现</p>
+<hr>
+<h2 id="1-udp发送端示例">1. UDP发送端示例<a hidden class="anchor" aria-hidden="true" href="#1-udp发送端示例">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.net.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UDPClient</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DatagramSocket</span><span class="w"> </span><span class="n">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DatagramSocket</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;Hello UDP&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">message</span><span class="p">.</span><span class="na">getBytes</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">InetAddress</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InetAddress</span><span class="p">.</span><span class="na">getByName</span><span class="p">(</span><span class="s">&#34;localhost&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DatagramPacket</span><span class="w"> </span><span class="n">packet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DatagramPacket</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="na">length</span><span class="p">,</span><span class="w"> </span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="n">9999</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">socket</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">packet</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;消息已发送: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">message</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">socket</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>说明：</p>
+<ul>
+<li>DatagramSocket 用于发送和接收数据</li>
+<li>DatagramPacket 封装要发送的数据、目标地址和端口</li>
+<li>UDP 发送无需建立连接</li>
+</ul>
+<hr>
+<h2 id="2udp接收端示例">2.UDP接收端示例<a hidden class="anchor" aria-hidden="true" href="#2udp接收端示例">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.net.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UDPServer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DatagramSocket</span><span class="w"> </span><span class="n">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DatagramSocket</span><span class="p">(</span><span class="n">9999</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">buf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">byte</span><span class="o">[</span><span class="n">1024</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DatagramPacket</span><span class="w"> </span><span class="n">packet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DatagramPacket</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">.</span><span class="na">length</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;UDP服务器等待接收...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">socket</span><span class="p">.</span><span class="na">receive</span><span class="p">(</span><span class="n">packet</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">(</span><span class="n">packet</span><span class="p">.</span><span class="na">getData</span><span class="p">(),</span><span class="w"> </span><span class="n">0</span><span class="p">,</span><span class="w"> </span><span class="n">packet</span><span class="p">.</span><span class="na">getLength</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;收到消息: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">msg</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">socket</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>说明：</p>
+<ul>
+<li>接收端也使用 DatagramSocket 绑定端口</li>
+<li>receive() 会阻塞，直到收到数据</li>
+<li>packet.getLength() 获取实际接收字节长度</li>
+</ul>
+<hr>
+<h2 id="3udp多客户端处理">3.UDP多客户端处理<a hidden class="anchor" aria-hidden="true" href="#3udp多客户端处理">#</a></h2>
+<p>UDP 是无连接的，所以一个 <code>DatagramSocket</code> 可以接收来自多个客户端的数据包。每个数据包都包含 发送方地址和端口，可用来回复消息。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.net.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UDPServerMulti</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DatagramSocket</span><span class="w"> </span><span class="n">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DatagramSocket</span><span class="p">(</span><span class="n">9999</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">buf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">byte</span><span class="o">[</span><span class="n">1024</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;UDP服务器多客户端模式启动...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">DatagramPacket</span><span class="w"> </span><span class="n">packet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DatagramPacket</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">.</span><span class="na">length</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">socket</span><span class="p">.</span><span class="na">receive</span><span class="p">(</span><span class="n">packet</span><span class="p">);</span><span class="w"> </span><span class="c1">// 阻塞等待数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">(</span><span class="n">packet</span><span class="p">.</span><span class="na">getData</span><span class="p">(),</span><span class="w"> </span><span class="n">0</span><span class="p">,</span><span class="w"> </span><span class="n">packet</span><span class="p">.</span><span class="na">getLength</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;收到来自 &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">packet</span><span class="p">.</span><span class="na">getAddress</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;:&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">packet</span><span class="p">.</span><span class="na">getPort</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34; 的消息: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">msg</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 回复客户端</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">reply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;服务器收到: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">msg</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">replyData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reply</span><span class="p">.</span><span class="na">getBytes</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">DatagramPacket</span><span class="w"> </span><span class="n">replyPacket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DatagramPacket</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">replyData</span><span class="p">,</span><span class="w"> </span><span class="n">replyData</span><span class="p">.</span><span class="na">length</span><span class="p">,</span><span class="w"> </span><span class="n">packet</span><span class="p">.</span><span class="na">getAddress</span><span class="p">(),</span><span class="w"> </span><span class="n">packet</span><span class="p">.</span><span class="na">getPort</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">socket</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">replyPacket</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>说明：</p>
+<ul>
+<li>UDP 无需区分客户端线程，每个数据包都有来源信息</li>
+<li>可以在循环中处理任意多个客户端请求</li>
+<li>因为 UDP 不可靠，数据可能丢失或乱序</li>
+</ul>
+<hr>
+<h2 id="4udp注意事项">4.UDP注意事项<a hidden class="anchor" aria-hidden="true" href="#4udp注意事项">#</a></h2>
+<ol>
+<li><strong>不保证数据到达</strong>：<br>
+UDP 不会重发，丢包情况需应用层处理。</li>
+<li><strong>无顺序保证</strong>：  <br>
+多个包可能乱序到达，需自行编号处理。</li>
+<li><strong>数据大小限制</strong>：<br>
+一个 UDP 包最大 64KB，但实际建议小于 512B–1024B，避免分片。</li>
+<li><strong>快速、开销小</strong>：<br>
+因为无需建立连接和确认机制，所以适合 实时性要求高 的场景，如视频、语音、游戏。</li>
+</ol>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://www.steamedfish.top/tags/http/">HTTP</a></li>
+      <li><a href="https://www.steamedfish.top/tags/java/">Java</a></li>
+      <li><a href="https://www.steamedfish.top/tags/java-se/">Java SE</a></li>
+      <li><a href="https://www.steamedfish.top/tags/oop/">OOP</a></li>
+      <li><a href="https://www.steamedfish.top/tags/socket/">Socket</a></li>
+      <li><a href="https://www.steamedfish.top/tags/%E6%95%99%E5%AD%A6/">教学</a></li>
+      <li><a href="https://www.steamedfish.top/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">网络编程</a></li>
+      <li><a href="https://www.steamedfish.top/tags/url/">URL</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span><a href="https://www.steamedfish.top/">©2025 SteamedFish&rsquo;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

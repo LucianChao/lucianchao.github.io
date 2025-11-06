@@ -7,13 +7,13 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sun, 02 Nov 2025 02:47:57 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 06 Nov 2025 09:33:55 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/%E6%95%B0%E7%BB%84/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java SE从入门到跑路（三·数组与方法篇）</title>
-      <link>https://www.steamedfish.top/post/java-se-arrays-methods/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-arrays-methods/</link>
       <pubDate>Mon, 27 Oct 2025 11:21:39 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-arrays-methods/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-arrays-methods/</guid>
       <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;上一章我们学会了&lt;strong&gt;流程控制&lt;/strong&gt;——让程序知道“什么时候做”“做多少次”。   &lt;br&gt;
 但如果要让程序处理大量数据，比如学生成绩、商品价格、坐标点列表，你会发现：&lt;br&gt;

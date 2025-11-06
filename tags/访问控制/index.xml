@@ -7,13 +7,13 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sun, 02 Nov 2025 02:47:57 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 06 Nov 2025 09:33:55 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java SE从入门到跑路（十·包与访问控制）</title>
-      <link>https://www.steamedfish.top/post/java-se-package-access/</link>
+      <link>https://www.steamedfish.top/post/java-se/java-se-package-access/</link>
       <pubDate>Fri, 31 Oct 2025 16:22:36 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-se-package-access/</guid>
+      <guid>https://www.steamedfish.top/post/java-se/java-se-package-access/</guid>
       <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;没啥好说的，Java中简单却又不可缺少的一部分，干就完了兄弟&lt;/p&gt;
 &lt;h1 id=&#34;包package&#34;&gt;包（Package）&lt;/h1&gt;
