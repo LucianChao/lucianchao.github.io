@@ -7,8 +7,50 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 06 Nov 2025 09:33:55 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 09 Nov 2025 11:00:34 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GUI</title>
+      <link>https://www.steamedfish.top/tags/gui/</link>
+      <pubDate>Sun, 09 Nov 2025 10:57:37 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/gui/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Java</title>
+      <link>https://www.steamedfish.top/tags/java/</link>
+      <pubDate>Sun, 09 Nov 2025 10:57:37 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/java/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Java SE</title>
+      <link>https://www.steamedfish.top/tags/java-se/</link>
+      <pubDate>Sun, 09 Nov 2025 10:57:37 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/java-se/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>OOP</title>
+      <link>https://www.steamedfish.top/tags/oop/</link>
+      <pubDate>Sun, 09 Nov 2025 10:57:37 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/oop/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Swing</title>
+      <link>https://www.steamedfish.top/tags/swing/</link>
+      <pubDate>Sun, 09 Nov 2025 10:57:37 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/swing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>实战Demo</title>
+      <link>https://www.steamedfish.top/tags/%E5%AE%9E%E6%88%98demo/</link>
+      <pubDate>Sun, 09 Nov 2025 10:57:37 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E5%AE%9E%E6%88%98demo/</guid>
+      <description></description>
+    </item>
     <item>
       <title>B/S架构</title>
       <link>https://www.steamedfish.top/tags/b/s%E6%9E%B6%E6%9E%84/</link>
@@ -21,27 +63,6 @@
       <link>https://www.steamedfish.top/tags/http%E5%8D%8F%E8%AE%AE/</link>
       <pubDate>Wed, 05 Nov 2025 08:45:35 +0000</pubDate>
       <guid>https://www.steamedfish.top/tags/http%E5%8D%8F%E8%AE%AE/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Java</title>
-      <link>https://www.steamedfish.top/tags/java/</link>
-      <pubDate>Sun, 02 Nov 2025 02:31:48 +0000</pubDate>
-      <guid>https://www.steamedfish.top/tags/java/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Java SE</title>
-      <link>https://www.steamedfish.top/tags/java-se/</link>
-      <pubDate>Sun, 02 Nov 2025 02:31:48 +0000</pubDate>
-      <guid>https://www.steamedfish.top/tags/java-se/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>OOP</title>
-      <link>https://www.steamedfish.top/tags/oop/</link>
-      <pubDate>Sun, 02 Nov 2025 02:31:48 +0000</pubDate>
-      <guid>https://www.steamedfish.top/tags/oop/</guid>
       <description></description>
     </item>
     <item>
