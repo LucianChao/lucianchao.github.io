@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>JavaWeb——(1)从环境配置走进JavaWeb | SteamedFish&#39;s Blog</title>
+<meta name="keywords" content="JavaWeb, Web">
+<meta name="description" content="通过本文，了解什么是 Web、它的工作原理，以及 Java Web 技术在其中扮演的角色。">
+<meta name="author" content="">
+<link rel="canonical" href="https://www.steamedfish.top/post/java-web/javaweb-intro/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.steamedfish.top/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.steamedfish.top/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.steamedfish.top/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://www.steamedfish.top/post/java-web/javaweb-intro/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://www.steamedfish.top/post/java-web/javaweb-intro/">
+  <meta property="og:site_name" content="SteamedFish&#39;s Blog">
+  <meta property="og:title" content="JavaWeb——(1)从环境配置走进JavaWeb">
+  <meta property="og:description" content="通过本文，了解什么是 Web、它的工作原理，以及 Java Web 技术在其中扮演的角色。">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-11-09T10:57:37+00:00">
+    <meta property="article:modified_time" content="2025-11-11T13:46:12+00:00">
+    <meta property="article:tag" content="JavaWeb">
+    <meta property="article:tag" content="Web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaWeb——(1)从环境配置走进JavaWeb">
+<meta name="twitter:description" content="通过本文，了解什么是 Web、它的工作原理，以及 Java Web 技术在其中扮演的角色。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.steamedfish.top/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "JavaWeb——(1)从环境配置走进JavaWeb",
+      "item": "https://www.steamedfish.top/post/java-web/javaweb-intro/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "JavaWeb——(1)从环境配置走进JavaWeb",
+  "name": "JavaWeb——(1)从环境配置走进JavaWeb",
+  "description": "通过本文，了解什么是 Web、它的工作原理，以及 Java Web 技术在其中扮演的角色。",
+  "keywords": [
+    "JavaWeb", "Web"
+  ],
+  "articleBody": "环境配置 Visual Studio Code简称VS Code是Microsoft于2015年4月发布的一款代码编辑器。 VS Code对前端代码有非常强大的支持，同时也支持其他编程语言（例如：C++、Java、Python、PHP、Go等） VS Code提供了非常强大的插件库，大大提高了开发效率 官网：https://code.vsiualstudio.com\n注释\nVS Code的最大优点就是它丰富的插件，它的插件数量和开发者数量非常多，以至于无论你使用的是什么编程语言都能找到适合自己的插件来增强它的功能。\nso，它就是一款支持客制化、强大、支持多语言的编辑器。\n插件推荐 1. Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code 必备 2. HTML CSS Support 提供CSS的自动补全，好用不多说 3. JavaScript (ES6) code snippets 快速输入常用 JavaScript，自动补全 4. Mithril Emmet 自动补全 Mithril 组件语法 5. Path Intellisense 输入路径时自动补全文件和文件夹 6. Vue 3 Snippets 快速生成 Vue 3 代码 7.Auto Close Tag 自动补全 HTML 标签 8. Auto Rename Tag 当你修改一个标签（如 ）时，会自动同步修改对应的闭合标签（） 9. open in browser vscode不像IDE一样能够直接在浏览器中打开html，该插件支持快捷键与鼠标右键快速在浏览器中打开html文件，支持自定义打开指定的浏览器，如常见的：Firefox, Chrome, Opera, IE, Edge, Safari等 10. Live Server 具有实时加载功能的小型服务器，也就是可以在项目中用live server作为一个实时服务器查看开发效果，不需要一遍遍手动保存文件重新生成页面 11. Vue (Official) 12. File Utils 在 VSCode 里快速执行：新建文件、新建文件夹、重命名、移动文件 / 文件夹、复制文件 / 文件夹、删除文件 一切通过命令面板（Ctrl + Shift + P）完成 13. IntelliJ IDEA Keybinding 让VS Code支持IDEA的快捷键，适合已经适应IDEA开发的开发者 何为Web? Web，全称World Wide Web（万维网），是一个能够通过浏览器访问的网站系统。 它依赖于 HTTP 协议 来进行通信，在客户端与服务器之间传递数据，通过 URL（统一资源定位符）访问资源。 例如网页、图片、视频、文件等。\nWeb标准 Web 标准（Web Standards） 是由国际组织（主要是 W3C：万维网联盟）制定的一系列技术规范，用来确保网页在不同浏览器、不同平台上都能被正确解析和显示。\nWeb 标准的目标是：\n“让 Web 更加开放、统一、可访问。”\n一、Web 标准的三大核心组成 结构（Structure） 由 HTML（超文本标记语言） 定义。 用来描述网页的内容与语义，例如段落、标题、列表、图片等。 示例：\n\u003ch1\u003e欢迎来到我的网站\u003c/h1\u003e \u003cp\u003e这是一个使用标准 HTML 编写的网页。\u003c/p\u003e 什么是HTML？ HTML(HyperText Markup Language):超文本标记语言 超文本：超越了文本的限制，比普通文本更强大。除了文字信息，还可以定义图片、音频、视频等内容。 标记语言：由标签\"\u003c标签名\u003e“构成的语言 HTML标签都是预定义好的。例如：使用展示标题，使用展示图片，使用展示视频 HTML代码直接在浏览器中运行，HTML标签由浏览器解析、 这里给到一个文档网站，方便查阅学习\nW3school\n表现（Presentation） 由 CSS（层叠样式表） 实现。 控制网页的外观样式，如字体、颜色、布局。 示例：\nh1 { color: #0066cc; text-align: center; } 什么是CSS？ CSS(Cascading Style Sheet)：层叠样式表，用于控制页面的样式（表现） 行为（Behavior） 由 JavaScript（JS） 实现。\n用来控制网页的交互效果与动态逻辑。\n示例：\nalert(\"欢迎访问我的网页！\"); 这三者共同构成了 Web 页面的完整表现层次：\nHTML 负责结构，CSS 负责样式，JavaScript 负责行为。\n二、为什么要遵循 Web 标准 跨浏览器兼容性更好 按标准编写的网页在 Chrome、Edge、Firefox、Safari 等浏览器上都能正常显示。\n便于维护与升级 结构、样式、逻辑分离，修改样式或脚本不会影响网页内容。\n利于搜索引擎优化（SEO） 语义化 HTML 有助于搜索引擎理解网页结构，提高排名。\n提高网站可访问性（Accessibility） 对残障人士使用辅助设备（如读屏器）更友好。\nWeb的组成结构 一个完整的 Web 系统通常包含三部分：\n客户端/前端（Client）\n也就是用户使用的浏览器（如 Chrome、Firefox）。\n负责向服务器发送请求，并展示返回的网页内容。\n服务器/后端（Server）\n负责处理客户端的请求，执行相关逻辑（如数据库查询、计算），并返回响应。\n常见的 Web 服务器软件有 Apache、Nginx、Tomcat 等。\n数据库（Database）\n用于存储网站数据，如用户信息、商品、评论、订单等。\n常见的数据库有 MySQL、PostgreSQL、Oracle 等。\n这三者共同组成了 Web 系统的基础架构：\n客户端发出请求 → 服务器处理逻辑 → 数据库存取数据 → 返回响应给客户端。\nWeb的工作原理 Web 的核心通信机制是 HTTP（超文本传输协议）。 工作流程如下：\n用户在浏览器输入网址（URL）； 浏览器向服务器发送 HTTP 请求； 服务器处理请求（可能访问数据库或执行逻辑）； 服务器返回 HTTP 响应（通常是 HTML、JSON 或文件）； 浏览器解析响应并呈现页面。 🔁 这就是常说的 请求—响应模型（Request–Response Model）。\nJava Web 技术简介 Java Web 指的是使用 Java 技术 开发 Web 应用程序的技术体系。 它以 Servlet/JSP 为核心，运行在 Web 容器（如 Tomcat） 中。\nJava Web 技术的主要组成包括：\n模块\r说明\rServlet\rJava Web 的核心，负责接收请求与生成响应。\rJSP（Java Server Pages）\r类似 HTML，但可以嵌入 Java 代码，用于动态生成页面。\rJDBC\rJava 数据库连接技术，用于访问数据库。\rEL 表达式与 JSTL 标签\r简化 JSP 页面逻辑。\rFilter 与 Listener\r用于请求过滤与事件监听。\r随着技术发展，现代 Java Web 已逐步演化为使用 Spring MVC、Spring Boot 等框架的形式，大大提升了开发效率与可维护性。\n",
+  "wordCount" : "2383",
+  "inLanguage": "zh",
+  "datePublished": "2025-11-09T10:57:37.196Z",
+  "dateModified": "2025-11-11T13:46:12.40968682Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.steamedfish.top/post/java-web/javaweb-intro/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SteamedFish's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.steamedfish.top/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://www.steamedfish.top/" accesskey="h" title="SteamedFish&#39;s Blog (Alt + H)">SteamedFish&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://www.steamedfish.top/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/categories/" title="Categories">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/tags/" title="Tags">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://www.steamedfish.top/">主页</a>&nbsp;»&nbsp;<a href="https://www.steamedfish.top/post/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      JavaWeb——(1)从环境配置走进JavaWeb
+    </h1>
+    <div class="post-description">
+      通过本文，了解什么是 Web、它的工作原理，以及 Java Web 技术在其中扮演的角色。
+    </div>
+    <div class="post-meta"><span title='2025-11-09 10:57:37.196 +0000 UTC'>2025-11-09</span>&nbsp;·&nbsp;<span>5 分钟</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" aria-label="环境配置">环境配置</a><ul>
+                        
+                <li>
+                    <a href="#%e6%8f%92%e4%bb%b6%e6%8e%a8%e8%8d%90" aria-label="插件推荐">插件推荐</a><ul>
+                        
+                <li>
+                    <a href="#1-chinese-simplified-%e7%ae%80%e4%bd%93%e4%b8%ad%e6%96%87-language-pack-for-visual-studio-code" aria-label="1. Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code">1. Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code</a></li>
+                <li>
+                    <a href="#2-html-css-support" aria-label="2. HTML CSS Support">2. HTML CSS Support</a></li>
+                <li>
+                    <a href="#3-javascript-es6-code-snippets" aria-label="3. JavaScript (ES6) code snippets">3. JavaScript (ES6) code snippets</a></li>
+                <li>
+                    <a href="#4-mithril-emmet" aria-label="4. Mithril Emmet">4. Mithril Emmet</a></li>
+                <li>
+                    <a href="#5-path-intellisense" aria-label="5. Path Intellisense">5. Path Intellisense</a></li>
+                <li>
+                    <a href="#6-vue-3-snippets" aria-label="6. Vue 3 Snippets">6. Vue 3 Snippets</a></li>
+                <li>
+                    <a href="#7auto-close-tag" aria-label="7.Auto Close Tag">7.Auto Close Tag</a></li>
+                <li>
+                    <a href="#8-auto-rename-tag" aria-label="8. Auto Rename Tag">8. Auto Rename Tag</a></li>
+                <li>
+                    <a href="#9-open-in-browser" aria-label="9. open in browser">9. open in browser</a></li>
+                <li>
+                    <a href="#10-live-server" aria-label="10. Live Server">10. Live Server</a></li>
+                <li>
+                    <a href="#11-vue-official" aria-label="11. Vue (Official)">11. Vue (Official)</a></li>
+                <li>
+                    <a href="#12-file-utils" aria-label="12. File Utils">12. File Utils</a></li>
+                <li>
+                    <a href="#13-intellij-idea-keybinding" aria-label="13. IntelliJ IDEA Keybinding">13. IntelliJ IDEA Keybinding</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e4%bd%95%e4%b8%baweb" aria-label="何为Web?">何为Web?</a></li>
+                <li>
+                    <a href="#web%e6%a0%87%e5%87%86" aria-label="Web标准">Web标准</a><ul>
+                        
+                <li>
+                    <a href="#%e4%b8%80web-%e6%a0%87%e5%87%86%e7%9a%84%e4%b8%89%e5%a4%a7%e6%a0%b8%e5%bf%83%e7%bb%84%e6%88%90" aria-label="一、Web 标准的三大核心组成">一、Web 标准的三大核心组成</a><ul>
+                        
+                <li>
+                    <a href="#%e7%bb%93%e6%9e%84structure" aria-label="结构（Structure）">结构（Structure）</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bb%80%e4%b9%88%e6%98%afhtml" aria-label="什么是HTML？">什么是HTML？</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e8%a1%a8%e7%8e%b0presentation" aria-label="表现（Presentation）">表现（Presentation）</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bb%80%e4%b9%88%e6%98%afcss" aria-label="什么是CSS？">什么是CSS？</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e8%a1%8c%e4%b8%babehavior" aria-label="行为（Behavior）">行为（Behavior）</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e4%ba%8c%e4%b8%ba%e4%bb%80%e4%b9%88%e8%a6%81%e9%81%b5%e5%be%aa-web-%e6%a0%87%e5%87%86" aria-label="二、为什么要遵循 Web 标准">二、为什么要遵循 Web 标准</a></li></ul>
+                </li>
+                <li>
+                    <a href="#web%e7%9a%84%e7%bb%84%e6%88%90%e7%bb%93%e6%9e%84" aria-label="Web的组成结构">Web的组成结构</a></li>
+                <li>
+                    <a href="#web%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86" aria-label="Web的工作原理">Web的工作原理</a></li>
+                <li>
+                    <a href="#java-web-%e6%8a%80%e6%9c%af%e7%ae%80%e4%bb%8b" aria-label="Java Web 技术简介">Java Web 技术简介</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="环境配置">环境配置<a hidden class="anchor" aria-hidden="true" href="#环境配置">#</a></h1>
+<ul>
+<li>Visual Studio Code简称<code>VS Code</code>是Microsoft于2015年4月发布的一款代码编辑器。</li>
+<li>VS Code对前端代码有非常强大的支持，同时也支持其他编程语言（例如：C++、Java、Python、PHP、Go等）</li>
+<li>VS Code提供了非常强大的插件库，大大提高了开发效率</li>
+</ul>
+<p>官网：<a href="https://code.vsiualstudio.com">https://code.vsiualstudio.com</a></p>
+<style type="text/css">
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+</style><div class="notice note" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
+        </span>注释</p><p>VS Code的最大优点就是它丰富的插件，它的插件数量和开发者数量非常多，以至于无论你使用的是什么编程语言都能找到适合自己的插件来增强它的功能。</p>
+<p>so，它就是一款支持客制化、强大、支持多语言的编辑器。</p></div>
+<h2 id="插件推荐">插件推荐<a hidden class="anchor" aria-hidden="true" href="#插件推荐">#</a></h2>
+<h3 id="1-chinese-simplified-简体中文-language-pack-for-visual-studio-code">1. Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code<a hidden class="anchor" aria-hidden="true" href="#1-chinese-simplified-简体中文-language-pack-for-visual-studio-code">#</a></h3>
+<p>必备
+<img loading="lazy" src="/images/java-web/html/2.png"></p>
+<h3 id="2-html-css-support">2. HTML CSS Support<a hidden class="anchor" aria-hidden="true" href="#2-html-css-support">#</a></h3>
+<p>提供CSS的自动补全，好用不多说
+<img loading="lazy" src="/images/java-web/html/3.png"></p>
+<h3 id="3-javascript-es6-code-snippets">3. JavaScript (ES6) code snippets<a hidden class="anchor" aria-hidden="true" href="#3-javascript-es6-code-snippets">#</a></h3>
+<p>快速输入常用 JavaScript，自动补全
+<img loading="lazy" src="/images/java-web/html/4.png"></p>
+<h3 id="4-mithril-emmet">4. Mithril Emmet<a hidden class="anchor" aria-hidden="true" href="#4-mithril-emmet">#</a></h3>
+<p>自动补全 Mithril 组件语法
+<img loading="lazy" src="/images/java-web/html/5.png"></p>
+<h3 id="5-path-intellisense">5. Path Intellisense<a hidden class="anchor" aria-hidden="true" href="#5-path-intellisense">#</a></h3>
+<p>输入路径时自动补全文件和文件夹
+<img loading="lazy" src="/images/java-web/html/6.png"></p>
+<h3 id="6-vue-3-snippets">6. Vue 3 Snippets<a hidden class="anchor" aria-hidden="true" href="#6-vue-3-snippets">#</a></h3>
+<p>快速生成 Vue 3 代码
+<img loading="lazy" src="/images/java-web/html/7.png"></p>
+<h3 id="7auto-close-tag">7.Auto Close Tag<a hidden class="anchor" aria-hidden="true" href="#7auto-close-tag">#</a></h3>
+<p>自动补全 HTML 标签
+<img loading="lazy" src="/images/java-web/html/8.png"></p>
+<h3 id="8-auto-rename-tag">8. Auto Rename Tag<a hidden class="anchor" aria-hidden="true" href="#8-auto-rename-tag">#</a></h3>
+<p>当你修改一个标签（如 <code>&lt;div&gt;</code>）时，会自动同步修改对应的闭合标签（<code>&lt;/div&gt;</code>）
+<img loading="lazy" src="/images/java-web/html/9.png"></p>
+<h3 id="9-open-in-browser">9. open in browser<a hidden class="anchor" aria-hidden="true" href="#9-open-in-browser">#</a></h3>
+<p>vscode不像IDE一样能够直接在浏览器中打开html，该插件支持快捷键与鼠标右键快速在浏览器中打开html文件，支持自定义打开指定的浏览器，如常见的：Firefox, Chrome, Opera, IE, Edge, Safari等
+<img loading="lazy" src="/images/java-web/html/10.png"></p>
+<h3 id="10-live-server">10. Live Server<a hidden class="anchor" aria-hidden="true" href="#10-live-server">#</a></h3>
+<p>具有实时加载功能的小型服务器，也就是可以在项目中用live server作为一个实时服务器查看开发效果，不需要一遍遍手动保存文件重新生成页面
+<img loading="lazy" src="/images/java-web/html/11.png"></p>
+<h3 id="11-vue-official">11. Vue (Official)<a hidden class="anchor" aria-hidden="true" href="#11-vue-official">#</a></h3>
+<p><img loading="lazy" src="/images/java-web/html/12.png"></p>
+<h3 id="12-file-utils">12. File Utils<a hidden class="anchor" aria-hidden="true" href="#12-file-utils">#</a></h3>
+<p>在 VSCode 里快速执行：新建文件、新建文件夹、重命名、移动文件 / 文件夹、复制文件 / 文件夹、删除文件
+一切通过命令面板（Ctrl + Shift + P）完成
+<img loading="lazy" src="/images/java-web/html/13.png"></p>
+<h3 id="13-intellij-idea-keybinding">13. IntelliJ IDEA Keybinding<a hidden class="anchor" aria-hidden="true" href="#13-intellij-idea-keybinding">#</a></h3>
+<p>让VS Code支持IDEA的快捷键，适合已经适应IDEA开发的开发者
+<img loading="lazy" src="/images/java-web/html/14.png"></p>
+<h1 id="何为web">何为Web?<a hidden class="anchor" aria-hidden="true" href="#何为web">#</a></h1>
+<p>Web，全称<strong>World Wide Web（万维网）</strong>，是一个能够通过浏览器访问的网站系统。
+它依赖于 <strong>HTTP 协议</strong> 来进行通信，在客户端与服务器之间传递数据，通过 <strong>URL</strong>（统一资源定位符）访问资源。 例如网页、图片、视频、文件等。</p>
+<hr>
+<h1 id="web标准">Web标准<a hidden class="anchor" aria-hidden="true" href="#web标准">#</a></h1>
+<p>Web 标准（Web Standards） 是由国际组织（主要是 W3C：万维网联盟）制定的一系列技术规范，用来确保网页在不同浏览器、不同平台上都能被正确解析和显示。</p>
+<p>Web 标准的目标是：</p>
+<blockquote>
+<p>“让 Web 更加开放、统一、可访问。”</p>
+</blockquote>
+<hr>
+<h2 id="一web-标准的三大核心组成">一、Web 标准的三大核心组成<a hidden class="anchor" aria-hidden="true" href="#一web-标准的三大核心组成">#</a></h2>
+<h3 id="结构structure">结构（Structure）<a hidden class="anchor" aria-hidden="true" href="#结构structure">#</a></h3>
+<p>由 HTML（超文本标记语言） 定义。 <br>
+用来描述网页的内容与语义，例如段落、标题、列表、图片等。 <br>
+示例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>欢迎来到我的网站<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>这是一个使用标准 HTML 编写的网页。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h4 id="什么是html">什么是HTML？<a hidden class="anchor" aria-hidden="true" href="#什么是html">#</a></h4>
+<ul>
+<li>HTML(HyperText Markup Language):超文本标记语言
+<ul>
+<li>超文本：超越了文本的限制，比普通文本更强大。除了文字信息，还可以定义图片、音频、视频等内容。</li>
+<li>标记语言：由标签&quot;&lt;标签名&gt;&ldquo;构成的语言
+<ul>
+<li>HTML标签都是预定义好的。例如：使用<code>&lt;h1&gt;</code>展示标题，使用<code>&lt;img&gt;</code>展示图片，使用<code>&lt;video&gt;</code>展示视频</li>
+<li>HTML代码直接在浏览器中运行，HTML标签由浏览器解析、</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>这里给到一个文档网站，方便查阅学习</p>
+<blockquote>
+<p><a href="w3school.com.cn">W3school</a></p>
+</blockquote>
+<hr>
+<h3 id="表现presentation">表现（Presentation）<a hidden class="anchor" aria-hidden="true" href="#表现presentation">#</a></h3>
+<p>由 CSS（层叠样式表） 实现。  <br>
+控制网页的外观样式，如字体、颜色、布局。 <br>
+示例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">h1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">color</span><span class="p">:</span> <span class="mh">#0066cc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h4 id="什么是css">什么是CSS？<a hidden class="anchor" aria-hidden="true" href="#什么是css">#</a></h4>
+<ul>
+<li>CSS(Cascading Style Sheet)：层叠样式表，用于控制页面的样式（表现）</li>
+</ul>
+<hr>
+<h3 id="行为behavior">行为（Behavior）<a hidden class="anchor" aria-hidden="true" href="#行为behavior">#</a></h3>
+<p>由 JavaScript（JS） 实现。<br>
+用来控制网页的交互效果与动态逻辑。<br>
+示例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">alert</span><span class="p">(</span><span class="s2">&#34;欢迎访问我的网页！&#34;</span><span class="p">);</span>
+</span></span></code></pre></div><p>这三者共同构成了 Web 页面的完整表现层次：</p>
+<blockquote>
+<p>HTML 负责结构，CSS 负责样式，JavaScript 负责行为。</p>
+</blockquote>
+<hr>
+<h2 id="二为什么要遵循-web-标准">二、为什么要遵循 Web 标准<a hidden class="anchor" aria-hidden="true" href="#二为什么要遵循-web-标准">#</a></h2>
+<ol>
+<li><strong>跨浏览器兼容性更好</strong></li>
+</ol>
+<p>按标准编写的网页在 Chrome、Edge、Firefox、Safari 等浏览器上都能正常显示。</p>
+<ol start="2">
+<li><strong>便于维护与升级</strong></li>
+</ol>
+<p>结构、样式、逻辑分离，修改样式或脚本不会影响网页内容。</p>
+<ol start="3">
+<li><strong>利于搜索引擎优化（SEO）</strong></li>
+</ol>
+<p>语义化 HTML 有助于搜索引擎理解网页结构，提高排名。</p>
+<ol start="4">
+<li><strong>提高网站可访问性（Accessibility）</strong></li>
+</ol>
+<p>对残障人士使用辅助设备（如读屏器）更友好。</p>
+<hr>
+<h1 id="web的组成结构">Web的组成结构<a hidden class="anchor" aria-hidden="true" href="#web的组成结构">#</a></h1>
+<p>一个完整的 Web 系统通常包含三部分：</p>
+<p>客户端/前端（Client）<br>
+也就是用户使用的浏览器（如 Chrome、Firefox）。<br>
+负责向服务器发送请求，并展示返回的网页内容。</p>
+<p>服务器/后端（Server）<br>
+负责处理客户端的请求，执行相关逻辑（如数据库查询、计算），并返回响应。<br>
+常见的 Web 服务器软件有 Apache、Nginx、Tomcat 等。</p>
+<p>数据库（Database）<br>
+用于存储网站数据，如用户信息、商品、评论、订单等。<br>
+常见的数据库有 MySQL、PostgreSQL、Oracle 等。</p>
+<p>这三者共同组成了 Web 系统的基础架构：<br>
+客户端发出请求 → 服务器处理逻辑 → 数据库存取数据 → 返回响应给客户端。</p>
+<hr>
+<h1 id="web的工作原理">Web的工作原理<a hidden class="anchor" aria-hidden="true" href="#web的工作原理">#</a></h1>
+<p>Web 的核心通信机制是 HTTP（超文本传输协议）。
+工作流程如下：</p>
+<ol>
+<li>用户在浏览器输入网址（URL）；</li>
+<li>浏览器向服务器发送 HTTP 请求；</li>
+<li>服务器处理请求（可能访问数据库或执行逻辑）；</li>
+<li>服务器返回 HTTP 响应（通常是 HTML、JSON 或文件）；</li>
+<li>浏览器解析响应并呈现页面。</li>
+</ol>
+<p>🔁 这就是常说的 请求—响应模型（Request–Response Model）。</p>
+<hr>
+<h1 id="java-web-技术简介">Java Web 技术简介<a hidden class="anchor" aria-hidden="true" href="#java-web-技术简介">#</a></h1>
+<p>Java Web 指的是使用 <strong>Java 技术</strong> 开发 Web 应用程序的技术体系。
+它以 <code>Servlet/JSP</code> 为核心，运行在 <strong>Web 容器</strong>（如 Tomcat） 中。</p>
+<p>Java Web 技术的主要组成包括：</p>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th>模块</th>
+          <th>说明</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">Servlet</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">Java Web 的核心，负责接收请求与生成响应。</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">JSP（Java Server Pages）</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">类似 HTML，但可以嵌入 Java 代码，用于动态生成页面。</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">JDBC</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">Java 数据库连接技术，用于访问数据库。</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">EL 表达式与 JSTL 标签</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">简化 JSP 页面逻辑。</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">Filter 与 Listener</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">用于请求过滤与事件监听。</td>
+      </tr>
+  </tbody>
+</table><p>随着技术发展，现代 Java Web 已逐步演化为使用 <strong>Spring MVC、Spring Boot</strong> 等框架的形式，大大提升了开发效率与可维护性。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://www.steamedfish.top/tags/javaweb/">JavaWeb</a></li>
+      <li><a href="https://www.steamedfish.top/tags/web/">Web</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span><a href="https://www.steamedfish.top/">©2025 SteamedFish&rsquo;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
