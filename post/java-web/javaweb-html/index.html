@@ -7,469 +7,11 @@
 <meta name="robots" content="index, follow">
 <title>JavaWeb——(2)HTML-CSS快速入门 | SteamedFish&#39;s Blog</title>
 <meta name="keywords" content="JavaWeb, HTML">
-<meta name="description" content="HTML快速入门
-
-新建文本文件，后缀名为.html
-编写HTML的基本框架，定义标题
-&lt;html&gt;
- &lt;head&gt;
-     &lt;title&gt;HTML快速入门&lt;/title&gt;
-     &lt;!-- 网页头部：用来存放给浏览器的信息，
-     如：CSS样式 --&gt;
- &lt;/head&gt;
- &lt;body&gt;
-     &lt;h1&gt;Hello World!&lt;/h1&gt;
-     &lt;img src=&#34;1.jpg&#34;&gt;
-     &lt;!-- 网页主体：用来存放给用户看的信息，
-     如：文字、图片、视频 --&gt;
-
- &lt;/body&gt;
- &lt;/html&gt;
-
-在&lt;body&gt;中填写内容
-
-HTML标签的特点
-
-html标签不区分大小写，建议小写
-html标签的属性值使用单引号/双引号都可以
-html语法结构松散，但是建议规范书写
-
-标准HTML文件
-&lt;!-- 声明文档类型 --&gt;
-&lt;!DOCTYPE v-html=&#34;html&#34;&gt;
-&lt;html lang=&#34;en&#34;&gt;
-
-&lt;head&gt;
-    &lt;!-- 文档类型 --&gt;
-    &lt;meta charset=&#34;UTF-8&#34; /&gt;
-    &lt;!-- 解决浏览器兼容问题 --&gt;
-    &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34; /&gt;
-    &lt;!-- 标题  --&gt;
-    &lt;title&gt;HTML快速入门&lt;/title&gt;
-&lt;/head&gt;
-
-&lt;body&gt;
-    &lt;h1&gt;Hello Html&lt;/h1&gt;
-    &lt;img src=&#34;../1.jpg&#34;&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-HTML常见标签
-数据展示标签
-
-标题标签：&lt;h1&gt; - &lt;h6&gt;
-&lt;h1&gt;一级标题&lt;/h1&gt;
-&lt;h2&gt;二级标题&lt;/h2&gt;
-&lt;h3&gt;三级标题&lt;/h3&gt;
-
-段落与文本标签
-
-&lt;p&gt;: 段落
-&lt;br&gt;: 换行
-水平线标签：&lt;hr&gt;
-&lt;strong&gt;: 加粗，强调
-&lt;em&gt;: 斜体，强调
-
-&lt;p&gt;这是一个段落。&lt;/p&gt;
-&lt;p&gt;这是第二段&lt;br&gt;带换行&lt;/p&gt;
-&lt;strong&gt;加粗文字&lt;/strong&gt;
-&lt;em&gt;斜体文字&lt;/em&gt;
-
-列表标签
-
-&lt;ol&gt;：有序列表
-&lt;ul&gt;：无序列表
-li：列表项
-
-&lt;ol&gt;
-  &lt;li&gt;第一项&lt;/li&gt;
-  &lt;li&gt;第二项&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;苹果&lt;/li&gt;
-  &lt;li&gt;香蕉&lt;/li&gt;
-&lt;/ul&gt;
-
-链接标签：&lt;a&gt;
-图片标签：&lt;img&gt;
-
-src: 指定图像的url（绝对路径/相对路径）
-
-绝对路径
-
-绝对磁盘路径
-绝对网络路径
-
-
-相对路径
-
-. 代表当前路径
-.. 代表上一级路径
-
-
-
-
-alt: 替换文本，图片无法显示时展示的文字
-width: 图像的宽度（像素/相对于父元素的百分比）
-height: 图像的高度（像素/相对于父元素的百分比）
-
-
-表格标签
-
-&lt;table&gt;: 表格
-&lt;tr&gt;：表格头
-&lt;td&gt;: 单元格
-&lt;th&gt;: 表头
-
-
-
-
-CSS样式控制
-CSS的引入方式
-
-内联样式（Inline Style）
-行内样式：写在标签的style属性中
-示例：
-&lt;p style=&#34;color: red; font-size: 16px;&#34;&gt;这是红色文字&lt;/p&gt;
-
-内部样式表（Internal Style Sheet）
-写在&lt;style&gt;标签中（可以写在任何位置，但通常写在&lt;head&gt;标签中）
-&lt;head&gt;
-  &lt;style&gt;
-    p {
-      color: blue;
-      font-size: 18px;
-    }
-    h1 {
-     color: red;
-    }
-  &lt;/style&gt;
-&lt;/head&gt;
-
-外部样式表（External Style Sheet）
-写在一个单独的.css文件中（需要通过link标签在网页中引入
-示例：
-&lt;head&gt;
-  &lt;link rel=&#34;stylesheet&#34; href=&#34;style.css&#34;&gt;
-&lt;/head&gt;
-
-rel:描述与当前文档的关系
-
-stylesheet: 当前文档的样式表
-
-
-href:资源的URL地址
-
-
-
-
-常用CSS属性
-
-
-
-
-
-
-    
-      
-          分类
-          常用属性
-          示例
-      
-    
-    
-    
+<meta name="description" content="
     
         
-        
-        
-      
-        
             
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                文本样式
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                color、font-size、font-weight、text-align
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                p { color: red; font-size: 16px; text-align: center; }
-      
-        
-        
-        
-      
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                背景样式
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                background-color、background-image
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                body { background-color: #f0f0f0; }
-      
-        
-        
-        
-      
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                盒模型
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                width、height、padding、margin、border
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                div { width: 300px; padding: 10px; margin: 20px; border: 1px solid #ccc; }
-      
-        
-        
-        
-      
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                布局
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                display、position、float、flex
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                div { display: flex; justify-content: center; }
-      
-        
-        
-        
-      
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                其他
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                cursor、overflow、visibility
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                button { cursor: pointer; }
-      
-  
-
-CSS层叠与优先级
-CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样式规则，最终显示哪一个由 优先级（Specificity） 决定。
-优先级从高到低：">
+        提示">
 <meta name="author" content="">
 <link rel="canonical" href="https://www.steamedfish.top/post/java-web/javaweb-html/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
@@ -520,479 +62,21 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
 </noscript><meta property="og:url" content="https://www.steamedfish.top/post/java-web/javaweb-html/">
   <meta property="og:site_name" content="SteamedFish&#39;s Blog">
   <meta property="og:title" content="JavaWeb——(2)HTML-CSS快速入门">
-  <meta property="og:description" content="HTML快速入门 新建文本文件，后缀名为.html 编写HTML的基本框架，定义标题 &lt;html&gt; &lt;head&gt; &lt;title&gt;HTML快速入门&lt;/title&gt; &lt;!-- 网页头部：用来存放给浏览器的信息， 如：CSS样式 --&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;Hello World!&lt;/h1&gt; &lt;img src=&#34;1.jpg&#34;&gt; &lt;!-- 网页主体：用来存放给用户看的信息， 如：文字、图片、视频 --&gt; &lt;/body&gt; &lt;/html&gt; 在&lt;body&gt;中填写内容 HTML标签的特点 html标签不区分大小写，建议小写 html标签的属性值使用单引号/双引号都可以 html语法结构松散，但是建议规范书写 标准HTML文件 &lt;!-- 声明文档类型 --&gt; &lt;!DOCTYPE v-html=&#34;html&#34;&gt; &lt;html lang=&#34;en&#34;&gt; &lt;head&gt; &lt;!-- 文档类型 --&gt; &lt;meta charset=&#34;UTF-8&#34; /&gt; &lt;!-- 解决浏览器兼容问题 --&gt; &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34; /&gt; &lt;!-- 标题 --&gt; &lt;title&gt;HTML快速入门&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;Hello Html&lt;/h1&gt; &lt;img src=&#34;../1.jpg&#34;&gt; &lt;/body&gt; &lt;/html&gt; HTML常见标签 数据展示标签 标题标签：&lt;h1&gt; - &lt;h6&gt; &lt;h1&gt;一级标题&lt;/h1&gt; &lt;h2&gt;二级标题&lt;/h2&gt; &lt;h3&gt;三级标题&lt;/h3&gt; 段落与文本标签 &lt;p&gt;: 段落 &lt;br&gt;: 换行 水平线标签：&lt;hr&gt; &lt;strong&gt;: 加粗，强调 &lt;em&gt;: 斜体，强调 &lt;p&gt;这是一个段落。&lt;/p&gt; &lt;p&gt;这是第二段&lt;br&gt;带换行&lt;/p&gt; &lt;strong&gt;加粗文字&lt;/strong&gt; &lt;em&gt;斜体文字&lt;/em&gt; 列表标签 &lt;ol&gt;：有序列表 &lt;ul&gt;：无序列表 li：列表项 &lt;ol&gt; &lt;li&gt;第一项&lt;/li&gt; &lt;li&gt;第二项&lt;/li&gt; &lt;/ol&gt; &lt;ul&gt; &lt;li&gt;苹果&lt;/li&gt; &lt;li&gt;香蕉&lt;/li&gt; &lt;/ul&gt; 链接标签：&lt;a&gt; 图片标签：&lt;img&gt; src: 指定图像的url（绝对路径/相对路径） 绝对路径 绝对磁盘路径 绝对网络路径 相对路径 . 代表当前路径 .. 代表上一级路径 alt: 替换文本，图片无法显示时展示的文字 width: 图像的宽度（像素/相对于父元素的百分比） height: 图像的高度（像素/相对于父元素的百分比） 表格标签 &lt;table&gt;: 表格 &lt;tr&gt;：表格头 &lt;td&gt;: 单元格 &lt;th&gt;: 表头 CSS样式控制 CSS的引入方式 内联样式（Inline Style） 行内样式：写在标签的style属性中 示例： &lt;p style=&#34;color: red; font-size: 16px;&#34;&gt;这是红色文字&lt;/p&gt; 内部样式表（Internal Style Sheet） 写在&lt;style&gt;标签中（可以写在任何位置，但通常写在&lt;head&gt;标签中） &lt;head&gt; &lt;style&gt; p { color: blue; font-size: 18px; } h1 { color: red; } &lt;/style&gt; &lt;/head&gt; 外部样式表（External Style Sheet） 写在一个单独的.css文件中（需要通过link标签在网页中引入 示例： &lt;head&gt; &lt;link rel=&#34;stylesheet&#34; href=&#34;style.css&#34;&gt; &lt;/head&gt; rel:描述与当前文档的关系 stylesheet: 当前文档的样式表 href:资源的URL地址 常用CSS属性 分类常用属性示例文本样式color、font-size、font-weight、text-alignp { color: red; font-size: 16px; text-align: center; }背景样式background-color、background-imagebody { background-color: #f0f0f0; }盒模型width、height、padding、margin、borderdiv { width: 300px; padding: 10px; margin: 20px; border: 1px solid #ccc; }布局display、position、float、flexdiv { display: flex; justify-content: center; }其他cursor、overflow、visibilitybutton { cursor: pointer; }CSS层叠与优先级 CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样式规则，最终显示哪一个由 优先级（Specificity） 决定。 优先级从高到低：">
+  <meta property="og:description" content="提示">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2025-11-11T11:46:32+08:00">
-    <meta property="article:modified_time" content="2025-11-11T13:46:12+00:00">
+    <meta property="article:published_time" content="2025-11-13T13:24:26+00:00">
+    <meta property="article:modified_time" content="2025-11-13T13:24:53+00:00">
     <meta property="article:tag" content="JavaWeb">
     <meta property="article:tag" content="HTML">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaWeb——(2)HTML-CSS快速入门">
-<meta name="twitter:description" content="HTML快速入门
-
-新建文本文件，后缀名为.html
-编写HTML的基本框架，定义标题
-&lt;html&gt;
- &lt;head&gt;
-     &lt;title&gt;HTML快速入门&lt;/title&gt;
-     &lt;!-- 网页头部：用来存放给浏览器的信息，
-     如：CSS样式 --&gt;
- &lt;/head&gt;
- &lt;body&gt;
-     &lt;h1&gt;Hello World!&lt;/h1&gt;
-     &lt;img src=&#34;1.jpg&#34;&gt;
-     &lt;!-- 网页主体：用来存放给用户看的信息，
-     如：文字、图片、视频 --&gt;
-
- &lt;/body&gt;
- &lt;/html&gt;
-
-在&lt;body&gt;中填写内容
-
-HTML标签的特点
-
-html标签不区分大小写，建议小写
-html标签的属性值使用单引号/双引号都可以
-html语法结构松散，但是建议规范书写
-
-标准HTML文件
-&lt;!-- 声明文档类型 --&gt;
-&lt;!DOCTYPE v-html=&#34;html&#34;&gt;
-&lt;html lang=&#34;en&#34;&gt;
-
-&lt;head&gt;
-    &lt;!-- 文档类型 --&gt;
-    &lt;meta charset=&#34;UTF-8&#34; /&gt;
-    &lt;!-- 解决浏览器兼容问题 --&gt;
-    &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34; /&gt;
-    &lt;!-- 标题  --&gt;
-    &lt;title&gt;HTML快速入门&lt;/title&gt;
-&lt;/head&gt;
-
-&lt;body&gt;
-    &lt;h1&gt;Hello Html&lt;/h1&gt;
-    &lt;img src=&#34;../1.jpg&#34;&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-HTML常见标签
-数据展示标签
-
-标题标签：&lt;h1&gt; - &lt;h6&gt;
-&lt;h1&gt;一级标题&lt;/h1&gt;
-&lt;h2&gt;二级标题&lt;/h2&gt;
-&lt;h3&gt;三级标题&lt;/h3&gt;
-
-段落与文本标签
-
-&lt;p&gt;: 段落
-&lt;br&gt;: 换行
-水平线标签：&lt;hr&gt;
-&lt;strong&gt;: 加粗，强调
-&lt;em&gt;: 斜体，强调
-
-&lt;p&gt;这是一个段落。&lt;/p&gt;
-&lt;p&gt;这是第二段&lt;br&gt;带换行&lt;/p&gt;
-&lt;strong&gt;加粗文字&lt;/strong&gt;
-&lt;em&gt;斜体文字&lt;/em&gt;
-
-列表标签
-
-&lt;ol&gt;：有序列表
-&lt;ul&gt;：无序列表
-li：列表项
-
-&lt;ol&gt;
-  &lt;li&gt;第一项&lt;/li&gt;
-  &lt;li&gt;第二项&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;苹果&lt;/li&gt;
-  &lt;li&gt;香蕉&lt;/li&gt;
-&lt;/ul&gt;
-
-链接标签：&lt;a&gt;
-图片标签：&lt;img&gt;
-
-src: 指定图像的url（绝对路径/相对路径）
-
-绝对路径
-
-绝对磁盘路径
-绝对网络路径
-
-
-相对路径
-
-. 代表当前路径
-.. 代表上一级路径
-
-
-
-
-alt: 替换文本，图片无法显示时展示的文字
-width: 图像的宽度（像素/相对于父元素的百分比）
-height: 图像的高度（像素/相对于父元素的百分比）
-
-
-表格标签
-
-&lt;table&gt;: 表格
-&lt;tr&gt;：表格头
-&lt;td&gt;: 单元格
-&lt;th&gt;: 表头
-
-
-
-
-CSS样式控制
-CSS的引入方式
-
-内联样式（Inline Style）
-行内样式：写在标签的style属性中
-示例：
-&lt;p style=&#34;color: red; font-size: 16px;&#34;&gt;这是红色文字&lt;/p&gt;
-
-内部样式表（Internal Style Sheet）
-写在&lt;style&gt;标签中（可以写在任何位置，但通常写在&lt;head&gt;标签中）
-&lt;head&gt;
-  &lt;style&gt;
-    p {
-      color: blue;
-      font-size: 18px;
-    }
-    h1 {
-     color: red;
-    }
-  &lt;/style&gt;
-&lt;/head&gt;
-
-外部样式表（External Style Sheet）
-写在一个单独的.css文件中（需要通过link标签在网页中引入
-示例：
-&lt;head&gt;
-  &lt;link rel=&#34;stylesheet&#34; href=&#34;style.css&#34;&gt;
-&lt;/head&gt;
-
-rel:描述与当前文档的关系
-
-stylesheet: 当前文档的样式表
-
-
-href:资源的URL地址
-
-
-
-
-常用CSS属性
-
-
-
-
-
-
-    
-      
-          分类
-          常用属性
-          示例
-      
-    
-    
-    
+<meta name="twitter:description" content="
     
         
-        
-        
-      
-        
             
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                文本样式
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                color、font-size、font-weight、text-align
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                p { color: red; font-size: 16px; text-align: center; }
-      
-        
-        
-        
-      
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                背景样式
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                background-color、background-image
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                body { background-color: #f0f0f0; }
-      
-        
-        
-        
-      
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                盒模型
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                width、height、padding、margin、border
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                div { width: 300px; padding: 10px; margin: 20px; border: 1px solid #ccc; }
-      
-        
-        
-        
-      
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                布局
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                display、position、float、flex
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                div { display: flex; justify-content: center; }
-      
-        
-        
-        
-      
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                其他
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                cursor、overflow、visibility
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                button { cursor: pointer; }
-      
-  
-
-CSS层叠与优先级
-CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样式规则，最终显示哪一个由 优先级（Specificity） 决定。
-优先级从高到低：">
+        提示">
 
 
 <script type="application/ld+json">
@@ -1021,15 +105,15 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
   "@type": "BlogPosting",
   "headline": "JavaWeb——(2)HTML-CSS快速入门",
   "name": "JavaWeb——(2)HTML-CSS快速入门",
-  "description": "HTML快速入门 新建文本文件，后缀名为.html 编写HTML的基本框架，定义标题 \u0026lt;html\u0026gt; \u0026lt;head\u0026gt; \u0026lt;title\u0026gt;HTML快速入门\u0026lt;/title\u0026gt; \u0026lt;!-- 网页头部：用来存放给浏览器的信息， 如：CSS样式 --\u0026gt; \u0026lt;/head\u0026gt; \u0026lt;body\u0026gt; \u0026lt;h1\u0026gt;Hello World!\u0026lt;/h1\u0026gt; \u0026lt;img src=\u0026#34;1.jpg\u0026#34;\u0026gt; \u0026lt;!-- 网页主体：用来存放给用户看的信息， 如：文字、图片、视频 --\u0026gt; \u0026lt;/body\u0026gt; \u0026lt;/html\u0026gt; 在\u0026lt;body\u0026gt;中填写内容 HTML标签的特点 html标签不区分大小写，建议小写 html标签的属性值使用单引号/双引号都可以 html语法结构松散，但是建议规范书写 标准HTML文件 \u0026lt;!-- 声明文档类型 --\u0026gt; \u0026lt;!DOCTYPE v-html=\u0026#34;html\u0026#34;\u0026gt; \u0026lt;html lang=\u0026#34;en\u0026#34;\u0026gt; \u0026lt;head\u0026gt; \u0026lt;!-- 文档类型 --\u0026gt; \u0026lt;meta charset=\u0026#34;UTF-8\u0026#34; /\u0026gt; \u0026lt;!-- 解决浏览器兼容问题 --\u0026gt; \u0026lt;meta name=\u0026#34;viewport\u0026#34; content=\u0026#34;width=device-width, initial-scale=1.0\u0026#34; /\u0026gt; \u0026lt;!-- 标题 --\u0026gt; \u0026lt;title\u0026gt;HTML快速入门\u0026lt;/title\u0026gt; \u0026lt;/head\u0026gt; \u0026lt;body\u0026gt; \u0026lt;h1\u0026gt;Hello Html\u0026lt;/h1\u0026gt; \u0026lt;img src=\u0026#34;../1.jpg\u0026#34;\u0026gt; \u0026lt;/body\u0026gt; \u0026lt;/html\u0026gt; HTML常见标签 数据展示标签 标题标签：\u0026lt;h1\u0026gt; - \u0026lt;h6\u0026gt; \u0026lt;h1\u0026gt;一级标题\u0026lt;/h1\u0026gt; \u0026lt;h2\u0026gt;二级标题\u0026lt;/h2\u0026gt; \u0026lt;h3\u0026gt;三级标题\u0026lt;/h3\u0026gt; 段落与文本标签 \u0026lt;p\u0026gt;: 段落 \u0026lt;br\u0026gt;: 换行 水平线标签：\u0026lt;hr\u0026gt; \u0026lt;strong\u0026gt;: 加粗，强调 \u0026lt;em\u0026gt;: 斜体，强调 \u0026lt;p\u0026gt;这是一个段落。\u0026lt;/p\u0026gt; \u0026lt;p\u0026gt;这是第二段\u0026lt;br\u0026gt;带换行\u0026lt;/p\u0026gt; \u0026lt;strong\u0026gt;加粗文字\u0026lt;/strong\u0026gt; \u0026lt;em\u0026gt;斜体文字\u0026lt;/em\u0026gt; 列表标签 \u0026lt;ol\u0026gt;：有序列表 \u0026lt;ul\u0026gt;：无序列表 li：列表项 \u0026lt;ol\u0026gt; \u0026lt;li\u0026gt;第一项\u0026lt;/li\u0026gt; \u0026lt;li\u0026gt;第二项\u0026lt;/li\u0026gt; \u0026lt;/ol\u0026gt; \u0026lt;ul\u0026gt; \u0026lt;li\u0026gt;苹果\u0026lt;/li\u0026gt; \u0026lt;li\u0026gt;香蕉\u0026lt;/li\u0026gt; \u0026lt;/ul\u0026gt; 链接标签：\u0026lt;a\u0026gt; 图片标签：\u0026lt;img\u0026gt; src: 指定图像的url（绝对路径/相对路径） 绝对路径 绝对磁盘路径 绝对网络路径 相对路径 . 代表当前路径 .. 代表上一级路径 alt: 替换文本，图片无法显示时展示的文字 width: 图像的宽度（像素/相对于父元素的百分比） height: 图像的高度（像素/相对于父元素的百分比） 表格标签 \u0026lt;table\u0026gt;: 表格 \u0026lt;tr\u0026gt;：表格头 \u0026lt;td\u0026gt;: 单元格 \u0026lt;th\u0026gt;: 表头 CSS样式控制 CSS的引入方式 内联样式（Inline Style） 行内样式：写在标签的style属性中 示例： \u0026lt;p style=\u0026#34;color: red; font-size: 16px;\u0026#34;\u0026gt;这是红色文字\u0026lt;/p\u0026gt; 内部样式表（Internal Style Sheet） 写在\u0026lt;style\u0026gt;标签中（可以写在任何位置，但通常写在\u0026lt;head\u0026gt;标签中） \u0026lt;head\u0026gt; \u0026lt;style\u0026gt; p { color: blue; font-size: 18px; } h1 { color: red; } \u0026lt;/style\u0026gt; \u0026lt;/head\u0026gt; 外部样式表（External Style Sheet） 写在一个单独的.css文件中（需要通过link标签在网页中引入 示例： \u0026lt;head\u0026gt; \u0026lt;link rel=\u0026#34;stylesheet\u0026#34; href=\u0026#34;style.css\u0026#34;\u0026gt; \u0026lt;/head\u0026gt; rel:描述与当前文档的关系 stylesheet: 当前文档的样式表 href:资源的URL地址 常用CSS属性 分类\r常用属性\r示例\r文本样式\rcolor、font-size、font-weight、text-align\rp { color: red; font-size: 16px; text-align: center; }\r背景样式\rbackground-color、background-image\rbody { background-color: #f0f0f0; }\r盒模型\rwidth、height、padding、margin、border\rdiv { width: 300px; padding: 10px; margin: 20px; border: 1px solid #ccc; }\r布局\rdisplay、position、float、flex\rdiv { display: flex; justify-content: center; }\r其他\rcursor、overflow、visibility\rbutton { cursor: pointer; }\rCSS层叠与优先级 CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样式规则，最终显示哪一个由 优先级（Specificity） 决定。 优先级从高到低：\n",
+  "description": "\r提示\n",
   "keywords": [
     "JavaWeb", "HTML"
   ],
-  "articleBody": "HTML快速入门 新建文本文件，后缀名为.html 编写HTML的基本框架，定义标题 \u003chtml\u003e \u003chead\u003e \u003ctitle\u003eHTML快速入门\u003c/title\u003e \u003c/head\u003e \u003cbody\u003e \u003ch1\u003eHello World!\u003c/h1\u003e \u003cimg src=\"1.jpg\"\u003e \u003c/body\u003e \u003c/html\u003e 在中填写内容 HTML标签的特点 html标签不区分大小写，建议小写 html标签的属性值使用单引号/双引号都可以 html语法结构松散，但是建议规范书写 标准HTML文件 \u003c!DOCTYPE v-html=\"html\"\u003e \u003chtml lang=\"en\"\u003e \u003chead\u003e \u003cmeta charset=\"UTF-8\" /\u003e \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /\u003e \u003ctitle\u003eHTML快速入门\u003c/title\u003e \u003c/head\u003e \u003cbody\u003e \u003ch1\u003eHello Html\u003c/h1\u003e \u003cimg src=\"../1.jpg\"\u003e \u003c/body\u003e \u003c/html\u003e HTML常见标签 数据展示标签 标题标签： - \u003ch1\u003e一级标题\u003c/h1\u003e \u003ch2\u003e二级标题\u003c/h2\u003e \u003ch3\u003e三级标题\u003c/h3\u003e 段落与文本标签 : 段落 : 换行 水平线标签： : 加粗，强调 : 斜体，强调 \u003cp\u003e这是一个段落。\u003c/p\u003e \u003cp\u003e这是第二段\u003cbr\u003e带换行\u003c/p\u003e \u003cstrong\u003e加粗文字\u003c/strong\u003e \u003cem\u003e斜体文字\u003c/em\u003e 列表标签 ：有序列表 ：无序列表 li：列表项 \u003col\u003e \u003cli\u003e第一项\u003c/li\u003e \u003cli\u003e第二项\u003c/li\u003e \u003c/ol\u003e \u003cul\u003e \u003cli\u003e苹果\u003c/li\u003e \u003cli\u003e香蕉\u003c/li\u003e \u003c/ul\u003e 链接标签： 图片标签： src: 指定图像的url（绝对路径/相对路径） 绝对路径 绝对磁盘路径 绝对网络路径 相对路径 . 代表当前路径 .. 代表上一级路径 alt: 替换文本，图片无法显示时展示的文字 width: 图像的宽度（像素/相对于父元素的百分比） height: 图像的高度（像素/相对于父元素的百分比） 表格标签 : 表格 ：表格头 : 单元格 : 表头 CSS样式控制 CSS的引入方式 内联样式（Inline Style） 行内样式：写在标签的style属性中 示例： \u003cp style=\"color: red; font-size: 16px;\"\u003e这是红色文字\u003c/p\u003e 内部样式表（Internal Style Sheet） 写在",
-  "wordCount" : "1530",
+  "articleBody": "\r提示\n常见的html标签需要掌握，但是css属性过于庞杂，了解即可，别执迷不悟，浪费太多时间在上面，需要用时可去W3school进行查阅\nHTML快速入门 新建文本文件，后缀名为.html 编写HTML的基本框架，定义标题 \u003chtml\u003e \u003chead\u003e \u003ctitle\u003eHTML快速入门\u003c/title\u003e \u003c/head\u003e \u003cbody\u003e \u003ch1\u003eHello World!\u003c/h1\u003e \u003cimg src=\"1.jpg\"\u003e \u003c/body\u003e \u003c/html\u003e 在中填写内容 HTML标签的特点 html标签不区分大小写，建议小写 html标签的属性值使用单引号/双引号都可以 html语法结构松散，但是建议规范书写 标准HTML文件 \u003c!DOCTYPE v-html=\"html\"\u003e \u003chtml lang=\"en\"\u003e \u003chead\u003e \u003cmeta charset=\"UTF-8\" /\u003e \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /\u003e \u003ctitle\u003eHTML快速入门\u003c/title\u003e \u003c/head\u003e \u003cbody\u003e \u003ch1\u003eHello Html\u003c/h1\u003e \u003cimg src=\"../1.jpg\"\u003e \u003c/body\u003e \u003c/html\u003e HTML常见标签 数据展示标签 标题标签： - \u003ch1\u003e一级标题\u003c/h1\u003e \u003ch2\u003e二级标题\u003c/h2\u003e \u003ch3\u003e三级标题\u003c/h3\u003e 段落与文本标签 \u0026nbsp：空格 \u0026lt：\u003c小于号 $gt：\u003e大于号 : 段落 : 换行 /: 加粗 /: 斜体 /：下划线 /：删除线 \u003cp\u003e这是一个段落。\u003c/p\u003e \u003cp\u003e这是第二段\u003cbr\u003e带换行\u003c/p\u003e \u003cstrong\u003e加粗文字\u003c/strong\u003e \u003cem\u003e斜体文字\u003c/em\u003e 水平线标签： 列表标签 ：有序列表 ：无序列表 li：列表项 \u003col\u003e \u003cli\u003e第一项\u003c/li\u003e \u003cli\u003e第二项\u003c/li\u003e \u003c/ol\u003e \u003cul\u003e \u003cli\u003e苹果\u003c/li\u003e \u003cli\u003e香蕉\u003c/li\u003e \u003c/ul\u003e 链接标签： href：指定资源访问的url target：指定在何处打开资源页面 _self：默认值，在当前页面打开 _blank：在空白页面打开 图片标签： src: 指定图像的url（绝对路径/相对路径） 绝对路径 绝对磁盘路径 绝对网络路径 相对路径 . 代表当前路径 .. 代表上一级路径 alt: 替换文本，图片无法显示时展示的文字 width: 图像的宽度（像素/相对于父元素的百分比） height: 图像的高度（像素/相对于父元素的百分比） 视频标签： src：规定视频的url controls：显示播放控件 width：播放器的宽度 height：播放器的高度 音频标签： src：规定音频的url controls：显示播放控件 表格标签 : 表格 ：表格头 : 单元格 : 表头 容器标签 ：行内容器，用于小范围文字样式控制 ：块级容器，用于分区布局 数据采集标签 这些标签用于 接收用户输入，主要是表单元素（Form Elements）。\n表单容器：：用于定义整个表单区域。 action：定义提交数据的路径 method：定义表单提交方式 get：请求数据直接 \u0026 拼接在路径?后面（一般用于请求资源），大小有限制 post：请求数据通过 请求体 传递（一般用于提交数据） 常用输入控件，大小无限制 ：输入框（可设置 type=“text”、“password”、“checkbox” 等） type：要显示的元素的类型。 text：文本 password：密码 radio：单选按钮 checkbox：复选框 file：文件上传按钮 date/time/datetime-local：日期/时间/日期时间 number：数字输入框 email：邮件输入框 hidden：定义隐藏域 submit/reset/button：提交按钮/重置按钮/可点击按钮 value：文本 name：元素的名称（变量名） \u003c/code\u003e：多行文本输入\u003c/li\u003e \u003cli\u003e\u003ccode\u003e\u003cselect\u003e\u003c/code\u003e：下拉列表\u003c/li\u003e \u003cli\u003e\u003ccode\u003e\u003coption\u003e\u003c/code\u003e：下拉选项\u003c/li\u003e \u003cli\u003e\u003ccode\u003e\u003cbutton\u003e\u003c/code\u003e：按钮（提交或重置）\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003c/ul\u003e \u003ch3 id=\"其他常见标签\"\u003e其他常见标签\u003c/h3\u003e \u003cul\u003e \u003cli\u003e\u003ccode\u003e\u003cscript\u003e\u003c/code\u003e：引入或书写JavaScript脚本\u003c/li\u003e \u003cli\u003e\u003ccode\u003e\u003clink\u003e\u003c/code\u003e：引入或书写CSS文件\u003c/li\u003e \u003cli\u003e\u003ccode\u003e\u003cmeta\u003e\u003c/code\u003e：网页信息，如字符集、关键词\u003c/li\u003e \u003c/ul\u003e \u003chr\u003e \u003ch1 id=\"css样式控制\"\u003eCSS样式控制\u003c/h1\u003e \u003ch2 id=\"css的引入方式\"\u003eCSS的引入方式\u003c/h2\u003e \u003col\u003e \u003cli\u003e内联样式（Inline Style） 行内样式：写在标签的\u003ccode\u003estyle\u003c/code\u003e属性中 示例： \u003cdiv class=\"highlight\"\u003e\u003cpre tabindex=\"0\" class=\"chroma\"\u003e\u003ccode class=\"language-html\" data-lang=\"html\"\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003ep\u003c/span\u003e \u003cspan class=\"na\"\u003estyle\u003c/span\u003e\u003cspan class=\"o\"\u003e=\u003c/span\u003e\u003cspan class=\"s\"\u003e\"color: red; font-size: 16px;\"\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e这是红色文字\u003cspan class=\"p\"\u003e\u003c/\u003c/span\u003e\u003cspan class=\"nt\"\u003ep\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003c/li\u003e \u003cli\u003e内部样式表（Internal Style Sheet） 写在\u003ccode\u003e\u003cstyle\u003e\u003c/code\u003e标签中（可以写在任何位置，但通常写在\u003ccode\u003e\u003chead\u003e\u003c/code\u003e标签中） \u003cdiv class=\"highlight\"\u003e\u003cpre tabindex=\"0\" class=\"chroma\"\u003e\u003ccode class=\"language-html\" data-lang=\"html\"\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003ehead\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003estyle\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"nt\"\u003ep\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"k\"\u003ecolor\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"kc\"\u003eblue\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"k\"\u003efont-size\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"mi\"\u003e18\u003c/span\u003e\u003cspan class=\"kt\"\u003epx\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"p\"\u003e}\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"nt\"\u003eh1\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"k\"\u003ecolor\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"kc\"\u003ered\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"p\"\u003e}\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"p\"\u003e\u003c/\u003c/span\u003e\u003cspan class=\"nt\"\u003estyle\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c/\u003c/span\u003e\u003cspan class=\"nt\"\u003ehead\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003c/li\u003e \u003cli\u003e外部样式表（External Style Sheet） 写在一个单独的\u003ccode\u003e.css\u003c/code\u003e文件中（需要通过\u003ccode\u003elink\u003c/code\u003e标签在网页中引入 示例： \u003cdiv class=\"highlight\"\u003e\u003cpre tabindex=\"0\" class=\"chroma\"\u003e\u003ccode class=\"language-html\" data-lang=\"html\"\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003ehead\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003elink\u003c/span\u003e \u003cspan class=\"na\"\u003erel\u003c/span\u003e\u003cspan class=\"o\"\u003e=\u003c/span\u003e\u003cspan class=\"s\"\u003e\"stylesheet\"\u003c/span\u003e \u003cspan class=\"na\"\u003ehref\u003c/span\u003e\u003cspan class=\"o\"\u003e=\u003c/span\u003e\u003cspan class=\"s\"\u003e\"style.css\"\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c/\u003c/span\u003e\u003cspan class=\"nt\"\u003ehead\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cul\u003e \u003cli\u003e\u003ccode\u003erel\u003c/code\u003e:描述与当前文档的关系 \u003cul\u003e \u003cli\u003e\u003ccode\u003estylesheet\u003c/code\u003e: 当前文档的样式表\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003ehref\u003c/code\u003e:资源的URL地址\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003c/ol\u003e \u003chr\u003e \u003ch2 id=\"常用css属性\"\u003e常用CSS属性\u003c/h2\u003e \u003ch3 id=\"文本样式text--font\"\u003e文本样式（Text \u0026 Font）\u003c/h3\u003e \u003ch4 id=\"字体与颜色\"\u003e字体与颜色\u003c/h4\u003e \u003cul\u003e \u003cli\u003e\u003ccode\u003ecolor\u003c/code\u003e:颜色\u003c/li\u003e \u003cli\u003e\u003ccode\u003efont-color\u003c/code\u003e：字体颜色\u003c/li\u003e \u003cli\u003e\u003ccode\u003efont-size\u003c/code\u003e：字体大小\u003c/li\u003e \u003cli\u003e\u003ccode\u003efont-weight\u003c/code\u003e：字体粗细 \u003cul\u003e \u003cli\u003e\u003ccode\u003enormal\u003c/code\u003e：正常\u003c/li\u003e \u003cli\u003e\u003ccode\u003ebold\u003c/code\u003e：加粗\u003c/li\u003e \u003cli\u003e\u003ccode\u003e100~900\u003c/code\u003e：数值表示粗细\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003efont-style\u003c/code\u003e：字体样式 \u003cul\u003e \u003cli\u003e\u003ccode\u003enormal\u003c/code\u003e：正常\u003c/li\u003e \u003cli\u003e\u003ccode\u003eitalic\u003c/code\u003e斜体\u003c/li\u003e \u003cli\u003e\u003ccode\u003eoblique\u003c/code\u003e倾斜\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003efont-family\u003c/code\u003e：字体类型 \u003cul\u003e \u003cli\u003e\u003ccode\u003e微软雅黑\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003c/ul\u003e \u003chr\u003e \u003ch4 id=\"文本对齐与修饰\"\u003e文本对齐与修饰\u003c/h4\u003e \u003cul\u003e \u003cli\u003e\u003ccode\u003eline-height\u003c/code\u003e：行高\u003c/li\u003e \u003cli\u003e\u003ccode\u003etext-indent\u003c/code\u003e：缩进\u003c/li\u003e \u003cli\u003e\u003ccode\u003etext-align\u003c/code\u003e：水平对齐 \u003cul\u003e \u003cli\u003e\u003ccode\u003ecenter\u003c/code\u003e：居中\u003c/li\u003e \u003cli\u003e\u003ccode\u003eleft\u003c/code\u003e：左对齐\u003c/li\u003e \u003cli\u003e\u003ccode\u003eright\u003c/code\u003e：右对齐\u003c/li\u003e \u003cli\u003e\u003ccode\u003ejustify\u003c/code\u003e：两端对齐\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003etext-decoratiopn\u003c/code\u003e：装饰线 \u003cul\u003e \u003cli\u003e\u003ccode\u003enone\u003c/code\u003e：无装饰\u003c/li\u003e \u003cli\u003e\u003ccode\u003eunderline\u003c/code\u003e：下划线\u003c/li\u003e \u003cli\u003e\u003ccode\u003eline-through\u003c/code\u003e：删除线\u003c/li\u003e \u003cli\u003e\u003ccode\u003eoverline\u003c/code\u003e：上划线\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003etext-transform\u003c/code\u003e：字母大小写 \u003cul\u003e \u003cli\u003e\u003ccode\u003euppercase\u003c/code\u003e：大写\u003c/li\u003e \u003cli\u003e\u003ccode\u003elowercase\u003c/code\u003e：小写\u003c/li\u003e \u003cli\u003e\u003ccode\u003ecapitalize\u003c/code\u003e：首字母大写\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003eletter-spacing\u003c/code\u003e：字母间距\u003c/li\u003e \u003cli\u003e\u003ccode\u003eword-spacing\u003c/code\u003e：单词间距\u003c/li\u003e \u003cli\u003e\u003ccode\u003ewhite-space\u003c/code\u003e：空白处理 \u003cul\u003e \u003cli\u003e\u003ccode\u003enormal\u003c/code\u003e：拆行，合并空白\u003c/li\u003e \u003cli\u003e\u003ccode\u003enowrap\u003c/code\u003e：不换行\u003c/li\u003e \u003cli\u003e\u003ccode\u003epre\u003c/code\u003e：保留空格和换行\u003c/li\u003e \u003cli\u003e\u003ccode\u003epre-line\u003c/code\u003e：保留换行但合并空格\u003c/li\u003e \u003cli\u003e\u003ccode\u003epre-wrap\u003c/code\u003e：保留空格和换行\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003etext-overflow\u003c/code\u003e：文本溢出处理 \u003cul\u003e \u003cli\u003e\u003ccode\u003eclip\u003c/code\u003e：裁切\u003c/li\u003e \u003cli\u003e\u003ccode\u003eellipsis\u003c/code\u003e：显示省略号\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003edirection\u003c/code\u003e：文本方向 \u003cul\u003e \u003cli\u003e\u003ccode\u003eltr\u003c/code\u003e：从左到右\u003c/li\u003e \u003cli\u003e\u003ccode\u003ertl\u003c/code\u003e：从右到左\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003c/ul\u003e \u003chr\u003e \u003ch3 id=\"背景样式background\"\u003e背景样式（Background）\u003c/h3\u003e \u003cul\u003e \u003cli\u003e\u003ccode\u003ebackground-color\u003c/code\u003e：背景颜色\u003c/li\u003e \u003cli\u003e\u003ccode\u003ebackground-image\u003c/code\u003e：背景图片 \u003cul\u003e \u003cli\u003e\u003ccode\u003eurl('img.png')\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003elinear-gradient(...)\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003ebackground-repeat\u003c/code\u003e：背景重复方式 \u003cul\u003e \u003cli\u003e\u003ccode\u003erepeat\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003erepeat-x\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003erepeat-y\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003eno-repeat\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003ebackground-position\u003c/code\u003e：背景位置 \u003cul\u003e \u003cli\u003e\u003ccode\u003eleft top\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003ecenter center\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003e50% 50%\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003ebackground-size\u003c/code\u003e：背景尺寸 \u003cul\u003e \u003cli\u003e\u003ccode\u003eauto\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003ecover\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003econtain\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003e100px 200px\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003ebackground-attachment\u003c/code\u003e：背景滚动方式 \u003cul\u003e \u003cli\u003e\u003ccode\u003escroll\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003efixed\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003elocal\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003ebackground-clip\u003c/code\u003e：背景裁剪 \u003cul\u003e \u003cli\u003e\u003ccode\u003eborder-box\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003epadding-box\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003econtent-box\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003ebackground-origin\u003c/code\u003e：背景定位参考 \u003cul\u003e \u003cli\u003e\u003ccode\u003eborder-box\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003epadding-box\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003econtent-box\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003c/ul\u003e \u003chr\u003e \u003ch3 id=\"盒模型box-model\"\u003e盒模型（Box Model）\u003c/h3\u003e \u003ch4 id=\"尺寸\"\u003e尺寸\u003c/h4\u003e \u003cul\u003e \u003cli\u003e\u003ccode\u003ewidth\u003c/code\u003e/\u003ccode\u003eheight\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003emin-width\u003c/code\u003e/\u003ccode\u003emax-width\u003c/code\u003e/\u003ccode\u003emin-height\u003c/code\u003e/\u003ccode\u003emax-height\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003ch4 id=\"内外边距\"\u003e内外边距\u003c/h4\u003e \u003cul\u003e \u003cli\u003e\u003ccode\u003epadding\u003c/code\u003e：内边距 \u003cul\u003e \u003cli\u003e\u003ccode\u003e10px\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003eauto\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003epadding-top\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003epadding-right\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003epadding-bottom\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003epadding-left\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003emargin\u003c/code\u003e：外边距 \u003cul\u003e \u003cli\u003e\u003ccode\u003e10px\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003eauto\u003c/code\u003e：自动计算距离居中\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003emargin-top\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003emargin-right\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003emargin-bottom\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003emargin-left\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003ch4 id=\"边框\"\u003e边框\u003c/h4\u003e \u003cul\u003e \u003cli\u003e\u003ccode\u003eborder\u003c/code\u003e ：边框 \u003cul\u003e \u003cli\u003e\u003ccode\u003eborder-width\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003eborder-style\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003eborder-color\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003eborder-top\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003eborder-right\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003eborder-bottom\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003eborder-left\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003eborder-radius\u003c/code\u003e：圆角\u003c/li\u003e \u003c/ul\u003e \u003ch4 id=\"盒模型类型\"\u003e盒模型类型\u003c/h4\u003e \u003cul\u003e \u003cli\u003e\u003ccode\u003ebox-sizing\u003c/code\u003e：盒模型计算方式：元素宽高计算规则 \u003cul\u003e \u003cli\u003e\u003ccode\u003econtent-box\u003c/code\u003e：（默认）宽高只计算内容区域，不包含\u003ccode\u003epadding\u003c/code\u003e和\u003ccode\u003eborder\u003c/code\u003e，实际空间=\u003ccode\u003ewidth\u003c/code\u003e+\u003ccode\u003epadding\u003c/code\u003e+\u003ccode\u003eborder\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003eborder-box\u003c/code\u003e：宽高包含\u003ccode\u003econtent\u003c/code\u003e+\u003ccode\u003epadding\u003c/code\u003e+\u003ccode\u003eborder\u003c/code\u003e，设置的\u003ccode\u003ewidth\u003c/code\u003e、\u003ccode\u003eheight\u003c/code\u003e是整个盒子的总大小\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003c/ul\u003e \u003ch4 id=\"内容溢出\"\u003e内容溢出\u003c/h4\u003e \u003cul\u003e \u003cli\u003e\u003ccode\u003eoverflow\u003c/code\u003e：内容溢出处理 \u003cul\u003e \u003cli\u003e\u003ccode\u003evisible\u003c/code\u003e：可见\u003c/li\u003e \u003cli\u003e\u003ccode\u003ehidden\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003escroll\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003eauto\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003c/ul\u003e \u003ch4 id=\"显示类型\"\u003e显示类型\u003c/h4\u003e \u003cul\u003e \u003cli\u003e\u003ccode\u003edisplay\u003c/code\u003e：元素显示类型 \u003cul\u003e \u003cli\u003e\u003ccode\u003eblock\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003einline\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003einline-block\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003eflex\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003egrid\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003enone\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003evisibility\u003c/code\u003e：可见性 \u003cul\u003e \u003cli\u003e\u003ccode\u003evisible\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003ehidden\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003ecollapse\u003c/code\u003e：销毁\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003c/ul\u003e \u003ch3 id=\"布局与定位layout--positioning\"\u003e布局与定位（Layout \u0026 Positioning）\u003c/h3\u003e \u003cul\u003e \u003cli\u003e\u003ccode\u003eposition\u003c/code\u003e：元素定位 \u003cul\u003e \u003cli\u003e\u003ccode\u003estatic\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003erelative\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003eabsolute\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003efixed\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003esticky\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003etop\u003c/code\u003e / \u003ccode\u003eright\u003c/code\u003e / \u003ccode\u003ebottom\u003c/code\u003e / \u003ccode\u003eleft\u003c/code\u003e：元素偏移\u003c/li\u003e \u003cli\u003e\u003ccode\u003efloat\u003c/code\u003e：：浮动 \u003cul\u003e \u003cli\u003e\u003ccode\u003eleft\u003c/code\u003e / \u003ccode\u003eright\u003c/code\u003e / \u003ccode\u003enone\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003eclear\u003c/code\u003e：清除浮动 \u003cul\u003e \u003cli\u003e\u003ccode\u003eleft / right / both / none\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003ez-index\u003c/code\u003e：堆叠顺序（整数值）\u003c/li\u003e \u003c/ul\u003e \u003ch4 id=\"flex-布局\"\u003eFlex 布局\u003c/h4\u003e \u003cul\u003e \u003cli\u003e\u003ccode\u003eflex\u003c/code\u003e : 弹性布局 \u003cul\u003e \u003cli\u003e\u003ccode\u003e1\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003eflex-direction\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003ejustify-content\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003ealign-items\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003ealign-content\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003c/ul\u003e \u003ch4 id=\"grid-布局\"\u003eGrid 布局\u003c/h4\u003e \u003cul\u003e \u003cli\u003e\u003ccode\u003egrid\u003c/code\u003e：网格布局 \u003cul\u003e \u003cli\u003e\u003ccode\u003egrid-template-columns / grid-template-rows / grid-gap\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003c/ul\u003e \u003ch3 id=\"边框与阴影border--shadow\"\u003e边框与阴影（Border \u0026 Shadow）\u003c/h3\u003e \u003cul\u003e \u003cli\u003e\u003ccode\u003eborder-style\u003c/code\u003e：边框样式 \u003cul\u003e \u003cli\u003e\u003ccode\u003esolid\u003c/code\u003e ：实线\u003c/li\u003e \u003cli\u003e\u003ccode\u003edashed\u003c/code\u003e ：虚线\u003c/li\u003e \u003cli\u003e\u003ccode\u003edotted\u003c/code\u003e ：点状线\u003c/li\u003e \u003cli\u003e\u003ccode\u003edouble\u003c/code\u003e：双线\u003c/li\u003e \u003cli\u003e\u003ccode\u003enone\u003c/code\u003e：无边框\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003eborder-width\u003c/code\u003e：边框宽度\u003c/li\u003e \u003cli\u003e\u003ccode\u003eborder-color\u003c/code\u003e：边框颜色值\u003c/li\u003e \u003cli\u003e\u003ccode\u003eborder-top\u003c/code\u003e/\u003ccode\u003eright\u003c/code\u003e/\u003ccode\u003ebottom\u003c/code\u003e/\u003ccode\u003eleft\u003c/code\u003e：单边边框\u003c/li\u003e \u003cli\u003e\u003ccode\u003ebox-shadow\u003c/code\u003e：元素阴影 \u003cul\u003e \u003cli\u003e\u003ccode\u003e2px 2px 5px #888\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003eoutline\u003c/code\u003e：外边线 \u003cul\u003e \u003cli\u003e\u003ccode\u003e1px solid red\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003c/ul\u003e \u003ch3 id=\"列表与表格list--table\"\u003e列表与表格（List \u0026 Table）\u003c/h3\u003e \u003cul\u003e \u003cli\u003e列表 \u003cul\u003e \u003cli\u003e\u003ccode\u003elist-style-type\u003c/code\u003e：列表样式 \u003cul\u003e \u003cli\u003e\u003ccode\u003edisc\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003ecircle\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003edecimal\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003enone\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003elist-style-image\u003c/code\u003e：图标 URL\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e表格 \u003cul\u003e \u003cli\u003e\u003ccode\u003eborder-collapse\u003c/code\u003e：表格边框合并 \u003cul\u003e \u003cli\u003e\u003ccode\u003ecollapse\u003c/code\u003e ：边框合并\u003c/li\u003e \u003cli\u003e\u003ccode\u003eseparate\u003c/code\u003e：（默认）分开\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003eborder-spacing\u003c/code\u003e：表格间距\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003c/ul\u003e \u003ch3 id=\"过渡与动画\"\u003e过渡与动画\u003c/h3\u003e \u003cul\u003e \u003cli\u003e\u003ccode\u003etransition\u003c/code\u003e：过渡效果\u003c/li\u003e \u003cli\u003e\u003ccode\u003etransition-property\u003c/code\u003e：过渡属性\u003c/li\u003e \u003cli\u003e\u003ccode\u003etransition-duration\u003c/code\u003e：持续时间\u003c/li\u003e \u003cli\u003e\u003ccode\u003etransition-timing-function\u003c/code\u003e：速度曲线\u003c/li\u003e \u003cli\u003e\u003ccode\u003eanimation\u003c/code\u003e：动画\u003c/li\u003e \u003cli\u003e\u003ccode\u003eanimation-name\u003c/code\u003e：动画名称\u003c/li\u003e \u003cli\u003e\u003ccode\u003eanimation-duration\u003c/code\u003e：动画持续时间\u003c/li\u003e \u003cli\u003e\u003ccode\u003eanimation-iteration-count\u003c/code\u003e:循环次数\u003c/li\u003e \u003cli\u003e\u003ccode\u003eanimation-timing-function\u003c/code\u003e：动画速度曲线\u003c/li\u003e \u003c/ul\u003e \u003ch3 id=\"光标与用户交互\"\u003e光标与用户交互\u003c/h3\u003e \u003cul\u003e \u003cli\u003e\u003ccode\u003ecursor\u003c/code\u003e：鼠标样式 \u003cul\u003e \u003cli\u003e\u003ccode\u003epointer\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003edefault\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003etext\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003emove\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003epointer-events\u003c/code\u003e：鼠标事件 \u003cul\u003e \u003cli\u003e\u003ccode\u003eauto\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003enone\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e\u003ccode\u003euser-select\u003c/code\u003e：文本选中行为\u003c/li\u003e \u003cli\u003e\u003ccode\u003eauto\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003enone\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003etext\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003ch3 id=\"伪类与伪元素pseudo-classes--pseudo-elements\"\u003e伪类与伪元素（Pseudo-classes \u0026 Pseudo-elements）\u003c/h3\u003e \u003cul\u003e \u003cli\u003e伪类：选择元素状态 \u003cul\u003e \u003cli\u003e\u003ccode\u003e:hover\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003e:active\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003e:focus\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003e:first-child\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003e:nth-child(n)\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003cli\u003e伪元素：选择元素内部特定部分 \u003cul\u003e \u003cli\u003e\u003ccode\u003e::before\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003e::after\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003e::first-letter\u003c/code\u003e\u003c/li\u003e \u003cli\u003e\u003ccode\u003e::first-line\u003c/code\u003e\u003c/li\u003e \u003c/ul\u003e \u003c/li\u003e \u003c/ul\u003e \u003ch2 id=\"css选择器\"\u003eCSS选择器\u003c/h2\u003e \u003cp\u003e用来选取需要设置样式的元素\n\u003chr\u003e \u003ch3 id=\"基本选择器\"\u003e基本选择器\u003c/h3\u003e \u003ctable\u003e\r\u003cthead\u003e\r\u003ctr\u003e\r\u003cth\u003e类型\u003c/th\u003e\r\u003cth\u003e示例\u003c/th\u003e\r\u003cth\u003e说明\u003c/th\u003e\r\u003c/tr\u003e\r\u003c/thead\u003e\r\u003ctbody\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003cstrong\u003e元素选择器\u003c/strong\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003ep { color: red; }\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e选中所有 \u003ccode\u003e\u003cp\u003e\u003c/code\u003e 段落元素\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003cstrong\u003e类选择器\u003c/strong\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e.title { color: blue; }\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e选中 \u003ccode\u003eclass=\"title\"\u003c/code\u003e 的元素\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003cstrong\u003eID 选择器\u003c/strong\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e#main { color: green; }\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e选中 \u003ccode\u003eid=\"main\"\u003c/code\u003e 的唯一元素\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003cstrong\u003e通配选择器\u003c/strong\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e* { margin: 0; }\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e选中页面中所有元素\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e示例：\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003c/td\u003e\r\u003c/tr\u003e\r\u003c/tbody\u003e\r\u003c/table\u003e\u003cdiv class=\"highlight\"\u003e\u003cpre tabindex=\"0\" class=\"chroma\"\u003e\u003ccode class=\"language-html\" data-lang=\"html\"\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003ep\u003c/span\u003e \u003cspan class=\"na\"\u003eclass\u003c/span\u003e\u003cspan class=\"o\"\u003e=\u003c/span\u003e\u003cspan class=\"s\"\u003e\"text\"\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e段落文字\u003cspan class=\"p\"\u003e\u003c/\u003c/span\u003e\u003cspan class=\"nt\"\u003ep\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003ediv\u003c/span\u003e \u003cspan class=\"na\"\u003eid\u003c/span\u003e\u003cspan class=\"o\"\u003e=\u003c/span\u003e\u003cspan class=\"s\"\u003e\"box\"\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e盒子内容\u003cspan class=\"p\"\u003e\u003c/\u003c/span\u003e\u003cspan class=\"nt\"\u003ediv\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003estyle\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"nt\"\u003ep\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e \u003cspan class=\"k\"\u003ecolor\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"kc\"\u003ered\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e \u003cspan class=\"p\"\u003e}\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"p\"\u003e.\u003c/span\u003e\u003cspan class=\"nc\"\u003etext\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e \u003cspan class=\"k\"\u003efont-size\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"mi\"\u003e18\u003c/span\u003e\u003cspan class=\"kt\"\u003epx\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e \u003cspan class=\"p\"\u003e}\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"p\"\u003e#\u003c/span\u003e\u003cspan class=\"nn\"\u003ebox\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e \u003cspan class=\"k\"\u003ebackground-color\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"kc\"\u003eyellow\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e \u003cspan class=\"p\"\u003e}\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c/\u003c/span\u003e\u003cspan class=\"nt\"\u003estyle\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id=\"层级选择器关系选择器\"\u003e层级选择器（关系选择器）\u003c/h3\u003e \u003ctable\u003e\r\u003cthead\u003e\r\u003ctr\u003e\r\u003cth\u003e类型\u003c/th\u003e\r\u003cth\u003e示例\u003c/th\u003e\r\u003cth\u003e含义\u003c/th\u003e\r\u003c/tr\u003e\r\u003c/thead\u003e\r\u003ctbody\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003cstrong\u003e后代选择器\u003c/strong\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003ediv p\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e选中所有位于 \u003ccode\u003e\u003cdiv\u003e\u003c/code\u003e 内部的 \u003ccode\u003e\u003cp\u003e\u003c/code\u003e 元素\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003cstrong\u003e子代选择器\u003c/strong\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003ediv \u003e p\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e选中直接子元素 \u003ccode\u003e\u003cp\u003e\u003c/code\u003e\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003cstrong\u003e相邻兄弟选择器\u003c/strong\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003eh1 + p\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e选中紧跟在 \u003ccode\u003e\u003ch1\u003e\u003c/code\u003e 后的第一个 \u003ccode\u003e\u003cp\u003e\u003c/code\u003e\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003cstrong\u003e通用兄弟选择器\u003c/strong\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003eh1 ~ p\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e选中与 \u003ccode\u003e\u003ch1\u003e\u003c/code\u003e 同级、在其后的所有 \u003ccode\u003e\u003cp\u003e\u003c/code\u003e\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e示例：\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003c/td\u003e\r\u003c/tr\u003e\r\u003c/tbody\u003e\r\u003c/table\u003e\u003cdiv class=\"highlight\"\u003e\u003cpre tabindex=\"0\" class=\"chroma\"\u003e\u003ccode class=\"language-html\" data-lang=\"html\"\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003ediv\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003ep\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e我是div里的p\u003cspan class=\"p\"\u003e\u003c/\u003c/span\u003e\u003cspan class=\"nt\"\u003ep\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c/\u003c/span\u003e\u003cspan class=\"nt\"\u003ediv\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003ep\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e我是外面的p\u003cspan class=\"p\"\u003e\u003c/\u003c/span\u003e\u003cspan class=\"nt\"\u003ep\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003estyle\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"nt\"\u003ediv\u003c/span\u003e \u003cspan class=\"nt\"\u003ep\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e \u003cspan class=\"k\"\u003ecolor\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"kc\"\u003ered\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e \u003cspan class=\"p\"\u003e}\u003c/span\u003e \u003cspan class=\"c\"\u003e/* 只选中第一个p */\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c/\u003c/span\u003e\u003cspan class=\"nt\"\u003estyle\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id=\"属性选择器\"\u003e属性选择器\u003c/h3\u003e \u003ctable\u003e\r\u003cthead\u003e\r\u003ctr\u003e\r\u003cth\u003e选择器\u003c/th\u003e\r\u003cth\u003e示例\u003c/th\u003e\r\u003cth\u003e含义\u003c/th\u003e\r\u003c/tr\u003e\r\u003c/thead\u003e\r\u003ctbody\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e[type]\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003einput[type]\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e选中所有有 \u003ccode\u003etype\u003c/code\u003e 属性的 input\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e[type=\"text\"]\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003einput[type=\"text\"]\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e选中 \u003ccode\u003etype=\"text\"\u003c/code\u003e 的输入框\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e[title~=\"news\"]\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e[title~=\"news\"]\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e选中属性中包含单词“news”的元素\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e[href^=\"https\"]\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003ea[href^=\"https\"]\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e选中以 https 开头的链接\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e[href$=\".jpg\"]\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003ea[href$=\".jpg\"]\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e选中以 .jpg 结尾的链接\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e[href*=\"blog\"]\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003ea[href*=\"blog\"]\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e选中 href 中包含 blog 的链接\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e示例：\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003c/td\u003e\r\u003c/tr\u003e\r\u003c/tbody\u003e\r\u003c/table\u003e\u003cdiv class=\"highlight\"\u003e\u003cpre tabindex=\"0\" class=\"chroma\"\u003e\u003ccode class=\"language-html\" data-lang=\"html\"\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003einput\u003c/span\u003e \u003cspan class=\"na\"\u003etype\u003c/span\u003e\u003cspan class=\"o\"\u003e=\u003c/span\u003e\u003cspan class=\"s\"\u003e\"text\"\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003einput\u003c/span\u003e \u003cspan class=\"na\"\u003etype\u003c/span\u003e\u003cspan class=\"o\"\u003e=\u003c/span\u003e\u003cspan class=\"s\"\u003e\"password\"\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003estyle\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"nt\"\u003einput\u003c/span\u003e\u003cspan class=\"o\"\u003e[\u003c/span\u003e\u003cspan class=\"nt\"\u003etype\u003c/span\u003e\u003cspan class=\"o\"\u003e=\u003c/span\u003e\u003cspan class=\"s2\"\u003e\"text\"\u003c/span\u003e\u003cspan class=\"o\"\u003e]\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e \u003cspan class=\"k\"\u003ebackground-color\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"kc\"\u003eyellow\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e \u003cspan class=\"p\"\u003e}\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c/\u003c/span\u003e\u003cspan class=\"nt\"\u003estyle\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id=\"伪类选择器\"\u003e伪类选择器\u003c/h3\u003e \u003cp\u003e伪类用于选择元素的特殊状态（如鼠标悬停、已访问链接、首个子元素等）。\n\u003ctable\u003e\r\u003cthead\u003e\r\u003ctr\u003e\r\u003cth\u003e伪类\u003c/th\u003e\r\u003cth\u003e示例\u003c/th\u003e\r\u003cth\u003e含义\u003c/th\u003e\r\u003c/tr\u003e\r\u003c/thead\u003e\r\u003ctbody\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e:hover\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003ea:hover\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e鼠标悬停时样式\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e:focus\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003einput:focus\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e输入框获得焦点时样式\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e:first-child\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003ep:first-child\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e第一个子元素\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e:last-child\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003ep:last-child\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e最后一个子元素\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e:nth-child(n)\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003eli:nth-child(2)\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e第 n 个子元素\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e示例：\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003c/td\u003e\r\u003c/tr\u003e\r\u003c/tbody\u003e\r\u003c/table\u003e\u003cdiv class=\"highlight\"\u003e\u003cpre tabindex=\"0\" class=\"chroma\"\u003e\u003ccode class=\"language-html\" data-lang=\"html\"\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003ea\u003c/span\u003e \u003cspan class=\"na\"\u003ehref\u003c/span\u003e\u003cspan class=\"o\"\u003e=\u003c/span\u003e\u003cspan class=\"s\"\u003e\"#\"\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e鼠标悬停试试\u003cspan class=\"p\"\u003e\u003c/\u003c/span\u003e\u003cspan class=\"nt\"\u003ea\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003estyle\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"nt\"\u003ea\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e\u003cspan class=\"nd\"\u003ehover\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e \u003cspan class=\"k\"\u003ecolor\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"kc\"\u003ered\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e \u003cspan class=\"k\"\u003etext-decoration\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"kc\"\u003eunderline\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e \u003cspan class=\"p\"\u003e}\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c/\u003c/span\u003e\u003cspan class=\"nt\"\u003estyle\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id=\"伪元素选择器\"\u003e伪元素选择器\u003c/h3\u003e \u003cp\u003e伪元素用于选中元素内容的某个部分。\n\u003ctable\u003e\r\u003cthead\u003e\r\u003ctr\u003e\r\u003cth\u003e伪元素\u003c/th\u003e\r\u003cth\u003e示例\u003c/th\u003e\r\u003cth\u003e含义\u003c/th\u003e\r\u003c/tr\u003e\r\u003c/thead\u003e\r\u003ctbody\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e::before\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003ep::before\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e在元素内容前插入内容\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e::after\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003ep::after\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e在元素内容后插入内容\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e::first-line\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003ep::first-line\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e选中文本第一行\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e::first-letter\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003ep::first-letter\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e选中文本第一个字母\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e示例：\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003c/td\u003e\r\u003c/tr\u003e\r\u003c/tbody\u003e\r\u003c/table\u003e\u003cdiv class=\"highlight\"\u003e\u003cpre tabindex=\"0\" class=\"chroma\"\u003e\u003ccode class=\"language-html\" data-lang=\"html\"\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003ep\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e欢迎学习 JavaWeb！\u003cspan class=\"p\"\u003e\u003c/\u003c/span\u003e\u003cspan class=\"nt\"\u003ep\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c\u003c/span\u003e\u003cspan class=\"nt\"\u003estyle\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"nt\"\u003ep\u003c/span\u003e\u003cspan class=\"p\"\u003e::\u003c/span\u003e\u003cspan class=\"nd\"\u003ebefore\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e \u003cspan class=\"k\"\u003econtent\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"s2\"\u003e\"👉 \"\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e \u003cspan class=\"k\"\u003ecolor\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"kc\"\u003ered\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e \u003cspan class=\"p\"\u003e}\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e \u003cspan class=\"nt\"\u003ep\u003c/span\u003e\u003cspan class=\"p\"\u003e::\u003c/span\u003e\u003cspan class=\"nd\"\u003eafter\u003c/span\u003e \u003cspan class=\"p\"\u003e{\u003c/span\u003e \u003cspan class=\"k\"\u003econtent\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"s2\"\u003e\" ✅\"\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e \u003cspan class=\"k\"\u003ecolor\u003c/span\u003e\u003cspan class=\"p\"\u003e:\u003c/span\u003e \u003cspan class=\"kc\"\u003egreen\u003c/span\u003e\u003cspan class=\"p\"\u003e;\u003c/span\u003e \u003cspan class=\"p\"\u003e}\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"p\"\u003e\u003c/\u003c/span\u003e\u003cspan class=\"nt\"\u003estyle\u003c/span\u003e\u003cspan class=\"p\"\u003e\u003e\u003c/span\u003e \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch2 id=\"css层叠与优先级\"\u003eCSS层叠与优先级\u003c/h2\u003e \u003cp\u003eCSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样式规则，最终显示哪一个由 \u003cstrong\u003e优先级（Specificity）\u003c/strong\u003e 决定。 优先级从高到低：\n\u003col\u003e \u003cli\u003e内联样式 \u003e\u003c/li\u003e \u003cli\u003e内部样式/外部样式（谁后加载谁优先级高\u003c/li\u003e \u003cli\u003eID 选择器 #id \u003e\u003c/li\u003e \u003cli\u003e类选择器 .class、属性选择器 [type=“text”] \u003e\u003c/li\u003e \u003cli\u003e标签选择器 p, div \u003e\u003c/li\u003e \u003cli\u003e浏览器默认样式 选择器优先级总结 \u003ctable\u003e\r\u003cthead\u003e\r\u003ctr\u003e\r\u003cth\u003e选择器类型\u003c/th\u003e\r\u003cth\u003e优先级高低\u003c/th\u003e\r\u003cth\u003e示例\u003c/th\u003e\r\u003c/tr\u003e\r\u003c/thead\u003e\r\u003ctbody\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e内联样式\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e最高\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e\u003cp style=\"color:red;\"\u003e\u003c/code\u003e\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003eID 选择器\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e次高\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e#id\u003c/code\u003e\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e类、属性、伪类选择器\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e中等\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e.class\u003c/code\u003e, \u003ccode\u003e[attr]\u003c/code\u003e, \u003ccode\u003e:hover\u003c/code\u003e\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e元素、伪元素选择器\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e较低\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003ep\u003c/code\u003e, \u003ccode\u003e::before\u003c/code\u003e\u003c/td\u003e\r\u003c/tr\u003e\r\u003ctr\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e通配符 \u003ccode\u003e*\u003c/code\u003e\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e最低\u003c/td\u003e\r\u003ctd rowspan=\"1\" colspan=\"1\" style=\"text-align: \"\u003e\u003ccode\u003e* {}\u003c/code\u003e\u003c/td\u003e\r\u003c/tr\u003e\r\u003c/tbody\u003e\r\u003c/table\u003e\u003c/li\u003e \u003c/ol\u003e ",
+  "wordCount" : "5066",
   "inLanguage": "zh",
-  "datePublished": "2025-11-11T11:46:32+08:00",
-  "dateModified": "2025-11-11T13:46:12.408686817Z",
+  "datePublished": "2025-11-13T13:24:26.403Z",
+  "dateModified": "2025-11-13T13:24:53.996906928Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/java-web/javaweb-html/"
@@ -1133,7 +217,7 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
         </svg>
       </span>
     </h1>
-    <div class="post-meta"><span title='2025-11-11 11:46:32 +0800 +0800'>2025-11-11</span>&nbsp;·&nbsp;<span>4 分钟</span>
+    <div class="post-meta"><span title='2025-11-13 13:24:26.403 +0000 UTC'>2025-11-13</span>&nbsp;·&nbsp;<span>11 分钟</span>
 
 </div>
   </header> <div class="toc">
@@ -1154,7 +238,11 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                     <a href="#html%e5%b8%b8%e8%a7%81%e6%a0%87%e7%ad%be" aria-label="HTML常见标签">HTML常见标签</a><ul>
                         
                 <li>
-                    <a href="#%e6%95%b0%e6%8d%ae%e5%b1%95%e7%a4%ba%e6%a0%87%e7%ad%be" aria-label="数据展示标签">数据展示标签</a></li></ul>
+                    <a href="#%e6%95%b0%e6%8d%ae%e5%b1%95%e7%a4%ba%e6%a0%87%e7%ad%be" aria-label="数据展示标签">数据展示标签</a></li>
+                <li>
+                    <a href="#%e6%95%b0%e6%8d%ae%e9%87%87%e9%9b%86%e6%a0%87%e7%ad%be" aria-label="数据采集标签">数据采集标签</a></li>
+                <li>
+                    <a href="#%e5%85%b6%e4%bb%96%e5%b8%b8%e8%a7%81%e6%a0%87%e7%ad%be" aria-label="其他常见标签">其他常见标签</a></li></ul>
                 </li></ul>
                 </li>
                 <li>
@@ -1163,7 +251,67 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                 <li>
                     <a href="#css%e7%9a%84%e5%bc%95%e5%85%a5%e6%96%b9%e5%bc%8f" aria-label="CSS的引入方式">CSS的引入方式</a></li>
                 <li>
-                    <a href="#%e5%b8%b8%e7%94%a8css%e5%b1%9e%e6%80%a7" aria-label="常用CSS属性">常用CSS属性</a></li>
+                    <a href="#%e5%b8%b8%e7%94%a8css%e5%b1%9e%e6%80%a7" aria-label="常用CSS属性">常用CSS属性</a><ul>
+                        
+                <li>
+                    <a href="#%e6%96%87%e6%9c%ac%e6%a0%b7%e5%bc%8ftext--font" aria-label="文本样式（Text &amp; Font）">文本样式（Text &amp; Font）</a><ul>
+                        
+                <li>
+                    <a href="#%e5%ad%97%e4%bd%93%e4%b8%8e%e9%a2%9c%e8%89%b2" aria-label="字体与颜色">字体与颜色</a></li>
+                <li>
+                    <a href="#%e6%96%87%e6%9c%ac%e5%af%b9%e9%bd%90%e4%b8%8e%e4%bf%ae%e9%a5%b0" aria-label="文本对齐与修饰">文本对齐与修饰</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e8%83%8c%e6%99%af%e6%a0%b7%e5%bc%8fbackground" aria-label="背景样式（Background）">背景样式（Background）</a></li>
+                <li>
+                    <a href="#%e7%9b%92%e6%a8%a1%e5%9e%8bbox-model" aria-label="盒模型（Box Model）">盒模型（Box Model）</a><ul>
+                        
+                <li>
+                    <a href="#%e5%b0%ba%e5%af%b8" aria-label="尺寸">尺寸</a></li>
+                <li>
+                    <a href="#%e5%86%85%e5%a4%96%e8%be%b9%e8%b7%9d" aria-label="内外边距">内外边距</a></li>
+                <li>
+                    <a href="#%e8%be%b9%e6%a1%86" aria-label="边框">边框</a></li>
+                <li>
+                    <a href="#%e7%9b%92%e6%a8%a1%e5%9e%8b%e7%b1%bb%e5%9e%8b" aria-label="盒模型类型">盒模型类型</a></li>
+                <li>
+                    <a href="#%e5%86%85%e5%ae%b9%e6%ba%a2%e5%87%ba" aria-label="内容溢出">内容溢出</a></li>
+                <li>
+                    <a href="#%e6%98%be%e7%a4%ba%e7%b1%bb%e5%9e%8b" aria-label="显示类型">显示类型</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%b8%83%e5%b1%80%e4%b8%8e%e5%ae%9a%e4%bd%8dlayout--positioning" aria-label="布局与定位（Layout &amp; Positioning）">布局与定位（Layout &amp; Positioning）</a><ul>
+                        
+                <li>
+                    <a href="#flex-%e5%b8%83%e5%b1%80" aria-label="Flex 布局">Flex 布局</a></li>
+                <li>
+                    <a href="#grid-%e5%b8%83%e5%b1%80" aria-label="Grid 布局">Grid 布局</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e8%be%b9%e6%a1%86%e4%b8%8e%e9%98%b4%e5%bd%b1border--shadow" aria-label="边框与阴影（Border &amp; Shadow）">边框与阴影（Border &amp; Shadow）</a></li>
+                <li>
+                    <a href="#%e5%88%97%e8%a1%a8%e4%b8%8e%e8%a1%a8%e6%a0%bclist--table" aria-label="列表与表格（List &amp; Table）">列表与表格（List &amp; Table）</a></li>
+                <li>
+                    <a href="#%e8%bf%87%e6%b8%a1%e4%b8%8e%e5%8a%a8%e7%94%bb" aria-label="过渡与动画">过渡与动画</a></li>
+                <li>
+                    <a href="#%e5%85%89%e6%a0%87%e4%b8%8e%e7%94%a8%e6%88%b7%e4%ba%a4%e4%ba%92" aria-label="光标与用户交互">光标与用户交互</a></li>
+                <li>
+                    <a href="#%e4%bc%aa%e7%b1%bb%e4%b8%8e%e4%bc%aa%e5%85%83%e7%b4%a0pseudo-classes--pseudo-elements" aria-label="伪类与伪元素（Pseudo-classes &amp; Pseudo-elements）">伪类与伪元素（Pseudo-classes &amp; Pseudo-elements）</a></li></ul>
+                </li>
+                <li>
+                    <a href="#css%e9%80%89%e6%8b%a9%e5%99%a8" aria-label="CSS选择器">CSS选择器</a><ul>
+                        
+                <li>
+                    <a href="#%e5%9f%ba%e6%9c%ac%e9%80%89%e6%8b%a9%e5%99%a8" aria-label="基本选择器">基本选择器</a></li>
+                <li>
+                    <a href="#%e5%b1%82%e7%ba%a7%e9%80%89%e6%8b%a9%e5%99%a8%e5%85%b3%e7%b3%bb%e9%80%89%e6%8b%a9%e5%99%a8" aria-label="层级选择器（关系选择器）">层级选择器（关系选择器）</a></li>
+                <li>
+                    <a href="#%e5%b1%9e%e6%80%a7%e9%80%89%e6%8b%a9%e5%99%a8" aria-label="属性选择器">属性选择器</a></li>
+                <li>
+                    <a href="#%e4%bc%aa%e7%b1%bb%e9%80%89%e6%8b%a9%e5%99%a8" aria-label="伪类选择器">伪类选择器</a></li>
+                <li>
+                    <a href="#%e4%bc%aa%e5%85%83%e7%b4%a0%e9%80%89%e6%8b%a9%e5%99%a8" aria-label="伪元素选择器">伪元素选择器</a></li></ul>
+                </li>
                 <li>
                     <a href="#css%e5%b1%82%e5%8f%a0%e4%b8%8e%e4%bc%98%e5%85%88%e7%ba%a7" aria-label="CSS层叠与优先级">CSS层叠与优先级</a>
                 </li>
@@ -1174,7 +322,104 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
     </details>
 </div>
 
-  <div class="post-content"><h1 id="html快速入门">HTML快速入门<a hidden class="anchor" aria-hidden="true" href="#html快速入门">#</a></h1>
+  <div class="post-content"><style type="text/css">
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+</style><div class="notice tip" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+        </span>提示</p><p>常见的html标签需要掌握，但是css属性过于庞杂，了解即可，别执迷不悟，浪费太多时间在上面，需要用时可去<a href="w3school.com.cn">W3school</a>进行查阅</p></div>
+<h1 id="html快速入门">HTML快速入门<a hidden class="anchor" aria-hidden="true" href="#html快速入门">#</a></h1>
 <ol>
 <li>新建文本文件，后缀名为<code>.html</code></li>
 <li>编写HTML的基本框架，定义标题
@@ -1230,17 +475,22 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
 </span></span></code></pre></div></li>
 <li>段落与文本标签
 <ul>
+<li><code>&amp;nbsp</code>：空格</li>
+<li><code>&amp;lt</code>：<code>&lt;</code>小于号</li>
+<li><code>$gt</code>：<code>&gt;</code>大于号</li>
 <li><code>&lt;p&gt;</code>: 段落</li>
 <li><code>&lt;br&gt;</code>: 换行</li>
-<li>水平线标签：<code>&lt;hr&gt;</code></li>
-<li><code>&lt;strong&gt;</code>: 加粗，强调</li>
-<li><code>&lt;em&gt;</code>: 斜体，强调</li>
+<li><code>&lt;b&gt;</code>/<code>&lt;strong&gt;</code>: 加粗</li>
+<li><code>&lt;i&gt;</code>/<code>&lt;em&gt;</code>: 斜体</li>
+<li><code>&lt;u&gt;</code>/<code>&lt;ins&gt;</code>：下划线</li>
+<li><code>&lt;s&gt;</code>/<code>&lt;del&gt;</code>：删除线</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>这是一个段落。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>这是第二段<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>带换行<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>加粗文字<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">em</span><span class="p">&gt;</span>斜体文字<span class="p">&lt;/</span><span class="nt">em</span><span class="p">&gt;</span>
 </span></span></code></pre></div></li>
+<li>水平线标签：<code>&lt;hr&gt;</code></li>
 <li>列表标签
 <ul>
 <li><code>&lt;ol&gt;</code>：有序列表</li>
@@ -1257,7 +507,17 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>香蕉<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
 </span></span></code></pre></div></li>
-<li>链接标签：<code>&lt;a&gt;</code></li>
+<li>链接标签：<code>&lt;a&gt;</code>
+<ul>
+<li><code>href</code>：指定资源访问的url</li>
+<li><code>target</code>：指定在何处打开资源页面
+<ul>
+<li><code>_self</code>：默认值，在当前页面打开</li>
+<li><code>_blank</code>：在空白页面打开</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>图片标签：<code>&lt;img&gt;</code>
 <ul>
 <li><code>src</code>: 指定图像的url（绝对路径/相对路径）
@@ -1281,6 +541,20 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
 <li><code>height</code>: 图像的高度（像素/相对于父元素的百分比）</li>
 </ul>
 </li>
+<li>视频标签：<code>&lt;video&gt;</code>
+<ul>
+<li><code>src</code>：规定视频的url</li>
+<li><code>controls</code>：显示播放控件</li>
+<li><code>width</code>：播放器的宽度</li>
+<li><code>height</code>：播放器的高度</li>
+</ul>
+</li>
+<li>音频标签：<code>&lt;audio&gt;</code>
+<ul>
+<li><code>src</code>：规定音频的url</li>
+<li><code>controls</code>：显示播放控件</li>
+</ul>
+</li>
 <li>表格标签
 <ul>
 <li><code>&lt;table&gt;</code>: 表格</li>
@@ -1289,6 +563,61 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
 <li><code>&lt;th&gt;</code>: 表头</li>
 </ul>
 </li>
+<li>容器标签
+<ul>
+<li><code>&lt;span&gt;</code>：行内容器，用于小范围文字样式控制</li>
+<li><code>&lt;div&gt;</code>：块级容器，用于分区布局</li>
+</ul>
+</li>
+</ul>
+<h3 id="数据采集标签">数据采集标签<a hidden class="anchor" aria-hidden="true" href="#数据采集标签">#</a></h3>
+<p>这些标签用于 <strong>接收用户输入</strong>，主要是表单元素（Form Elements）。</p>
+<ul>
+<li>表单容器：<code>&lt;form&gt;</code>：用于定义整个表单区域。
+<ul>
+<li><code>action</code>：定义提交数据的路径</li>
+<li><code>method</code>：定义表单提交方式
+<ul>
+<li><code>get</code>：请求数据直接 <code>&amp;</code> 拼接在路径<code>?</code>后面（一般用于请求资源），大小有限制</li>
+<li><code>post</code>：请求数据通过 请求体 传递（一般用于提交数据）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>常用输入控件，大小无限制
+<ul>
+<li><code>&lt;input&gt;</code>：输入框（可设置 type=&ldquo;text&rdquo;、&ldquo;password&rdquo;、&ldquo;checkbox&rdquo; 等）
+<ul>
+<li><code>type</code>：要显示的元素的类型。
+<ul>
+<li><code>text</code>：文本</li>
+<li><code>password</code>：密码</li>
+<li><code>radio</code>：单选按钮</li>
+<li><code>checkbox</code>：复选框</li>
+<li><code>file</code>：文件上传按钮</li>
+<li><code>date</code>/<code>time</code>/<code>datetime-local</code>：日期/时间/日期时间</li>
+<li><code>number</code>：数字输入框</li>
+<li><code>email</code>：邮件输入框</li>
+<li><code>hidden</code>：定义隐藏域</li>
+<li><code>submit</code>/<code>reset</code>/<code>button</code>：提交按钮/重置按钮/可点击按钮</li>
+</ul>
+</li>
+<li><code>value</code>：文本</li>
+<li><code>name</code>：元素的名称（<strong>变量名</strong>）</li>
+</ul>
+</li>
+<li><code>&lt;textarea&gt;</code>：多行文本输入</li>
+<li><code>&lt;select&gt;</code>：下拉列表</li>
+<li><code>&lt;option&gt;</code>：下拉选项</li>
+<li><code>&lt;button&gt;</code>：按钮（提交或重置）</li>
+</ul>
+</li>
+</ul>
+<h3 id="其他常见标签">其他常见标签<a hidden class="anchor" aria-hidden="true" href="#其他常见标签">#</a></h3>
+<ul>
+<li><code>&lt;script&gt;</code>：引入或书写JavaScript脚本</li>
+<li><code>&lt;link&gt;</code>：引入或书写CSS文件</li>
+<li><code>&lt;meta&gt;</code>：网页信息，如字符集、关键词</li>
 </ul>
 <hr>
 <h1 id="css样式控制">CSS样式控制<a hidden class="anchor" aria-hidden="true" href="#css样式控制">#</a></h1>
@@ -1331,6 +660,377 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
 </ol>
 <hr>
 <h2 id="常用css属性">常用CSS属性<a hidden class="anchor" aria-hidden="true" href="#常用css属性">#</a></h2>
+<h3 id="文本样式text--font">文本样式（Text &amp; Font）<a hidden class="anchor" aria-hidden="true" href="#文本样式text--font">#</a></h3>
+<h4 id="字体与颜色">字体与颜色<a hidden class="anchor" aria-hidden="true" href="#字体与颜色">#</a></h4>
+<ul>
+<li><code>color</code>:颜色</li>
+<li><code>font-color</code>：字体颜色</li>
+<li><code>font-size</code>：字体大小</li>
+<li><code>font-weight</code>：字体粗细
+<ul>
+<li><code>normal</code>：正常</li>
+<li><code>bold</code>：加粗</li>
+<li><code>100~900</code>：数值表示粗细</li>
+</ul>
+</li>
+<li><code>font-style</code>：字体样式
+<ul>
+<li><code>normal</code>：正常</li>
+<li><code>italic</code>斜体</li>
+<li><code>oblique</code>倾斜</li>
+</ul>
+</li>
+<li><code>font-family</code>：字体类型
+<ul>
+<li><code>微软雅黑</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="文本对齐与修饰">文本对齐与修饰<a hidden class="anchor" aria-hidden="true" href="#文本对齐与修饰">#</a></h4>
+<ul>
+<li><code>line-height</code>：行高</li>
+<li><code>text-indent</code>：缩进</li>
+<li><code>text-align</code>：水平对齐
+<ul>
+<li><code>center</code>：居中</li>
+<li><code>left</code>：左对齐</li>
+<li><code>right</code>：右对齐</li>
+<li><code>justify</code>：两端对齐</li>
+</ul>
+</li>
+<li><code>text-decoratiopn</code>：装饰线
+<ul>
+<li><code>none</code>：无装饰</li>
+<li><code>underline</code>：下划线</li>
+<li><code>line-through</code>：删除线</li>
+<li><code>overline</code>：上划线</li>
+</ul>
+</li>
+<li><code>text-transform</code>：字母大小写
+<ul>
+<li><code>uppercase</code>：大写</li>
+<li><code>lowercase</code>：小写</li>
+<li><code>capitalize</code>：首字母大写</li>
+</ul>
+</li>
+<li><code>letter-spacing</code>：字母间距</li>
+<li><code>word-spacing</code>：单词间距</li>
+<li><code>white-space</code>：空白处理
+<ul>
+<li><code>normal</code>：拆行，合并空白</li>
+<li><code>nowrap</code>：不换行</li>
+<li><code>pre</code>：保留空格和换行</li>
+<li><code>pre-line</code>：保留换行但合并空格</li>
+<li><code>pre-wrap</code>：保留空格和换行</li>
+</ul>
+</li>
+<li><code>text-overflow</code>：文本溢出处理
+<ul>
+<li><code>clip</code>：裁切</li>
+<li><code>ellipsis</code>：显示省略号</li>
+</ul>
+</li>
+<li><code>direction</code>：文本方向
+<ul>
+<li><code>ltr</code>：从左到右</li>
+<li><code>rtl</code>：从右到左</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="背景样式background">背景样式（Background）<a hidden class="anchor" aria-hidden="true" href="#背景样式background">#</a></h3>
+<ul>
+<li><code>background-color</code>：背景颜色</li>
+<li><code>background-image</code>：背景图片
+<ul>
+<li><code>url('img.png')</code></li>
+<li><code>linear-gradient(...)</code></li>
+</ul>
+</li>
+<li><code>background-repeat</code>：背景重复方式
+<ul>
+<li><code>repeat</code></li>
+<li><code>repeat-x</code></li>
+<li><code>repeat-y</code></li>
+<li><code>no-repeat</code></li>
+</ul>
+</li>
+<li><code>background-position</code>：背景位置
+<ul>
+<li><code>left top</code></li>
+<li><code>center center</code></li>
+<li><code>50% 50%</code></li>
+</ul>
+</li>
+<li><code>background-size</code>：背景尺寸
+<ul>
+<li><code>auto</code></li>
+<li><code>cover</code></li>
+<li><code>contain</code></li>
+<li><code>100px 200px</code></li>
+</ul>
+</li>
+<li><code>background-attachment</code>：背景滚动方式
+<ul>
+<li><code>scroll</code></li>
+<li><code>fixed</code></li>
+<li><code>local</code></li>
+</ul>
+</li>
+<li><code>background-clip</code>：背景裁剪
+<ul>
+<li><code>border-box</code></li>
+<li><code>padding-box</code></li>
+<li><code>content-box</code></li>
+</ul>
+</li>
+<li><code>background-origin</code>：背景定位参考
+<ul>
+<li><code>border-box</code></li>
+<li><code>padding-box</code></li>
+<li><code>content-box</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="盒模型box-model">盒模型（Box Model）<a hidden class="anchor" aria-hidden="true" href="#盒模型box-model">#</a></h3>
+<h4 id="尺寸">尺寸<a hidden class="anchor" aria-hidden="true" href="#尺寸">#</a></h4>
+<ul>
+<li><code>width</code>/<code>height</code></li>
+<li><code>min-width</code>/<code>max-width</code>/<code>min-height</code>/<code>max-height</code></li>
+</ul>
+<h4 id="内外边距">内外边距<a hidden class="anchor" aria-hidden="true" href="#内外边距">#</a></h4>
+<ul>
+<li><code>padding</code>：内边距
+<ul>
+<li><code>10px</code></li>
+<li><code>auto</code></li>
+</ul>
+</li>
+<li><code>padding-top</code></li>
+<li><code>padding-right</code></li>
+<li><code>padding-bottom</code></li>
+<li><code>padding-left</code></li>
+<li><code>margin</code>：外边距
+<ul>
+<li><code>10px</code></li>
+<li><code>auto</code>：自动计算距离居中</li>
+</ul>
+</li>
+<li><code>margin-top</code></li>
+<li><code>margin-right</code></li>
+<li><code>margin-bottom</code></li>
+<li><code>margin-left</code></li>
+</ul>
+<h4 id="边框">边框<a hidden class="anchor" aria-hidden="true" href="#边框">#</a></h4>
+<ul>
+<li><code>border</code> ：边框
+<ul>
+<li><code>border-width</code></li>
+<li><code>border-style</code></li>
+<li><code>border-color</code></li>
+<li><code>border-top</code></li>
+<li><code>border-right</code></li>
+<li><code>border-bottom</code></li>
+<li><code>border-left</code></li>
+</ul>
+</li>
+<li><code>border-radius</code>：圆角</li>
+</ul>
+<h4 id="盒模型类型">盒模型类型<a hidden class="anchor" aria-hidden="true" href="#盒模型类型">#</a></h4>
+<ul>
+<li><code>box-sizing</code>：盒模型计算方式：元素宽高计算规则
+<ul>
+<li><code>content-box</code>：（默认）宽高只计算内容区域，不包含<code>padding</code>和<code>border</code>，实际空间=<code>width</code>+<code>padding</code>+<code>border</code></li>
+<li><code>border-box</code>：宽高包含<code>content</code>+<code>padding</code>+<code>border</code>，设置的<code>width</code>、<code>height</code>是整个盒子的总大小</li>
+</ul>
+</li>
+</ul>
+<h4 id="内容溢出">内容溢出<a hidden class="anchor" aria-hidden="true" href="#内容溢出">#</a></h4>
+<ul>
+<li><code>overflow</code>：内容溢出处理
+<ul>
+<li><code>visible</code>：可见</li>
+<li><code>hidden</code></li>
+<li><code>scroll</code></li>
+<li><code>auto</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="显示类型">显示类型<a hidden class="anchor" aria-hidden="true" href="#显示类型">#</a></h4>
+<ul>
+<li><code>display</code>：元素显示类型
+<ul>
+<li><code>block</code></li>
+<li><code>inline</code></li>
+<li><code>inline-block</code></li>
+<li><code>flex</code></li>
+<li><code>grid</code></li>
+<li><code>none</code></li>
+</ul>
+</li>
+<li><code>visibility</code>：可见性
+<ul>
+<li><code>visible</code></li>
+<li><code>hidden</code></li>
+<li><code>collapse</code>：销毁</li>
+</ul>
+</li>
+</ul>
+<h3 id="布局与定位layout--positioning">布局与定位（Layout &amp; Positioning）<a hidden class="anchor" aria-hidden="true" href="#布局与定位layout--positioning">#</a></h3>
+<ul>
+<li><code>position</code>：元素定位
+<ul>
+<li><code>static</code></li>
+<li><code>relative</code></li>
+<li><code>absolute</code></li>
+<li><code>fixed</code></li>
+<li><code>sticky</code></li>
+</ul>
+</li>
+<li><code>top</code> / <code>right</code> / <code>bottom</code> / <code>left</code>：元素偏移</li>
+<li><code>float</code>：：浮动
+<ul>
+<li><code>left</code> / <code>right</code> / <code>none</code></li>
+</ul>
+</li>
+<li><code>clear</code>：清除浮动
+<ul>
+<li><code>left / right / both / none</code></li>
+</ul>
+</li>
+<li><code>z-index</code>：堆叠顺序（整数值）</li>
+</ul>
+<h4 id="flex-布局">Flex 布局<a hidden class="anchor" aria-hidden="true" href="#flex-布局">#</a></h4>
+<ul>
+<li><code>flex</code> : 弹性布局
+<ul>
+<li><code>1</code></li>
+<li><code>flex-direction</code></li>
+<li><code>justify-content</code></li>
+<li><code>align-items</code></li>
+<li><code>align-content</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="grid-布局">Grid 布局<a hidden class="anchor" aria-hidden="true" href="#grid-布局">#</a></h4>
+<ul>
+<li><code>grid</code>：网格布局
+<ul>
+<li><code>grid-template-columns / grid-template-rows / grid-gap</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="边框与阴影border--shadow">边框与阴影（Border &amp; Shadow）<a hidden class="anchor" aria-hidden="true" href="#边框与阴影border--shadow">#</a></h3>
+<ul>
+<li><code>border-style</code>：边框样式
+<ul>
+<li><code>solid</code> ：实线</li>
+<li><code>dashed</code> ：虚线</li>
+<li><code>dotted</code> ：点状线</li>
+<li><code>double</code>：双线</li>
+<li><code>none</code>：无边框</li>
+</ul>
+</li>
+<li><code>border-width</code>：边框宽度</li>
+<li><code>border-color</code>：边框颜色值</li>
+<li><code>border-top</code>/<code>right</code>/<code>bottom</code>/<code>left</code>：单边边框</li>
+<li><code>box-shadow</code>：元素阴影
+<ul>
+<li><code>2px 2px 5px #888</code></li>
+</ul>
+</li>
+<li><code>outline</code>：外边线
+<ul>
+<li><code>1px solid red</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="列表与表格list--table">列表与表格（List &amp; Table）<a hidden class="anchor" aria-hidden="true" href="#列表与表格list--table">#</a></h3>
+<ul>
+<li>列表
+<ul>
+<li><code>list-style-type</code>：列表样式
+<ul>
+<li><code>disc</code></li>
+<li><code>circle</code></li>
+<li><code>decimal</code></li>
+<li><code>none</code></li>
+</ul>
+</li>
+<li><code>list-style-image</code>：图标 URL</li>
+</ul>
+</li>
+<li>表格
+<ul>
+<li><code>border-collapse</code>：表格边框合并
+<ul>
+<li><code>collapse</code> ：边框合并</li>
+<li><code>separate</code>：（默认）分开</li>
+</ul>
+</li>
+<li><code>border-spacing</code>：表格间距</li>
+</ul>
+</li>
+</ul>
+<h3 id="过渡与动画">过渡与动画<a hidden class="anchor" aria-hidden="true" href="#过渡与动画">#</a></h3>
+<ul>
+<li><code>transition</code>：过渡效果</li>
+<li><code>transition-property</code>：过渡属性</li>
+<li><code>transition-duration</code>：持续时间</li>
+<li><code>transition-timing-function</code>：速度曲线</li>
+<li><code>animation</code>：动画</li>
+<li><code>animation-name</code>：动画名称</li>
+<li><code>animation-duration</code>：动画持续时间</li>
+<li><code>animation-iteration-count</code>:循环次数</li>
+<li><code>animation-timing-function</code>：动画速度曲线</li>
+</ul>
+<h3 id="光标与用户交互">光标与用户交互<a hidden class="anchor" aria-hidden="true" href="#光标与用户交互">#</a></h3>
+<ul>
+<li><code>cursor</code>：鼠标样式
+<ul>
+<li><code>pointer</code></li>
+<li><code>default</code></li>
+<li><code>text</code></li>
+<li><code>move</code></li>
+</ul>
+</li>
+<li><code>pointer-events</code>：鼠标事件
+<ul>
+<li><code>auto</code></li>
+<li><code>none</code></li>
+</ul>
+</li>
+<li><code>user-select</code>：文本选中行为</li>
+<li><code>auto</code></li>
+<li><code>none</code></li>
+<li><code>text</code></li>
+</ul>
+<h3 id="伪类与伪元素pseudo-classes--pseudo-elements">伪类与伪元素（Pseudo-classes &amp; Pseudo-elements）<a hidden class="anchor" aria-hidden="true" href="#伪类与伪元素pseudo-classes--pseudo-elements">#</a></h3>
+<ul>
+<li>伪类：选择元素状态
+<ul>
+<li><code>:hover</code></li>
+<li><code>:active</code></li>
+<li><code>:focus</code></li>
+<li><code>:first-child</code></li>
+<li><code>:nth-child(n)</code></li>
+</ul>
+</li>
+<li>伪元素：选择元素内部特定部分
+<ul>
+<li><code>::before</code></li>
+<li><code>::after</code></li>
+<li><code>::first-letter</code></li>
+<li><code>::first-line</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="css选择器">CSS选择器<a hidden class="anchor" aria-hidden="true" href="#css选择器">#</a></h2>
+<p>用来选取需要设置样式的元素</p>
+<hr>
+<h3 id="基本选择器">基本选择器<a hidden class="anchor" aria-hidden="true" href="#基本选择器">#</a></h3>
 
 
 
@@ -1339,8 +1039,1734 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
 
     <thead>
       <tr>
-          <th>分类</th>
-          <th>常用属性</th>
+          <th>类型</th>
+          <th>示例</th>
+          <th>说明</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><strong>元素选择器</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>p { color: red; }</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">选中所有 <code>&lt;p&gt;</code> 段落元素</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><strong>类选择器</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>.title { color: blue; }</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">选中 <code>class=&quot;title&quot;</code> 的元素</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><strong>ID 选择器</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>#main { color: green; }</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">选中 <code>id=&quot;main&quot;</code> 的唯一元素</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><strong>通配选择器</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>* { margin: 0; }</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">选中页面中所有元素</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">示例：</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "></td>
+      </tr>
+  </tbody>
+</table><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;text&#34;</span><span class="p">&gt;</span>段落文字<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;box&#34;</span><span class="p">&gt;</span>盒子内容<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">p</span> <span class="p">{</span> <span class="k">color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nc">text</span> <span class="p">{</span> <span class="k">font-size</span><span class="p">:</span> <span class="mi">18</span><span class="kt">px</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">#</span><span class="nn">box</span> <span class="p">{</span> <span class="k">background-color</span><span class="p">:</span> <span class="kc">yellow</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h3 id="层级选择器关系选择器">层级选择器（关系选择器）<a hidden class="anchor" aria-hidden="true" href="#层级选择器关系选择器">#</a></h3>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th>类型</th>
+          <th>示例</th>
+          <th>含义</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><strong>后代选择器</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>div p</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">选中所有位于 <code>&lt;div&gt;</code> 内部的 <code>&lt;p&gt;</code> 元素</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><strong>子代选择器</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>div &gt; p</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">选中直接子元素 <code>&lt;p&gt;</code></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><strong>相邻兄弟选择器</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>h1 + p</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">选中紧跟在 <code>&lt;h1&gt;</code> 后的第一个 <code>&lt;p&gt;</code></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><strong>通用兄弟选择器</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>h1 ~ p</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">选中与 <code>&lt;h1&gt;</code> 同级、在其后的所有 <code>&lt;p&gt;</code></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">示例：</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "></td>
+      </tr>
+  </tbody>
+</table><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>我是div里的p<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>我是外面的p<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">div</span> <span class="nt">p</span> <span class="p">{</span> <span class="k">color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span> <span class="p">}</span>    <span class="c">/* 只选中第一个p */</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h3 id="属性选择器">属性选择器<a hidden class="anchor" aria-hidden="true" href="#属性选择器">#</a></h3>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th>选择器</th>
+          <th>示例</th>
+          <th>含义</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>[type]</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>input[type]</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">选中所有有 <code>type</code> 属性的 input</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>[type=&quot;text&quot;]</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>input[type=&quot;text&quot;]</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">选中 <code>type=&quot;text&quot;</code> 的输入框</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>[title~=&quot;news&quot;]</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>[title~=&quot;news&quot;]</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">选中属性中包含单词“news”的元素</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>[href^=&quot;https&quot;]</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>a[href^=&quot;https&quot;]</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">选中以 https 开头的链接</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>[href$=&quot;.jpg&quot;]</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>a[href$=&quot;.jpg&quot;]</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">选中以 .jpg 结尾的链接</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>[href*=&quot;blog&quot;]</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>a[href*=&quot;blog&quot;]</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">选中 href 中包含 blog 的链接</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">示例：</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "></td>
+      </tr>
+  </tbody>
+</table><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;password&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">&#34;text&#34;</span><span class="o">]</span> <span class="p">{</span> <span class="k">background-color</span><span class="p">:</span> <span class="kc">yellow</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h3 id="伪类选择器">伪类选择器<a hidden class="anchor" aria-hidden="true" href="#伪类选择器">#</a></h3>
+<p>伪类用于选择元素的特殊状态（如鼠标悬停、已访问链接、首个子元素等）。</p>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th>伪类</th>
+          <th>示例</th>
+          <th>含义</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>:hover</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>a:hover</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">鼠标悬停时样式</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>:focus</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>input:focus</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">输入框获得焦点时样式</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>:first-child</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>p:first-child</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">第一个子元素</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>:last-child</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>p:last-child</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">最后一个子元素</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>:nth-child(n)</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>li:nth-child(2)</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">第 n 个子元素</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">示例：</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "></td>
+      </tr>
+  </tbody>
+</table><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;#&#34;</span><span class="p">&gt;</span>鼠标悬停试试<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">a</span><span class="p">:</span><span class="nd">hover</span> <span class="p">{</span> <span class="k">color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span> <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">underline</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h3 id="伪元素选择器">伪元素选择器<a hidden class="anchor" aria-hidden="true" href="#伪元素选择器">#</a></h3>
+<p>伪元素用于选中元素内容的某个部分。</p>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th>伪元素</th>
+          <th>示例</th>
+          <th>含义</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>::before</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>p::before</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">在元素内容前插入内容</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>::after</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>p::after</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">在元素内容后插入内容</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>::first-line</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>p::first-line</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">选中文本第一行</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>::first-letter</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><code>p::first-letter</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">选中文本第一个字母</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">示例：</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "></td>
+      </tr>
+  </tbody>
+</table><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>欢迎学习 JavaWeb！<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">p</span><span class="p">::</span><span class="nd">before</span> <span class="p">{</span> <span class="k">content</span><span class="p">:</span> <span class="s2">&#34;👉 &#34;</span><span class="p">;</span> <span class="k">color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">p</span><span class="p">::</span><span class="nd">after</span> <span class="p">{</span> <span class="k">content</span><span class="p">:</span> <span class="s2">&#34; ✅&#34;</span><span class="p">;</span> <span class="k">color</span><span class="p">:</span> <span class="kc">green</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h2 id="css层叠与优先级">CSS层叠与优先级<a hidden class="anchor" aria-hidden="true" href="#css层叠与优先级">#</a></h2>
+<p>CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样式规则，最终显示哪一个由 <strong>优先级（Specificity）</strong> 决定。
+优先级从高到低：</p>
+<ol>
+<li>内联样式 &gt;</li>
+<li>内部样式/外部样式（谁后加载谁优先级高</li>
+<li>ID 选择器 #id &gt;</li>
+<li>类选择器 .class、属性选择器 [type=&ldquo;text&rdquo;] &gt;</li>
+<li>标签选择器 p, div &gt;</li>
+<li>浏览器默认样式
+选择器优先级总结
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th>选择器类型</th>
+          <th>优先级高低</th>
           <th>示例</th>
       </tr>
     </thead>
@@ -1368,7 +2794,7 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                 
                 
                 
-                <td rowspan="1" colspan="1" style="text-align: ">文本样式</td>
+                <td rowspan="1" colspan="1" style="text-align: ">内联样式</td>
             
             
             
@@ -1385,7 +2811,7 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                 
                 
                 
-                <td rowspan="1" colspan="1" style="text-align: "><code>color</code>、<code>font-size</code>、<code>font-weight</code>、<code>text-align</code></td>
+                <td rowspan="1" colspan="1" style="text-align: ">最高</td>
             
             
             
@@ -1402,7 +2828,7 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                 
                 
                 
-                <td rowspan="1" colspan="1" style="text-align: "><code>p { color: red; font-size: 16px; text-align: center; }</code></td>
+                <td rowspan="1" colspan="1" style="text-align: "><code>&lt;p style=&quot;color:red;&quot;&gt;</code></td>
       </tr>
         
         
@@ -1425,7 +2851,7 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                 
                 
                 
-                <td rowspan="1" colspan="1" style="text-align: ">背景样式</td>
+                <td rowspan="1" colspan="1" style="text-align: ">ID 选择器</td>
             
             
             
@@ -1442,7 +2868,7 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                 
                 
                 
-                <td rowspan="1" colspan="1" style="text-align: "><code>background-color</code>、<code>background-image</code></td>
+                <td rowspan="1" colspan="1" style="text-align: ">次高</td>
             
             
             
@@ -1459,7 +2885,7 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                 
                 
                 
-                <td rowspan="1" colspan="1" style="text-align: "><code>body { background-color: #f0f0f0; }</code></td>
+                <td rowspan="1" colspan="1" style="text-align: "><code>#id</code></td>
       </tr>
         
         
@@ -1482,7 +2908,7 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                 
                 
                 
-                <td rowspan="1" colspan="1" style="text-align: ">盒模型</td>
+                <td rowspan="1" colspan="1" style="text-align: ">类、属性、伪类选择器</td>
             
             
             
@@ -1499,7 +2925,7 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                 
                 
                 
-                <td rowspan="1" colspan="1" style="text-align: "><code>width</code>、<code>height</code>、<code>padding</code>、<code>margin</code>、<code>border</code></td>
+                <td rowspan="1" colspan="1" style="text-align: ">中等</td>
             
             
             
@@ -1516,7 +2942,7 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                 
                 
                 
-                <td rowspan="1" colspan="1" style="text-align: "><code>div { width: 300px; padding: 10px; margin: 20px; border: 1px solid #ccc; }</code></td>
+                <td rowspan="1" colspan="1" style="text-align: "><code>.class</code>, <code>[attr]</code>, <code>:hover</code></td>
       </tr>
         
         
@@ -1539,7 +2965,7 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                 
                 
                 
-                <td rowspan="1" colspan="1" style="text-align: ">布局</td>
+                <td rowspan="1" colspan="1" style="text-align: ">元素、伪元素选择器</td>
             
             
             
@@ -1556,7 +2982,7 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                 
                 
                 
-                <td rowspan="1" colspan="1" style="text-align: "><code>display</code>、<code>position</code>、<code>float</code>、<code>flex</code></td>
+                <td rowspan="1" colspan="1" style="text-align: ">较低</td>
             
             
             
@@ -1573,7 +2999,7 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                 
                 
                 
-                <td rowspan="1" colspan="1" style="text-align: "><code>div { display: flex; justify-content: center; }</code></td>
+                <td rowspan="1" colspan="1" style="text-align: "><code>p</code>, <code>::before</code></td>
       </tr>
         
         
@@ -1596,7 +3022,7 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                 
                 
                 
-                <td rowspan="1" colspan="1" style="text-align: ">其他</td>
+                <td rowspan="1" colspan="1" style="text-align: ">通配符 <code>*</code></td>
             
             
             
@@ -1613,7 +3039,7 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                 
                 
                 
-                <td rowspan="1" colspan="1" style="text-align: "><code>cursor</code>、<code>overflow</code>、<code>visibility</code></td>
+                <td rowspan="1" colspan="1" style="text-align: ">最低</td>
             
             
             
@@ -1630,20 +3056,10 @@ CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样�
                 
                 
                 
-                <td rowspan="1" colspan="1" style="text-align: "><code>button { cursor: pointer; }</code></td>
+                <td rowspan="1" colspan="1" style="text-align: "><code>* {}</code></td>
       </tr>
   </tbody>
-</table><hr>
-<h2 id="css层叠与优先级">CSS层叠与优先级<a hidden class="anchor" aria-hidden="true" href="#css层叠与优先级">#</a></h2>
-<p>CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样式规则，最终显示哪一个由 <strong>优先级（Specificity）</strong> 决定。
-优先级从高到低：</p>
-<ol>
-<li>内联样式 &gt;</li>
-<li>内部样式/外部样式（谁后加载谁优先级高</li>
-<li>ID 选择器 #id &gt;</li>
-<li>类选择器 .class、属性选择器 [type=&ldquo;text&rdquo;] &gt;</li>
-<li>标签选择器 p, div &gt;</li>
-<li>浏览器默认样式</li>
+</table></li>
 </ol>
 
 

@@ -7,14 +7,19 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Tue, 11 Nov 2025 13:46:12 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 13 Nov 2025 13:24:53 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JavaWeb——(2)HTML-CSS快速入门</title>
       <link>https://www.steamedfish.top/post/java-web/javaweb-html/</link>
-      <pubDate>Tue, 11 Nov 2025 11:46:32 +0800</pubDate>
+      <pubDate>Thu, 13 Nov 2025 13:24:26 +0000</pubDate>
       <guid>https://www.steamedfish.top/post/java-web/javaweb-html/</guid>
-      <description>&lt;h1 id=&#34;html快速入门&#34;&gt;HTML快速入门&lt;/h1&gt;
+      <description>&lt;div class=&#34;notice tip&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z&#34;/&gt;&lt;/svg&gt;
+        &lt;/span&gt;提示&lt;/p&gt;&lt;p&gt;常见的html标签需要掌握，但是css属性过于庞杂，了解即可，别执迷不悟，浪费太多时间在上面，需要用时可去&lt;a href=&#34;w3school.com.cn&#34;&gt;W3school&lt;/a&gt;进行查阅&lt;/p&gt;&lt;/div&gt;
+&lt;h1 id=&#34;html快速入门&#34;&gt;HTML快速入门&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;新建文本文件，后缀名为&lt;code&gt;.html&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;编写HTML的基本框架，定义标题
@@ -70,17 +75,22 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;段落与文本标签
 &lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;amp;nbsp&lt;/code&gt;：空格&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;amp;lt&lt;/code&gt;：&lt;code&gt;&amp;lt;&lt;/code&gt;小于号&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$gt&lt;/code&gt;：&lt;code&gt;&amp;gt;&lt;/code&gt;大于号&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;&amp;lt;p&amp;gt;&lt;/code&gt;: 段落&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;&amp;lt;br&amp;gt;&lt;/code&gt;: 换行&lt;/li&gt;
-&lt;li&gt;水平线标签：&lt;code&gt;&amp;lt;hr&amp;gt;&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;&amp;lt;strong&amp;gt;&lt;/code&gt;: 加粗，强调&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt;: 斜体，强调&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;b&amp;gt;&lt;/code&gt;/&lt;code&gt;&amp;lt;strong&amp;gt;&lt;/code&gt;: 加粗&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;i&amp;gt;&lt;/code&gt;/&lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt;: 斜体&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;u&amp;gt;&lt;/code&gt;/&lt;code&gt;&amp;lt;ins&amp;gt;&lt;/code&gt;：下划线&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;s&amp;gt;&lt;/code&gt;/&lt;code&gt;&amp;lt;del&amp;gt;&lt;/code&gt;：删除线&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;这是一个段落。&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;这是第二段&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;br&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;带换行&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;strong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;加粗文字&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;strong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;em&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;斜体文字&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;em&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;水平线标签：&lt;code&gt;&amp;lt;hr&amp;gt;&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;列表标签
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;&amp;lt;ol&amp;gt;&lt;/code&gt;：有序列表&lt;/li&gt;
@@ -97,7 +107,17 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;li&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;香蕉&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;li&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;ul&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;链接标签：&lt;code&gt;&amp;lt;a&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;链接标签：&lt;code&gt;&amp;lt;a&amp;gt;&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;href&lt;/code&gt;：指定资源访问的url&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;target&lt;/code&gt;：指定在何处打开资源页面
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;_self&lt;/code&gt;：默认值，在当前页面打开&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;_blank&lt;/code&gt;：在空白页面打开&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;图片标签：&lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;src&lt;/code&gt;: 指定图像的url（绝对路径/相对路径）
@@ -121,6 +141,20 @@
 &lt;li&gt;&lt;code&gt;height&lt;/code&gt;: 图像的高度（像素/相对于父元素的百分比）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;li&gt;视频标签：&lt;code&gt;&amp;lt;video&amp;gt;&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;src&lt;/code&gt;：规定视频的url&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;controls&lt;/code&gt;：显示播放控件&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;width&lt;/code&gt;：播放器的宽度&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;height&lt;/code&gt;：播放器的高度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;音频标签：&lt;code&gt;&amp;lt;audio&amp;gt;&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;src&lt;/code&gt;：规定音频的url&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;controls&lt;/code&gt;：显示播放控件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;表格标签
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;&amp;lt;table&amp;gt;&lt;/code&gt;: 表格&lt;/li&gt;
@@ -129,88 +163,15 @@
 &lt;li&gt;&lt;code&gt;&amp;lt;th&amp;gt;&lt;/code&gt;: 表头&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;css样式控制&#34;&gt;CSS样式控制&lt;/h1&gt;
-&lt;h2 id=&#34;css的引入方式&#34;&gt;CSS的引入方式&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;内联样式（Inline Style）
-行内样式：写在标签的&lt;code&gt;style&lt;/code&gt;属性中
-示例：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;style&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;color: red; font-size: 16px;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;这是红色文字&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;内部样式表（Internal Style Sheet）
-写在&lt;code&gt;&amp;lt;style&amp;gt;&lt;/code&gt;标签中（可以写在任何位置，但通常写在&lt;code&gt;&amp;lt;head&amp;gt;&lt;/code&gt;标签中）
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;style&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;k&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;blue&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;k&#34;&gt;font-size&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;px&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;h1&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     &lt;span class=&#34;k&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;red&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;style&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;外部样式表（External Style Sheet）
-写在一个单独的&lt;code&gt;.css&lt;/code&gt;文件中（需要通过&lt;code&gt;link&lt;/code&gt;标签在网页中引入
-示例：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;link&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;rel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;stylesheet&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;style.css&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;rel&lt;/code&gt;:描述与当前文档的关系
+&lt;li&gt;容器标签
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;stylesheet&lt;/code&gt;: 当前文档的样式表&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;span&amp;gt;&lt;/code&gt;：行内容器，用于小范围文字样式控制&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;div&amp;gt;&lt;/code&gt;：块级容器，用于分区布局&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;code&gt;href&lt;/code&gt;:资源的URL地址&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;常用css属性&#34;&gt;常用CSS属性&lt;/h2&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;分类&lt;/th&gt;
-          &lt;th&gt;常用属性&lt;/th&gt;
-          &lt;th&gt;示例&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;文本样式&lt;/td&gt;
-          &lt;td&gt;&lt;code&gt;color&lt;/code&gt;、&lt;code&gt;font-size&lt;/code&gt;、&lt;code&gt;font-weight&lt;/code&gt;、&lt;code&gt;text-align&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;code&gt;p { color: red; font-size: 16px; text-align: center; }&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;背景样式&lt;/td&gt;
-          &lt;td&gt;&lt;code&gt;background-color&lt;/code&gt;、&lt;code&gt;background-image&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;code&gt;body { background-color: #f0f0f0; }&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;盒模型&lt;/td&gt;
-          &lt;td&gt;&lt;code&gt;width&lt;/code&gt;、&lt;code&gt;height&lt;/code&gt;、&lt;code&gt;padding&lt;/code&gt;、&lt;code&gt;margin&lt;/code&gt;、&lt;code&gt;border&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;code&gt;div { width: 300px; padding: 10px; margin: 20px; border: 1px solid #ccc; }&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;布局&lt;/td&gt;
-          &lt;td&gt;&lt;code&gt;display&lt;/code&gt;、&lt;code&gt;position&lt;/code&gt;、&lt;code&gt;float&lt;/code&gt;、&lt;code&gt;flex&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;code&gt;div { display: flex; justify-content: center; }&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;其他&lt;/td&gt;
-          &lt;td&gt;&lt;code&gt;cursor&lt;/code&gt;、&lt;code&gt;overflow&lt;/code&gt;、&lt;code&gt;visibility&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;code&gt;button { cursor: pointer; }&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;css层叠与优先级&#34;&gt;CSS层叠与优先级&lt;/h2&gt;
-&lt;p&gt;CSS 的名字叫“层叠样式表”，意味着同一元素可能有多个样式规则，最终显示哪一个由 &lt;strong&gt;优先级（Specificity）&lt;/strong&gt; 决定。
-优先级从高到低：&lt;/p&gt;</description>
+&lt;h3 id=&#34;数据采集标签&#34;&gt;数据采集标签&lt;/h3&gt;
+&lt;p&gt;这些标签用于 &lt;strong&gt;接收用户输入&lt;/strong&gt;，主要是表单元素（Form Elements）。&lt;/p&gt;</description>
     </item>
     <item>
       <title>JavaWeb——(1)从环境配置走进JavaWeb</title>
