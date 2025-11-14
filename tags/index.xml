@@ -7,20 +7,34 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 13 Nov 2025 15:02:17 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 14 Nov 2025 17:06:39 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>HTML</title>
-      <link>https://www.steamedfish.top/tags/html/</link>
-      <pubDate>Thu, 13 Nov 2025 13:24:26 +0000</pubDate>
-      <guid>https://www.steamedfish.top/tags/html/</guid>
+      <title>JavaScript</title>
+      <link>https://www.steamedfish.top/tags/javascript/</link>
+      <pubDate>Fri, 14 Nov 2025 17:20:12 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/javascript/</guid>
       <description></description>
     </item>
     <item>
       <title>JavaWeb</title>
       <link>https://www.steamedfish.top/tags/javaweb/</link>
-      <pubDate>Thu, 13 Nov 2025 13:24:26 +0000</pubDate>
+      <pubDate>Fri, 14 Nov 2025 17:20:12 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/javaweb/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>CSS</title>
+      <link>https://www.steamedfish.top/tags/css/</link>
+      <pubDate>Thu, 13 Nov 2025 13:24:26 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/css/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>HTML</title>
+      <link>https://www.steamedfish.top/tags/html/</link>
+      <pubDate>Thu, 13 Nov 2025 13:24:26 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/html/</guid>
       <description></description>
     </item>
     <item>

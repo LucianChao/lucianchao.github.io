@@ -9,6 +9,120 @@
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <atom:link href="https://www.steamedfish.top/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>JavaWeb——(3)JavaScript</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-javascript/</link>
+      <pubDate>Fri, 14 Nov 2025 17:20:12 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-javascript/</guid>
+      <description>&lt;h1 id=&#34;什么是javascript&#34;&gt;什么是JavaScript&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;JavaScript （简称：JS）是一门跨平台、面对对象的脚本语言，用来实现页面的动态效果、交互逻辑和数据处理。它与 HTML、CSS 共同构成 Web 三大核心技术。&lt;/li&gt;
+&lt;li&gt;JavaScript和Java是完全不同的语言，不论是概念还是设计，但是基础语法类似&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;javascript的组成&#34;&gt;JavaScript的组成&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;ECMAScript：规定了JS基础语法核心知识，包括变量、数据类型、流程控制、函数、对象等&lt;/li&gt;
+&lt;li&gt;BOM：浏览器对象模型，用于操作浏览器本身，如：页面弹窗、地址栏操作、关闭窗口等&lt;/li&gt;
+&lt;li&gt;DOM：文档对象模型，用于操作HTML文档，如：改变标签内的内容、改变标签内字体样式等&lt;/li&gt;
+&lt;/ul&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+&lt;/style&gt;&lt;div class=&#34;notice info&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
+        &lt;/span&gt;信息&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>JavaWeb——(2)HTML-CSS快速入门</title>
       <link>https://www.steamedfish.top/post/java-web/javaweb-html/</link>
       <pubDate>Thu, 13 Nov 2025 13:24:26 +0000</pubDate>
