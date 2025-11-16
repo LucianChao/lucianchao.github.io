@@ -7,8 +7,29 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sat, 15 Nov 2025 16:42:10 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 16 Nov 2025 13:10:39 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JavaWeb</title>
+      <link>https://www.steamedfish.top/tags/javaweb/</link>
+      <pubDate>Sun, 16 Nov 2025 14:20:00 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/javaweb/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vue</title>
+      <link>https://www.steamedfish.top/tags/vue/</link>
+      <pubDate>Sun, 16 Nov 2025 14:20:00 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/vue/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>框架</title>
+      <link>https://www.steamedfish.top/tags/%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Sun, 16 Nov 2025 14:20:00 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E6%A1%86%E6%9E%B6/</guid>
+      <description></description>
+    </item>
     <item>
       <title>小嘀咕</title>
       <link>https://www.steamedfish.top/tags/%E5%B0%8F%E5%98%80%E5%92%95/</link>
@@ -21,13 +42,6 @@
       <link>https://www.steamedfish.top/tags/javascript/</link>
       <pubDate>Fri, 14 Nov 2025 17:20:12 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/javascript/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>JavaWeb</title>
-      <link>https://www.steamedfish.top/tags/javaweb/</link>
-      <pubDate>Fri, 14 Nov 2025 17:20:12 +0800</pubDate>
-      <guid>https://www.steamedfish.top/tags/javaweb/</guid>
       <description></description>
     </item>
     <item>
