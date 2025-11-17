@@ -9,7 +9,21 @@
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <atom:link href="https://www.steamedfish.top/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>JavaWeb——(4)Vue框架</title>
+      <title>JavaWeb——(5)Vue基础实战案例</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-vuedemo/</link>
+      <pubDate>Mon, 17 Nov 2025 16:27:46 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-vuedemo/</guid>
+      <description>&lt;h1 id=&#34;完成省市区的联动展示&#34;&gt;完成省、市、区的联动展示&lt;/h1&gt;
+&lt;p&gt;要求页面加载完毕后，默认加载并展示出第一个省、第一个市、第一个区。
+&lt;img loading=&#34;lazy&#34; src=&#34;https://www.steamedfish.top/images/java-web/Vue-demo/1.png&#34;&gt;
+这里给出后端服务器数据地址&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;省：https://web-server.itheima.net/province &lt;br&gt;
+市：https://web-server.itheima.net/city?pid=xxx &lt;br&gt;
+区：https://web-server.itheima.net/area?cid=xxx&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>JavaWeb——(4)Vue框架基础</title>
       <link>https://www.steamedfish.top/post/java-web/javaweb-vue/</link>
       <pubDate>Sun, 16 Nov 2025 14:20:00 +0800</pubDate>
       <guid>https://www.steamedfish.top/post/java-web/javaweb-vue/</guid>
