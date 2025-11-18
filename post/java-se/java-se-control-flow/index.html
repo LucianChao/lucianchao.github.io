@@ -69,7 +69,7 @@ Think of it as building a house 你可以买很贵的材料，但没有合理的
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2025-10-27T03:05:07+00:00">
-    <meta property="article:modified_time" content="2025-11-17T13:24:38+00:00">
+    <meta property="article:modified_time" content="2025-11-18T15:34:46+00:00">
     <meta property="article:tag" content="Java">
     <meta property="article:tag" content="Java SE">
     <meta property="article:tag" content="教学">
@@ -117,7 +117,7 @@ Think of it as building a house
   "wordCount" : "3674",
   "inLanguage": "zh",
   "datePublished": "2025-10-27T03:05:07.076Z",
-  "dateModified": "2025-11-17T13:24:38.768415791Z",
+  "dateModified": "2025-11-18T15:34:46.434860871Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/java-se/java-se-control-flow/"
@@ -174,36 +174,6 @@ Think of it as building a house
             </div>
         </div>
         <ul id="menu">
-            <li>
-                <a href="https://www.steamedfish.top/" title="首页">
-                    <span>首页</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.steamedfish.top/archives/" title="归档">
-                    <span>归档</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.steamedfish.top/categories/" title="Categories">
-                    <span>分类</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.steamedfish.top/tags/" title="Tags">
-                    <span>标签</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.steamedfish.top/search/" title="搜索">
-                    <span>搜索</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.steamedfish.top/about/" title="关于">
-                    <span>关于</span>
-                </a>
-            </li>
         </ul>
     </nav>
 </header>
@@ -222,7 +192,7 @@ Think of it as building a house
 
 
 
-<span title='2025-10-27 03:05:07.076 +0000 UTC'>2025-10-27</span>&nbsp;·&nbsp;<span title='2025-11-17 13:24:38.768415791 +0000 UTC'>(最后修改于 2025-11-17)</span>&nbsp;·&nbsp;<span>8 分钟</span>
+<span title='2025-10-27 03:05:07.076 +0000 UTC'>2025-10-27</span>&nbsp;·&nbsp;<span title='2025-11-18 15:34:46.434860871 +0000 UTC'>(最后修改于 2025-11-18)</span>&nbsp;·&nbsp;<span>8 分钟</span>
 
 </div>
   </header> <div class="toc">
@@ -352,6 +322,7 @@ Think of it as building a house
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><p>如果我们交换语句的顺序，比如在给 c 赋值之前就打印 c，程序就会报错，因为 c 还不存在。</p>
+<!-- FM:Snippet:Start data:{"id":"st-notice","fields":[]} -->
 <style type="text/css">
      
     .notice {
@@ -458,6 +429,7 @@ Think of it as building a house
 <p>System.out.println() 用于输出信息到屏幕；   <br>
 Scanner 则用来接收用户输入。</p>
 </blockquote></div>
+<!-- FM:Snippet:End -->
 <h3 id="顺序结构实例">顺序结构实例<a hidden class="anchor" aria-hidden="true" href="#顺序结构实例">#</a></h3>
 <p>接下来我们就用上刚学到的输入与输出来写一个经典的顺序结构程序</p>
 <blockquote>
@@ -518,6 +490,7 @@ Scanner 则用来接收用户输入。</p>
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div></li>
 </ul>
+<!-- FM:Snippet:Start data:{"id":"st-notice","fields":[]} -->
 <div class="notice tip" >
     <p class="notice-title">
         <span class="icon-notice baseline">
@@ -536,6 +509,7 @@ Scanner 则用来接收用户输入。</p>
 </span></span></span></code></pre></div><p>当<code>条件表达式1</code>为<code>true</code>，则进入嵌套判断<code>条件表达式2</code> <br>
 当<code>条件表达式2</code>为<code>true</code>，则执行<code>语句体2</code>,否则执行<code>语句体3</code></p>
 <p>当<code>条件表达式1</code>为<code>false</code>，则执行<code>语句体1</code></p></div>
+<!-- FM:Snippet:End -->
 <h3 id="2-switch语句">2. switch语句<a hidden class="anchor" aria-hidden="true" href="#2-switch语句">#</a></h3>
 <p>上面的<code>if...else</code>、<code>if...else</code> 与<code>if...else...if</code>都是多分支结构</p>
 <p><code>switch</code>语句也是多分支结构的一种，当一个变量可能有多种确定取值时，<code>switch</code> 语句比 <code>if...else</code> 更<strong>直观和简洁</strong>。
@@ -603,11 +577,13 @@ Scanner 则用来接收用户输入。</p>
 <code>case 4</code>: 也会被执行，输出 <code>星期四</code>。    <br>
 由于没有匹配到 <code>case 5</code>，控制流继续到 <code>default</code>:，输出 未知日期。</p>
 </blockquote>
+<!-- FM:Snippet:Start data:{"id":"st-notice","fields":[]} -->
 <div class="notice tip" >
     <p class="notice-title">
         <span class="icon-notice baseline">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
         </span>提示</p><p>每个 <code>case</code> 后面通常需要 <code>break</code> 语句，以防止遇到<code>switch</code>语句的<strong>穿透问题</strong>。</p></div>
+<!-- FM:Snippet:End -->
 <hr>
 <h2 id="循环结构looping-structure">循环结构(Looping Structure)<a hidden class="anchor" aria-hidden="true" href="#循环结构looping-structure">#</a></h2>
 <p>在很多程序中，我们会遇到重复执行同一段代码的情况。
