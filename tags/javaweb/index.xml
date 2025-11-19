@@ -7,7 +7,7 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Tue, 18 Nov 2025 15:43:50 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 19 Nov 2025 10:18:40 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/javaweb/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Javaweb——(6)Maven核心技术</title>
@@ -19,99 +19,7 @@
 &lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://www.steamedfish.top/images/java-web/Maven/1.png&#34;&gt;
 Maven是一款用于管理和构建Java项目的工具，是apache旗下的一个开源项目。&lt;/p&gt;
 &lt;!-- FM:Snippet:Start data:{&#34;id&#34;:&#34;st-notice&#34;,&#34;fields&#34;:[]} --&gt;
-&lt;style type=&#34;text/css&#34;&gt;
-     
-    .notice {
-        --title-color: #fff;
-        --title-background-color: #6be;
-        --content-color: #444;
-        --content-background-color: #e7f2fa;
-    }
-
-    .notice.info {
-        --title-background-color: #fb7;
-        --content-background-color: #fec;
-    }
-
-    .notice.tip {
-        --title-background-color: #5a5;
-        --content-background-color: #efe;
-    }
-
-    .notice.warning {
-        --title-background-color: #c33;
-        --content-background-color: #fee;
-    }
-
-     
-    
-
-    body.dark .notice {
-        --title-color: #fff;
-        --title-background-color: #069;
-        --content-color: #ddd;
-        --content-background-color: #023;
-    }
-
-    body.dark .notice.info {
-        --title-background-color: #a50;
-        --content-background-color: #420;
-    }
-
-    body.dark .notice.tip {
-        --title-background-color: #363;
-        --content-background-color: #121;
-    }
-
-    body.dark .notice.warning {
-        --title-background-color: #800;
-        --content-background-color: #400;
-    }
-
-     
-    .notice {
-        padding: 18px;
-        line-height: 24px;
-        margin-bottom: 24px;
-        border-radius: 4px;
-        color: var(--content-color);
-        background: var(--content-background-color);
-    }
-
-    .notice p:last-child {
-        margin-bottom: 0
-    }
-
-     
-    .notice-title {
-        margin: -18px -18px 12px;
-        padding: 4px 18px;
-        border-radius: 4px 4px 0 0;
-        font-weight: 700;
-        color: var(--title-color);
-        background: var(--title-background-color);
-    }
-
-     
-    .icon-notice {
-        display: inline-flex;
-        align-self: center;
-        margin-right: 8px;
-    }
-
-    .icon-notice img,
-    .icon-notice svg {
-        height: 1em;
-        width: 1em;
-        fill: currentColor;
-    }
-
-    .icon-notice img,
-    .icon-notice.baseline svg {
-        top: .125em;
-        position: relative;
-    }
-&lt;/style&gt;&lt;div class=&#34;notice info&#34; &gt;
+&lt;div class=&#34;notice info&#34; &gt;
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
