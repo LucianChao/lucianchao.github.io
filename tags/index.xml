@@ -7,13 +7,27 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 20 Nov 2025 06:42:37 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 20 Nov 2025 15:49:48 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JavaWeb</title>
       <link>https://www.steamedfish.top/tags/javaweb/</link>
-      <pubDate>Tue, 18 Nov 2025 16:43:18 +0800</pubDate>
+      <pubDate>Thu, 20 Nov 2025 14:33:22 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/javaweb/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Servlet</title>
+      <link>https://www.steamedfish.top/tags/servlet/</link>
+      <pubDate>Thu, 20 Nov 2025 14:33:22 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/servlet/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tomcat</title>
+      <link>https://www.steamedfish.top/tags/tomcat/</link>
+      <pubDate>Thu, 20 Nov 2025 14:33:22 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/tomcat/</guid>
       <description></description>
     </item>
     <item>

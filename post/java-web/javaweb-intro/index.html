@@ -63,7 +63,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2025-11-09T10:57:37+00:00">
-    <meta property="article:modified_time" content="2025-11-20T06:42:37+00:00">
+    <meta property="article:modified_time" content="2025-11-20T15:49:48+00:00">
     <meta property="article:tag" content="JavaWeb">
     <meta property="article:tag" content="Web">
 <meta name="twitter:card" content="summary">
@@ -101,11 +101,11 @@
   "keywords": [
     "JavaWeb", "Web"
   ],
-  "articleBody": "环境配置 Visual Studio Code简称VS Code是Microsoft于2015年4月发布的一款代码编辑器。 VS Code对前端代码有非常强大的支持，同时也支持其他编程语言（例如：C++、Java、Python、PHP、Go等） VS Code提供了非常强大的插件库，大大提高了开发效率 官网：https://code.vsiualstudio.com\n注释\nVS Code的最大优点就是它丰富的插件，它的插件数量和开发者数量非常多，以至于无论你使用的是什么编程语言都能找到适合自己的插件来增强它的功能。\nso，它就是一款支持客制化、强大、支持多语言的编辑器。\n插件推荐 1. Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code 必备 2. HTML CSS Support 提供CSS的自动补全，好用不多说 3. JavaScript (ES6) code snippets 快速输入常用 JavaScript，自动补全 4. Mithril Emmet 自动补全 Mithril 组件语法 5. Path Intellisense 输入路径时自动补全文件和文件夹 6. Vue 3 Snippets 快速生成 Vue 3 代码 7.Auto Close Tag 自动补全 HTML 标签 8. Auto Rename Tag 当你修改一个标签（如 ）时，会自动同步修改对应的闭合标签（） 9. open in browser vscode不像IDE一样能够直接在浏览器中打开html，该插件支持快捷键与鼠标右键快速在浏览器中打开html文件，支持自定义打开指定的浏览器，如常见的：Firefox, Chrome, Opera, IE, Edge, Safari等 10. Live Server 具有实时加载功能的小型服务器，也就是可以在项目中用live server作为一个实时服务器查看开发效果，不需要一遍遍手动保存文件重新生成页面 11. Vue (Official) 12. File Utils 在 VSCode 里快速执行：新建文件、新建文件夹、重命名、移动文件 / 文件夹、复制文件 / 文件夹、删除文件 一切通过命令面板（Ctrl + Shift + P）完成 13. IntelliJ IDEA Keybinding 让VS Code支持IDEA的快捷键，适合已经适应IDEA开发的开发者 何为Web? Web，全称World Wide Web（万维网），是一个能够通过浏览器访问的网站系统。 它依赖于 HTTP 协议 来进行通信，在客户端与服务器之间传递数据，通过 URL（统一资源定位符）访问资源。 例如网页、图片、视频、文件等。\nWeb标准 Web 标准（Web Standards） 是由国际组织（主要是 W3C：万维网联盟）制定的一系列技术规范，用来确保网页在不同浏览器、不同平台上都能被正确解析和显示。\nWeb 标准的目标是：\n“让 Web 更加开放、统一、可访问。”\n一、Web 标准的三大核心组成 结构（Structure） 由 HTML（超文本标记语言） 定义。 用来描述网页的内容与语义，例如段落、标题、列表、图片等。 示例：\n\u003ch1\u003e欢迎来到我的网站\u003c/h1\u003e \u003cp\u003e这是一个使用标准 HTML 编写的网页。\u003c/p\u003e 什么是HTML？ HTML(HyperText Markup Language):超文本标记语言 超文本：超越了文本的限制，比普通文本更强大。除了文字信息，还可以定义图片、音频、视频等内容。 标记语言：由标签\"\u003c标签名\u003e“构成的语言 HTML标签都是预定义好的。例如：使用展示标题，使用展示图片，使用展示视频 HTML代码直接在浏览器中运行，HTML标签由浏览器解析、 这里给到一个文档网站，方便查阅学习\nw3school\n表现（Presentation） 由 CSS（层叠样式表） 实现。 控制网页的外观样式，如字体、颜色、布局。 示例：\nh1 { color: #0066cc; text-align: center; } 什么是CSS？ CSS(Cascading Style Sheet)：层叠样式表，用于控制页面的样式（表现） 行为（Behavior） 由 JavaScript（JS） 实现。\n用来控制网页的交互效果与动态逻辑。\n示例：\nalert(\"欢迎访问我的网页！\"); 这三者共同构成了 Web 页面的完整表现层次：\nHTML 负责结构，CSS 负责样式，JavaScript 负责行为。\n二、为什么要遵循 Web 标准 跨浏览器兼容性更好 按标准编写的网页在 Chrome、Edge、Firefox、Safari 等浏览器上都能正常显示。\n便于维护与升级 结构、样式、逻辑分离，修改样式或脚本不会影响网页内容。\n利于搜索引擎优化（SEO） 语义化 HTML 有助于搜索引擎理解网页结构，提高排名。\n提高网站可访问性（Accessibility） 对残障人士使用辅助设备（如读屏器）更友好。\nWeb的组成结构 一个完整的 Web 系统通常包含三部分：\n客户端/前端（Client）\n也就是用户使用的浏览器（如 Chrome、Firefox）。\n负责向服务器发送请求，并展示返回的网页内容。\n服务器/后端（Server）\n负责处理客户端的请求，执行相关逻辑（如数据库查询、计算），并返回响应。\n常见的 Web 服务器软件有 Apache、Nginx、Tomcat 等。\n数据库（Database）\n用于存储网站数据，如用户信息、商品、评论、订单等。\n常见的数据库有 MySQL、PostgreSQL、Oracle 等。\n这三者共同组成了 Web 系统的基础架构：\n客户端发出请求 → 服务器处理逻辑 → 数据库存取数据 → 返回响应给客户端。\nWeb的工作原理 Web 的核心通信机制是 HTTP（超文本传输协议）。 工作流程如下：\n用户在浏览器输入网址（URL）； 浏览器向服务器发送 HTTP 请求； 服务器处理请求（可能访问数据库或执行逻辑）； 服务器返回 HTTP 响应（通常是 HTML、JSON 或文件）； 浏览器解析响应并呈现页面。 🔁 这就是常说的 请求—响应模型（Request–Response Model）。\nJava Web 技术简介 Java Web 指的是使用 Java 技术 开发 Web 应用程序的技术体系。 它以 Servlet/JSP 为核心，运行在 Web 容器（如 Tomcat） 中。\nJava Web 技术的主要组成包括：\n模块\r说明\rServlet\rJava Web 的核心，负责接收请求与生成响应。\rJSP（Java Server Pages）\r类似 HTML，但可以嵌入 Java 代码，用于动态生成页面。\rJDBC\rJava 数据库连接技术，用于访问数据库。\rEL 表达式与 JSTL 标签\r简化 JSP 页面逻辑。\rFilter 与 Listener\r用于请求过滤与事件监听。\r随着技术发展，现代 Java Web 已逐步演化为使用 Spring MVC、Spring Boot 等框架的形式，大大提升了开发效率与可维护性。\n",
+  "articleBody": "环境配置 Visual Studio Code简称VS Code是Microsoft于2015年4月发布的一款代码编辑器。 VS Code对前端代码有非常强大的支持，同时也支持其他编程语言（例如：C++、Java、Python、PHP、Go等） VS Code提供了非常强大的插件库，大大提高了开发效率 官网：https://code.vsiualstudio.com\n注释\nVS Code的最大优点就是它丰富的插件，它的插件数量和开发者数量非常多，以至于无论你使用的是什么编程语言都能找到适合自己的插件来增强它的功能。\nso，它就是一款支持客制化、强大、支持多语言的编辑器。\n插件推荐 1. Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code 必备 2. HTML CSS Support 提供CSS的自动补全，好用不多说 3. JavaScript (ES6) code snippets 快速输入常用 JavaScript，自动补全 4. Mithril Emmet 自动补全 Mithril 组件语法 5. Path Intellisense 输入路径时自动补全文件和文件夹 6. Vue 3 Snippets 快速生成 Vue 3 代码 7.Auto Close Tag 自动补全 HTML 标签 8. Auto Rename Tag 当你修改一个标签（如 ）时，会自动同步修改对应的闭合标签（） 9. open in browser vscode不像IDE一样能够直接在浏览器中打开html，该插件支持快捷键与鼠标右键快速在浏览器中打开html文件，支持自定义打开指定的浏览器，如常见的：Firefox, Chrome, Opera, IE, Edge, Safari等 10. Live Server 具有实时加载功能的小型服务器，也就是可以在项目中用live server作为一个实时服务器查看开发效果，不需要一遍遍手动保存文件重新生成页面 11. Vue (Official) 12. File Utils 在 VSCode 里快速执行：新建文件、新建文件夹、重命名、移动文件 / 文件夹、复制文件 / 文件夹、删除文件 一切通过命令面板（Ctrl + Shift + P）完成 13. IntelliJ IDEA Keybinding 让VS Code支持IDEA的快捷键，适合已经适应IDEA开发的开发者 何为Web? Web，全称World Wide Web（万维网），是一个能够通过浏览器访问的网站系统。 它依赖于 HTTP 协议 来进行通信，在客户端与服务器之间传递数据，通过 URL（统一资源定位符）访问资源。 例如网页、图片、视频、文件等。\nWeb标准 Web 标准（Web Standards） 是由国际组织（主要是 W3C：万维网联盟）制定的一系列技术规范，用来确保网页在不同浏览器、不同平台上都能被正确解析和显示。\nWeb 标准的目标是：\n“让 Web 更加开放、统一、可访问。”\n一、Web 标准的三大核心组成 结构（Structure） 由 HTML（超文本标记语言） 定义。 用来描述网页的内容与语义，例如段落、标题、列表、图片等。 示例：\n\u003ch1\u003e欢迎来到我的网站\u003c/h1\u003e \u003cp\u003e这是一个使用标准 HTML 编写的网页。\u003c/p\u003e 什么是HTML？ HTML(HyperText Markup Language):超文本标记语言 超文本：超越了文本的限制，比普通文本更强大。除了文字信息，还可以定义图片、音频、视频等内容。 标记语言：由标签\"\u003c标签名\u003e“构成的语言 HTML标签都是预定义好的。例如：使用展示标题，使用展示图片，使用展示视频 HTML代码直接在浏览器中运行，HTML标签由浏览器解析、 这里给到一个文档网站，方便查阅学习\nw3school\n表现（Presentation） 由 CSS（层叠样式表） 实现。 控制网页的外观样式，如字体、颜色、布局。 示例：\nh1 { color: #0066cc; text-align: center; } 什么是CSS？ CSS(Cascading Style Sheet)：层叠样式表，用于控制页面的样式（表现） 行为（Behavior） 由 JavaScript（JS） 实现。\n用来控制网页的交互效果与动态逻辑。\n示例：\nalert(\"欢迎访问我的网页！\"); 这三者共同构成了 Web 页面的完整表现层次：\nHTML 负责结构，CSS 负责样式，JavaScript 负责行为。\n二、为什么要遵循 Web 标准 跨浏览器兼容性更好 按标准编写的网页在 Chrome、Edge、Firefox、Safari 等浏览器上都能正常显示。\n便于维护与升级 结构、样式、逻辑分离，修改样式或脚本不会影响网页内容。\n利于搜索引擎优化（SEO） 语义化 HTML 有助于搜索引擎理解网页结构，提高排名。\n提高网站可访问性（Accessibility） 对残障人士使用辅助设备（如读屏器）更友好。\nWeb的组成结构 一个完整的 Web 系统通常包含三部分：\n客户端/前端（Client） 也就是用户使用的浏览器（如 Chrome、Firefox）。\n负责向服务器发送请求，并展示返回的网页内容。\n服务器/后端（Server） 负责处理客户端的请求，执行相关逻辑（如数据库查询、计算），并返回响应。\n常见的 Web 服务器软件有 Apache、Nginx、Tomcat 等。\n数据库（Database）\n用于存储网站数据，如用户信息、商品、评论、订单等。\n常见的数据库有 MySQL、PostgreSQL、Oracle 等。\n这三者共同组成了 Web 系统的基础架构：\n客户端发出请求 → 服务器处理逻辑 → 数据库存取数据 → 返回响应给客户端。\nWeb的工作原理 Web 的核心通信机制是 HTTP（超文本传输协议）。 工作流程如下：\n用户在浏览器输入网址（URL）； 浏览器向服务器发送 HTTP 请求； 服务器处理请求（可能访问数据库或执行逻辑）； 服务器返回 HTTP 响应（通常是 HTML、JSON 或文件）； 浏览器解析响应并呈现页面。 🔁 这就是常说的 请求—响应模型（Request–Response Model）。\nJava Web 技术简介 Java Web 指的是使用 Java 技术 开发 Web 应用程序的技术体系。 它以 Servlet/JSP 为核心，运行在 Web 容器（如 Tomcat） 中。\nJava Web 技术的主要组成包括：\n模块\r说明\rServlet\rJava Web 的核心，负责接收请求与生成响应。\rJSP（Java Server Pages）\r类似 HTML，但可以嵌入 Java 代码，用于动态生成页面。\rJDBC\rJava 数据库连接技术，用于访问数据库。\rEL 表达式与 JSTL 标签\r简化 JSP 页面逻辑。\rFilter 与 Listener\r用于请求过滤与事件监听。\r随着技术发展，现代 Java Web 已逐步演化为使用 Spring MVC、Spring Boot 等框架的形式，大大提升了开发效率与可维护性。\n",
   "wordCount" : "2383",
   "inLanguage": "zh",
   "datePublished": "2025-11-09T10:57:37.196Z",
-  "dateModified": "2025-11-20T06:42:37.906090218Z",
+  "dateModified": "2025-11-20T15:49:48.666323259Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/java-web/javaweb-intro/"
@@ -183,7 +183,7 @@
 
 
 
-<span title='2025-11-09 10:57:37.196 +0000 UTC'>2025-11-09</span>&nbsp;·&nbsp;<span title='2025-11-20 06:42:37.906090218 +0000 UTC'>(最后修改于 2025-11-20)</span>&nbsp;·&nbsp;<span>5 分钟</span>
+<span title='2025-11-09 10:57:37.196 +0000 UTC'>2025-11-09</span>&nbsp;·&nbsp;<span title='2025-11-20 15:49:48.666323259 +0000 UTC'>(最后修改于 2025-11-20)</span>&nbsp;·&nbsp;<span>5 分钟</span>
 
 </div>
   </header> <div class="toc">
@@ -492,15 +492,23 @@
 <hr>
 <h1 id="web的组成结构">Web的组成结构<a hidden class="anchor" aria-hidden="true" href="#web的组成结构">#</a></h1>
 <p>一个完整的 Web 系统通常包含三部分：</p>
-<p>客户端/前端（Client）<br>
+<ul>
+<li>
+<p>客户端/前端（Client） <br>
 也就是用户使用的浏览器（如 Chrome、Firefox）。<br>
 负责向服务器发送请求，并展示返回的网页内容。</p>
-<p>服务器/后端（Server）<br>
+</li>
+<li>
+<p>服务器/后端（Server） <br>
 负责处理客户端的请求，执行相关逻辑（如数据库查询、计算），并返回响应。<br>
 常见的 Web 服务器软件有 Apache、Nginx、Tomcat 等。</p>
+</li>
+<li>
 <p>数据库（Database）<br>
 用于存储网站数据，如用户信息、商品、评论、订单等。<br>
 常见的数据库有 MySQL、PostgreSQL、Oracle 等。</p>
+</li>
+</ul>
 <p>这三者共同组成了 Web 系统的基础架构：<br>
 客户端发出请求 → 服务器处理逻辑 → 数据库存取数据 → 返回响应给客户端。</p>
 <hr>

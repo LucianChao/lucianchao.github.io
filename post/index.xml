@@ -7,19 +7,44 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 20 Nov 2025 06:42:37 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 20 Nov 2025 15:49:48 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Javaweb 7 1</title>
-      <link>https://www.steamedfish.top/post/java-web/javaweb-7-1/</link>
+      <title>Javaweb——(7)Tomcat和Servet</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-7-tomcat-servlet/</link>
       <pubDate>Thu, 20 Nov 2025 14:33:22 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-web/javaweb-7-1/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;静态资源：服务器上存储的不会改变的数据，通常不会根据用户的请求而变化。比如：HTML、CSS、JS、图片、视频等（负责页面展示）。&lt;/li&gt;
-&lt;li&gt;动态资源：服务器端根据用户请求和其他数据实时生成的，内容可能会在每次请求时都发生变化。比如：ServLet、JSP等（负责逻辑处理）&lt;/li&gt;
-&lt;li&gt;B/S架构：Browser/Server，浏览器/服务器架构模式。它的特点是：客户端只需要浏览器，应用程序的逻辑和数据都存储在服务器端。
-浏览器只需要请求服务器，获取Web资源，服务器把Web资源发送给浏览器即可（便于升级维护）。&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-7-tomcat-servlet/</guid>
+      <description>&lt;h1 id=&#34;tomcat&#34;&gt;Tomcat&lt;/h1&gt;
+&lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;概念：Tomcat是一个&lt;strong&gt;开源免费&lt;/strong&gt;的&lt;strong&gt;轻量级Web服务器&lt;/strong&gt;，是Apache软件基金会的核心项目，支持Servlet/JSP和少量JavaEE(JakartaEE)规范。&lt;/li&gt;
+&lt;li&gt;JavaEE：JavaEnterpriseEdition，Java企业版。指Java企业级开发的技术规范总和。包含13项技术规范：&lt;br&gt;
+JDBC、JNDI、EJB、RMI、JSP、Servlet、XML、JMS、JavaIDL、JTS、JTA、JavaMail、JAF。&lt;/li&gt;
+&lt;li&gt;Tomcat也被称为 Web容器、Servlet容器。Servlet程序需要依赖于Tomcat才能运行。&lt;/li&gt;
+&lt;li&gt;官网：&lt;a href=&#34;https://tomcat.apache.org/&#34;&gt;https://tomcat.apache.org/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;基本使用&#34;&gt;基本使用&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;下载：官网下载，地址&lt;a href=&#34;https://tomcat.apache.org/download-90.cgi&#34;&gt;https://tomcat.apache.org/download-90.cgi&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;安装：绿色版，直接解压即可&lt;/li&gt;
+&lt;li&gt;卸载：直接删除目录即可&lt;/li&gt;
+&lt;li&gt;启动：双击bin/startup.bat&lt;/li&gt;
+&lt;li&gt;关闭：
+&lt;ul&gt;
+&lt;li&gt;直接×掉运行窗口：强制关闭&lt;/li&gt;
+&lt;li&gt;bin/shutdown.bat：正常关闭&lt;/li&gt;
+&lt;li&gt;Ctrl+C:正常关闭&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;部署项目：将项目放置在webapps目录下，即部署完成&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- FM:Snippet:Start data:{&#34;id&#34;:&#34;st-notice&#34;,&#34;fields&#34;:[]} --&gt;
+&lt;div class=&#34;notice info&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
+        &lt;/span&gt;信息&lt;/p&gt;</description>
     </item>
     <item>
       <title>Javaweb——(6)Maven核心技术</title>

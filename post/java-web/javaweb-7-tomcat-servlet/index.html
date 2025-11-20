@@ -1,0 +1,2058 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Javaweb——(7)Tomcat和Servet | SteamedFish&#39;s Blog</title>
+<meta name="keywords" content="JavaWeb, Tomcat, Servlet">
+<meta name="description" content="Tomcat
+介绍
+
+概念：Tomcat是一个开源免费的轻量级Web服务器，是Apache软件基金会的核心项目，支持Servlet/JSP和少量JavaEE(JakartaEE)规范。
+JavaEE：JavaEnterpriseEdition，Java企业版。指Java企业级开发的技术规范总和。包含13项技术规范：
+JDBC、JNDI、EJB、RMI、JSP、Servlet、XML、JMS、JavaIDL、JTS、JTA、JavaMail、JAF。
+Tomcat也被称为 Web容器、Servlet容器。Servlet程序需要依赖于Tomcat才能运行。
+官网：https://tomcat.apache.org/
+
+
+基本使用
+
+下载：官网下载，地址https://tomcat.apache.org/download-90.cgi
+安装：绿色版，直接解压即可
+卸载：直接删除目录即可
+启动：双击bin/startup.bat
+关闭：
+
+直接×掉运行窗口：强制关闭
+bin/shutdown.bat：正常关闭
+Ctrl&#43;C:正常关闭
+
+
+部署项目：将项目放置在webapps目录下，即部署完成
+
+
+
+    
+        
+            
+        信息">
+<meta name="author" content="">
+<link rel="canonical" href="https://www.steamedfish.top/post/java-web/javaweb-7-tomcat-servlet/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a090830a421002426baafbd314e38f149d77b4c48a12ee9312700d770b27fb26.css" integrity="sha256-oJCDCkIQAkJrqvvTFOOPFJ13tMSKEu6TEnANdwsn&#43;yY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
+<link rel="apple-touch-icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="mask-icon" href="https://www.steamedfish.top/favicon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://www.steamedfish.top/post/java-web/javaweb-7-tomcat-servlet/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://www.steamedfish.top/post/java-web/javaweb-7-tomcat-servlet/">
+  <meta property="og:site_name" content="SteamedFish&#39;s Blog">
+  <meta property="og:title" content="Javaweb——(7)Tomcat和Servet">
+  <meta property="og:description" content="Tomcat 介绍 概念：Tomcat是一个开源免费的轻量级Web服务器，是Apache软件基金会的核心项目，支持Servlet/JSP和少量JavaEE(JakartaEE)规范。 JavaEE：JavaEnterpriseEdition，Java企业版。指Java企业级开发的技术规范总和。包含13项技术规范：
+JDBC、JNDI、EJB、RMI、JSP、Servlet、XML、JMS、JavaIDL、JTS、JTA、JavaMail、JAF。 Tomcat也被称为 Web容器、Servlet容器。Servlet程序需要依赖于Tomcat才能运行。 官网：https://tomcat.apache.org/ 基本使用 下载：官网下载，地址https://tomcat.apache.org/download-90.cgi 安装：绿色版，直接解压即可 卸载：直接删除目录即可 启动：双击bin/startup.bat 关闭： 直接×掉运行窗口：强制关闭 bin/shutdown.bat：正常关闭 Ctrl&#43;C:正常关闭 部署项目：将项目放置在webapps目录下，即部署完成 信息">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-11-20T14:33:22+08:00">
+    <meta property="article:modified_time" content="2025-11-20T15:49:48+00:00">
+    <meta property="article:tag" content="JavaWeb">
+    <meta property="article:tag" content="Tomcat">
+    <meta property="article:tag" content="Servlet">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javaweb——(7)Tomcat和Servet">
+<meta name="twitter:description" content="Tomcat
+介绍
+
+概念：Tomcat是一个开源免费的轻量级Web服务器，是Apache软件基金会的核心项目，支持Servlet/JSP和少量JavaEE(JakartaEE)规范。
+JavaEE：JavaEnterpriseEdition，Java企业版。指Java企业级开发的技术规范总和。包含13项技术规范：
+JDBC、JNDI、EJB、RMI、JSP、Servlet、XML、JMS、JavaIDL、JTS、JTA、JavaMail、JAF。
+Tomcat也被称为 Web容器、Servlet容器。Servlet程序需要依赖于Tomcat才能运行。
+官网：https://tomcat.apache.org/
+
+
+基本使用
+
+下载：官网下载，地址https://tomcat.apache.org/download-90.cgi
+安装：绿色版，直接解压即可
+卸载：直接删除目录即可
+启动：双击bin/startup.bat
+关闭：
+
+直接×掉运行窗口：强制关闭
+bin/shutdown.bat：正常关闭
+Ctrl&#43;C:正常关闭
+
+
+部署项目：将项目放置在webapps目录下，即部署完成
+
+
+
+    
+        
+            
+        信息">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.steamedfish.top/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Javaweb——(7)Tomcat和Servet",
+      "item": "https://www.steamedfish.top/post/java-web/javaweb-7-tomcat-servlet/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Javaweb——(7)Tomcat和Servet",
+  "name": "Javaweb——(7)Tomcat和Servet",
+  "description": "Tomcat 介绍 概念：Tomcat是一个开源免费的轻量级Web服务器，是Apache软件基金会的核心项目，支持Servlet/JSP和少量JavaEE(JakartaEE)规范。 JavaEE：JavaEnterpriseEdition，Java企业版。指Java企业级开发的技术规范总和。包含13项技术规范：\nJDBC、JNDI、EJB、RMI、JSP、Servlet、XML、JMS、JavaIDL、JTS、JTA、JavaMail、JAF。 Tomcat也被称为 Web容器、Servlet容器。Servlet程序需要依赖于Tomcat才能运行。 官网：https://tomcat.apache.org/ 基本使用 下载：官网下载，地址https://tomcat.apache.org/download-90.cgi 安装：绿色版，直接解压即可 卸载：直接删除目录即可 启动：双击bin/startup.bat 关闭： 直接×掉运行窗口：强制关闭 bin/shutdown.bat：正常关闭 Ctrl+C:正常关闭 部署项目：将项目放置在webapps目录下，即部署完成 信息\n",
+  "keywords": [
+    "JavaWeb", "Tomcat", "Servlet"
+  ],
+  "articleBody": "Tomcat 介绍 概念：Tomcat是一个开源免费的轻量级Web服务器，是Apache软件基金会的核心项目，支持Servlet/JSP和少量JavaEE(JakartaEE)规范。 JavaEE：JavaEnterpriseEdition，Java企业版。指Java企业级开发的技术规范总和。包含13项技术规范：\nJDBC、JNDI、EJB、RMI、JSP、Servlet、XML、JMS、JavaIDL、JTS、JTA、JavaMail、JAF。 Tomcat也被称为 Web容器、Servlet容器。Servlet程序需要依赖于Tomcat才能运行。 官网：https://tomcat.apache.org/ 基本使用 下载：官网下载，地址https://tomcat.apache.org/download-90.cgi 安装：绿色版，直接解压即可 卸载：直接删除目录即可 启动：双击bin/startup.bat 关闭： 直接×掉运行窗口：强制关闭 bin/shutdown.bat：正常关闭 Ctrl+C:正常关闭 部署项目：将项目放置在webapps目录下，即部署完成 信息\n如果Tomcat启动窗口一闪而过，需要检查JAVA_HOME环境变量是否正确配置\n配置 控制台日志编码配置： conf/logging.properties java.util.logging.ConsoleHandler.level = ALL java.util.logging.ConsoleHandler.formatter = org.apache.juli.OneLineFormatter java.util.logging.ConsoleHandler.encoding = GBK 如果要在IDEA中集成Tomcat需要改回UTF-8，否则IDEA控制台会乱码 Tomcat运行端口号（默认8080）配置： server.xml ",
+  "wordCount" : "3538",
+  "inLanguage": "zh",
+  "datePublished": "2025-11-20T14:33:22+08:00",
+  "dateModified": "2025-11-20T15:49:48.667323264Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.steamedfish.top/post/java-web/javaweb-7-tomcat-servlet/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SteamedFish's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.steamedfish.top/favicon.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://www.steamedfish.top/" accesskey="h" title="SteamedFish&#39;s Blog (Alt + H)">SteamedFish&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://www.steamedfish.top/">主页</a>&nbsp;»&nbsp;<a href="https://www.steamedfish.top/post/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Javaweb——(7)Tomcat和Servet
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h1>
+    <div class="post-meta">
+
+
+
+
+
+
+<span title='2025-11-20 14:33:22 +0800 +0800'>2025-11-20</span>&nbsp;·&nbsp;<span>8 分钟</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#tomcat" aria-label="Tomcat">Tomcat</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bb%8b%e7%bb%8d" aria-label="介绍">介绍</a></li>
+                <li>
+                    <a href="#%e5%9f%ba%e6%9c%ac%e4%bd%bf%e7%94%a8" aria-label="基本使用">基本使用</a></li>
+                <li>
+                    <a href="#%e9%85%8d%e7%bd%ae" aria-label="配置">配置</a></li></ul>
+                </li>
+                <li>
+                    <a href="#servlet" aria-label="Servlet">Servlet</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bb%80%e4%b9%88%e6%98%afservlet" aria-label="什么是Servlet">什么是Servlet</a></li>
+                <li>
+                    <a href="#servlet%e5%bf%ab%e9%80%9f%e5%85%a5%e9%97%a8" aria-label="Servlet快速入门">Servlet快速入门</a><ul>
+                        
+                <li>
+                    <a href="#%e9%9c%80%e6%b1%82" aria-label="需求">需求</a></li>
+                <li>
+                    <a href="#%e5%ae%9e%e7%8e%b0" aria-label="实现">实现</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#http" aria-label="HTTP">HTTP</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bb%80%e4%b9%88%e6%98%afhttp%e5%8d%8f%e8%ae%ae" aria-label="什么是HTTP协议？">什么是HTTP协议？</a></li>
+                <li>
+                    <a href="#http%e8%af%b7%e6%b1%82%e6%8a%a5%e6%96%87%e6%a0%bc%e5%bc%8f" aria-label="HTTP请求报文格式">HTTP请求报文格式</a><ul>
+                        
+                <li>
+                    <a href="#1%e8%af%b7%e6%b1%82%e8%a1%8c" aria-label="1.请求行">1.请求行</a><ul>
+                        
+                <li>
+                    <a href="#%e5%b8%b8%e8%a7%81%e7%9a%84%e8%af%b7%e6%b1%82%e6%96%b9%e6%b3%95" aria-label="常见的请求方法">常见的请求方法</a></li></ul>
+                </li>
+                <li>
+                    <a href="#2%e8%af%b7%e6%b1%82%e5%a4%b4header" aria-label="2.请求头（Header）">2.请求头（Header）</a><ul>
+                        
+                <li>
+                    <a href="#http-%e8%af%b7%e6%b1%82%e6%95%b0%e6%8d%ae%e6%a0%bc%e5%bc%8f" aria-label="HTTP-请求数据格式">HTTP-请求数据格式</a></li>
+                <li>
+                    <a href="#http-%e8%af%b7%e6%b1%82%e6%95%b0%e6%8d%ae%e8%8e%b7%e5%8f%96" aria-label="HTTP-请求数据获取">HTTP-请求数据获取</a></li></ul>
+                </li>
+                <li>
+                    <a href="#3-%e8%af%b7%e6%b1%82%e4%bd%93body" aria-label="3. 请求体（Body）">3. 请求体（Body）</a></li></ul>
+                </li>
+                <li>
+                    <a href="#http%e5%93%8d%e5%ba%94%e6%8a%a5%e6%96%87%e6%a0%bc%e5%bc%8f" aria-label="HTTP响应报文格式">HTTP响应报文格式</a><ul>
+                        
+                <li>
+                    <a href="#1-%e5%93%8d%e5%ba%94%e8%a1%8c" aria-label="1. 响应行">1. 响应行</a><ul>
+                        
+                <li>
+                    <a href="#%e5%b8%b8%e8%a7%81%e7%8a%b6%e6%80%81%e7%a0%81%e5%88%86%e7%b1%bb" aria-label="常见状态码分类">常见状态码分类</a></li></ul>
+                </li>
+                <li>
+                    <a href="#2-%e5%93%8d%e5%ba%94%e5%a4%b4" aria-label="2. 响应头">2. 响应头</a><ul>
+                        
+                <li>
+                    <a href="#%e5%b8%b8%e8%a7%81%e5%93%8d%e5%ba%94%e5%a4%b4" aria-label="常见响应头">常见响应头</a></li></ul>
+                </li>
+                <li>
+                    <a href="#3-%e5%93%8d%e5%ba%94%e4%bd%93" aria-label="3. 响应体">3. 响应体</a></li>
+                <li>
+                    <a href="#http%e5%93%8d%e5%ba%94%e6%95%b0%e6%8d%ae%e8%ae%be%e7%bd%ae" aria-label="HTTP响应数据设置">HTTP响应数据设置</a><ul>
+                        
+                <li>
+                    <a href="#%e7%a4%ba%e4%be%8b" aria-label="示例">示例</a></li>
+                <li>
+                    <a href="#%e5%93%8d%e5%ba%94%e4%bd%93%e4%b8%ad%e6%96%87%e4%b9%b1%e7%a0%81bug%e8%a7%a3%e5%86%b3" aria-label="响应体中文乱码bug解决">响应体中文乱码bug解决</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="tomcat">Tomcat<a hidden class="anchor" aria-hidden="true" href="#tomcat">#</a></h1>
+<h2 id="介绍">介绍<a hidden class="anchor" aria-hidden="true" href="#介绍">#</a></h2>
+<ul>
+<li>概念：Tomcat是一个<strong>开源免费</strong>的<strong>轻量级Web服务器</strong>，是Apache软件基金会的核心项目，支持Servlet/JSP和少量JavaEE(JakartaEE)规范。</li>
+<li>JavaEE：JavaEnterpriseEdition，Java企业版。指Java企业级开发的技术规范总和。包含13项技术规范：<br>
+JDBC、JNDI、EJB、RMI、JSP、Servlet、XML、JMS、JavaIDL、JTS、JTA、JavaMail、JAF。</li>
+<li>Tomcat也被称为 Web容器、Servlet容器。Servlet程序需要依赖于Tomcat才能运行。</li>
+<li>官网：<a href="https://tomcat.apache.org/">https://tomcat.apache.org/</a></li>
+</ul>
+<hr>
+<h2 id="基本使用">基本使用<a hidden class="anchor" aria-hidden="true" href="#基本使用">#</a></h2>
+<ul>
+<li>下载：官网下载，地址<a href="https://tomcat.apache.org/download-90.cgi">https://tomcat.apache.org/download-90.cgi</a></li>
+<li>安装：绿色版，直接解压即可</li>
+<li>卸载：直接删除目录即可</li>
+<li>启动：双击bin/startup.bat</li>
+<li>关闭：
+<ul>
+<li>直接×掉运行窗口：强制关闭</li>
+<li>bin/shutdown.bat：正常关闭</li>
+<li>Ctrl+C:正常关闭</li>
+</ul>
+</li>
+<li>部署项目：将项目放置在webapps目录下，即部署完成</li>
+</ul>
+<!-- FM:Snippet:Start data:{"id":"st-notice","fields":[]} -->
+<style type="text/css">
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+</style><div class="notice info" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+        </span>信息</p><p>如果Tomcat启动窗口一闪而过，需要检查JAVA_HOME环境变量是否正确配置</p></div>
+<!-- FM:Snippet:End -->
+<hr>
+<h2 id="配置">配置<a hidden class="anchor" aria-hidden="true" href="#配置">#</a></h2>
+<ul>
+<li>控制台日志编码配置：
+<ul>
+<li>conf/logging.properties
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-properties" data-lang="properties"><span class="line"><span class="cl"><span class="na">java.util.logging.ConsoleHandler.level</span> <span class="o">=</span> <span class="s">ALL</span>
+</span></span><span class="line"><span class="cl"><span class="na">java.util.logging.ConsoleHandler.formatter</span> <span class="o">=</span> <span class="s">org.apache.juli.OneLineFormatter</span>
+</span></span><span class="line"><span class="cl"><span class="na">java.util.logging.ConsoleHandler.encoding</span> <span class="o">=</span> <span class="s">GBK</span>
+</span></span></code></pre></div>如果要在IDEA中集成Tomcat需要改回UTF-8，否则IDEA控制台会乱码</li>
+</ul>
+</li>
+<li>Tomcat运行端口号（默认8080）配置：
+<ul>
+<li>server.xml
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">    <span class="nt">&lt;Connector</span> <span class="na">port=</span><span class="s">&#34;8080&#34;</span> <span class="na">protocol=</span><span class="s">&#34;HTTP/1.1&#34;</span>
+</span></span><span class="line"><span class="cl">           <span class="na">connectionTimeout=</span><span class="s">&#34;20000&#34;</span>
+</span></span><span class="line"><span class="cl">           <span class="na">redirectPort=</span><span class="s">&#34;8443&#34;</span>
+</span></span><span class="line"><span class="cl">           <span class="na">maxParameterCount=</span><span class="s">&#34;1000&#34;</span>
+</span></span><span class="line"><span class="cl">           <span class="nt">/&gt;</span>
+</span></span></code></pre></div></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="servlet">Servlet<a hidden class="anchor" aria-hidden="true" href="#servlet">#</a></h1>
+<h2 id="什么是servlet">什么是Servlet<a hidden class="anchor" aria-hidden="true" href="#什么是servlet">#</a></h2>
+<ul>
+<li>ServLet是运行在Web服务器中的小型jaVa程序，是JaVa提供的一门<strong>动态</strong>web资源开发技术。通常通过HTTP协议接收和响应来自于客
+户端的请求。</li>
+<li>Servlet是JavaEE规范之一，其实就是一个接口（定义Servlet需实现Servlet接口或继承HttpServlet），并由web服务器运
+行Servlet。</li>
+</ul>
+<hr>
+<h2 id="servlet快速入门">Servlet快速入门<a hidden class="anchor" aria-hidden="true" href="#servlet快速入门">#</a></h2>
+<h3 id="需求">需求<a hidden class="anchor" aria-hidden="true" href="#需求">#</a></h3>
+<p>需求：使用ServLet开发一个Web应用，浏览器发起请求 <code>/hello</code>之后，给浏览器返回一个字符串<code>&quot;HeLloXxx&quot;</code>。</p>
+<h3 id="实现">实现<a hidden class="anchor" aria-hidden="true" href="#实现">#</a></h3>
+<ul>
+<li>准备：创建maven项目（设置打包方式为war），导入Servlet坐标（provided）。
+<ul>
+<li><code>pom.xml</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">&#34;http://maven.apache.org/POM/4.0.0&#34;</span>
+</span></span><span class="line"><span class="cl">         <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+</span></span><span class="line"><span class="cl">         <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>com.javaweb<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>servlet-demo<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 设置打包方式为 war， 默认为jar--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;packaging&gt;</span>war<span class="nt">&lt;/packaging&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;properties&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;maven.compiler.source&gt;</span>21<span class="nt">&lt;/maven.compiler.source&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;maven.compiler.target&gt;</span>21<span class="nt">&lt;/maven.compiler.target&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="nt">&lt;/project.build.sourceEncoding&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/properties&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;dependencies&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;groupId&gt;</span>javax.servlet<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;artifactId&gt;</span>javax.servlet-api<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;version&gt;</span>4.0.1<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!--  作用范围设置为provided，不让其参与打包--&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;scope&gt;</span>provided<span class="nt">&lt;/scope&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dependencies&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/project&gt;</span>
+</span></span></code></pre></div></li>
+</ul>
+</li>
+<li>开发：
+<ul>
+<li>定义一个类，实现Servlet接口（或继承HTTPServlet），并实现所有方法。</li>
+<li>在Servlet类上使用<code>@WebServlet</code>注解，配置该Servlet的访问路径
+<ul>
+<li>HelloServlet.java</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.ServletException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.annotation.WebServlet</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServlet</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServletRequest</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServletResponse</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.IOException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 这是一个Servlet类，需要实现接口Servlet（可以选择继承HttpServlet类）
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//定义请求路径</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@WebServlet</span><span class="p">(</span><span class="n">urlPatterns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;/hello&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//@WebServlet(value = &#34;/hello&#34;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//@WebServlet(&#34;/hello&#34;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">HelloServlet</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HttpServlet</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doGet</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">resp</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//1.获取请求参数值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getParameter</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//2.响应结果到浏览器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">resp</span><span class="p">.</span><span class="na">getWriter</span><span class="p">().</span><span class="na">write</span><span class="p">(</span><span class="s">&#34;Hello &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;!&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>IDEA集成Tomcat
+<img loading="lazy" src="/images/java-web/Tomcat/1.png">
+<img loading="lazy" src="/images/java-web/Tomcat/2.png">
+<img loading="lazy" src="/images/java-web/Tomcat/3.png">
+<img loading="lazy" src="/images/java-web/Tomcat/4.png">
+<img loading="lazy" src="/images/java-web/Tomcat/5.png">
+<img loading="lazy" src="/images/java-web/Tomcat/6.png">
+<img loading="lazy" src="/images/java-web/Tomcat/7.png">
+<img loading="lazy" src="/images/java-web/Tomcat/8.png"></li>
+</ul>
+</li>
+<li>部署：
+<ul>
+<li>将开发好的Servlet部署在外部的Tomcat服务器中运行
+<img loading="lazy" src="/images/java-web/Tomcat/9.png"></li>
+<li>启动Tomcat之后，访问 <a href="http://localhost:8080/servlet-demo/hello?name=SteamedFish">http://localhost:8080/servlet-demo/hello?name=SteamedFish</a>
+<img loading="lazy" src="/images/java-web/Tomcat/10.png"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="http">HTTP<a hidden class="anchor" aria-hidden="true" href="#http">#</a></h1>
+<h2 id="什么是http协议">什么是HTTP协议？<a hidden class="anchor" aria-hidden="true" href="#什么是http协议">#</a></h2>
+<ul>
+<li>概念：<strong>H</strong>yper <strong>T</strong>ext <strong>T</strong>ransfer <strong>P</strong>rotocoI，超文本传输协议，规定了浏览器和服务器之间数据传输的规则。</li>
+<li>特点：
+<ol>
+<li>基于<strong>TCP协议</strong>：面向连接，安全</li>
+<li>基于<strong>请求-响应模型</strong>的：一次请求对应一次响应</li>
+<li>HTTP协议是<strong>无状态协议</strong>：对于事务处理没有记忆能力。即每次请求都是独立的，服务器不会自动保存上一次交互的状态（可以用 Cookie、Session 来实现状态保持）。
+<ul>
+<li>缺点：多次请求间不能共享数据。</li>
+<li>优点：速度快</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<p>例如：</p>
+<pre tabindex="0"><code>GET /index.html HTTP/1.1
+Host: www.example.com
+</code></pre><p>服务器响应：</p>
+<pre tabindex="0"><code>HTTP/1.1 200 OK
+Content-Type: text/html
+&lt;html&gt;...&lt;/html&gt;
+</code></pre><hr>
+<h2 id="http请求报文格式">HTTP请求报文格式<a hidden class="anchor" aria-hidden="true" href="#http请求报文格式">#</a></h2>
+<p>HTTP请求（Request）由三部分组成：</p>
+<pre tabindex="0"><code>请求行
+请求头
+请求体（可选）
+</code></pre><hr>
+<h3 id="1请求行">1.请求行<a hidden class="anchor" aria-hidden="true" href="#1请求行">#</a></h3>
+<p>格式：</p>
+<pre tabindex="0"><code>请求方法 请求URL 协议版本
+</code></pre><p>实例：</p>
+<pre tabindex="0"><code>GET /login HTTP/1.1
+</code></pre><hr>
+<h4 id="常见的请求方法">常见的请求方法<a hidden class="anchor" aria-hidden="true" href="#常见的请求方法">#</a></h4>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th>方法</th>
+          <th>说明</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><strong>GET</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">获取资源（最常用）</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><strong>POST</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">提交数据（如登录表单）</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><strong>PUT</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">更新数据</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><strong>DELETE</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">删除资源</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><strong>HEAD</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">获取报文头信息</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: "><strong>OPTIONS</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: ">获取服务器支持的HTTP方法</td>
+      </tr>
+  </tbody>
+</table><ul>
+<li>请求方式-GET： <br>
+请求参数在请求行中，没有请求体，如：<code>/brand/findALL?name=OPPO&amp;status=1</code>。GET请求大小在浏览器中是有限制的。</li>
+<li>请求方式-POST：<br>
+请求参数在请求体中，POST请求大小是没有限制的。</li>
+</ul>
+<hr>
+<h3 id="2请求头header">2.请求头（Header）<a hidden class="anchor" aria-hidden="true" href="#2请求头header">#</a></h3>
+<p>包含客户端的环境信息、数据格式、认证信息等。
+示例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">Host: www.example.com
+</span></span><span class="line"><span class="cl">User-Agent: Chrome/118.0
+</span></span><span class="line"><span class="cl">Accept: text/html
+</span></span><span class="line"><span class="cl">Content-Type: application/x-www-form-urlencoded
+</span></span></code></pre></div><hr>
+<h4 id="http-请求数据格式">HTTP-请求数据格式<a hidden class="anchor" aria-hidden="true" href="#http-请求数据格式">#</a></h4>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th style="text-align: center">Key</th>
+          <th style="text-align: center">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">Host</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">请求的主机名</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">User-Agent</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">浏览器版本，例如Chrome浏览器的标识类似<code>Mozilla/5.0...Chrome/79</code>，IE浏览器的标识类似<code>Mozilla/5.0（Windows NT...）like Gecko</code></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">Accept</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">表示浏览器能接收的资源类型，如<code>text/*</code>，<code>image/*</code>或者<code>*/*</code>表示所有；</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">Accept-Language</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">表示浏览器偏好的语言，服务器可以据此返回不同语言的网页；</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">Accept-Encoding</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">表示浏览器可以支持的压缩类型，例如gzip，deflate等。</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">Content-Type</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">请求主体的数据类型。</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">Content-Length</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">请求主体的大小（单位：字节）。</td>
+      </tr>
+  </tbody>
+</table><hr>
+<h4 id="http-请求数据获取">HTTP-请求数据获取<a hidden class="anchor" aria-hidden="true" href="#http-请求数据获取">#</a></h4>
+<ul>
+<li>Web服务器对HTTP协议的请求数据进行解析，并进行了封装(HttpServLetRequest)，并在调用Servtet方法的时候传递给了ServLet。这样，就使得程序员不必直接对协议进行操作，让Web开发更加便捷。
+<ul>
+<li>RequestServlet.java
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.ServletException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.annotation.WebServlet</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServletRequest</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServletResponse</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.IOException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@WebServlet</span><span class="p">(</span><span class="n">urlPatterns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;/request&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">RequestServlet</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HelloServlet</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doGet</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">resp</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//1.获取请求方式</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getMethod</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;method = &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">method</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//2.获取请求路径</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getRequestURI</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">StringBuffer</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getRequestURL</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;uri = &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">uri</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;url = &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">url</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//3.获取协议</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">scheme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getScheme</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;scheme = &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scheme</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//4.获取请求头（Host）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getHeader</span><span class="p">(</span><span class="s">&#34;Host&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;host = &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">host</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//5.获取请求参数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getParameter</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;name = &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//6.获取所有请求参数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">queryString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getQueryString</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;queryString = &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">queryString</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>输出
+<img loading="lazy" src="/images/java-web/Tomcat/11.png"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="3-请求体body">3. 请求体（Body）<a hidden class="anchor" aria-hidden="true" href="#3-请求体body">#</a></h3>
+<p>用于在 <strong>POST / GET</strong> 请求中传输数据，例如表单信息：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">username=lucian<span class="err">&amp;</span>password=123456
+</span></span></code></pre></div><hr>
+<h2 id="http响应报文格式">HTTP响应报文格式<a hidden class="anchor" aria-hidden="true" href="#http响应报文格式">#</a></h2>
+<p>HTTP响应（Response）同样由三部分组成：</p>
+<pre tabindex="0"><code>响应行/状态行
+响应头
+响应体
+</code></pre><hr>
+<h3 id="1-响应行">1. 响应行<a hidden class="anchor" aria-hidden="true" href="#1-响应行">#</a></h3>
+<p>格式：</p>
+<pre tabindex="0"><code>协议版本 状态码 状态描述
+</code></pre><p>示例：</p>
+<pre tabindex="0"><code>HTTP/1.1 200 OK
+</code></pre><hr>
+<h4 id="常见状态码分类">常见状态码分类<a hidden class="anchor" aria-hidden="true" href="#常见状态码分类">#</a></h4>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th style="text-align: center">状态码</th>
+          <th style="text-align: center">类型</th>
+          <th style="text-align: left">说明</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><strong>1xx</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">响应中</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: left">临时状态码，表示请求已接收，继续处理</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><strong>2xx</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">成功</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: left">请求成功，处理已完成（200 OK）</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><strong>3xx</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">重定向</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: left">重定向到其他地方，需要进一步操作（302）</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><strong>4xx</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">客户端错误</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: left">请求错误（404 Not Found）</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><strong>5xx</strong></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">服务器错误</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: left">服务器故障（500 Internal Server）</td>
+      </tr>
+  </tbody>
+</table><p>状态码大全：<a href="https://cloud.tencent.com/developer/chapter/13553">https://cloud.tencent.com/developer/chapter/13553</a></p>
+<hr>
+<h3 id="2-响应头">2. 响应头<a hidden class="anchor" aria-hidden="true" href="#2-响应头">#</a></h3>
+<p>包含返回数据的类型、长度、缓存等信息。   <br>
+示例：</p>
+<pre tabindex="0"><code>Content-Type: text/html; charset=UTF-8
+Content-Length: 1024
+Server: nginx/1.24
+</code></pre><hr>
+<h4 id="常见响应头">常见响应头<a hidden class="anchor" aria-hidden="true" href="#常见响应头">#</a></h4>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th style="text-align: center">响应头</th>
+          <th style="text-align: left">说明</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">Content-Type</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: left">表示该响应内容的类型，例如<code>text/html</code>, <code>application/json</code></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">Content-Length</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: left">表示该响应内容的长度（字节数）</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">Content-Encoding</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: left">表示该响应压缩算法，例如 gzip</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">Cache-Control</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: left">指示客户端该如何缓存，例如<code>max-age=300</code>表示最多可用缓存300秒</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">Set-Cookie</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: left">告诉浏览器为当前页面所在域设置cookie</td>
+      </tr>
+  </tbody>
+</table><hr>
+<h3 id="3-响应体">3. 响应体<a hidden class="anchor" aria-hidden="true" href="#3-响应体">#</a></h3>
+<p>即真正返回给浏览器显示的内容，例如 HTML 页面：</p>
+<pre tabindex="0"><code>
+&lt;html&gt;
+  &lt;body&gt;&lt;h1&gt;欢迎访问&lt;/h1&gt;&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><hr>
+<h3 id="http响应数据设置">HTTP响应数据设置<a hidden class="anchor" aria-hidden="true" href="#http响应数据设置">#</a></h3>
+<p>Web服务器对HTTP协议的响应数据进行了封装(HttpServLetResponse)，并在调用ServLet方法的时候传递给了ServLet。这样，就使得程序员不必直接对协议进行操作，让Web开发更加便捷。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 1.设置响应状态码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">response</span><span class="p">.</span><span class="na">setStatus</span><span class="p">(</span><span class="n">HttpServletResponse</span><span class="p">.</span><span class="na">SC_INTERNAL_SERVER_ERROR</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 2.设置响应头</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">response</span><span class="p">.</span><span class="na">setHeader</span><span class="p">(</span><span class="s">&#34;Content-Type&#34;</span><span class="p">,</span><span class="s">&#34;text/html;charset=UTF-8&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 3.设置响应体-获取字符输出流</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">response</span><span class="p">.</span><span class="na">getWriter</span><span class="p">().</span><span class="na">write</span><span class="p">(</span><span class="s">&#34;&lt;h1&gt;Hello HTTP ~&lt;/h1&gt;&#34;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><!-- FM:Snippet:Start data:{"id":"st-notice","fields":[]} -->
+<div class="notice info" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+        </span>信息</p><p>注意：响应状态码 和 响应头 如果没有特殊要求的话，通常不手动设定。<br>
+服务器会根据请求处理的逻辑，自动设置响应状态码和响应头。</p></div>
+<!-- FM:Snippet:End -->
+<hr>
+<h4 id="示例">示例<a hidden class="anchor" aria-hidden="true" href="#示例">#</a></h4>
+<ul>
+<li>ResponseServlet.java
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.ServletException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.annotation.WebServlet</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServletRequest</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServletResponse</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.IOException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@WebServlet</span><span class="p">(</span><span class="n">urlPatterns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;/response&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ResponseServlet</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HelloServlet</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doGet</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">resp</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//        1.设置响应状态码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">resp</span><span class="p">.</span><span class="na">setStatus</span><span class="p">(</span><span class="n">HttpServletResponse</span><span class="p">.</span><span class="na">SC_NOT_FOUND</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//        2.设置响应头</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">resp</span><span class="p">.</span><span class="na">setHeader</span><span class="p">(</span><span class="s">&#34;javaweb&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;java666&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//        3.设置响应数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">resp</span><span class="p">.</span><span class="na">getWriter</span><span class="p">().</span><span class="na">write</span><span class="p">(</span><span class="s">&#34;&lt;h1&gt;Hello SteamedFish!&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>访问<a href="http://localhost:8080/servlet-demo/response">http://localhost:8080/servlet-demo/response</a>
+<img loading="lazy" src="/images/java-web/Tomcat/12.png"></li>
+</ul>
+<hr>
+<h4 id="响应体中文乱码bug解决">响应体中文乱码bug解决<a hidden class="anchor" aria-hidden="true" href="#响应体中文乱码bug解决">#</a></h4>
+<p>在上方示例中，响应数据是我们写死的</p>
+<ol>
+<li>修改<code>ResponseServlet.java</code>，把响应数据改为 Hello + 请求体中的name字段
+<ul>
+<li>ResponseServlet.java
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.ServletException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.annotation.WebServlet</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServletRequest</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServletResponse</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.IOException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@WebServlet</span><span class="p">(</span><span class="n">urlPatterns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;/response&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ResponseServlet</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HelloServlet</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doGet</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">resp</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//        1.设置响应状态码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">resp</span><span class="p">.</span><span class="na">setStatus</span><span class="p">(</span><span class="n">HttpServletResponse</span><span class="p">.</span><span class="na">SC_NOT_FOUND</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//        2.设置响应头</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">resp</span><span class="p">.</span><span class="na">setHeader</span><span class="p">(</span><span class="s">&#34;javaweb&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;java666&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//        3.设置响应数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getParameter</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">resp</span><span class="p">.</span><span class="na">getWriter</span><span class="p">().</span><span class="na">write</span><span class="p">(</span><span class="s">&#34;Hello &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+<li>现在我们访问<a href="http://localhost:8080/servlet-demo/response?name=%e6%b8%85%e8%92%b8%e9%b1%bc">http://localhost:8080/servlet-demo/response?name=清蒸鱼</a>，给出中文请求参数，查看效果
+<img loading="lazy" src="/images/java-web/Tomcat/13.png">
+可以看到响应体中的中文显示乱码</li>
+<li>修改<code>ResponseServlet.java</code>，设置响应头的响应编码和数据类型
+<ul>
+<li>ResponseServlet.java
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.ServletException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.annotation.WebServlet</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServletRequest</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServletResponse</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.IOException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@WebServlet</span><span class="p">(</span><span class="n">urlPatterns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;/response&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ResponseServlet</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HelloServlet</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doGet</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">resp</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//        1.设置响应状态码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">resp</span><span class="p">.</span><span class="na">setStatus</span><span class="p">(</span><span class="n">HttpServletResponse</span><span class="p">.</span><span class="na">SC_NOT_FOUND</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//        2.设置响应头</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">resp</span><span class="p">.</span><span class="na">setHeader</span><span class="p">(</span><span class="s">&#34;javaweb&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;java666&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//        设置响应编码和响应数据类型  注意：text/html要写在前面</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">resp</span><span class="p">.</span><span class="na">setHeader</span><span class="p">(</span><span class="s">&#34;content-type&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;text/html;charset=utf-8&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//        3.设置响应数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getParameter</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">resp</span><span class="p">.</span><span class="na">getWriter</span><span class="p">().</span><span class="na">write</span><span class="p">(</span><span class="s">&#34;Hello &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+<li>乱码消失，中文正常显示
+<img loading="lazy" src="/images/java-web/Tomcat/14.png"></li>
+</ol>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://www.steamedfish.top/tags/javaweb/">JavaWeb</a></li>
+      <li><a href="https://www.steamedfish.top/tags/tomcat/">Tomcat</a></li>
+      <li><a href="https://www.steamedfish.top/tags/servlet/">Servlet</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span><a href="https://www.steamedfish.top/">©2025 SteamedFish&rsquo;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
