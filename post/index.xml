@@ -7,8 +7,20 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Wed, 19 Nov 2025 10:18:40 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 20 Nov 2025 06:42:37 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Javaweb 7 1</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-7-1/</link>
+      <pubDate>Thu, 20 Nov 2025 14:33:22 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-7-1/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;静态资源：服务器上存储的不会改变的数据，通常不会根据用户的请求而变化。比如：HTML、CSS、JS、图片、视频等（负责页面展示）。&lt;/li&gt;
+&lt;li&gt;动态资源：服务器端根据用户请求和其他数据实时生成的，内容可能会在每次请求时都发生变化。比如：ServLet、JSP等（负责逻辑处理）&lt;/li&gt;
+&lt;li&gt;B/S架构：Browser/Server，浏览器/服务器架构模式。它的特点是：客户端只需要浏览器，应用程序的逻辑和数据都存储在服务器端。
+浏览器只需要请求服务器，获取Web资源，服务器把Web资源发送给浏览器即可（便于升级维护）。&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
     <item>
       <title>Javaweb——(6)Maven核心技术</title>
       <link>https://www.steamedfish.top/post/java-web/javaweb-6-maven/</link>
@@ -577,9 +589,9 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
     </item>
     <item>
       <title>B/S架构与HTTP协议及其简单应用</title>
-      <link>https://www.steamedfish.top/post/b/s/</link>
+      <link>https://www.steamedfish.top/post/b-s/</link>
       <pubDate>Wed, 05 Nov 2025 08:45:35 +0000</pubDate>
-      <guid>https://www.steamedfish.top/post/b/s/</guid>
+      <guid>https://www.steamedfish.top/post/b-s/</guid>
       <description>&lt;h1 id=&#34;bs架构&#34;&gt;B/S架构&lt;/h1&gt;
 &lt;h2 id=&#34;什么是bs架构&#34;&gt;什么是B/S架构？&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;B/S架构&lt;/strong&gt; ，全称&lt;strong&gt;Browser/Server 架构&lt;/strong&gt;&lt;/p&gt;
