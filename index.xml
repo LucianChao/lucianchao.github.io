@@ -9,6 +9,201 @@
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <atom:link href="https://www.steamedfish.top/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>【建站日志】如何让自己的博客被搜索引擎收录</title>
+      <link>https://www.steamedfish.top/post/hugo-log/hugo-blog-search-engine-indexing-guide/</link>
+      <pubDate>Fri, 21 Nov 2025 23:51:15 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/hugo-log/hugo-blog-search-engine-indexing-guide/</guid>
+      <description>&lt;p&gt;Bing Webmasster Tools是必应的网站管理员工具，可以添加个人网站并带进行一些网站操作。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;打开&lt;a href=&#34;https://www.bing.com/webmasters&#34;&gt;Bing Webmasster Tools&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;点击&amp;quot;开始&amp;quot;或右上角&amp;quot;登录&amp;quot;以登录到官网。可以选择三种登录账号：Google、Microsoft、Facebook。这里我用 Microsoft 账号登录。
+&lt;img loading=&#34;lazy&#34; src=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/1.png&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Tlias智能学习辅助系统——api接口文档</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-9-tlias-api-docs/</link>
+      <pubDate>Fri, 21 Nov 2025 14:37:30 +0000</pubDate>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-9-tlias-api-docs/</guid>
+      <description>&lt;h1 id=&#34;tlias接口文档&#34;&gt;tlias接口文档&lt;/h1&gt;
+&lt;h2 id=&#34;1-部门管理&#34;&gt;1. 部门管理&lt;/h2&gt;
+&lt;h3 id=&#34;11-部门列表查询&#34;&gt;1.1 部门列表查询&lt;/h3&gt;
+&lt;h4 id=&#34;111-基本信息&#34;&gt;1.1.1 基本信息&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;请求路径：/depts&lt;/p&gt;
+&lt;p&gt;请求方式：GET&lt;/p&gt;
+&lt;p&gt;接口描述：该接口用于部门列表数据查询&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;112-请求参数&#34;&gt;1.1.2 请求参数&lt;/h4&gt;
+&lt;p&gt;无&lt;/p&gt;
+&lt;h4 id=&#34;113-响应数据&#34;&gt;1.1.3 响应数据&lt;/h4&gt;
+&lt;p&gt;参数格式：application/json&lt;/p&gt;
+&lt;p&gt;参数说明：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;参数名&lt;/th&gt;
+          &lt;th&gt;类型&lt;/th&gt;
+          &lt;th&gt;是否必须&lt;/th&gt;
+          &lt;th&gt;备注&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;code&lt;/td&gt;
+          &lt;td&gt;number&lt;/td&gt;
+          &lt;td&gt;必须&lt;/td&gt;
+          &lt;td&gt;响应码，1 代表成功，0 代表失败&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;msg&lt;/td&gt;
+          &lt;td&gt;string&lt;/td&gt;
+          &lt;td&gt;非必须&lt;/td&gt;
+          &lt;td&gt;提示信息&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;data&lt;/td&gt;
+          &lt;td&gt;object[ ]&lt;/td&gt;
+          &lt;td&gt;非必须&lt;/td&gt;
+          &lt;td&gt;返回的数据&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;|- id&lt;/td&gt;
+          &lt;td&gt;number&lt;/td&gt;
+          &lt;td&gt;非必须&lt;/td&gt;
+          &lt;td&gt;id&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;|- name&lt;/td&gt;
+          &lt;td&gt;string&lt;/td&gt;
+          &lt;td&gt;非必须&lt;/td&gt;
+          &lt;td&gt;部门名称&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;|- createTime&lt;/td&gt;
+          &lt;td&gt;string&lt;/td&gt;
+          &lt;td&gt;非必须&lt;/td&gt;
+          &lt;td&gt;创建时间&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;|- updateTime&lt;/td&gt;
+          &lt;td&gt;string&lt;/td&gt;
+          &lt;td&gt;非必须&lt;/td&gt;
+          &lt;td&gt;修改时间&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;响应数据样例：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Javaweb——(9)SpringbBoot实战篇·智能学习辅助系统【未完成】</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-9-springboot-project-1/</link>
+      <pubDate>Fri, 21 Nov 2025 15:47:30 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-9-springboot-project-1/</guid>
+      <description>&lt;h1 id=&#34;开发规范&#34;&gt;开发规范&lt;/h1&gt;
+&lt;h2 id=&#34;前后端分离开发&#34;&gt;前后端分离开发&lt;/h2&gt;
+&lt;p&gt;当前最主流的开发模式：前后端分离
+&lt;img loading=&#34;lazy&#34; src=&#34;https://www.steamedfish.top/images/java-web/springbootproject01/1.png&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;restful风格&#34;&gt;Restful风格&lt;/h2&gt;
+&lt;h3 id=&#34;restful&#34;&gt;Restful&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;REST（REpresentational State Transfer），表述性状态转换，它是一种软件架构风格&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;传统风格url&lt;/th&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;请求方式&lt;/th&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;含义&lt;/th&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;备注&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;a href=&#34;http://localhost:8080/user/getById?id=1&#34;&gt;http://localhost:8080/user/getById?id=1&lt;/a&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;GET&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;查询id为1的用户&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;不规范&lt;br&gt;难维护&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;a href=&#34;http://localhost:8080/user/saveUser&#34;&gt;http://localhost:8080/user/saveUser&lt;/a&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;POST&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;新增用户&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;^&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;a href=&#34;http://localhost:8080/user/updateUser&#34;&gt;http://localhost:8080/user/updateUser&lt;/a&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;POST&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;修改用户&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;^&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;a href=&#34;http://localhost:8080/user/deleteUser?id=1&#34;&gt;http://localhost:8080/user/deleteUser?id=1&lt;/a&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;GET&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;删除 id为1的用户&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;^&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;REST风格url&lt;/th&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;请求方式&lt;/th&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;含义&lt;/th&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;备注&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;a href=&#34;http://localhost:8080/users/1&#34;&gt;http://localhost:8080/users/1&lt;/a&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;GET&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;查询id为1的用户&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;url定位资源&lt;br&gt;HTTP动词描述操作&lt;br&gt;&lt;br&gt;简洁、规范、优雅&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;a href=&#34;http://localhost:8080/users/1&#34;&gt;http://localhost:8080/users/1&lt;/a&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;DELETE&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;删除id为1的用户&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;^&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;a href=&#34;http://localhost:8080/users&#34;&gt;http://localhost:8080/users&lt;/a&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;POST&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;新增用户&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;^&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;a href=&#34;http://localhost:8080/users&#34;&gt;http://localhost:8080/users&lt;/a&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;PUT&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;修改用户&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;^&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;!-- FM:Snippet:Start data:{&#34;id&#34;:&#34;st-notice&#34;,&#34;fields&#34;:[]} --&gt;
+&lt;div class=&#34;notice info&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
+        &lt;/span&gt;信息&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Javaweb——(8)SpringBootWeb入门</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-8-springboot/</link>
+      <pubDate>Fri, 21 Nov 2025 10:08:18 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-8-springboot/</guid>
+      <description>&lt;h1 id=&#34;spring框架&#34;&gt;Spring框架&lt;/h1&gt;
+&lt;p&gt;Spring 是一个轻量级、开源的 Java 企业级开发&lt;strong&gt;框架&lt;/strong&gt;，最初由 Rod Johnson 在 2003 年推出。它的核心目标是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;简化 Java 企业级开发&lt;/li&gt;
+&lt;li&gt;降低代码耦合度&lt;/li&gt;
+&lt;li&gt;提供一致、便利的编程模型&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;随着 Java EE 的复杂度不断增加，Spring 通过提供 IoC（控制反转）和 AOP（面向切面编程）两大核心机制，使开发者能够更高效、更灵活地构建应用程序。&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Javaweb——(7)Tomcat和Servet</title>
       <link>https://www.steamedfish.top/post/java-web/javaweb-7-tomcat-servlet/</link>
       <pubDate>Thu, 20 Nov 2025 14:33:22 +0800</pubDate>
@@ -213,9 +408,9 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
     </item>
     <item>
       <title>杂谈 | 建站日记 | 待办</title>
-      <link>https://www.steamedfish.top/post/2025-11-15-log/</link>
+      <link>https://www.steamedfish.top/post/hugo-log/2025-11-15-log/</link>
       <pubDate>Sat, 15 Nov 2025 16:21:01 +0000</pubDate>
-      <guid>https://www.steamedfish.top/post/2025-11-15-log/</guid>
+      <guid>https://www.steamedfish.top/post/hugo-log/2025-11-15-log/</guid>
       <description>&lt;p&gt;近来每天都很累&lt;/p&gt;
 &lt;p&gt;真的太忙了&lt;/p&gt;
 &lt;p&gt;昨天学习完后又折腾博客到深夜，细心的朋友应该发现了我新添加的&lt;code&gt;lastmod&lt;/code&gt;，这玩意的bug还挺难搞 &lt;br&gt;
