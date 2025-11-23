@@ -7,10 +7,34 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sat, 22 Nov 2025 16:28:51 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 23 Nov 2025 16:01:03 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/tlias/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Javaweb——(9)SpringbBoot实战篇·智能学习辅助系统【未完成】</title>
+      <title>Javaweb——(10)SpringBoot实战·分层解耦</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-10-springboot-ioc-di/</link>
+      <pubDate>Sun, 23 Nov 2025 15:39:57 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-10-springboot-ioc-di/</guid>
+      <description>&lt;h2 id=&#34;分层解耦&#34;&gt;分层解耦&lt;/h2&gt;
+&lt;p&gt;在开发中，我们往往遵循一个原则——&amp;quot;&lt;strong&gt;单一职责原则&lt;/strong&gt;&amp;quot;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;即，一个类、一个方法、一个模块，只负责一件事。&lt;br&gt;
+一个变化的原因不要超过一个。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这样的代码：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;可维护性更换 &lt;code&gt;→&lt;/code&gt; 改一个功能不会影响其他功能&lt;/li&gt;
+&lt;li&gt;可复用性强 &lt;code&gt;→&lt;/code&gt; 类职责越明确，越容易复用&lt;/li&gt;
+&lt;li&gt;代码可测试性提高 &lt;code&gt;→&lt;/code&gt; 一个类只处理一件事，单元测试更简单&lt;/li&gt;
+&lt;li&gt;降低耦合度 &lt;code&gt;→&lt;/code&gt; 模块之间独立，不相互拖累&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;三层架构&#34;&gt;三层架构&lt;/h3&gt;
+&lt;p&gt;✅ 三层架构是什么？
+&lt;img loading=&#34;lazy&#34; src=&#34;https://www.steamedfish.top/images/java-web/springbootproject01/19.png#center&#34;&gt;
+三层架构包括：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Javaweb——(9)SpringbBoot实战·智能学习辅助系统</title>
       <link>https://www.steamedfish.top/post/java-web/javaweb-9-springboot-project-1/</link>
       <pubDate>Fri, 21 Nov 2025 15:47:30 +0800</pubDate>
       <guid>https://www.steamedfish.top/post/java-web/javaweb-9-springboot-project-1/</guid>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>MySQL on SteamedFish&#39;s Blog</title>
+    <link>https://www.steamedfish.top/tags/mysql/</link>
+    <description>Recent content in MySQL on SteamedFish&#39;s Blog</description>
+    <generator>Hugo -- 0.152.2</generator>
+    <language>zh</language>
+    <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
+    <lastBuildDate>Sun, 23 Nov 2025 16:01:03 +0000</lastBuildDate>
+    <atom:link href="https://www.steamedfish.top/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Javaweb——(11)MySQL入门</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-11-mysql-basic/</link>
+      <pubDate>Sun, 23 Nov 2025 19:25:27 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-11-mysql-basic/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;今天我们来学习数据库&lt;/p&gt;
+&lt;h3 id=&#34;什么是数据库&#34;&gt;什么是数据库？&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;数据库：&lt;strong&gt;D&lt;/strong&gt;ata&lt;strong&gt;B&lt;/strong&gt;ase（DB），是存储和管理数据的仓库&lt;/li&gt;
+&lt;li&gt;数据库管理系统：&lt;strong&gt;D&lt;/strong&gt;ata&lt;strong&gt;B&lt;/strong&gt;ase &lt;strong&gt;M&lt;/strong&gt;anagement &lt;strong&gt;S&lt;/strong&gt;ystem（DBMS），操作和管理数据库的大型软件。&lt;/li&gt;
+&lt;li&gt;SQL：&lt;strong&gt;S&lt;/strong&gt;tructured &lt;strong&gt;Q&lt;/strong&gt;uery &lt;strong&gt;L&lt;/strong&gt;anguage，操作关系型数据库的编程语言，定义了一套操作关系型数据库的&lt;strong&gt;统一标准&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;常见数据库产品&#34;&gt;常见数据库产品&lt;/h3&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;产品&lt;/th&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;说明&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;Oracle&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;收费的大型数据库，Oracle公司的产品。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;MySQL&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;开源免费的中小型数据库。Sun公司收购了MySQL，Oracle收购Sun公司。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;SQL Server&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;MicroSoft公司收费的中型的数据库。C#、.net等语言常使用。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;PostgreSQL&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;开源免费中小型的数据库。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;DB2&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;IBM公司的大型收费数据库产品。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;SQLite&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;嵌入式的微型数据库。如：作为Android内置数据库&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;MariaDB&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;开源免费的中小型的数据库。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;常见mysql客户端图形化工具&#34;&gt;常见MySQL客户端——图形化工具&lt;/h3&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://www.steamedfish.top/images/java-web/mysql/3.png&#34;&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
