@@ -7,7 +7,7 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sun, 23 Nov 2025 16:01:03 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 24 Nov 2025 17:48:09 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>项目实战——基于 TCP 的局域网聊天工具开发（含 GUI 界面）</title>
@@ -36,7 +36,37 @@
 &lt;/ul&gt;
 &lt;h2 id=&#34;思路分析&#34;&gt;思路分析&lt;/h2&gt;
 &lt;h3 id=&#34;1-创建一个项目模块chat-system&#34;&gt;1. 创建一个项目模块：&lt;code&gt;chat-system&lt;/code&gt;&lt;/h3&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/1.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-se/java-se-project/java-se-GUI.md&#34;
+    href=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/1.png&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/1.png&#34;
+      srcset=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/1.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+&lt;/p&gt;
 &lt;h3 id=&#34;2-编写系统界面swing代码&#34;&gt;2. 编写系统界面：Swing代码&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;登录界面：要求用户输入自己的昵称
@@ -258,7 +288,37 @@
 &lt;/ul&gt;
 &lt;h3 id=&#34;3-定义一个app启动类创建进入界面对象并展示&#34;&gt;3. 定义一个App启动类：创建进入界面对象并展示&lt;/h3&gt;
 &lt;h3 id=&#34;4-分析系统整体架构&#34;&gt;4. 分析系统整体架构&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/2.png&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/2.png&#34;&gt;&lt;/a&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;a href=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/2.png&#34;&gt;
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-se/java-se-project/java-se-GUI.md&#34;
+    href=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/2.png&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/2.png&#34;
+      srcset=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/2.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（十八·反射与注解）</title>

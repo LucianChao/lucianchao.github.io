@@ -68,7 +68,7 @@ B/S架构 ，全称Browser/Server 架构
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2025-11-05T08:45:35+00:00">
-    <meta property="article:modified_time" content="2025-11-23T16:01:03+00:00">
+    <meta property="article:modified_time" content="2025-11-24T17:48:09+00:00">
     <meta property="article:tag" content="B-S架构">
     <meta property="article:tag" content="HTTP协议">
 <meta name="twitter:card" content="summary">
@@ -114,7 +114,7 @@ B/S架构 ，全称Browser/Server 架构
   "wordCount" : "3432",
   "inLanguage": "zh",
   "datePublished": "2025-11-05T08:45:35.193Z",
-  "dateModified": "2025-11-23T16:01:03.044899952Z",
+  "dateModified": "2025-11-24T17:48:09.889073014Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/b-s/"
@@ -225,7 +225,7 @@ B/S架构 ，全称Browser/Server 架构
 
 
 
-<span title='2025-11-05 08:45:35.193 +0000 UTC'>2025-11-05</span>&nbsp;·&nbsp;<span title='2025-11-23 16:01:03.044899952 +0000 UTC'>(最后修改于 2025-11-23)</span>&nbsp;·&nbsp;<span>7 分钟</span>
+<span title='2025-11-05 08:45:35.193 +0000 UTC'>2025-11-05</span>&nbsp;·&nbsp;<span title='2025-11-24 17:48:09.889073014 +0000 UTC'>(最后修改于 2025-11-24)</span>&nbsp;·&nbsp;<span>7 分钟</span>
 
 </div>
   </header> <div class="toc">
@@ -1709,7 +1709,37 @@ Server: nginx/1.24
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>用浏览器访问localhost:8080可以看到页面访问成功，<code>title</code>和<code>body</code>也如预想般正常显示
-<img alt="页面1" loading="lazy" src="/images/java-se/B-S/1.png"></p>
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/B-S.md"
+    href="https://www.steamedfish.top/images/java-se/B-S/1.png"
+    data-caption=""
+  >
+    <img
+      src="https://www.steamedfish.top/images/java-se/B-S/1.png"
+      srcset="https://www.steamedfish.top/images/java-se/B-S/1.png 2x"
+      alt="页面1"
+      loading="lazy"
+      style="max-width: 100%; height: auto"
+    />
+  </a>
+</div>
+
+
+</p>
 <hr>
 <p>至此一个基于B/S架构与HTTP协议的简单应用就做好了</p>
 <p>接下来我们试着来对它进行一些优化 <br>
@@ -2031,6 +2061,33 @@ Server: nginx/1.24
         <path d="M12 6H0l6-6z" />
     </svg>
 </a>
+
+
+
+
+
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    Fancybox.bind("[data-fancybox]", {
+      animated: true,                  
+      showClass: 'fancybox-fadeIn',    
+      hideClass: 'fancybox-fadeOut',   
+      dragToClose: true                 
+    });
+  });
+</script>
+
+
+
+
 
 <script>
     let menu = document.getElementById('menu')

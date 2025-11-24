@@ -7,8 +7,53 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sun, 23 Nov 2025 16:01:03 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 24 Nov 2025 17:48:09 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/categories/%E5%BB%BA%E7%AB%99%E6%97%A5%E5%BF%97/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【建站日志】添加图片放大功能</title>
+      <link>https://www.steamedfish.top/post/hugo-log/image-enlarge-fancybox/</link>
+      <pubDate>Mon, 24 Nov 2025 22:52:33 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/hugo-log/image-enlarge-fancybox/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;目前常见的图片放大方案有这几种&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;方案&lt;/th&gt;
+          &lt;th&gt;优点&lt;/th&gt;
+          &lt;th&gt;适合场景&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;Medium Zoom&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;极简、轻量&lt;/td&gt;
+          &lt;td&gt;普通文章、单图放大&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;Zooming.js&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;极简、轻量、可拖动&lt;/td&gt;
+          &lt;td&gt;技术博客&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;lightGallery&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;图集、轮播&lt;/td&gt;
+          &lt;td&gt;图多、文章图集、相册&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;Fancybox&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;UI 美观、多媒体&lt;/td&gt;
+          &lt;td&gt;图片+视频+&lt;code&gt;iframe&lt;/code&gt;混合内容&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;几种方案我都试用了一下，阐述一下个人感受：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Medium Zoom&lt;/code&gt;和&lt;code&gt;Zooming.js&lt;/code&gt;：很极简，没有任何多余ui，点击放大，说实话很对我的胃口。但移动端的体验绝对称不上美妙，不支持捏合缩放，没有手势优化，可以说很糟糕了。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Fancybox&lt;/code&gt; —— 功能最全面的弹窗方案，支持捏合缩放、多图滑动、图片标题和分组展示。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;综合下来，为了在移动端能有更好的体验，放弃了极简设计，转而使用了功能更丰富的&lt;code&gt;Fancybox&lt;/code&gt;。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>【建站日志】如何让自己的博客被搜索引擎收录</title>
       <link>https://www.steamedfish.top/post/hugo-log/hugo-blog-search-engine-indexing-guide/</link>
@@ -19,7 +64,37 @@
 &lt;li&gt;
 &lt;p&gt;打开&lt;a href=&#34;https://www.bing.com/webmasters&#34;&gt;Bing Webmasster Tools&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;点击&amp;quot;开始&amp;quot;或右上角&amp;quot;登录&amp;quot;以登录到官网。可以选择三种登录账号：Google、Microsoft、Facebook。这里我用 Microsoft 账号登录。
-&lt;img loading=&#34;lazy&#34; src=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/1.png&#34;&gt;&lt;/p&gt;</description>
+
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/hugo-log/hugo-blog-search-engine-indexing-guide.md&#34;
+    href=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/1.png&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/1.png&#34;
+      srcset=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/1.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
