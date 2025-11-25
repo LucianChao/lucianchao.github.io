@@ -7,7 +7,7 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Mon, 24 Nov 2025 17:48:09 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Nov 2025 17:37:34 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Markdown基础语法</title>
@@ -39,7 +39,7 @@
       srcset=&#34;https://www.steamedfish.top/images/msg.png 2x&#34;
       alt=&#34;MSG&#34;
       loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
     /&gt;
   &lt;/a&gt;
 &lt;/div&gt;

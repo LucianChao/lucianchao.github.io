@@ -7,55 +7,26 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Mon, 24 Nov 2025 17:48:09 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Nov 2025 17:37:34 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【建站日志】添加图片放大功能</title>
       <link>https://www.steamedfish.top/post/hugo-log/image-enlarge-fancybox/</link>
-      <pubDate>Mon, 24 Nov 2025 22:52:33 +0800</pubDate>
+      <pubDate>Mon, 24 Nov 2025 17:50:19 +0000</pubDate>
       <guid>https://www.steamedfish.top/post/hugo-log/image-enlarge-fancybox/</guid>
       <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
-&lt;p&gt;目前常见的图片放大方案有这几种&lt;/p&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;方案&lt;/th&gt;
-          &lt;th&gt;优点&lt;/th&gt;
-          &lt;th&gt;适合场景&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;Medium Zoom&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;极简、轻量&lt;/td&gt;
-          &lt;td&gt;普通文章、单图放大&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;Zooming.js&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;极简、轻量、可拖动&lt;/td&gt;
-          &lt;td&gt;技术博客&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;lightGallery&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;图集、轮播&lt;/td&gt;
-          &lt;td&gt;图多、文章图集、相册&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;Fancybox&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;UI 美观、多媒体&lt;/td&gt;
-          &lt;td&gt;图片+视频+&lt;code&gt;iframe&lt;/code&gt;混合内容&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;几种方案我都试用了一下，阐述一下个人感受：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;Medium Zoom&lt;/code&gt;和&lt;code&gt;Zooming.js&lt;/code&gt;：很极简，没有任何多余ui，点击放大，说实话很对我的胃口。但移动端的体验绝对称不上美妙，不支持捏合缩放，没有手势优化，可以说很糟糕了。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Fancybox&lt;/code&gt; —— 功能最全面的弹窗方案，支持捏合缩放、多图滑动、图片标题和分组展示。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;综合下来，为了在移动端能有更好的体验，放弃了极简设计，转而使用了功能更丰富的&lt;code&gt;Fancybox&lt;/code&gt;。&lt;/p&gt;</description>
+&lt;!-- FM:Snippet:Start data:{&#34;id&#34;:&#34;st-notice&#34;,&#34;fields&#34;:[]} --&gt;
+&lt;div class=&#34;notice warning&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z&#34;/&gt;&lt;/svg&gt;
+        &lt;/span&gt;警告&lt;/p&gt;&lt;p&gt;血与泪的教训，永远不要让Fancybox处理大文件&lt;/p&gt;&lt;/div&gt;
+&lt;!-- FM:Snippet:End --&gt;
+&lt;hr&gt;
+&lt;p&gt;目前常见的图片放大方案有这几种&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Javaweb——(12)JDBC入门</title>
+      <title>Javaweb——(12)SpringBoot实战·JDBC入门</title>
       <link>https://www.steamedfish.top/post/java-web/javaweb-12-jdbc/</link>
       <pubDate>Mon, 24 Nov 2025 17:18:24 +0800</pubDate>
       <guid>https://www.steamedfish.top/post/java-web/javaweb-12-jdbc/</guid>
@@ -75,7 +46,7 @@
 
 &lt;div class=&#34;post-img-view&#34;&gt;
   &lt;a
-    data-fancybox=&#34;post-post/java-web/javaweb-12-jdbc.md&#34;
+    data-fancybox=&#34;post-post/java-web/javaweb-12-jdbc/index.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-web/JDBC/1.png&#34;
     data-caption=&#34;&#34;
   &gt;
@@ -84,7 +55,7 @@
       srcset=&#34;https://www.steamedfish.top/images/java-web/JDBC/1.png 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
     /&gt;
   &lt;/a&gt;
 &lt;/div&gt;
@@ -110,7 +81,7 @@
 
 &lt;div class=&#34;post-img-view&#34;&gt;
   &lt;a
-    data-fancybox=&#34;post-post/java-web/javaweb-12-jdbc.md&#34;
+    data-fancybox=&#34;post-post/java-web/javaweb-12-jdbc/index.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-web/JDBC/2.png#center&#34;
     data-caption=&#34;&#34;
   &gt;
@@ -119,7 +90,7 @@
       srcset=&#34;https://www.steamedfish.top/images/java-web/JDBC/2.png#center 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
     /&gt;
   &lt;/a&gt;
 &lt;/div&gt;
@@ -389,7 +360,7 @@
       srcset=&#34;https://www.steamedfish.top/images/java-web/mysql/3.png 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
     /&gt;
   &lt;/a&gt;
 &lt;/div&gt;
@@ -442,7 +413,7 @@
       srcset=&#34;https://www.steamedfish.top/images/java-web/springbootproject01/19.png#center 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
     /&gt;
   &lt;/a&gt;
 &lt;/div&gt;
@@ -485,7 +456,7 @@
       srcset=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/1.png 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
     /&gt;
   &lt;/a&gt;
 &lt;/div&gt;
@@ -600,7 +571,7 @@
       srcset=&#34;https://www.steamedfish.top/images/java-web/springbootproject01/1.png 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
     /&gt;
   &lt;/a&gt;
 &lt;/div&gt;
@@ -692,7 +663,7 @@ JDBC、JNDI、EJB、RMI、JSP、Servlet、XML、JMS、JavaIDL、JTS、JTA、Java
       srcset=&#34;https://www.steamedfish.top/images/java-web/Maven/1.png 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
     /&gt;
   &lt;/a&gt;
 &lt;/div&gt;
@@ -738,7 +709,7 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
       srcset=&#34;https://www.steamedfish.top/images/java-web/Vue-demo/1.png 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
     /&gt;
   &lt;/a&gt;
 &lt;/div&gt;
@@ -785,7 +756,7 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
       srcset=&#34;https://www.steamedfish.top/images/java-web/VUE/1.png 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
     /&gt;
   &lt;/a&gt;
 &lt;/div&gt;
@@ -1117,7 +1088,7 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
       srcset=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/1.png 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
     /&gt;
   &lt;/a&gt;
 &lt;/div&gt;
@@ -1369,7 +1340,7 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
       srcset=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/2.png 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
     /&gt;
   &lt;/a&gt;
 &lt;/div&gt;
@@ -1746,7 +1717,7 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
       srcset=&#34;https://www.steamedfish.top/images/msg.png 2x&#34;
       alt=&#34;MSG&#34;
       loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
     /&gt;
   &lt;/a&gt;
 &lt;/div&gt;
