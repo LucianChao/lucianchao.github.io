@@ -7,8 +7,139 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Tue, 25 Nov 2025 17:37:34 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 26 Nov 2025 17:25:10 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/tlias/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Javaweb——SpringBoot实战【资源附录】</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-file/</link>
+      <pubDate>Wed, 26 Nov 2025 20:36:13 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-file/</guid>
+      <description>&lt;h2 id=&#34;前端文件源码&#34;&gt;前端文件源码&lt;/h2&gt;
+&lt;h3 id=&#34;源码下载&#34;&gt;源码下载&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.steamedfish.top/files/javaweb/tilas/tlias-frontend-master.zip&#34;&gt;点击下载&lt;/a&gt; 前端工程文件&lt;code&gt;tlias-frontend-master&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;工具下载&#34;&gt;工具下载&lt;/h3&gt;
+&lt;div class=&#34;github&#34;&gt;
+    &lt;div class=&#34;logo&#34;&gt;
+        &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; class=&#34;icon github-icon&#34; viewBox=&#34;0 0 16 16&#34;&gt;&lt;path fill-rule=&#34;evenodd&#34; clip-rule=&#34;evenodd&#34; d=&#34;M2 2.5C2 1.83696 2.26339 1.20107 2.73223 0.732233C3.20108 0.263392 3.83696 0 4.5 0L13.25 0C13.4489 0 13.6397 0.0790176 13.7803 0.21967C13.921 0.360322 14 0.551088 14 0.75V13.25C14 13.4489 13.921 13.6397 13.7803 13.7803C13.6397 13.921 13.4489 14 13.25 14H10.75C10.5511 14 10.3603 13.921 10.2197 13.7803C10.079 13.6397 10 13.4489 10 13.25C10 13.0511 10.079 12.8603 10.2197 12.7197C10.3603 12.579 10.5511 12.5 10.75 12.5H12.5V10.5H4.5C4.30308 10.5 4.11056 10.5582 3.94657 10.6672C3.78257 10.7762 3.65442 10.9312 3.57816 11.1128C3.50191 11.2943 3.48096 11.4943 3.51793 11.6878C3.5549 11.8812 3.64816 12.0594 3.786 12.2C3.92524 12.3422 4.0023 12.5338 4.00024 12.7328C3.99818 12.9318 3.91716 13.1218 3.775 13.261C3.63285 13.4002 3.4412 13.4773 3.24222 13.4752C3.04325 13.4732 2.85324 13.3922 2.714 13.25C2.25571 12.7829 1.99929 12.1544 2 11.5V2.5ZM12.5 1.5V9H4.5C4.144 9 3.806 9.074 3.5 9.208V2.5C3.5 2.23478 3.60536 1.98043 3.79289 1.79289C3.98043 1.60536 4.23478 1.5 4.5 1.5H12.5ZM5 12.25V15.5C5 15.5464 5.01293 15.5919 5.03734 15.6314C5.06175 15.6709 5.09667 15.7028 5.1382 15.7236C5.17972 15.7444 5.22621 15.7532 5.27245 15.749C5.31869 15.7448 5.36286 15.7279 5.4 15.7L6.85 14.613C6.89328 14.5805 6.94591 14.563 7 14.563C7.05409 14.563 7.10673 14.5805 7.15 14.613L8.6 15.7C8.63714 15.7279 8.68131 15.7448 8.72755 15.749C8.77379 15.7532 8.82028 15.7444 8.8618 15.7236C8.90333 15.7028 8.93826 15.6709 8.96266 15.6314C8.98707 15.5919 9 15.5464 9 15.5V12.25C9 12.1837 8.97366 12.1201 8.92678 12.0732C8.87989 12.0263 8.81631 12 8.75 12H5.25C5.1837 12 5.12011 12.0263 5.07322 12.0732C5.02634 12.1201 5 12.1837 5 12.25Z&#34;/&gt;&lt;/svg&gt;
+        &lt;a class=&#34;name&#34; href=https://github.com/coreybutler/nvm-windows target=&#34;_blank&#34;&gt;nvm-windows&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;description&#34;&gt;在 Windows 电脑上管理多个 node.js 安装！&lt;/div&gt;
+    &lt;div class=&#34;language&#34;&gt;
+        &lt;span class=&#34;language-color&#34; style=&#34;background-color: #00add8&#34;&gt;&lt;/span&gt;
+        &lt;span class=&#34;language-name&#34;&gt;Go&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h3 id=&#34;项目部署&#34;&gt;项目部署&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;把前端工程文件夹中的压缩包，拷贝到一个&lt;strong&gt;没有中文&lt;/strong&gt;，&lt;strong&gt;不带空格的&lt;/strong&gt;目录下，解压。&lt;/li&gt;
+&lt;li&gt;安装&lt;code&gt;nvm-weindows&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;在 文件资源管理器 路径栏 输入 &lt;code&gt;cmd&lt;/code&gt; 按下 &lt;code&gt;Enter&lt;/code&gt;，打开 cmd命令行&lt;/li&gt;
+&lt;li&gt;在命令行输入如下命令
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nvm install 18.18.0
+nvm use 18.18.0
+node -v
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-web/javaweb-file/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/1.webp&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/1.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/1.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;命令行输入，安装环境并启动服务
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;npm install
+npm run dev
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-web/javaweb-file/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/2.webp&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/2.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/2.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;启动后端程序后访问前端
+
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-web/javaweb-file/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/3.webp&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/3.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/3.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
     <item>
       <title>Javaweb——(10)SpringBoot实战·分层解耦</title>
       <link>https://www.steamedfish.top/post/java-web/javaweb-10-springboot-ioc-di/</link>

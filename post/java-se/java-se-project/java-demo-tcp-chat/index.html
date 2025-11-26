@@ -294,7 +294,7 @@ public class ClientChatFrame extends JFrame {
 ">
 <meta name="author" content="">
 <link rel="canonical" href="https://www.steamedfish.top/post/java-se/java-se-project/java-demo-tcp-chat/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.a090830a421002426baafbd314e38f149d77b4c48a12ee9312700d770b27fb26.css" integrity="sha256-oJCDCkIQAkJrqvvTFOOPFJ13tMSKEu6TEnANdwsn&#43;yY=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.733e89c4318b39a7233e625cd9b64d514388597dfe00341546a606cc0d89d737.css" integrity="sha256-cz6JxDGLOacjPmJc2bZNUUOIWX3&#43;ADQVRqYGzA2J1zc=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
@@ -339,7 +339,12 @@ public class ClientChatFrame extends JFrame {
         }
 
     </style>
-</noscript><meta property="og:url" content="https://www.steamedfish.top/post/java-se/java-se-project/java-demo-tcp-chat/">
+</noscript><link
+  href="https://cdn.jsdelivr.net/npm/@callmebill/lxgw-wenkai-web@latest/style.css"
+  rel="stylesheet"
+/>
+
+<meta property="og:url" content="https://www.steamedfish.top/post/java-se/java-se-project/java-demo-tcp-chat/">
   <meta property="og:site_name" content="SteamedFish&#39;s Blog">
   <meta property="og:title" content="项目实战——基于 TCP 的局域网聊天工具开发（含 GUI 界面）">
   <meta property="og:description" content="需求分析： 一个用户的登录界面，输入昵称 群聊窗口 展示在线人数（实时更新） 消息展示框 消息输入框 发送按钮 群聊功能 技术选型 GUI编程技术：Swing 网络编程 OOP面对对象设计 一些常用的API 思路分析 1. 创建一个项目模块：chat-system 2. 编写系统界面：Swing代码 登录界面：要求用户输入自己的昵称 package com.itheima.ui; import javax.swing.*; import java.awt.*; public class ChatEntryFrame extends JFrame { private JTextField nicknameField;//昵称 private JButton enterButton;//确定 private JButton cancelButton;//取消 public ChatEntryFrame() {//构造方法 setTitle(&#34;局域网聊天室&#34;);//标题 setSize(350, 200);//大小 setLocationRelativeTo(null);//居中 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//退出程序 setResizable(false);//不可缩放 //设置背景颜色 getContentPane().setBackground(new Color(0xF0F0F0)); //创建主面板并设置布局 JPanel mainPanel = new JPanel(new BorderLayout()); mainPanel.setBackground(new Color(0xF0F0F0)); add(mainPanel); //创建顶部面板 JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10)); topPanel.setBackground(new Color(0xF0F0F0)); //标签和文本框 JLabel nicknameLabel = new JLabel(&#34;昵称：&#34;); nicknameLabel.setFont(new Font(&#34;微软雅黑&#34;,Font.BOLD,16)); nicknameField = new JTextField(10); nicknameField.setFont(new Font(&#34;微软雅黑&#34;,Font.PLAIN,16)); nicknameField.setBorder(BorderFactory.createCompoundBorder( BorderFactory.createMatteBorder(1,1,1,1,Color.GRAY), BorderFactory.createEmptyBorder(5,5,5,5) )); topPanel.add(nicknameLabel); topPanel.add(nicknameField); mainPanel.add(topPanel,BorderLayout.NORTH); //按钮面板 JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10)); buttonPanel.setBackground(new Color(0xF0F0F0)); enterButton = new JButton(&#34;确定&#34;); enterButton.setFont(new Font(&#34;微软雅黑&#34;,Font.BOLD,16)); enterButton.setBackground(new Color(0x4CAF50)); enterButton.setForeground(Color.WHITE); enterButton.setBorderPainted(false); enterButton.setFocusPainted(false); cancelButton = new JButton(&#34;取消&#34;); cancelButton.setFont(new Font(&#34;微软雅黑&#34;,Font.BOLD,16)); cancelButton.setBackground(new Color(0xF44336)); cancelButton.setForeground(Color.WHITE); cancelButton.setBorderPainted(false); cancelButton.setFocusPainted(false); buttonPanel.add(enterButton); buttonPanel.add(cancelButton); mainPanel.add(buttonPanel,BorderLayout.SOUTH); //添加监听 enterButton.addActionListener(e -&gt; { String nickname = nicknameField.getText(); if (!nickname.isEmpty()){ //进入聊天室 dispose();//销毁当前窗口 }else{ JOptionPane.showMessageDialog(this,&#34;请输入昵称！&#34;); } }); cancelButton.addActionListener(e -&gt; { System.exit(0); });//退出程序 this.setVisible(true);//显示 } public static void main(String[] args) { new ChatEntryFrame(); } } 聊天界面： package com.itheima.ui; import javax.swing.*; import java.awt.*; public class ClientChatFrame extends JFrame { public JTextArea smsContent = new JTextArea(23, 50); private JTextArea smsSend = new JTextArea(4, 40); public JList&lt;String&gt; userList = new JList&lt;&gt;(); public JButton btnSend = new JButton(&#34;发送&#34;); public ClientChatFrame() { initView(); this.setVisible(true); } private void initView() { // 设置窗口基本属性 this.setSize(800, 600); this.setLayout(new BorderLayout(5, 5)); // 添加组件间距 this.setLocationRelativeTo(null);//居中 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 设置窗口背景颜色 this.getContentPane().setBackground(new Color(0xf5, 0xf5, 0xf5)); // 设置字体 Font font = new Font(&#34;微软雅黑&#34;, Font.PLAIN, 14); Font boldFont = new Font(&#34;微软雅黑&#34;, Font.BOLD, 14); // 消息内容框 smsContent.setFont(font); smsContent.setBackground(Color.WHITE); smsContent.setEditable(false); smsContent.setLineWrap(true); smsContent.setWrapStyleWord(true); smsContent.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // 发送消息框 smsSend.setFont(font); smsSend.setWrapStyleWord(true); smsSend.setLineWrap(true); smsSend.setBorder(BorderFactory.createCompoundBorder( BorderFactory.createLineBorder(new Color(0xcc, 0xcc, 0xcc)), BorderFactory.createEmptyBorder(5, 5, 5, 5) )); // 创建底部面板 JPanel bottomPanel = new JPanel(new BorderLayout(5, 5)); bottomPanel.setBackground(new Color(0xf5, 0xf5, 0xf5)); bottomPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // 消息输入框滚动面板 JScrollPane smsSendScrollPanel = new JScrollPane(smsSend); smsSendScrollPanel.setBorder(BorderFactory.createEmptyBorder()); smsSendScrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // 发送按钮 btnSend.setFont(boldFont); btnSend.setBackground(new Color(0x4CAF50)); btnSend.setForeground(Color.WHITE); btnSend.setBorderPainted(false); btnSend.setFocusPainted(false); btnSend.setCursor(new Cursor(Cursor.HAND_CURSOR)); btnSend.setPreferredSize(new Dimension(80, 40)); // 按钮面板 JPanel btnsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 5)); btnsPanel.setBackground(new Color(0xf5, 0xf5, 0xf5)); btnsPanel.add(btnSend); // 添加底部组件 bottomPanel.add(smsSendScrollPanel, BorderLayout.CENTER); bottomPanel.add(btnsPanel, BorderLayout.SOUTH); // 用户列表 userList.setFont(font); userList.setBackground(Color.WHITE); userList.setSelectionBackground(new Color(0x4CAF50)); userList.setSelectionForeground(Color.WHITE); // 用户列表面板 JPanel userListPanel = new JPanel(new BorderLayout()); userListPanel.setBackground(new Color(0xf5, 0xf5, 0xf5)); userListPanel.setBorder(BorderFactory.createTitledBorder( BorderFactory.createLineBorder(new Color(0xcc, 0xcc, 0xcc)), &#34;在线用户&#34;, 0, 0, boldFont )); JScrollPane userListScrollPanel = new JScrollPane(userList); userListScrollPanel.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5)); userListPanel.add(userListScrollPanel, BorderLayout.CENTER); userListPanel.setPreferredSize(new Dimension(150, 0)); // 中心消息面板 JPanel smsContentPanel = new JPanel(new BorderLayout()); smsContentPanel.setBackground(new Color(0xf5, 0xf5, 0xf5)); smsContentPanel.setBorder(BorderFactory.createTitledBorder( BorderFactory.createLineBorder(new Color(0xcc, 0xcc, 0xcc)), &#34;消息记录&#34;, 0, 0, boldFont )); JScrollPane smsContentScrollPanel = new JScrollPane(smsContent); smsContentScrollPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); smsContentScrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); smsContentPanel.add(smsContentScrollPanel, BorderLayout.CENTER); // 添加组件到主窗口 this.add(smsContentPanel, BorderLayout.CENTER); this.add(userListPanel, BorderLayout.EAST); this.add(bottomPanel, BorderLayout.SOUTH); } public static void main(String[] args) { new ClientChatFrame(); } } 3. 定义一个App启动类：创建进入界面对象并展示 4. 分析系统整体架构 ">
@@ -347,7 +352,7 @@ public class ClientChatFrame extends JFrame {
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2025-11-09T10:57:37+00:00">
-    <meta property="article:modified_time" content="2025-11-25T17:37:34+00:00">
+    <meta property="article:modified_time" content="2025-11-26T17:25:10+00:00">
     <meta property="article:tag" content="GUI">
     <meta property="article:tag" content="Java">
     <meta property="article:tag" content="OOP">
@@ -677,7 +682,7 @@ public class ClientChatFrame extends JFrame {
   "wordCount" : "7215",
   "inLanguage": "zh",
   "datePublished": "2025-11-09T10:57:37.196Z",
-  "dateModified": "2025-11-25T17:37:34.696237463Z",
+  "dateModified": "2025-11-26T17:25:10.228075268Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/java-se/java-se-project/java-demo-tcp-chat/"
@@ -788,7 +793,7 @@ public class ClientChatFrame extends JFrame {
 
 
 
-<span title='2025-11-09 10:57:37.196 +0000 UTC'>2025-11-09</span>&nbsp;·&nbsp;<span title='2025-11-25 17:37:34.696237463 +0000 UTC'>(最后修改于 2025-11-25)</span>&nbsp;·&nbsp;<span>15 分钟</span>
+<span title='2025-11-09 10:57:37.196 +0000 UTC'>2025-11-09</span>&nbsp;·&nbsp;<span title='2025-11-26 17:25:10.228075268 +0000 UTC'>(最后修改于 2025-11-26)</span>&nbsp;·&nbsp;<span>15 分钟</span>
 
 </div>
   </header> <div class="toc">

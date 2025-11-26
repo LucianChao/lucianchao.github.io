@@ -7,20 +7,41 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Tue, 25 Nov 2025 17:37:34 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 26 Nov 2025 17:25:10 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Fancybox</title>
-      <link>https://www.steamedfish.top/tags/fancybox/</link>
-      <pubDate>Mon, 24 Nov 2025 17:50:19 +0000</pubDate>
-      <guid>https://www.steamedfish.top/tags/fancybox/</guid>
+      <title>Hugo</title>
+      <link>https://www.steamedfish.top/tags/hugo/</link>
+      <pubDate>Thu, 27 Nov 2025 00:17:36 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/hugo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Shortcodes</title>
+      <link>https://www.steamedfish.top/tags/shortcodes/</link>
+      <pubDate>Thu, 27 Nov 2025 00:17:36 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/shortcodes/</guid>
       <description></description>
     </item>
     <item>
       <title>JavaWeb</title>
       <link>https://www.steamedfish.top/tags/javaweb/</link>
-      <pubDate>Mon, 24 Nov 2025 17:18:24 +0800</pubDate>
+      <pubDate>Wed, 26 Nov 2025 20:36:13 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/javaweb/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tlias</title>
+      <link>https://www.steamedfish.top/tags/tlias/</link>
+      <pubDate>Wed, 26 Nov 2025 20:36:13 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/tlias/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fancybox</title>
+      <link>https://www.steamedfish.top/tags/fancybox/</link>
+      <pubDate>Mon, 24 Nov 2025 17:50:19 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/fancybox/</guid>
       <description></description>
     </item>
     <item>
@@ -63,13 +84,6 @@
       <link>https://www.steamedfish.top/tags/springboot%E6%A1%86%E6%9E%B6/</link>
       <pubDate>Sun, 23 Nov 2025 15:39:57 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/springboot%E6%A1%86%E6%9E%B6/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Tlias</title>
-      <link>https://www.steamedfish.top/tags/tlias/</link>
-      <pubDate>Sun, 23 Nov 2025 15:39:57 +0800</pubDate>
-      <guid>https://www.steamedfish.top/tags/tlias/</guid>
       <description></description>
     </item>
     <item>
