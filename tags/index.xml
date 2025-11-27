@@ -7,8 +7,64 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Wed, 26 Nov 2025 17:25:10 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 27 Nov 2025 18:49:52 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JavaWeb</title>
+      <link>https://www.steamedfish.top/tags/javaweb/</link>
+      <pubDate>Thu, 27 Nov 2025 16:37:44 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/javaweb/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Logback</title>
+      <link>https://www.steamedfish.top/tags/logback/</link>
+      <pubDate>Thu, 27 Nov 2025 16:37:44 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/logback/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mybatis</title>
+      <link>https://www.steamedfish.top/tags/mybatis/</link>
+      <pubDate>Thu, 27 Nov 2025 16:37:44 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/mybatis/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Slf4j</title>
+      <link>https://www.steamedfish.top/tags/slf4j/</link>
+      <pubDate>Thu, 27 Nov 2025 16:37:44 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/slf4j/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Springboot</title>
+      <link>https://www.steamedfish.top/tags/springboot/</link>
+      <pubDate>Thu, 27 Nov 2025 16:37:44 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/springboot/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>SpringBoot框架</title>
+      <link>https://www.steamedfish.top/tags/springboot%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Thu, 27 Nov 2025 16:37:44 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/springboot%E6%A1%86%E6%9E%B6/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tlias</title>
+      <link>https://www.steamedfish.top/tags/tlias/</link>
+      <pubDate>Thu, 27 Nov 2025 16:37:44 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/tlias/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>日志技术</title>
+      <link>https://www.steamedfish.top/tags/%E6%97%A5%E5%BF%97%E6%8A%80%E6%9C%AF/</link>
+      <pubDate>Thu, 27 Nov 2025 16:37:44 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E6%97%A5%E5%BF%97%E6%8A%80%E6%9C%AF/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Hugo</title>
       <link>https://www.steamedfish.top/tags/hugo/</link>
@@ -24,20 +80,6 @@
       <description></description>
     </item>
     <item>
-      <title>JavaWeb</title>
-      <link>https://www.steamedfish.top/tags/javaweb/</link>
-      <pubDate>Wed, 26 Nov 2025 20:36:13 +0800</pubDate>
-      <guid>https://www.steamedfish.top/tags/javaweb/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Tlias</title>
-      <link>https://www.steamedfish.top/tags/tlias/</link>
-      <pubDate>Wed, 26 Nov 2025 20:36:13 +0800</pubDate>
-      <guid>https://www.steamedfish.top/tags/tlias/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Fancybox</title>
       <link>https://www.steamedfish.top/tags/fancybox/</link>
       <pubDate>Mon, 24 Nov 2025 17:50:19 +0000</pubDate>
@@ -49,13 +91,6 @@
       <link>https://www.steamedfish.top/tags/jdbc/</link>
       <pubDate>Mon, 24 Nov 2025 17:18:24 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/jdbc/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>MyBatis</title>
-      <link>https://www.steamedfish.top/tags/mybatis/</link>
-      <pubDate>Mon, 24 Nov 2025 17:18:24 +0800</pubDate>
-      <guid>https://www.steamedfish.top/tags/mybatis/</guid>
       <description></description>
     </item>
     <item>
@@ -77,13 +112,6 @@
       <link>https://www.steamedfish.top/tags/ioc/</link>
       <pubDate>Sun, 23 Nov 2025 15:39:57 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/ioc/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>SpringBoot框架</title>
-      <link>https://www.steamedfish.top/tags/springboot%E6%A1%86%E6%9E%B6/</link>
-      <pubDate>Sun, 23 Nov 2025 15:39:57 +0800</pubDate>
-      <guid>https://www.steamedfish.top/tags/springboot%E6%A1%86%E6%9E%B6/</guid>
       <description></description>
     </item>
     <item>
@@ -126,6 +154,13 @@
       <link>https://www.steamedfish.top/tags/%E7%BD%91%E7%AB%99%E7%AE%A1%E7%90%86/</link>
       <pubDate>Fri, 21 Nov 2025 23:51:15 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/%E7%BD%91%E7%AB%99%E7%AE%A1%E7%90%86/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>接口文档</title>
+      <link>https://www.steamedfish.top/tags/%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/</link>
+      <pubDate>Fri, 21 Nov 2025 14:37:30 +0000</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/</guid>
       <description></description>
     </item>
     <item>

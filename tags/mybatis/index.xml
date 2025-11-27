@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>MyBatis on SteamedFish&#39;s Blog</title>
+    <title>Mybatis on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/mybatis/</link>
-    <description>Recent content in MyBatis on SteamedFish&#39;s Blog</description>
+    <description>Recent content in Mybatis on SteamedFish&#39;s Blog</description>
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Wed, 26 Nov 2025 17:25:10 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 27 Nov 2025 18:49:52 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/mybatis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Javaweb——(13)SpringBoot实战·Tlias智能学习辅助系统·部门管理开发</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-13-springboot-tlias2/</link>
+      <pubDate>Thu, 27 Nov 2025 16:37:44 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-13-springboot-tlias2/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;在之前我们只完成了部门管理的查询功能，现在我们要把部门管理的完整功能进行开发，以及日志技术的应用&lt;/p&gt;
+&lt;p&gt;现在回想一下标准开发流程： &lt;br&gt;
+需求分析 &lt;code&gt;→&lt;/code&gt; 接口文档 &lt;code&gt;→&lt;/code&gt; 思路分析 &lt;code&gt;→&lt;/code&gt; 前后端开发 &lt;code&gt;→&lt;/code&gt; 测试 &lt;code&gt;→&lt;/code&gt; 联调&lt;/p&gt;
+&lt;p&gt;我们尽量按照标准的开发流程来进行开发，一上来就想着直接写代码是不可取的。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Javaweb——(12)SpringBoot实战·JDBC入门</title>
       <link>https://www.steamedfish.top/post/java-web/javaweb-12-jdbc/</link>

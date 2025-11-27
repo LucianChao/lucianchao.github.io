@@ -1,0 +1,2276 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Javaweb——(13)SpringBoot实战·Tlias智能学习辅助系统·部门管理开发 | SteamedFish&#39;s Blog</title>
+<meta name="keywords" content="JavaWeb, Logback, Mybatis, Slf4j, Springboot, SpringBoot框架, Tlias, 日志技术">
+<meta name="description" content="前言
+在之前我们只完成了部门管理的查询功能，现在我们要把部门管理的完整功能进行开发，以及日志技术的应用
+现在回想一下标准开发流程： 
+需求分析 → 接口文档 → 思路分析 → 前后端开发 → 测试 → 联调
+我们尽量按照标准的开发流程来进行开发，一上来就想着直接写代码是不可取的。">
+<meta name="author" content="">
+<link rel="canonical" href="https://www.steamedfish.top/post/java-web/javaweb-13-springboot-tlias2/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cab4f9d994f2a3255820d3e121c622d3d605f1bd1c99b2830f4fd817aa7dc924.css" integrity="sha256-yrT52ZTyoyVYINPhIcYi09YF8b0cmbKDD0/YF6p9ySQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
+<link rel="apple-touch-icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="mask-icon" href="https://www.steamedfish.top/favicon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://www.steamedfish.top/post/java-web/javaweb-13-springboot-tlias2/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+
+
+<link
+  href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-web/style.css"
+  rel="stylesheet"
+/>
+<meta property="og:url" content="https://www.steamedfish.top/post/java-web/javaweb-13-springboot-tlias2/">
+  <meta property="og:site_name" content="SteamedFish&#39;s Blog">
+  <meta property="og:title" content="Javaweb——(13)SpringBoot实战·Tlias智能学习辅助系统·部门管理开发">
+  <meta property="og:description" content="前言 在之前我们只完成了部门管理的查询功能，现在我们要把部门管理的完整功能进行开发，以及日志技术的应用
+现在回想一下标准开发流程： 需求分析 → 接口文档 → 思路分析 → 前后端开发 → 测试 → 联调
+我们尽量按照标准的开发流程来进行开发，一上来就想着直接写代码是不可取的。">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-11-27T16:37:44+08:00">
+    <meta property="article:modified_time" content="2025-11-27T18:49:52+00:00">
+    <meta property="article:tag" content="JavaWeb">
+    <meta property="article:tag" content="Logback">
+    <meta property="article:tag" content="Mybatis">
+    <meta property="article:tag" content="Slf4j">
+    <meta property="article:tag" content="Springboot">
+    <meta property="article:tag" content="SpringBoot框架">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javaweb——(13)SpringBoot实战·Tlias智能学习辅助系统·部门管理开发">
+<meta name="twitter:description" content="前言
+在之前我们只完成了部门管理的查询功能，现在我们要把部门管理的完整功能进行开发，以及日志技术的应用
+现在回想一下标准开发流程： 
+需求分析 → 接口文档 → 思路分析 → 前后端开发 → 测试 → 联调
+我们尽量按照标准的开发流程来进行开发，一上来就想着直接写代码是不可取的。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.steamedfish.top/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Javaweb——(13)SpringBoot实战·Tlias智能学习辅助系统·部门管理开发",
+      "item": "https://www.steamedfish.top/post/java-web/javaweb-13-springboot-tlias2/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Javaweb——(13)SpringBoot实战·Tlias智能学习辅助系统·部门管理开发",
+  "name": "Javaweb——(13)SpringBoot实战·Tlias智能学习辅助系统·部门管理开发",
+  "description": "前言 在之前我们只完成了部门管理的查询功能，现在我们要把部门管理的完整功能进行开发，以及日志技术的应用\n现在回想一下标准开发流程： 需求分析 → 接口文档 → 思路分析 → 前后端开发 → 测试 → 联调\n我们尽量按照标准的开发流程来进行开发，一上来就想着直接写代码是不可取的。\n",
+  "keywords": [
+    "JavaWeb", "Logback", "Mybatis", "Slf4j", "Springboot", "SpringBoot框架", "Tlias", "日志技术"
+  ],
+  "articleBody": "前言 在之前我们只完成了部门管理的查询功能，现在我们要把部门管理的完整功能进行开发，以及日志技术的应用\n现在回想一下标准开发流程： 需求分析 → 接口文档 → 思路分析 → 前后端开发 → 测试 → 联调\n我们尽量按照标准的开发流程来进行开发，一上来就想着直接写代码是不可取的。\n删除部门 需求分析 阅读文档 Tlias智能学习辅助系统api接口文档-删除部门\n思路分析 明确了删除部门的需求之后，再来梳理一下实现该功能时，三层架构每一层的职责： 功能实现 Controller接收参数 接收请求参数： DELETE /depts?id=8` 方式一：通过原始的 HttpServletRequest 对象获取请求参数。 方式二：通过Spring提供的 @RequestParam 注解，将请求参数绑定给方法形参。 信息\n@RequestParam注解required属性默认为true，代表该参数必须传递，如果不传递将报错。 如果参数可选，可以将属性设置为false。\n方式三：如果请求参数名与形参变量名相同，可以定义方法形参即可接收（省略@RequestParam） 代码： DeptController.java @DeleteMapping(\"/depts\") public Result delete(Integer Id) { System.out.println(\"id=\" + Id); //调用service方法 deptService.delete(Id); return Result.success(); } Mapper \u0026 Service delete from dept where id = 8 Mapper接口中声明接口方法，实现根据ID删除部门操作： 执行DML语句时，可以返回一个int类型的返回值，表示该DML执行影响的记录数。 信息\n如果mapper接口方法形参只有一个普通类型的参数，#{...}里面的属性名可以随便写，如：#{id}、#{value}\nMybatis中的 #号与 $号 符号\r说明\r场景\r优缺点\r#{...}\r执行时，会将#{…}替换为?，为生成预编译SQL，并自动设置参数值\r参数值传递\r安全、性能高（推荐）\r${...}\r拼接SQL。直接将参数拼接在SQL语句中，存在SQL注入问题\r表名、字段名动态设置时使用\r不安全、性能低\r代码： DeptMapper.java /** * 根据id删除部门 * * @param id */ @Delete(\"delete from dept where id = #{id};\") void delete(Integer id); DeptService.java /** * 根据id删除部门 * @param id */ void delete(Integer id); DeptServiceImpl.java /** * 根据id删除部门 * @param id */ @Override public void delete(Integer id) { //调用Mapper的删除方法 deptMapper.delete(id); } 新增部门 需求分析 阅读文档 Tlias智能学习辅助系统api接口文档-新增部门\n思路分析 明确了新增部门的需求之后，再来梳理一下实现该功能时，三层架构每一层的职责： 功能实现 Controller接收参数 接收json格式的请求参数： POST /depts {\"name\":教研部} JSON格式格式的参数，通常会使用一个实体对象进接收。 规则：JSON数据的键名与方法形参对象的属性名相同，并且需要使用@RequestBody注解标识 代码： DeptController.java @PostMapping(\"/depts\") public Result save(@RequestBody Dept dept) { System.out.println(\"dept=\" + dept); //调用service方法 deptService.save(dept); return Result.success(); } Service \u0026 Mapper DeptService.java /** * 保存部门 * @param dept */ void save(Dept dept); DeptServiceImpl.java @Override public void save(Dept dept) { //1.补充基础属性 dept.setCreateTime(LocalDateTime.now()); dept.setUpdateTime(LocalDateTime.now()); //2.调用mapper方法 deptMapper.save(dept); } DeptMapper.java @Insert(\"insert into dept(name,create_time,update_time) values (#{name},#{createTime},#{updateTime})\") void save(Dept dept); 修改部门-查询回显 需求分析 阅读文档 Tlias智能学习辅助系统api接口文档-根据id查询部门\n思路分析 明确了根据ID查询部门的需求之后，再来梳理一下实现该功能时，三层架构每一层的职责： 功能实现 Controller接收参数 接收请求参数（路径参数） GET /depts/1 路径参数：通过请求URL直接传递参数，使用{…}来标识该路径参数，需要使用@PathVariable获取路径参数。 代码： DeptController.java @GetMapping(\"/depts/{id}\") public Result getById(@PathVariable Integer id) { System.out.println(\"id = \" + id); //调用service方法 Dept dept = deptService.getById(id); return Result.success(dept); } Service \u0026 Mapper DeptService.java /** * 数据回显 * @param id * @return */ Dept getById(Integer id); DeptServiceImpl.java /** * 数据回显 * @param id * @return */ @Override public Dept getById(Integer id) { //调用mapper方法 return deptMapper.getById(id); } DeptMapper.java /** * 根据id查询部门 * @param id * @return */ @Select(\"select id, name, create_time, update_time from dept where id = #{id}\") Dept getById(Integer id); 修改部门-修改数据 Tlias智能学习辅助系统api接口文档-修改部门\n参考接口文档，梳理三层架构每一层的职责： 基本实现 DeptController.java /** * 修改部门 * @param dept * @return */ @PutMapping(\"/depts\") public Result update(@RequestBody Dept dept) { System.out.println(\"dept = \" + dept); deptService.update(dept); return Result.success(); } DeptService.java /** * 修改部门 * @param dept */ void update(Dept dept); DeptServiceImpl.java /** * 修改部门 * @param dept */ @Override public void update(Dept dept) { //1.补充基础属性 dept.setUpdateTime(LocalDateTime.now()); //2.调用mapper方法 deptMapper.update(dept); } DeptMapper.java /** * 根据id更新部门 * @param dept */ @Update(\"update dept set name = #{name}, update_time= #{updateTime} where id= #{id}\") void update(Dept dept); 修改部门-修改数据-功能优化 @RequestMapping优化 一个完整的请求路径，应该是类上的@RequestMapping的value属性 + 方法上的@RequestMapping的value属性\n动态SQL 思考：\n在更新数据时，如何做到只更新某一个或几个字段呢？\n@Update(\"update dept set name = #{name}, update_time= #{updateTime} where id= #{id}\") void update(Dept dept); update dept set name = ?, update_time= ? where id= ? ; 教研部, null ,10 update dept set name = ? where id= ? ; 教研部, 10 随着用户的输入或外部条件的变化而变化的SQL语句，我们称为 动态SQL ：用于判断条件是否成立。使用test属性进行条件判断，如果条件为true，则拼接SQL。 ：动态地在行首插入 SET 关键字，并会删掉额外地逗号（用在update语句中） 日志技术 程序中地 日志，是用来记录应用程序的运行信息、状态信息、错误信息等。 之前我们的程序中的日志是使用输出语句将程序输出到控制台，今天我们将使用日志框架来优化程序的日志 日志框架 JUL：这是JaVaSE平台提供的官方日志框架，也被称为JUL。配置相对简单，但不够灵活，性能较差。 Log4j：一个流行的日志框架，提供了灵活的配置选项，支持多种输出目标。 Logback：基于Log4j升级而来，提供了更多的功能和配置选项，性能由于Log4j。 Slf4j（SimpleLoggingFacadeforJava）：简单日志门面，提供了一套日志操作的标准接口及抽象类，允许应用程序使用不同的底层日志框架。 Logback快速入门 准备工作：引入Logback的依赖（springboot中无需操作）、配置文件Logback.xml。 src/main/resources/logback.xml\n\u003c?xml version=\"1.0\" encoding=\"UTF-8\" ?\u003e ",
+  "wordCount" : "3860",
+  "inLanguage": "zh",
+  "datePublished": "2025-11-27T16:37:44+08:00",
+  "dateModified": "2025-11-27T18:49:52.928354892Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.steamedfish.top/post/java-web/javaweb-13-springboot-tlias2/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SteamedFish's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.steamedfish.top/favicon.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://www.steamedfish.top/" accesskey="h" title="SteamedFish&#39;s Blog (Alt + H)">SteamedFish&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                    <ul class="lang-switch"><li>|</li>
+                        <li>
+                            <a href="https://www.steamedfish.top/en/" title="English"
+                                aria-label="English">En</a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://www.steamedfish.top/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://www.steamedfish.top/">主页</a>&nbsp;»&nbsp;<a href="https://www.steamedfish.top/post/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Javaweb——(13)SpringBoot实战·Tlias智能学习辅助系统·部门管理开发
+    </h1>
+    <div class="post-meta">
+
+
+
+
+
+
+<span title='2025-11-27 16:37:44 +0800 +0800'>2025-11-27</span>&nbsp;·&nbsp;<span>8 分钟</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%89%8d%e8%a8%80" aria-label="前言">前言</a></li>
+                <li>
+                    <a href="#%e5%88%a0%e9%99%a4%e9%83%a8%e9%97%a8" aria-label="删除部门">删除部门</a><ul>
+                        
+                <li>
+                    <a href="#%e9%9c%80%e6%b1%82%e5%88%86%e6%9e%90" aria-label="需求分析">需求分析</a></li>
+                <li>
+                    <a href="#%e9%98%85%e8%af%bb%e6%96%87%e6%a1%a3" aria-label="阅读文档">阅读文档</a></li>
+                <li>
+                    <a href="#%e6%80%9d%e8%b7%af%e5%88%86%e6%9e%90" aria-label="思路分析">思路分析</a></li>
+                <li>
+                    <a href="#%e5%8a%9f%e8%83%bd%e5%ae%9e%e7%8e%b0" aria-label="功能实现">功能实现</a><ul>
+                        
+                <li>
+                    <a href="#controller%e6%8e%a5%e6%94%b6%e5%8f%82%e6%95%b0" aria-label="Controller接收参数">Controller接收参数</a></li>
+                <li>
+                    <a href="#mapper--service" aria-label="Mapper &amp; Service">Mapper &amp; Service</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%96%b0%e5%a2%9e%e9%83%a8%e9%97%a8" aria-label="新增部门">新增部门</a><ul>
+                        
+                <li>
+                    <a href="#%e9%9c%80%e6%b1%82%e5%88%86%e6%9e%90-1" aria-label="需求分析">需求分析</a></li>
+                <li>
+                    <a href="#%e9%98%85%e8%af%bb%e6%96%87%e6%a1%a3-1" aria-label="阅读文档">阅读文档</a></li>
+                <li>
+                    <a href="#%e6%80%9d%e8%b7%af%e5%88%86%e6%9e%90-1" aria-label="思路分析">思路分析</a></li>
+                <li>
+                    <a href="#%e5%8a%9f%e8%83%bd%e5%ae%9e%e7%8e%b0-1" aria-label="功能实现">功能实现</a><ul>
+                        
+                <li>
+                    <a href="#controller%e6%8e%a5%e6%94%b6%e5%8f%82%e6%95%b0-1" aria-label="Controller接收参数">Controller接收参数</a></li>
+                <li>
+                    <a href="#service--mapper" aria-label="Service &amp; Mapper">Service &amp; Mapper</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e4%bf%ae%e6%94%b9%e9%83%a8%e9%97%a8-%e6%9f%a5%e8%af%a2%e5%9b%9e%e6%98%be" aria-label="修改部门-查询回显">修改部门-查询回显</a><ul>
+                        
+                <li>
+                    <a href="#%e9%9c%80%e6%b1%82%e5%88%86%e6%9e%90-2" aria-label="需求分析">需求分析</a></li>
+                <li>
+                    <a href="#%e9%98%85%e8%af%bb%e6%96%87%e6%a1%a3-2" aria-label="阅读文档">阅读文档</a></li>
+                <li>
+                    <a href="#%e6%80%9d%e8%b7%af%e5%88%86%e6%9e%90-2" aria-label="思路分析">思路分析</a></li>
+                <li>
+                    <a href="#%e5%8a%9f%e8%83%bd%e5%ae%9e%e7%8e%b0-2" aria-label="功能实现">功能实现</a><ul>
+                        
+                <li>
+                    <a href="#controller%e6%8e%a5%e6%94%b6%e5%8f%82%e6%95%b0-2" aria-label="Controller接收参数">Controller接收参数</a></li>
+                <li>
+                    <a href="#service--mapper-1" aria-label="Service &amp; Mapper">Service &amp; Mapper</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e4%bf%ae%e6%94%b9%e9%83%a8%e9%97%a8-%e4%bf%ae%e6%94%b9%e6%95%b0%e6%8d%ae" aria-label="修改部门-修改数据">修改部门-修改数据</a><ul>
+                        
+                <li>
+                    <a href="#%e5%9f%ba%e6%9c%ac%e5%ae%9e%e7%8e%b0" aria-label="基本实现">基本实现</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e4%bf%ae%e6%94%b9%e9%83%a8%e9%97%a8-%e4%bf%ae%e6%94%b9%e6%95%b0%e6%8d%ae-%e5%8a%9f%e8%83%bd%e4%bc%98%e5%8c%96" aria-label="修改部门-修改数据-功能优化">修改部门-修改数据-功能优化</a><ul>
+                        
+                <li>
+                    <a href="#requestmapping%e4%bc%98%e5%8c%96" aria-label="@RequestMapping优化">@RequestMapping优化</a></li>
+                <li>
+                    <a href="#%e5%8a%a8%e6%80%81sql" aria-label="动态SQL">动态SQL</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%97%a5%e5%bf%97%e6%8a%80%e6%9c%af" aria-label="日志技术">日志技术</a><ul>
+                        
+                <li>
+                    <a href="#%e6%97%a5%e5%bf%97%e6%a1%86%e6%9e%b6" aria-label="日志框架">日志框架</a></li>
+                <li>
+                    <a href="#logback%e5%bf%ab%e9%80%9f%e5%85%a5%e9%97%a8" aria-label="Logback快速入门">Logback快速入门</a></li>
+                <li>
+                    <a href="#logback%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6logbackxml" aria-label="Logback配置文件logback.xml">Logback配置文件logback.xml</a></li>
+                <li>
+                    <a href="#%e6%97%a5%e5%bf%97%e7%ba%a7%e5%88%ab" aria-label="日志级别">日志级别</a></li>
+                <li>
+                    <a href="#%e9%a1%b9%e7%9b%ae%e4%bc%98%e5%8c%96" aria-label="项目优化">项目优化</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="前言">前言<a hidden class="anchor" aria-hidden="true" href="#前言">#</a></h2>
+<p>在之前我们只完成了部门管理的查询功能，现在我们要把部门管理的完整功能进行开发，以及日志技术的应用</p>
+<p>现在回想一下标准开发流程： <br>
+需求分析 <code>→</code> 接口文档 <code>→</code> 思路分析 <code>→</code> 前后端开发 <code>→</code> 测试 <code>→</code> 联调</p>
+<p>我们尽量按照标准的开发流程来进行开发，一上来就想着直接写代码是不可取的。</p>
+<hr>
+<h2 id="删除部门">删除部门<a hidden class="anchor" aria-hidden="true" href="#删除部门">#</a></h2>
+<h3 id="需求分析">需求分析<a hidden class="anchor" aria-hidden="true" href="#需求分析">#</a></h3>
+<p>
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/1.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/1.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/1.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+<hr>
+<h3 id="阅读文档">阅读文档<a hidden class="anchor" aria-hidden="true" href="#阅读文档">#</a></h3>
+<p><a href="https://www.steamedfish.top/post/java-web/javaweb-9-tlias-api-docs/#12-%E5%88%A0%E9%99%A4%E9%83%A8%E9%97%A8">Tlias智能学习辅助系统api接口文档-删除部门</a></p>
+<hr>
+<h3 id="思路分析">思路分析<a hidden class="anchor" aria-hidden="true" href="#思路分析">#</a></h3>
+<p>明确了删除部门的需求之后，再来梳理一下实现该功能时，三层架构每一层的职责：
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/2.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/2.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/2.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+<hr>
+<h3 id="功能实现">功能实现<a hidden class="anchor" aria-hidden="true" href="#功能实现">#</a></h3>
+<h4 id="controller接收参数">Controller接收参数<a hidden class="anchor" aria-hidden="true" href="#controller接收参数">#</a></h4>
+<ul>
+<li>接收请求参数：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">DELETE</span>     <span class="err">/depts?id=</span><span class="mi">8</span><span class="err">`</span>
+</span></span></code></pre></div><ul>
+<li>方式一：通过原始的 <code>HttpServletRequest</code> 对象获取请求参数。
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/3.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/3.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/3.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</li>
+<li>方式二：通过Spring提供的 <code>@RequestParam</code> 注解，将请求参数绑定给方法形参。
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/4.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/4.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/4.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+<style type="text/css">
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+</style><div class="notice info" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+        </span>信息</p><p><code>@RequestParam</code>注解required属性默认为true，代表该参数必须传递，如果不传递将报错。
+如果参数可选，可以将属性设置为false。</p></div></li>
+<li>方式三：如果请求参数名与形参变量名相同，可以定义方法形参即可接收（省略<code>@RequestParam</code>）
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/5.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/5.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/5.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</li>
+</ul>
+</li>
+<li>代码：
+<ul>
+<li><code>DeptController.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">  </span><span class="nd">@DeleteMapping</span><span class="p">(</span><span class="s">&#34;/depts&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">Id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;id=&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c1">//调用service方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">deptService</span><span class="p">.</span><span class="na">delete</span><span class="p">(</span><span class="n">Id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="mapper--service">Mapper &amp; Service<a hidden class="anchor" aria-hidden="true" href="#mapper--service">#</a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">delete</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dept</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>Mapper接口中声明接口方法，实现根据ID删除部门操作：
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/6.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/6.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/6.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+执行DML语句时，可以返回一个int类型的返回值，表示该DML执行影响的记录数。</li>
+</ul>
+<!-- FM:Snippet:Start data:{"id":"st-notice","fields":[]} -->
+<div class="notice info" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+        </span>信息</p><p>如果mapper接口方法形参只有一个普通类型的参数，<code>#{...}</code>里面的属性名可以随便写，如：<code>#{id}</code>、<code>#{value}</code></p></div>
+<!-- FM:Snippet:End -->
+<ul>
+<li>Mybatis中的 <code>#</code>号与 <code>$</code>号
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th style="text-align: center">符号</th>
+          <th style="text-align: center">说明</th>
+          <th style="text-align: center">场景</th>
+          <th style="text-align: center">优缺点</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>#{...}</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">执行时，会将#{&hellip;}替换为?，为生成预编译SQL，并自动设置参数值</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">参数值传递</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">安全、性能高（推荐）</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>${...}</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">拼接SQL。直接将参数拼接在SQL语句中，存在SQL注入问题</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">表名、字段名动态设置时使用</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">不安全、性能低</td>
+      </tr>
+  </tbody>
+</table></li>
+<li>代码：
+<ul>
+<li><code>DeptMapper.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 根据id删除部门
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Delete</span><span class="p">(</span><span class="s">&#34;delete from dept where id = #{id};&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">void</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>DeptService.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 根据id删除部门
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">void</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>DeptServiceImpl.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 根据id删除部门
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//调用Mapper的删除方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">deptMapper</span><span class="p">.</span><span class="na">delete</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="新增部门">新增部门<a hidden class="anchor" aria-hidden="true" href="#新增部门">#</a></h2>
+<h3 id="需求分析-1">需求分析<a hidden class="anchor" aria-hidden="true" href="#需求分析-1">#</a></h3>
+<p>
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/7.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/7.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/7.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+<hr>
+<h3 id="阅读文档-1">阅读文档<a hidden class="anchor" aria-hidden="true" href="#阅读文档-1">#</a></h3>
+<p><a href="https://www.steamedfish.top/post/java-web/javaweb-9-tlias-api-docs/#13-%E6%B7%BB%E5%8A%A0%E9%83%A8%E9%97%A8">Tlias智能学习辅助系统api接口文档-新增部门</a></p>
+<hr>
+<h3 id="思路分析-1">思路分析<a hidden class="anchor" aria-hidden="true" href="#思路分析-1">#</a></h3>
+<p>明确了新增部门的需求之后，再来梳理一下实现该功能时，三层架构每一层的职责：
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/8.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/8.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/8.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+<hr>
+<h3 id="功能实现-1">功能实现<a hidden class="anchor" aria-hidden="true" href="#功能实现-1">#</a></h3>
+<h4 id="controller接收参数-1">Controller接收参数<a hidden class="anchor" aria-hidden="true" href="#controller接收参数-1">#</a></h4>
+<ul>
+<li>接收json格式的请求参数：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">POST</span>  <span class="err">/depts</span>  <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="err">教研部</span><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>JSON格式格式的参数，通常会使用一个实体对象进接收。</li>
+<li>规则：JSON数据的<strong>键名</strong>与方法形参<strong>对象的属性名</strong>相同，并且需要使用<code>@RequestBody</code>注解标识
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/9.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/9.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/9.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</li>
+<li>代码：
+<ul>
+<li><code>DeptController.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@PostMapping</span><span class="p">(</span><span class="s">&#34;/depts&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">Dept</span><span class="w"> </span><span class="n">dept</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;dept=&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//调用service方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">deptService</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="service--mapper">Service &amp; Mapper<a hidden class="anchor" aria-hidden="true" href="#service--mapper">#</a></h4>
+<ul>
+<li><code>DeptService.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 保存部门
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param dept
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">void</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="n">Dept</span><span class="w"> </span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>DeptServiceImpl.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="n">Dept</span><span class="w"> </span><span class="n">dept</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//1.补充基础属性</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">dept</span><span class="p">.</span><span class="na">setCreateTime</span><span class="p">(</span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">dept</span><span class="p">.</span><span class="na">setUpdateTime</span><span class="p">(</span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//2.调用mapper方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">deptMapper</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>DeptMapper.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Insert</span><span class="p">(</span><span class="s">&#34;insert into dept(name,create_time,update_time) values (#{name},#{createTime},#{updateTime})&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">void</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="n">Dept</span><span class="w"> </span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+<hr>
+<h2 id="修改部门-查询回显">修改部门-查询回显<a hidden class="anchor" aria-hidden="true" href="#修改部门-查询回显">#</a></h2>
+<h3 id="需求分析-2">需求分析<a hidden class="anchor" aria-hidden="true" href="#需求分析-2">#</a></h3>
+<p>
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/10.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/10.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/10.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/11.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/11.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/11.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+<hr>
+<h3 id="阅读文档-2">阅读文档<a hidden class="anchor" aria-hidden="true" href="#阅读文档-2">#</a></h3>
+<p><a href="https://www.steamedfish.top/post/java-web/javaweb-9-tlias-api-docs/#14-%E6%A0%B9%E6%8D%AEid%E6%9F%A5%E8%AF%A2">Tlias智能学习辅助系统api接口文档-根据id查询部门</a></p>
+<hr>
+<h3 id="思路分析-2">思路分析<a hidden class="anchor" aria-hidden="true" href="#思路分析-2">#</a></h3>
+<p>明确了根据ID查询部门的需求之后，再来梳理一下实现该功能时，三层架构每一层的职责：
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/12.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/12.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/12.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+<hr>
+<h3 id="功能实现-2">功能实现<a hidden class="anchor" aria-hidden="true" href="#功能实现-2">#</a></h3>
+<h4 id="controller接收参数-2">Controller接收参数<a hidden class="anchor" aria-hidden="true" href="#controller接收参数-2">#</a></h4>
+<ul>
+<li>接收请求参数（路径参数）
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">GET</span>   <span class="err">/depts/</span><span class="mi">1</span>
+</span></span></code></pre></div></li>
+<li>路径参数：通过请求URL直接传递参数，使用{&hellip;}来标识该路径参数，需要使用<code>@PathVariable</code>获取路径参数。
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/13.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/13.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/13.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</li>
+<li>代码：
+<ul>
+<li><code>DeptController.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/depts/{id}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="nd">@PathVariable</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;id = &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//调用service方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Dept</span><span class="w"> </span><span class="n">dept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deptService</span><span class="p">.</span><span class="na">getById</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="service--mapper-1">Service &amp; Mapper<a hidden class="anchor" aria-hidden="true" href="#service--mapper-1">#</a></h4>
+<ul>
+<li><code>DeptService.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 数据回显
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Dept</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>DeptServiceImpl.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 数据回显
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Dept</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//调用mapper方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">deptMapper</span><span class="p">.</span><span class="na">getById</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>DeptMapper.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 根据id查询部门
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Select</span><span class="p">(</span><span class="s">&#34;select id, name, create_time, update_time from dept where id = #{id}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Dept</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+<hr>
+<h2 id="修改部门-修改数据">修改部门-修改数据<a hidden class="anchor" aria-hidden="true" href="#修改部门-修改数据">#</a></h2>
+<blockquote>
+<p><a href="https://www.steamedfish.top/post/java-web/javaweb-9-tlias-api-docs/#15-%E4%BF%AE%E6%94%B9%E9%83%A8%E9%97%A8">Tlias智能学习辅助系统api接口文档-修改部门</a></p>
+</blockquote>
+<ul>
+<li>参考接口文档，梳理三层架构每一层的职责：
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/14.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/14.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/14.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</li>
+</ul>
+<hr>
+<h3 id="基本实现">基本实现<a hidden class="anchor" aria-hidden="true" href="#基本实现">#</a></h3>
+<ul>
+<li><code>DeptController.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 修改部门
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param dept
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@PutMapping</span><span class="p">(</span><span class="s">&#34;/depts&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">Dept</span><span class="w"> </span><span class="n">dept</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;dept = &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">deptService</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>DeptService.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 修改部门
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param dept
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">Dept</span><span class="w"> </span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>DeptServiceImpl.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 修改部门
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param dept
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">Dept</span><span class="w"> </span><span class="n">dept</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//1.补充基础属性</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">dept</span><span class="p">.</span><span class="na">setUpdateTime</span><span class="p">(</span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//2.调用mapper方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">deptMapper</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>DeptMapper.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 根据id更新部门
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param dept
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Update</span><span class="p">(</span><span class="s">&#34;update dept set name = #{name}, update_time= #{updateTime} where id= #{id}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">Dept</span><span class="w"> </span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+<hr>
+<h2 id="修改部门-修改数据-功能优化">修改部门-修改数据-功能优化<a hidden class="anchor" aria-hidden="true" href="#修改部门-修改数据-功能优化">#</a></h2>
+<h3 id="requestmapping优化">@RequestMapping优化<a hidden class="anchor" aria-hidden="true" href="#requestmapping优化">#</a></h3>
+<p>
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/15.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/15.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/15.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+一个完整的请求路径，应该是<strong>类</strong>上的<code>@RequestMapping</code>的value属性 + <strong>方法</strong>上的<code>@RequestMapping</code>的value属性</p>
+<hr>
+<h3 id="动态sql">动态SQL<a hidden class="anchor" aria-hidden="true" href="#动态sql">#</a></h3>
+<p><strong>思考：</strong></p>
+<blockquote>
+<p>在更新数据时，如何做到只更新某一个或几个字段呢？</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Update</span><span class="p">(</span><span class="s">&#34;update dept set name = #{name}, update_time= #{updateTime} where id= #{id}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">Dept</span><span class="w"> </span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">update</span><span class="w"> </span><span class="n">dept</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="p">,</span><span class="w"> </span><span class="n">update_time</span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">教研部</span><span class="p">,</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="p">,</span><span class="mi">10</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">update</span><span class="w"> </span><span class="n">dept</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">教研部</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="w">
+</span></span></span></code></pre></div><hr>
+<ul>
+<li>随着用户的输入或外部条件的变化而变化的SQL语句，我们称为 <strong>动态SQL</strong>
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/16.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/16.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/16.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</li>
+<li><code>&lt;if&gt;</code>：用于判断条件是否成立。使用test属性进行条件判断，如果条件为true，则拼接SQL。</li>
+<li><code>&lt;set&gt;</code>：动态地在行首插入 SET 关键字，并会删掉额外地逗号（<strong>用在update语句中</strong>）</li>
+</ul>
+<hr>
+<h2 id="日志技术">日志技术<a hidden class="anchor" aria-hidden="true" href="#日志技术">#</a></h2>
+<p>程序中地 <strong>日志</strong>，是用来记录应用程序的运行信息、状态信息、错误信息等。
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/17.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/17.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/17.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+之前我们的程序中的日志是使用输出语句将程序输出到控制台，今天我们将使用日志框架来优化程序的日志
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/18.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/18.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/18.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+<hr>
+<h3 id="日志框架">日志框架<a hidden class="anchor" aria-hidden="true" href="#日志框架">#</a></h3>
+<p>
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/19.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/19.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/19.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+<ul>
+<li>JUL：这是JaVaSE平台提供的官方日志框架，也被称为JUL。配置相对简单，但不够灵活，性能较差。</li>
+<li>Log4j：一个流行的日志框架，提供了灵活的配置选项，支持多种输出目标。</li>
+<li>Logback：基于Log4j升级而来，提供了更多的功能和配置选项，性能由于Log4j。</li>
+<li>Slf4j（SimpleLoggingFacadeforJava）：简单日志门面，提供了一套日志操作的标准接口及抽象类，允许应用程序使用不同的底层日志框架。</li>
+</ul>
+<hr>
+<h3 id="logback快速入门">Logback快速入门<a hidden class="anchor" aria-hidden="true" href="#logback快速入门">#</a></h3>
+<ul>
+<li>
+<p>准备工作：引入Logback的依赖（<strong>springboot中无需操作</strong>）、配置文件Logback.xml。
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/20.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/20.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/20.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+</li>
+<li>
+<p><code>src/main/resources/logback.xml</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;configuration&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 控制台输出 --&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">&#34;STDOUT&#34;</span> <span class="na">class=</span><span class="s">&#34;ch.qos.logback.core.ConsoleAppender&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;encoder&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 格式化输出：%d表示日期，&amp;thread表示线程名，%-5level表示日志级别，从左显示5个字符宽度，%logger{50}：最长50--&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;pattern&gt;</span>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n<span class="nt">&lt;/pattern&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/encoder&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/appender&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 日志输出级别--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;root</span> <span class="na">level=</span><span class="s">&#34;info&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&#34;STDOUT&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/root&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/configuration&gt;</span>
+</span></span></code></pre></div></li>
+<li>
+<p>记录日志：定义日志记录对象Logger，记录日志。
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-13-springboot-tlias2/index.md"
+    href="/post/java-web/javaweb-13-springboot-tlias2/21.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-13-springboot-tlias2/21.webp"
+      srcset="/post/java-web/javaweb-13-springboot-tlias2/21.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+</li>
+<li>
+<p>示例：</p>
+<ul>
+<li><code>src/test/java/com/javaweb/LogTest.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">LogTest</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Test</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">testlog</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;开始计算...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">nums</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="n">5</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">,</span><span class="w"> </span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="n">4</span><span class="p">,</span><span class="w"> </span><span class="n">5</span><span class="p">,</span><span class="w"> </span><span class="n">4</span><span class="p">,</span><span class="w"> </span><span class="n">6</span><span class="p">,</span><span class="w"> </span><span class="n">7</span><span class="p">,</span><span class="w"> </span><span class="n">4</span><span class="p">,</span><span class="w"> </span><span class="n">34</span><span class="p">,</span><span class="w"> </span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="n">23</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">nums</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;程序运行出错...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;计算结果为：&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sum</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;结束计算...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+</ul>
+<p>将上面代码由控制台输出改为日志输出</p>
+<ul>
+<li><code>src/test/java/com/javaweb/LogTest.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.slf4j.Logger</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.slf4j.LoggerFactory</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">LogTest</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//定义日志记录对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Logger</span><span class="w"> </span><span class="n">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LoggerFactory</span><span class="p">.</span><span class="na">getLogger</span><span class="p">(</span><span class="n">LogTest</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Test</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">testlog</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;开始计算...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">nums</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="n">5</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">,</span><span class="w"> </span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="n">4</span><span class="p">,</span><span class="w"> </span><span class="n">5</span><span class="p">,</span><span class="w"> </span><span class="n">4</span><span class="p">,</span><span class="w"> </span><span class="n">6</span><span class="p">,</span><span class="w"> </span><span class="n">7</span><span class="p">,</span><span class="w"> </span><span class="n">4</span><span class="p">,</span><span class="w"> </span><span class="n">34</span><span class="p">,</span><span class="w"> </span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="n">23</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">nums</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;程序运行出错...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;计算结果为：&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sum</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;结束计算...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+<hr>
+<h3 id="logback配置文件logbackxml">Logback配置文件logback.xml<a hidden class="anchor" aria-hidden="true" href="#logback配置文件logbackxml">#</a></h3>
+<ul>
+<li>该配置文件是对Logback日志框架输出的日志进行控制的，可以来配置输出的格式、位置及日志开关等。</li>
+<li>常用的两种输出日志的位置：控制台、系统文件
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- 控制台输出 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">&#34;STDOUT&#34;</span> <span class="na">class=</span><span class="s">&#34;ch.qos.logback.core.ConsoleAppender&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/appender&gt;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- 控制台输出 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">&#34;FILE&#34;</span> <span class="na">class=</span><span class="s">&#34;ch.qos.logback.core.rolling.RollingFileAppender&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/appender&gt;</span>
+</span></span></code></pre></div></li>
+<li>开启日志(ALL)，关闭日志(OFF)
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;root</span> <span class="na">level=</span><span class="s">&#34;ALL&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&#34;STDOUT&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&#34;FILE&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/root&gt;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;root</span> <span class="na">level=</span><span class="s">&#34;OFF&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&#34;STDOUT&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&#34;FILE&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/root&gt;</span>
+</span></span></code></pre></div></li>
+<li>完整配置文件示例：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;configuration&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 控制台输出 --&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">&#34;STDOUT&#34;</span> <span class="na">class=</span><span class="s">&#34;ch.qos.logback.core.ConsoleAppender&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;encoder&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="c">&lt;!-- 格式化输出：%d表示日期，&amp;thread表示线程名，%-5level表示日志级别，从左显示5个字符宽度，%logger{50}：最长50，%n表示换行符--&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;pattern&gt;</span>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n<span class="nt">&lt;/pattern&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/encoder&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/appender&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 按照每天生成日志文件--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">&#34;FILE&#34;</span> <span class="na">class=</span><span class="s">&#34;ch.qos.logback.core.rolling.RollingFileAppender&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;rollingPolicy</span> <span class="na">class=</span><span class="s">&#34;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="c">&lt;!-- 日志文件输出的文件名，%i表示序号--&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;fileNamePattern&gt;</span>E:/tlias-log/tlias-%d{yyyy-MM-dd}-%i.log<span class="nt">&lt;/fileNamePattern&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="c">&lt;!-- 日志文件保留天数 --&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;maxHistory&gt;</span>30<span class="nt">&lt;/maxHistory&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="c">&lt;!-- 日志文件最大的大小，超过这个大小，则自动生成新的日志文件 --&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;maxFileSize&gt;</span>10MB<span class="nt">&lt;/maxFileSize&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/rollingPolicy&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;encoder&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="c">&lt;!-- 格式化输出：%d表示日期，&amp;thread表示线程名，%-5level表示日志级别，从左显示5个字符宽度，%logger{50}：最长50，%n表示换行符--&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;pattern&gt;</span>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n<span class="nt">&lt;/pattern&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/encoder&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/appender&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 日志输出级别--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;root</span> <span class="na">level=</span><span class="s">&#34;info&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&#34;STDOUT&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&#34;FILE&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/root&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/configuration&gt;</span>
+</span></span></code></pre></div><hr>
+<h3 id="日志级别">日志级别<a hidden class="anchor" aria-hidden="true" href="#日志级别">#</a></h3>
+<ul>
+<li>
+<p>日志级别指的是日志信息的类型，日志都会分级别，常见的日志级别如下（<strong>优先级由低到高</strong>）</p>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th style="text-align: center">日志级别</th>
+          <th style="text-align: center">说明</th>
+          <th style="text-align: center">记录方式</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">trace</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">追踪，记录程序运行轨迹【使用很少】</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">log.trace(&quot;&hellip;&quot;)</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">debug</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">调试，记录程序调试过程中的信息，实际应用中一般将其视为最低级别【使用较多】</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">log.debug(&quot;&hellip;&quot;)</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">info</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">记录程序运行的重要信息，如：数据库连接、网络连接、io操作【使用较多】</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">log.info(&quot;&hellip;&quot;)</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">warn</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">警告信息，可能会发生问题【使用较多】</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">log.warn(&quot;&hellip;&quot;)</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">error</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">错误信息【使用较多】</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">log.error(&quot;&hellip;&quot;)</td>
+      </tr>
+  </tbody>
+</table></li>
+<li>
+<p>可以在配置文件中，灵活的控制输出哪些类型的日志。（<strong>大于等于配置的日志级别的日志才会输出</strong>）</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- 日志输出级别--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;root</span> <span class="na">level=</span><span class="s">&#34;info&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&#34;STDOUT&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&#34;FILE&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/root&gt;</span>
+</span></span></code></pre></div><h3 id="项目优化">项目优化<a hidden class="anchor" aria-hidden="true" href="#项目优化">#</a></h3>
+<ul>
+<li><code>src/main/java/com/javaweb/controller/DeptController.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb.controller</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.Dept</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.Result</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.service.DeptService</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.extern.slf4j.Slf4j</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.bind.annotation.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.List</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 请求处理类
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Slf4j</span><span class="w">  </span><span class="c1">//会自动生成日志对象，用于日志记录</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&#34;/depts&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@RestController</span><span class="w">   </span><span class="c1">//等价于@Controller + @ResponseBody</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DeptController</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 部门列表查询
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//    @Resource(name = &#34;deptServiceImpl&#34;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">DeptService</span><span class="w"> </span><span class="n">deptService</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@GetMapping</span><span class="w">  </span><span class="c1">//限制请求方式为GET</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">getAll</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//        1. 调用deptService</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Dept</span><span class="o">&gt;</span><span class="w"> </span><span class="n">deptList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deptService</span><span class="p">.</span><span class="na">list</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//        2.响应数据（json格式）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="n">deptList</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//    @ReqeuestMapping(value = &#34;/depts&#34;,method = RequestMethod.DELETE)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//    public Result delete(@RequestParam(&#34;id&#34;) Integer deptId) {</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@DeleteMapping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//        log.info(&#34;deptId=&#34; + id);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;id = {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//调用service方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">deptService</span><span class="p">.</span><span class="na">delete</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 保存部门
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param dept
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@PostMapping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">Dept</span><span class="w"> </span><span class="n">dept</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;dept= {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//调用service方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">deptService</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 数据回显
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @PathVariable 路径变量
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/{id}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="nd">@PathVariable</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;id = {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//调用service方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Dept</span><span class="w"> </span><span class="n">dept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deptService</span><span class="p">.</span><span class="na">getById</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 修改部门
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param dept
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@PutMapping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">Dept</span><span class="w"> </span><span class="n">dept</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;dept = {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">deptService</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">dept</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://www.steamedfish.top/tags/javaweb/">JavaWeb</a></li>
+      <li><a href="https://www.steamedfish.top/tags/logback/">Logback</a></li>
+      <li><a href="https://www.steamedfish.top/tags/mybatis/">Mybatis</a></li>
+      <li><a href="https://www.steamedfish.top/tags/slf4j/">Slf4j</a></li>
+      <li><a href="https://www.steamedfish.top/tags/springboot/">Springboot</a></li>
+      <li><a href="https://www.steamedfish.top/tags/springboot%E6%A1%86%E6%9E%B6/">SpringBoot框架</a></li>
+      <li><a href="https://www.steamedfish.top/tags/tlias/">Tlias</a></li>
+      <li><a href="https://www.steamedfish.top/tags/%E6%97%A5%E5%BF%97%E6%8A%80%E6%9C%AF/">日志技术</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span><a href="https://www.steamedfish.top/">©2025 SteamedFish&rsquo;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+
+
+
+
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    Fancybox.bind("[data-fancybox]", {
+      animated: true,                  
+      showClass: 'fancybox-fadeIn',    
+      hideClass: 'fancybox-fadeOut',   
+      dragToClose: true                 
+    });
+  });
+</script>
+
+
+
+
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
