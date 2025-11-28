@@ -7,8 +7,50 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 27 Nov 2025 18:49:52 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 28 Nov 2025 17:12:55 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL</title>
+      <link>https://www.steamedfish.top/tags/mysql/</link>
+      <pubDate>Fri, 28 Nov 2025 11:41:46 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/mysql/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>多表查询</title>
+      <link>https://www.steamedfish.top/tags/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/</link>
+      <pubDate>Fri, 28 Nov 2025 11:41:46 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>多表关系</title>
+      <link>https://www.steamedfish.top/tags/%E5%A4%9A%E8%A1%A8%E5%85%B3%E7%B3%BB/</link>
+      <pubDate>Fri, 28 Nov 2025 11:41:46 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E5%A4%9A%E8%A1%A8%E5%85%B3%E7%B3%BB/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>多表设计</title>
+      <link>https://www.steamedfish.top/tags/%E5%A4%9A%E8%A1%A8%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Fri, 28 Nov 2025 11:41:46 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E5%A4%9A%E8%A1%A8%E8%AE%BE%E8%AE%A1/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>实战项目</title>
+      <link>https://www.steamedfish.top/tags/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/</link>
+      <pubDate>Fri, 28 Nov 2025 11:41:46 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>字体</title>
+      <link>https://www.steamedfish.top/tags/%E5%AD%97%E4%BD%93/</link>
+      <pubDate>Fri, 28 Nov 2025 01:51:02 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E5%AD%97%E4%BD%93/</guid>
+      <description></description>
+    </item>
     <item>
       <title>JavaWeb</title>
       <link>https://www.steamedfish.top/tags/javaweb/</link>
@@ -94,13 +136,6 @@
       <description></description>
     </item>
     <item>
-      <title>MySQL</title>
-      <link>https://www.steamedfish.top/tags/mysql/</link>
-      <pubDate>Mon, 24 Nov 2025 17:18:24 +0800</pubDate>
-      <guid>https://www.steamedfish.top/tags/mysql/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>DI</title>
       <link>https://www.steamedfish.top/tags/di/</link>
       <pubDate>Sun, 23 Nov 2025 15:39:57 +0800</pubDate>
@@ -126,13 +161,6 @@
       <link>https://www.steamedfish.top/tags/%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84/</link>
       <pubDate>Sun, 23 Nov 2025 15:39:57 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>实战项目</title>
-      <link>https://www.steamedfish.top/tags/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/</link>
-      <pubDate>Sun, 23 Nov 2025 15:39:57 +0800</pubDate>
-      <guid>https://www.steamedfish.top/tags/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/</guid>
       <description></description>
     </item>
     <item>

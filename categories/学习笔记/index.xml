@@ -7,8 +7,62 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 27 Nov 2025 18:49:52 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 28 Nov 2025 17:12:55 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Javaweb——(14)SpringBoot实战·Tlias智能学习辅助系统·员工列表查询</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-14-springboot-tlias3/</link>
+      <pubDate>Fri, 28 Nov 2025 11:41:46 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-14-springboot-tlias3/</guid>
+      <description>&lt;h2 id=&#34;多表关系&#34;&gt;多表关系&lt;/h2&gt;
+&lt;p&gt;项目开发中，在进行数据库表结构设计时，会根据业务需求及业务模块之间的关系，分析并设计表结构。由于业务之间
+相互关联，所以各个表结构之间也存在着各种联系，基本上分为三种：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一对多(多对一)&lt;/li&gt;
+&lt;li&gt;一对一&lt;/li&gt;
+&lt;li&gt;多对多&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;一对多多对一&#34;&gt;一对多（多对一）&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;场景：部门与员工的关系（一个部门下有多个员工）。
+
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-web/javaweb-14-springboot-tlias3/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-web/javaweb-14-springboot-tlias3/1.webp&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-web/javaweb-14-springboot-tlias3/1.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-web/javaweb-14-springboot-tlias3/1.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+
+在数据库表中 多 的一方，添加字段，来关联 一 的一方的主键&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;多表问题分析&#34;&gt;多表问题分析&lt;/h4&gt;
+&lt;p&gt;新建数据库&lt;code&gt;javaweb-db04&lt;/code&gt;，运行&lt;a href=&#34;https://www.steamedfish.top/post/java-web/javaweb-14-springboot-tlias3/1.sql&#34;&gt;建表语句&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Markdown基础语法</title>
       <link>https://www.steamedfish.top/post/markdown-basic-syntax/</link>

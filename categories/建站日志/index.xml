@@ -7,8 +7,49 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 27 Nov 2025 18:49:52 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 28 Nov 2025 17:12:55 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/categories/%E5%BB%BA%E7%AB%99%E6%97%A5%E5%BF%97/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【建站日志】霞鹜文楷！启动！</title>
+      <link>https://www.steamedfish.top/post/hugo-log/font-lxgwwenkai/</link>
+      <pubDate>Fri, 28 Nov 2025 01:51:02 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/hugo-log/font-lxgwwenkai/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;霞鹜文楷是一款非专业的开源中文字体，基于 FONTWORKS 出品字体 Klee One 衍生。
+
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/hugo-log/font-LXGWWenKai/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/hugo-log/font-lxgwwenkai/1.png&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/hugo-log/font-lxgwwenkai/1.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/hugo-log/font-lxgwwenkai/1.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+
+笔者之前在玩酷安玩机时就关注到这位大佬了，那时候还用了很久这款字体。&lt;br&gt;
+现在有了自己的博客，想要换字体，第一时间就想到了这款简约、优雅、美观的字体，遂将方法分享给大家。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>【建站日志】添加Github卡片</title>
       <link>https://www.steamedfish.top/post/hugo-log/hugo-shortcodes-github/</link>
