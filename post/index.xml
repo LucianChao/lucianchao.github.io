@@ -7,8 +7,123 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Fri, 28 Nov 2025 17:12:55 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 01 Dec 2025 16:55:49 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Javaweb——(15)SpringBoot实战·Tlias智能学习辅助系统·新增员工</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/</link>
+      <pubDate>Mon, 01 Dec 2025 16:46:01 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/</guid>
+      <description>&lt;h2 id=&#34;新增员工&#34;&gt;新增员工&lt;/h2&gt;
+&lt;h3 id=&#34;分析&#34;&gt;分析&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-web/javaweb-15-springboot-tlias4/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/1.webp&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/1.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/1.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+
+阅读接口文档&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.steamedfish.top/post/java-web/javaweb-9-tlias-api-docs/#23-%E6%B7%BB%E5%8A%A0%E5%91%98%E5%B7%A5&#34;&gt;接口文档——添加员工&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;分析三层架构
+
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-web/javaweb-15-springboot-tlias4/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/2.webp&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/2.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/2.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;步骤：
+&lt;ol&gt;
+&lt;li&gt;完成完成准备工作，引入实体类EmpExpr及对应的Mapper接口、XML映射文件，及接收请求参数的实体类&lt;/li&gt;
+&lt;li&gt;保存员工的基本信息
+
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-web/javaweb-15-springboot-tlias4/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/3.webp&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/3.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/3.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+
+&lt;div class=&#34;notice note&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z&#34;/&gt;&lt;/svg&gt;
+        &lt;/span&gt;注释&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Javaweb——(14)SpringBoot实战·Tlias智能学习辅助系统·员工列表查询</title>
       <link>https://www.steamedfish.top/post/java-web/javaweb-14-springboot-tlias3/</link>

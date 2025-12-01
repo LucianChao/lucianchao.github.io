@@ -1,0 +1,2119 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Javaweb——(15)SpringBoot实战·Tlias智能学习辅助系统·新增员工 | SteamedFish&#39;s Blog</title>
+<meta name="keywords" content="JavaWeb, MySQL, SpringBoot框架, Tlias, 事务管理, 实战项目, ACID">
+<meta name="description" content="新增员工
+分析
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+阅读接口文档
+接口文档——添加员工
+
+分析三层架构
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+步骤：
+
+完成完成准备工作，引入实体类EmpExpr及对应的Mapper接口、XML映射文件，及接收请求参数的实体类
+保存员工的基本信息
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+    
+        
+            
+        注释">
+<meta name="author" content="">
+<link rel="canonical" href="https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cab4f9d994f2a3255820d3e121c622d3d605f1bd1c99b2830f4fd817aa7dc924.css" integrity="sha256-yrT52ZTyoyVYINPhIcYi09YF8b0cmbKDD0/YF6p9ySQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
+<link rel="apple-touch-icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="mask-icon" href="https://www.steamedfish.top/favicon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+
+
+<link
+  href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-web/style.css"
+  rel="stylesheet"
+/>
+<meta property="og:url" content="https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/">
+  <meta property="og:site_name" content="SteamedFish&#39;s Blog">
+  <meta property="og:title" content="Javaweb——(15)SpringBoot实战·Tlias智能学习辅助系统·新增员工">
+  <meta property="og:description" content="新增员工 分析 阅读接口文档
+接口文档——添加员工
+分析三层架构 步骤： 完成完成准备工作，引入实体类EmpExpr及对应的Mapper接口、XML映射文件，及接收请求参数的实体类 保存员工的基本信息 注释">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-12-01T16:46:01+08:00">
+    <meta property="article:modified_time" content="2025-12-01T16:55:49+00:00">
+    <meta property="article:tag" content="JavaWeb">
+    <meta property="article:tag" content="MySQL">
+    <meta property="article:tag" content="SpringBoot框架">
+    <meta property="article:tag" content="Tlias">
+    <meta property="article:tag" content="事务管理">
+    <meta property="article:tag" content="实战项目">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javaweb——(15)SpringBoot实战·Tlias智能学习辅助系统·新增员工">
+<meta name="twitter:description" content="新增员工
+分析
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+阅读接口文档
+接口文档——添加员工
+
+分析三层架构
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+步骤：
+
+完成完成准备工作，引入实体类EmpExpr及对应的Mapper接口、XML映射文件，及接收请求参数的实体类
+保存员工的基本信息
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+    
+        
+            
+        注释">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.steamedfish.top/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Javaweb——(15)SpringBoot实战·Tlias智能学习辅助系统·新增员工",
+      "item": "https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Javaweb——(15)SpringBoot实战·Tlias智能学习辅助系统·新增员工",
+  "name": "Javaweb——(15)SpringBoot实战·Tlias智能学习辅助系统·新增员工",
+  "description": "新增员工 分析 阅读接口文档\n接口文档——添加员工\n分析三层架构 步骤： 完成完成准备工作，引入实体类EmpExpr及对应的Mapper接口、XML映射文件，及接收请求参数的实体类 保存员工的基本信息 注释\n",
+  "keywords": [
+    "JavaWeb", "MySQL", "SpringBoot框架", "Tlias", "事务管理", "实战项目", "ACID"
+  ],
+  "articleBody": "新增员工 分析 阅读接口文档\n接口文档——添加员工\n分析三层架构 步骤： 完成完成准备工作，引入实体类EmpExpr及对应的Mapper接口、XML映射文件，及接收请求参数的实体类 保存员工的基本信息 注释\n使用 @Options(useGeneratedKeys = true,keyProperty = “id”)\n获取主键值赋给id，拿回数据操作emp_expr表\n批量保存员工的工作经历信息 事务管理 介绍 \u0026 操作 概念：事务是一组操作的集合，它是一个不可分割的工作单位。事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作 要么同时成功，要么同时失败。 信息\n注意：默认MySQL的事务是自动提交的，也就是说，当执行一条DML语句，MySQL会立即隐式的提交事务\n事务控制主要有三步：开启事务、提交事务/回滚事务。 Spring事务管理 事务控制 注解：@Transactional 作用：将当前方法交给spring进行事务管理，方法执行前，开启事务；成功执行完毕，提交事务；出现异常，回滚事务。 位置：业务（service）层的方法上、类上、接口上 开启Spring事务管理的debug级别日志，就可以看到控制台中事务开启、提交、回滚的日志了。 application.properties #开启spring事务管理的debug级别日志 logging.level.org.springframework.jdbc.support.JdbcTransactionManager=debug 事务进阶 属性——rollbackFor 默认情况下，只有出现RuntimeException才回滚异常。 rollbackFor属性用于控制出现何种异常类型，回滚事务 属性——propagation 事务传播行为：指的就是当一个事务方法被另一个事务方法调用时，这个事务方法应该如何进行事务控制。 属性值\r含义\rREQUIRED\r【默认值】需要事务，有则加入，无则创建新事务\rREQUIRES_NEW\r需要新事务，无论有无，总是创建新事务\rSUPPORTS\r支持事务，有则加入，无则在无事务状态中运行\rNOT_SUPPORTED\r不支持事务，在无事务状态下运行，如果当前存在已有事务，则挂起当前事务\rMANDATORY\r必须有事务，否则抛异常\rNEVER\r必须没事务，否则抛异常\r…\r…\r场景：\nREQUIRED：大部分情况下都是用该传播行为即可。 REQUIRES_NEW：当我们不希望事物之间相互影响时，可以使用该传播行为。比如：下订单前需要记录日志，不论订单保存成功与否，都需要保证日志记录能够记录成功 案例 需求：新增员工信息时，无论成功还是失败，都要记录操作日志。 步骤： 准备日志表 emp_log、实体类Emplog、Mapper接口EmpLogMapper emp_log.sql -- 创建员工日志表 create table emp_log( id int unsigned primary key auto_increment comment 'ID,主键', operate_time datetime comment '操作时间', info varchar(2000) comment '日志信息' ) comment '员工日志表'; EmpLog.java package com.javaweb.entity; import lombok.AllArgsConstructor; import lombok.Data; import lombok.NoArgsConstructor; import java.time.LocalDateTime; @Data @NoArgsConstructor @AllArgsConstructor public class EmpLog { private Integer id;//ID private LocalDateTime operateTime;//操作时间 private String info;//详细信息 } EmpLogMapper.java package com.javaweb.mapper; import com.javaweb.entity.EmpLog; import org.apache.ibatis.annotations.Insert; import org.apache.ibatis.annotations.Mapper; @Mapper public interface EmpLogMapper { @Insert(\"insert into emp_log (operate_time,info) values(#{operateTime},#{info}) \") public void insert(EmpLog empLog); } 在新增员工时记录日志 EmpLogService.java package com.javaweb.service; import com.javaweb.entity.EmpLog; public interface EmpLogService { public void insertLog(EmpLog empLog); } EmpLogServiceImpl.java package com.javaweb.service.impl; import com.javaweb.entity.EmpLog; import com.javaweb.mapper.EmpLogMapper; import com.javaweb.service.EmpLogService; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.stereotype.Service; import org.springframework.transaction.annotation.Propagation; import org.springframework.transaction.annotation.Transactional; @Service public class EmpLogServiceImpl implements EmpLogService { @Autowired private EmpLogMapper empLogMapper; /** * 插入操作日志 * * @param empLog */ @Transactional(propagation = Propagation.REQUIRES_NEW) @Override public void insertLog(EmpLog empLog) { empLogMapper.insert(empLog); } } ` package com.javaweb.service.impl; import com.github.pagehelper.Page; import com.github.pagehelper.PageHelper; import com.javaweb.entity.*; import com.javaweb.mapper.EmpExprMapper; import com.javaweb.mapper.EmpMapper; import com.javaweb.service.EmpLogService; import com.javaweb.service.EmpService; import lombok.extern.slf4j.Slf4j; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.stereotype.Service; import org.springframework.transaction.annotation.Transactional; import org.springframework.util.CollectionUtils; import java.time.LocalDateTime; import java.util.List; @Slf4j @Service public class EmpServiceImpl implements EmpService { /* 省略部分代码 */ @Autowired private EmpLogService empLogService; /* 省略部分代码 */ @Transactional(rollbackFor = Exception.class) @Override public void save(Emp emp) { try { //1.调用mapper方法，保存员工的基本信息到emp表 //1.1补充缺失字段 emp.setPassword(\"123456\"); emp.setCreateTime(LocalDateTime.now()); emp.setUpdateTime(LocalDateTime.now()); //1.2调用mapper方法 empMapper.insert(emp); Integer id = emp.getId(); log.info(\"id={}\", id); //2.调用mapper方法，保存员工的工作经历到emp_expr表 List\u003cEmpExpr\u003e exprList = emp.getExprList(); //2.1关联员工id if (!CollectionUtils.isEmpty(exprList)) { for (EmpExpr empExpr : exprList) { empExpr.setEmpId(id); log.info(\"id设置为={}\", id); } //2.2调用mapper方法，批量保存工作经历 empExprMapper.insertBatch(exprList); } } finally { //无论新增员工是否成功，都需要添加操作日志 EmpLog empLog = new EmpLog(); empLog.setOperateTime(LocalDateTime.now()); empLog.setInfo(\"插入员工信息 \" + emp); empLogService.insertLog(empLog); } } } 四大特性（ACID） 文件上传 简介 文件上传：是指将本地图片、视频、音频等文件上传到服务器，供其他用户浏览或下载的过程。 文件上传在项目中应用非常广泛，我们经常发微博、发微信朋友圈都用到了文件上传功能。 本地存储 在服务端，接受到上传上来的文件之后，将文件存储在本地服务器磁盘中。 MultipartFile transferTo(File dest)：将接收到的文件转存带磁盘文件中 getOriginalFilename()：获取原始文件名 getSize()：获取文件的大小，单位：字节 getBytes()：获取文件内容的字节数组 getInputStream()：获取接收到的文件内容的输入流 在SpringBoot中，文件上传，默认单个文件允许最大大小为 1M。如果需要上传大文件，可以进行如下配置： 阿里云OSS 阿里云是阿里巴巴集团旗下全球领先的云计算公司，也是国内最大的云服务提供商。\n阿里云对象存储OsS（objectStorageService），是一款海量、安全、低成本、高可靠的云存储服务。使用OSS,您可以通过网络随时存储和调用包括文本、图片、音频和视频等在内的各种文件。\n阿里云OSS使用步骤 注册阿里云（实名认证）\n充值（1元即可）\n开通对象存储服务（OSS）\n创建bucket 注释\nBucket：存储空间是用户用于存储对象（object，就是文件）的容器，所有的对象都必须隶属于某个存储空间。\n获取并配置AccessKey（密钥） 参照官方SDK文档编写入门程序 OSS Java SDK V1文档\n注释\nSDK：Software Development Kit的缩写，软件开发工具包，包括辅助软件开发的依赖（jar包）、代码示例等，都可以叫做SDK。\n7. 案例集成OSS 引入阿里云OSS上传文件工具类（由官方的示例代码改造而来） AliyunOSSUtils.java package com.javaweb.utils; import com.aliyun.oss.ClientException; import com.aliyun.oss.OSS; import com.aliyun.oss.OSSClientBuilder; import com.aliyun.oss.OSSException; import com.aliyun.oss.common.auth.CredentialsProviderFactory; import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider; import com.aliyun.oss.model.PutObjectRequest; import com.aliyun.oss.model.PutObjectResult; import lombok.extern.slf4j.Slf4j; import java.io.ByteArrayInputStream; import java.util.UUID; /** * 阿里云OSS操作工具类 */ @Slf4j public class AliyunOSSUtils { /** * 阿里云 * * @param endpoint 域名 * @param bucketName 存储空间名称 * @param content 内容字节数组 * @param extName * @return */ public static String upload(String endpoint, String bucketName, byte[] content, String extName) throws com.aliyuncs.exceptions.ClientException { //从环境变量中获取访问凭证 EnvironmentVariableCredentialsProvider credentialsProvider = CredentialsProviderFactory.newEnvironmentVariableCredentialsProvider(); // 填写Object完整路径，完整路径中不能包含Bucket名称，例如exampledir/exampleobject.txt。 String objectName = UUID.randomUUID() + extName; // 创建OSSClient实例。 OSS ossClient = OSSClientBuilder.create() .endpoint(endpoint) .credentialsProvider(credentialsProvider) .build(); try { // 创建PutObjectRequest对象。 PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, objectName, new ByteArrayInputStream(content)); // 创建PutObject请求。 PutObjectResult result = ossClient.putObject(putObjectRequest); } catch (OSSException oe) { System.out.println(\"Caught an OSSException, which means your request made it to OSS, \" + \"but was rejected with an error response for some reason.\"); System.out.println(\"Error Message:\" + oe.getErrorMessage()); System.out.println(\"Error Code:\" + oe.getErrorCode()); System.out.println(\"Request ID:\" + oe.getRequestId()); System.out.println(\"Host ID:\" + oe.getHostId()); } catch (ClientException ce) { System.out.println(\"Caught an ClientException, which means the client encountered \" + \"a serious internal problem while trying to communicate with OSS, \" + \"such as not being able to access the network.\"); System.out.println(\"Error Message:\" + ce.getMessage()); } finally { if (ossClient != null) { ossClient.shutdown(); } } return endpoint.split(\"//\")[0] + \"//\" + bucketName + \".\" + endpoint.split(\"//\")[1] + \"/\" + objectName; } } 上传图片接口开发 UploadController.java package com.javaweb.controller; import com.javaweb.entity.Result; import com.javaweb.utils.AliyunOSSUtils; import lombok.extern.slf4j.Slf4j; import org.springframework.web.bind.annotation.PostMapping; import org.springframework.web.bind.annotation.RestController; import org.springframework.web.multipart.MultipartFile; @Slf4j @RestController public class UploadController { private final String bucketName = \"steamedfish-javaweb-tlias\"; private final String endpoint = \"https://oss-cn-hangzhou.aliyuncs.com/\"; /** * 文件上传 * @param file * @return */ @PostMapping(\"upload\") public Result upload(MultipartFile file) throws Exception { //1.获取原始文件名，截取后缀 String originalFilename = file.getOriginalFilename(); log.info(\"原始文件名：{}\",originalFilename); String extName = originalFilename.substring(originalFilename.lastIndexOf(\".\")); //2.调用阿里云OSS工具类，上传文件 String url = AliyunOSSUtils.upload(endpoint, bucketName, file.getBytes(), extName); //3.返回图片访问路径 return Result.success(url); } } 进行前后端联调测试，图片正常回显 配置文件 ",
+  "wordCount" : "2768",
+  "inLanguage": "zh",
+  "datePublished": "2025-12-01T16:46:01+08:00",
+  "dateModified": "2025-12-01T16:55:49.73064032Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SteamedFish's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.steamedfish.top/favicon.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://www.steamedfish.top/" accesskey="h" title="SteamedFish&#39;s Blog (Alt + H)">SteamedFish&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                    <ul class="lang-switch"><li>|</li>
+                        <li>
+                            <a href="https://www.steamedfish.top/en/" title="English"
+                                aria-label="English">En</a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://www.steamedfish.top/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Javaweb——(15)SpringBoot实战·Tlias智能学习辅助系统·新增员工
+    </h1>
+    <div class="post-meta">
+
+
+
+
+
+
+<span title='2025-12-01 16:46:01 +0800 +0800'>2025-12-01</span>&nbsp;·&nbsp;<span>6 分钟</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e6%96%b0%e5%a2%9e%e5%91%98%e5%b7%a5" aria-label="新增员工">新增员工</a><ul>
+                        
+                <li>
+                    <a href="#%e5%88%86%e6%9e%90" aria-label="分析">分析</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e4%ba%8b%e5%8a%a1%e7%ae%a1%e7%90%86" aria-label="事务管理">事务管理</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bb%8b%e7%bb%8d--%e6%93%8d%e4%bd%9c" aria-label="介绍 &amp; 操作">介绍 &amp; 操作</a></li>
+                <li>
+                    <a href="#spring%e4%ba%8b%e5%8a%a1%e7%ae%a1%e7%90%86" aria-label="Spring事务管理">Spring事务管理</a><ul>
+                        
+                <li>
+                    <a href="#%e4%ba%8b%e5%8a%a1%e6%8e%a7%e5%88%b6" aria-label="事务控制">事务控制</a></li>
+                <li>
+                    <a href="#%e4%ba%8b%e5%8a%a1%e8%bf%9b%e9%98%b6" aria-label="事务进阶">事务进阶</a><ul>
+                        
+                <li>
+                    <a href="#%e5%b1%9e%e6%80%a7rollbackfor" aria-label="属性——rollbackFor">属性——rollbackFor</a></li>
+                <li>
+                    <a href="#%e5%b1%9e%e6%80%a7propagation" aria-label="属性——propagation">属性——propagation</a></li>
+                <li>
+                    <a href="#%e6%a1%88%e4%be%8b" aria-label="案例">案例</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%9b%9b%e5%a4%a7%e7%89%b9%e6%80%a7acid" aria-label="四大特性（ACID）">四大特性（ACID）</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%96%87%e4%bb%b6%e4%b8%8a%e4%bc%a0" aria-label="文件上传">文件上传</a><ul>
+                        
+                <li>
+                    <a href="#%e7%ae%80%e4%bb%8b" aria-label="简介">简介</a></li>
+                <li>
+                    <a href="#%e6%9c%ac%e5%9c%b0%e5%ad%98%e5%82%a8" aria-label="本地存储">本地存储</a></li>
+                <li>
+                    <a href="#%e9%98%bf%e9%87%8c%e4%ba%91oss" aria-label="阿里云OSS">阿里云OSS</a><ul>
+                        
+                <li>
+                    <a href="#%e9%98%bf%e9%87%8c%e4%ba%91oss%e4%bd%bf%e7%94%a8%e6%ad%a5%e9%aa%a4" aria-label="阿里云OSS使用步骤">阿里云OSS使用步骤</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6" aria-label="配置文件">配置文件</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="新增员工">新增员工<a hidden class="anchor" aria-hidden="true" href="#新增员工">#</a></h2>
+<h3 id="分析">分析<a hidden class="anchor" aria-hidden="true" href="#分析">#</a></h3>
+<p>
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/1.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/1.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/1.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+阅读接口文档</p>
+<p><a href="https://www.steamedfish.top/post/java-web/javaweb-9-tlias-api-docs/#23-%E6%B7%BB%E5%8A%A0%E5%91%98%E5%B7%A5">接口文档——添加员工</a></p>
+<hr>
+<p>分析三层架构
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/2.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/2.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/2.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+<ul>
+<li>步骤：
+<ol>
+<li>完成完成准备工作，引入实体类EmpExpr及对应的Mapper接口、XML映射文件，及接收请求参数的实体类</li>
+<li>保存员工的基本信息
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/3.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/3.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/3.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+<style type="text/css">
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+</style><div class="notice note" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
+        </span>注释</p><p>使用
+@Options(useGeneratedKeys = true,keyProperty = &ldquo;id&rdquo;)</p>
+<p>获取主键值赋给id，拿回数据操作emp_expr表</p></div></li>
+<li>批量保存员工的工作经历信息
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/4.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/4.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/4.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h2 id="事务管理">事务管理<a hidden class="anchor" aria-hidden="true" href="#事务管理">#</a></h2>
+<h3 id="介绍--操作">介绍 &amp; 操作<a hidden class="anchor" aria-hidden="true" href="#介绍--操作">#</a></h3>
+<p>概念：<strong>事务</strong>是一组操作的集合，它是一个不可分割的工作单位。事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作 <strong>要么同时成功，要么同时失败。</strong>
+<div class="notice info" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+        </span>信息</p><p>注意：默认MySQL的事务是自动提交的，也就是说，当执行一条DML语句，MySQL会立即隐式的提交事务</p></div></p>
+<ul>
+<li>事务控制主要有三步：开启事务、提交事务/回滚事务。
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/5.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/5.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/5.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</li>
+</ul>
+<hr>
+<h3 id="spring事务管理">Spring事务管理<a hidden class="anchor" aria-hidden="true" href="#spring事务管理">#</a></h3>
+<p>
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/6.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/6.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/6.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+<hr>
+<h4 id="事务控制">事务控制<a hidden class="anchor" aria-hidden="true" href="#事务控制">#</a></h4>
+<ul>
+<li>注解：<code>@Transactional</code></li>
+<li>作用：将当前方法交给spring进行事务管理，方法执行前，开启事务；成功执行完毕，提交事务；出现异常，回滚事务。</li>
+<li>位置：业务（service）层的方法上、类上、接口上
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/7.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/7.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/7.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</li>
+<li>开启Spring事务管理的debug级别日志，就可以看到控制台中事务开启、提交、回滚的日志了。</li>
+<li><code>application.properties</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-properties" data-lang="properties"><span class="line"><span class="cl"><span class="c1">#开启spring事务管理的debug级别日志</span>
+</span></span><span class="line"><span class="cl"><span class="na">logging.level.org.springframework.jdbc.support.JdbcTransactionManager</span><span class="o">=</span><span class="s">debug</span>
+</span></span></code></pre></div></li>
+</ul>
+<hr>
+<h4 id="事务进阶">事务进阶<a hidden class="anchor" aria-hidden="true" href="#事务进阶">#</a></h4>
+<h5 id="属性rollbackfor">属性——rollbackFor<a hidden class="anchor" aria-hidden="true" href="#属性rollbackfor">#</a></h5>
+<ul>
+<li>默认情况下，只有出现RuntimeException才回滚异常。</li>
+<li>rollbackFor属性用于控制出现何种异常类型，回滚事务
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/8.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/8.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/8.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</li>
+</ul>
+<hr>
+<h5 id="属性propagation">属性——propagation<a hidden class="anchor" aria-hidden="true" href="#属性propagation">#</a></h5>
+<ul>
+<li>
+<p>事务传播行为：指的就是当一个事务方法被另一个事务方法调用时，这个事务方法应该如何进行事务控制。
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/9.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/9.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/9.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th style="text-align: center">属性值</th>
+          <th style="text-align: center">含义</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">REQUIRED</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">【默认值】需要事务，有则加入，无则创建新事务</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">REQUIRES_NEW</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">需要新事务，无论有无，总是创建新事务</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">SUPPORTS</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">支持事务，有则加入，无则在无事务状态中运行</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">NOT_SUPPORTED</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">不支持事务，在无事务状态下运行，如果当前存在已有事务，则挂起当前事务</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">MANDATORY</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">必须有事务，否则抛异常</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">NEVER</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">必须没事务，否则抛异常</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">&hellip;</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">&hellip;</td>
+      </tr>
+  </tbody>
+</table></li>
+<li>
+<p>场景：</p>
+<ul>
+<li>REQUIRED：大部分情况下都是用该传播行为即可。</li>
+<li>REQUIRES_NEW：当我们不希望事物之间相互影响时，可以使用该传播行为。比如：下订单前需要记录日志，不论订单保存成功与否，都需要保证日志记录能够记录成功</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="案例">案例<a hidden class="anchor" aria-hidden="true" href="#案例">#</a></h5>
+<ul>
+<li>需求：新增员工信息时，无论成功还是失败，都要记录操作日志。</li>
+<li>步骤：
+<ol>
+<li>准备日志表 emp_log、实体类Emplog、Mapper接口EmpLogMapper
+<ul>
+<li><code>emp_log.sql</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 创建员工日志表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">emp_log</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="n">unsigned</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="n">auto_increment</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="s1">&#39;ID,主键&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">operate_time</span><span class="w"> </span><span class="n">datetime</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="s1">&#39;操作时间&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">info</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="s1">&#39;日志信息&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="s1">&#39;员工日志表&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>EmpLog.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb.entity</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.AllArgsConstructor</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.Data</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.NoArgsConstructor</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.time.LocalDateTime</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@NoArgsConstructor</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@AllArgsConstructor</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">EmpLog</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="c1">//ID</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">operateTime</span><span class="p">;</span><span class="c1">//操作时间</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">info</span><span class="p">;</span><span class="c1">//详细信息</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>EmpLogMapper.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb.mapper</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.EmpLog</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.ibatis.annotations.Insert</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.ibatis.annotations.Mapper</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Mapper</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">EmpLogMapper</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Insert</span><span class="p">(</span><span class="s">&#34;insert into emp_log (operate_time,info) values(#{operateTime},#{info}) &#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">insert</span><span class="p">(</span><span class="n">EmpLog</span><span class="w"> </span><span class="n">empLog</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+<li>在新增员工时记录日志
+<ul>
+<li><code>EmpLogService.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb.service</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.EmpLog</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">EmpLogService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">insertLog</span><span class="p">(</span><span class="n">EmpLog</span><span class="w"> </span><span class="n">empLog</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>EmpLogServiceImpl.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb.service.impl</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.EmpLog</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.mapper.EmpLogMapper</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.service.EmpLogService</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.stereotype.Service</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.transaction.annotation.Propagation</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.transaction.annotation.Transactional</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">EmpLogServiceImpl</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">EmpLogService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">EmpLogMapper</span><span class="w"> </span><span class="n">empLogMapper</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 插入操作日志
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param empLog
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Transactional</span><span class="p">(</span><span class="n">propagation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Propagation</span><span class="p">.</span><span class="na">REQUIRES_NEW</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">insertLog</span><span class="p">(</span><span class="n">EmpLog</span><span class="w"> </span><span class="n">empLog</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="n">empLogMapper</span><span class="p">.</span><span class="na">insert</span><span class="p">(</span><span class="n">empLog</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>`
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb.service.impl</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.pagehelper.Page</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.pagehelper.PageHelper</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.mapper.EmpExprMapper</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.mapper.EmpMapper</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.service.EmpLogService</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.service.EmpService</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.extern.slf4j.Slf4j</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.stereotype.Service</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.transaction.annotation.Transactional</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.util.CollectionUtils</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.time.LocalDateTime</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.List</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Slf4j</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">EmpServiceImpl</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">EmpService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">    省略部分代码
+</span></span></span><span class="line"><span class="cl"><span class="cm">    */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">EmpLogService</span><span class="w"> </span><span class="n">empLogService</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">    省略部分代码
+</span></span></span><span class="line"><span class="cl"><span class="cm">    */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Transactional</span><span class="p">(</span><span class="n">rollbackFor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Exception</span><span class="p">.</span><span class="na">class</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="n">Emp</span><span class="w"> </span><span class="n">emp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//1.调用mapper方法，保存员工的基本信息到emp表</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//1.1补充缺失字段</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">emp</span><span class="p">.</span><span class="na">setPassword</span><span class="p">(</span><span class="s">&#34;123456&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">emp</span><span class="p">.</span><span class="na">setCreateTime</span><span class="p">(</span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">emp</span><span class="p">.</span><span class="na">setUpdateTime</span><span class="p">(</span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//1.2调用mapper方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">empMapper</span><span class="p">.</span><span class="na">insert</span><span class="p">(</span><span class="n">emp</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="na">getId</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;id={}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//2.调用mapper方法，保存员工的工作经历到emp_expr表</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">List</span><span class="o">&lt;</span><span class="n">EmpExpr</span><span class="o">&gt;</span><span class="w"> </span><span class="n">exprList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="na">getExprList</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//2.1关联员工id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">CollectionUtils</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">(</span><span class="n">exprList</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">EmpExpr</span><span class="w"> </span><span class="n">empExpr</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">exprList</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">empExpr</span><span class="p">.</span><span class="na">setEmpId</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;id设置为={}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="c1">//2.2调用mapper方法，批量保存工作经历</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">empExprMapper</span><span class="p">.</span><span class="na">insertBatch</span><span class="p">(</span><span class="n">exprList</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//无论新增员工是否成功，都需要添加操作日志</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">EmpLog</span><span class="w"> </span><span class="n">empLog</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">EmpLog</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">empLog</span><span class="p">.</span><span class="na">setOperateTime</span><span class="p">(</span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">empLog</span><span class="p">.</span><span class="na">setInfo</span><span class="p">(</span><span class="s">&#34;插入员工信息 &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">emp</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">empLogService</span><span class="p">.</span><span class="na">insertLog</span><span class="p">(</span><span class="n">empLog</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="四大特性acid">四大特性（ACID）<a hidden class="anchor" aria-hidden="true" href="#四大特性acid">#</a></h3>
+<p>
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/10.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/10.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/10.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+<hr>
+<h2 id="文件上传">文件上传<a hidden class="anchor" aria-hidden="true" href="#文件上传">#</a></h2>
+<h3 id="简介">简介<a hidden class="anchor" aria-hidden="true" href="#简介">#</a></h3>
+<ul>
+<li>文件上传：是指将本地图片、视频、音频等文件上传到服务器，供其他用户浏览或下载的过程。</li>
+<li>文件上传在项目中应用非常广泛，我们经常发微博、发微信朋友圈都用到了文件上传功能。
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/11.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/11.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/11.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/12.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/12.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/12.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</li>
+</ul>
+<hr>
+<h3 id="本地存储">本地存储<a hidden class="anchor" aria-hidden="true" href="#本地存储">#</a></h3>
+<ul>
+<li>在服务端，接受到上传上来的文件之后，将文件存储在本地服务器磁盘中。
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/13.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/13.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/13.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+<ul>
+<li>MultipartFile
+<ul>
+<li>transferTo(File dest)：将接收到的文件转存带磁盘文件中</li>
+<li>getOriginalFilename()：获取原始文件名</li>
+<li>getSize()：获取文件的大小，单位：字节</li>
+<li>getBytes()：获取文件内容的字节数组</li>
+<li>getInputStream()：获取接收到的文件内容的输入流</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>在SpringBoot中，文件上传，默认单个文件允许最大大小为 1M。如果需要上传大文件，可以进行如下配置：
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/14.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/14.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/14.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+<hr>
+<h3 id="阿里云oss">阿里云OSS<a hidden class="anchor" aria-hidden="true" href="#阿里云oss">#</a></h3>
+<p>阿里云是阿里巴巴集团旗下全球领先的云计算公司，也是国内最大的云服务提供商。</p>
+<p>阿里云对象存储OsS（objectStorageService），是一款海量、安全、低成本、高可靠的云存储服务。使用OSS,您可以通过网络随时存储和调用包括文本、图片、音频和视频等在内的各种文件。</p>
+<hr>
+<h4 id="阿里云oss使用步骤">阿里云OSS使用步骤<a hidden class="anchor" aria-hidden="true" href="#阿里云oss使用步骤">#</a></h4>
+<ol>
+<li>
+<p>注册阿里云（实名认证）</p>
+</li>
+<li>
+<p>充值（1元即可）</p>
+</li>
+<li>
+<p>开通对象存储服务（OSS）</p>
+</li>
+<li>
+<p>创建bucket
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/15.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/15.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/15.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/16.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/16.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/16.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/17.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/17.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/17.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+<div class="notice note" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
+        </span>注释</p><p><strong>Bucket</strong>：存储空间是用户用于存储对象（object，就是文件）的容器，所有的对象都必须隶属于某个存储空间。</p></div></p>
+</li>
+<li>
+<p>获取并配置AccessKey（密钥）
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/18.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/18.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/18.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/19.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/19.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/19.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/20.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/20.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/20.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+</li>
+<li>
+<p>参照官方SDK文档编写入门程序
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/21.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/21.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/21.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+<p><a href="https://help.aliyun.com/zh/oss/developer-reference/oss-java-sdk/?spm=a2c4g.11186623.help-menu-31815.d_1_1_1.36c5421eg3L5O1">OSS Java SDK V1文档</a></p>
+</li>
+</ol>
+<p><div class="notice note" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
+        </span>注释</p><p><strong>SDK</strong>：<strong>S</strong>oftware <strong>D</strong>evelopment <strong>K</strong>it的缩写，软件开发工具包，包括辅助软件开发的依赖（jar包）、代码示例等，都可以叫做SDK。</p></div>
+7. 案例集成OSS
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/22.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/22.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/22.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+<ol>
+<li>引入阿里云OSS上传文件工具类（由官方的示例代码改造而来）
+<ul>
+<li><code>AliyunOSSUtils.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb.utils</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.aliyun.oss.ClientException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.aliyun.oss.OSS</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.aliyun.oss.OSSClientBuilder</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.aliyun.oss.OSSException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.aliyun.oss.common.auth.CredentialsProviderFactory</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.aliyun.oss.model.PutObjectRequest</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.aliyun.oss.model.PutObjectResult</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.extern.slf4j.Slf4j</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.ByteArrayInputStream</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.UUID</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 阿里云OSS操作工具类
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Slf4j</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">AliyunOSSUtils</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 阿里云
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param endpoint   域名
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param bucketName 存储空间名称
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param content    内容字节数组
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param extName
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">upload</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">endpoint</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">bucketName</span><span class="p">,</span><span class="w"> </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">content</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">extName</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">aliyuncs</span><span class="p">.</span><span class="na">exceptions</span><span class="p">.</span><span class="na">ClientException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//从环境变量中获取访问凭证</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">EnvironmentVariableCredentialsProvider</span><span class="w"> </span><span class="n">credentialsProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CredentialsProviderFactory</span><span class="p">.</span><span class="na">newEnvironmentVariableCredentialsProvider</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 填写Object完整路径，完整路径中不能包含Bucket名称，例如exampledir/exampleobject.txt。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">objectName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">extName</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 创建OSSClient实例。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">OSS</span><span class="w"> </span><span class="n">ossClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OSSClientBuilder</span><span class="p">.</span><span class="na">create</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">credentialsProvider</span><span class="p">(</span><span class="n">credentialsProvider</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 创建PutObjectRequest对象。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">PutObjectRequest</span><span class="w"> </span><span class="n">putObjectRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PutObjectRequest</span><span class="p">(</span><span class="n">bucketName</span><span class="p">,</span><span class="w"> </span><span class="n">objectName</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ByteArrayInputStream</span><span class="p">(</span><span class="n">content</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 创建PutObject请求。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">PutObjectResult</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ossClient</span><span class="p">.</span><span class="na">putObject</span><span class="p">(</span><span class="n">putObjectRequest</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">OSSException</span><span class="w"> </span><span class="n">oe</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Caught an OSSException, which means your request made it to OSS, &#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;but was rejected with an error response for some reason.&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Error Message:&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">oe</span><span class="p">.</span><span class="na">getErrorMessage</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Error Code:&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">oe</span><span class="p">.</span><span class="na">getErrorCode</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Request ID:&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">oe</span><span class="p">.</span><span class="na">getRequestId</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Host ID:&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">oe</span><span class="p">.</span><span class="na">getHostId</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">ClientException</span><span class="w"> </span><span class="n">ce</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Caught an ClientException, which means the client encountered &#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;a serious internal problem while trying to communicate with OSS, &#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;such as not being able to access the network.&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Error Message:&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ce</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ossClient</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">ossClient</span><span class="p">.</span><span class="na">shutdown</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">endpoint</span><span class="p">.</span><span class="na">split</span><span class="p">(</span><span class="s">&#34;//&#34;</span><span class="p">)</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;//&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">bucketName</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;.&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">endpoint</span><span class="p">.</span><span class="na">split</span><span class="p">(</span><span class="s">&#34;//&#34;</span><span class="p">)</span><span class="o">[</span><span class="n">1</span><span class="o">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;/&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">objectName</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+<li>上传图片接口开发
+<ul>
+<li><code>UploadController.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb.controller</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.Result</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.utils.AliyunOSSUtils</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.extern.slf4j.Slf4j</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.bind.annotation.PostMapping</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.multipart.MultipartFile</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Slf4j</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@RestController</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UploadController</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">bucketName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;steamedfish-javaweb-tlias&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">endpoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;https://oss-cn-hangzhou.aliyuncs.com/&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 文件上传
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param file
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@PostMapping</span><span class="p">(</span><span class="s">&#34;upload&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">upload</span><span class="p">(</span><span class="n">MultipartFile</span><span class="w"> </span><span class="n">file</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//1.获取原始文件名，截取后缀</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">originalFilename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="na">getOriginalFilename</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;原始文件名：{}&#34;</span><span class="p">,</span><span class="n">originalFilename</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">extName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">originalFilename</span><span class="p">.</span><span class="na">substring</span><span class="p">(</span><span class="n">originalFilename</span><span class="p">.</span><span class="na">lastIndexOf</span><span class="p">(</span><span class="s">&#34;.&#34;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//2.调用阿里云OSS工具类，上传文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AliyunOSSUtils</span><span class="p">.</span><span class="na">upload</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span><span class="w"> </span><span class="n">bucketName</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="na">getBytes</span><span class="p">(),</span><span class="w"> </span><span class="n">extName</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//3.返回图片访问路径</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="n">url</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+</ol>
+<p>进行前后端联调测试，图片正常回显
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/23.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/23.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/23.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+<hr>
+<h2 id="配置文件">配置文件<a hidden class="anchor" aria-hidden="true" href="#配置文件">#</a></h2>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://www.steamedfish.top/tags/javaweb/">JavaWeb</a></li>
+      <li><a href="https://www.steamedfish.top/tags/mysql/">MySQL</a></li>
+      <li><a href="https://www.steamedfish.top/tags/springboot%E6%A1%86%E6%9E%B6/">SpringBoot框架</a></li>
+      <li><a href="https://www.steamedfish.top/tags/tlias/">Tlias</a></li>
+      <li><a href="https://www.steamedfish.top/tags/%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86/">事务管理</a></li>
+      <li><a href="https://www.steamedfish.top/tags/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/">实战项目</a></li>
+      <li><a href="https://www.steamedfish.top/tags/acid/">ACID</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span><a href="https://www.steamedfish.top/">©2025 SteamedFish&rsquo;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+
+
+
+
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    Fancybox.bind("[data-fancybox]", {
+      animated: true,                  
+      showClass: 'fancybox-fadeIn',    
+      hideClass: 'fancybox-fadeOut',   
+      dragToClose: true                 
+    });
+  });
+</script>
+
+
+
+
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
