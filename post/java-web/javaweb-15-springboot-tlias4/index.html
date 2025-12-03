@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>Javaweb——(15)SpringBoot实战·Tlias智能学习辅助系统·新增员工 | SteamedFish&#39;s Blog</title>
-<meta name="keywords" content="JavaWeb, MySQL, SpringBoot框架, Tlias, 事务管理, 实战项目, ACID">
+<meta name="keywords" content="ACID, JavaWeb, MySQL, SpringBoot框架, Tlias, 事务管理, 动态SQL, 实战项目, 配置文件">
 <meta name="description" content="新增员工
 分析
 
@@ -151,13 +151,13 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2025-12-01T16:46:01+08:00">
-    <meta property="article:modified_time" content="2025-12-01T16:55:49+00:00">
+    <meta property="article:modified_time" content="2025-12-03T16:07:51+00:00">
+    <meta property="article:tag" content="ACID">
     <meta property="article:tag" content="JavaWeb">
     <meta property="article:tag" content="MySQL">
     <meta property="article:tag" content="SpringBoot框架">
     <meta property="article:tag" content="Tlias">
     <meta property="article:tag" content="事务管理">
-    <meta property="article:tag" content="实战项目">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Javaweb——(15)SpringBoot实战·Tlias智能学习辅助系统·新增员工">
 <meta name="twitter:description" content="新增员工
@@ -269,13 +269,13 @@
   "name": "Javaweb——(15)SpringBoot实战·Tlias智能学习辅助系统·新增员工",
   "description": "新增员工 分析 阅读接口文档\n接口文档——添加员工\n分析三层架构 步骤： 完成完成准备工作，引入实体类EmpExpr及对应的Mapper接口、XML映射文件，及接收请求参数的实体类 保存员工的基本信息 注释\n",
   "keywords": [
-    "JavaWeb", "MySQL", "SpringBoot框架", "Tlias", "事务管理", "实战项目", "ACID"
+    "ACID", "JavaWeb", "MySQL", "SpringBoot框架", "Tlias", "事务管理", "动态SQL", "实战项目", "配置文件"
   ],
-  "articleBody": "新增员工 分析 阅读接口文档\n接口文档——添加员工\n分析三层架构 步骤： 完成完成准备工作，引入实体类EmpExpr及对应的Mapper接口、XML映射文件，及接收请求参数的实体类 保存员工的基本信息 注释\n使用 @Options(useGeneratedKeys = true,keyProperty = “id”)\n获取主键值赋给id，拿回数据操作emp_expr表\n批量保存员工的工作经历信息 事务管理 介绍 \u0026 操作 概念：事务是一组操作的集合，它是一个不可分割的工作单位。事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作 要么同时成功，要么同时失败。 信息\n注意：默认MySQL的事务是自动提交的，也就是说，当执行一条DML语句，MySQL会立即隐式的提交事务\n事务控制主要有三步：开启事务、提交事务/回滚事务。 Spring事务管理 事务控制 注解：@Transactional 作用：将当前方法交给spring进行事务管理，方法执行前，开启事务；成功执行完毕，提交事务；出现异常，回滚事务。 位置：业务（service）层的方法上、类上、接口上 开启Spring事务管理的debug级别日志，就可以看到控制台中事务开启、提交、回滚的日志了。 application.properties #开启spring事务管理的debug级别日志 logging.level.org.springframework.jdbc.support.JdbcTransactionManager=debug 事务进阶 属性——rollbackFor 默认情况下，只有出现RuntimeException才回滚异常。 rollbackFor属性用于控制出现何种异常类型，回滚事务 属性——propagation 事务传播行为：指的就是当一个事务方法被另一个事务方法调用时，这个事务方法应该如何进行事务控制。 属性值\r含义\rREQUIRED\r【默认值】需要事务，有则加入，无则创建新事务\rREQUIRES_NEW\r需要新事务，无论有无，总是创建新事务\rSUPPORTS\r支持事务，有则加入，无则在无事务状态中运行\rNOT_SUPPORTED\r不支持事务，在无事务状态下运行，如果当前存在已有事务，则挂起当前事务\rMANDATORY\r必须有事务，否则抛异常\rNEVER\r必须没事务，否则抛异常\r…\r…\r场景：\nREQUIRED：大部分情况下都是用该传播行为即可。 REQUIRES_NEW：当我们不希望事物之间相互影响时，可以使用该传播行为。比如：下订单前需要记录日志，不论订单保存成功与否，都需要保证日志记录能够记录成功 案例 需求：新增员工信息时，无论成功还是失败，都要记录操作日志。 步骤： 准备日志表 emp_log、实体类Emplog、Mapper接口EmpLogMapper emp_log.sql -- 创建员工日志表 create table emp_log( id int unsigned primary key auto_increment comment 'ID,主键', operate_time datetime comment '操作时间', info varchar(2000) comment '日志信息' ) comment '员工日志表'; EmpLog.java package com.javaweb.entity; import lombok.AllArgsConstructor; import lombok.Data; import lombok.NoArgsConstructor; import java.time.LocalDateTime; @Data @NoArgsConstructor @AllArgsConstructor public class EmpLog { private Integer id;//ID private LocalDateTime operateTime;//操作时间 private String info;//详细信息 } EmpLogMapper.java package com.javaweb.mapper; import com.javaweb.entity.EmpLog; import org.apache.ibatis.annotations.Insert; import org.apache.ibatis.annotations.Mapper; @Mapper public interface EmpLogMapper { @Insert(\"insert into emp_log (operate_time,info) values(#{operateTime},#{info}) \") public void insert(EmpLog empLog); } 在新增员工时记录日志 EmpLogService.java package com.javaweb.service; import com.javaweb.entity.EmpLog; public interface EmpLogService { public void insertLog(EmpLog empLog); } EmpLogServiceImpl.java package com.javaweb.service.impl; import com.javaweb.entity.EmpLog; import com.javaweb.mapper.EmpLogMapper; import com.javaweb.service.EmpLogService; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.stereotype.Service; import org.springframework.transaction.annotation.Propagation; import org.springframework.transaction.annotation.Transactional; @Service public class EmpLogServiceImpl implements EmpLogService { @Autowired private EmpLogMapper empLogMapper; /** * 插入操作日志 * * @param empLog */ @Transactional(propagation = Propagation.REQUIRES_NEW) @Override public void insertLog(EmpLog empLog) { empLogMapper.insert(empLog); } } ` package com.javaweb.service.impl; import com.github.pagehelper.Page; import com.github.pagehelper.PageHelper; import com.javaweb.entity.*; import com.javaweb.mapper.EmpExprMapper; import com.javaweb.mapper.EmpMapper; import com.javaweb.service.EmpLogService; import com.javaweb.service.EmpService; import lombok.extern.slf4j.Slf4j; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.stereotype.Service; import org.springframework.transaction.annotation.Transactional; import org.springframework.util.CollectionUtils; import java.time.LocalDateTime; import java.util.List; @Slf4j @Service public class EmpServiceImpl implements EmpService { /* 省略部分代码 */ @Autowired private EmpLogService empLogService; /* 省略部分代码 */ @Transactional(rollbackFor = Exception.class) @Override public void save(Emp emp) { try { //1.调用mapper方法，保存员工的基本信息到emp表 //1.1补充缺失字段 emp.setPassword(\"123456\"); emp.setCreateTime(LocalDateTime.now()); emp.setUpdateTime(LocalDateTime.now()); //1.2调用mapper方法 empMapper.insert(emp); Integer id = emp.getId(); log.info(\"id={}\", id); //2.调用mapper方法，保存员工的工作经历到emp_expr表 List\u003cEmpExpr\u003e exprList = emp.getExprList(); //2.1关联员工id if (!CollectionUtils.isEmpty(exprList)) { for (EmpExpr empExpr : exprList) { empExpr.setEmpId(id); log.info(\"id设置为={}\", id); } //2.2调用mapper方法，批量保存工作经历 empExprMapper.insertBatch(exprList); } } finally { //无论新增员工是否成功，都需要添加操作日志 EmpLog empLog = new EmpLog(); empLog.setOperateTime(LocalDateTime.now()); empLog.setInfo(\"插入员工信息 \" + emp); empLogService.insertLog(empLog); } } } 四大特性（ACID） 文件上传 简介 文件上传：是指将本地图片、视频、音频等文件上传到服务器，供其他用户浏览或下载的过程。 文件上传在项目中应用非常广泛，我们经常发微博、发微信朋友圈都用到了文件上传功能。 本地存储 在服务端，接受到上传上来的文件之后，将文件存储在本地服务器磁盘中。 MultipartFile transferTo(File dest)：将接收到的文件转存带磁盘文件中 getOriginalFilename()：获取原始文件名 getSize()：获取文件的大小，单位：字节 getBytes()：获取文件内容的字节数组 getInputStream()：获取接收到的文件内容的输入流 在SpringBoot中，文件上传，默认单个文件允许最大大小为 1M。如果需要上传大文件，可以进行如下配置： 阿里云OSS 阿里云是阿里巴巴集团旗下全球领先的云计算公司，也是国内最大的云服务提供商。\n阿里云对象存储OsS（objectStorageService），是一款海量、安全、低成本、高可靠的云存储服务。使用OSS,您可以通过网络随时存储和调用包括文本、图片、音频和视频等在内的各种文件。\n阿里云OSS使用步骤 注册阿里云（实名认证）\n充值（1元即可）\n开通对象存储服务（OSS）\n创建bucket 注释\nBucket：存储空间是用户用于存储对象（object，就是文件）的容器，所有的对象都必须隶属于某个存储空间。\n获取并配置AccessKey（密钥） 参照官方SDK文档编写入门程序 OSS Java SDK V1文档\n注释\nSDK：Software Development Kit的缩写，软件开发工具包，包括辅助软件开发的依赖（jar包）、代码示例等，都可以叫做SDK。\n7. 案例集成OSS 引入阿里云OSS上传文件工具类（由官方的示例代码改造而来） AliyunOSSUtils.java package com.javaweb.utils; import com.aliyun.oss.ClientException; import com.aliyun.oss.OSS; import com.aliyun.oss.OSSClientBuilder; import com.aliyun.oss.OSSException; import com.aliyun.oss.common.auth.CredentialsProviderFactory; import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider; import com.aliyun.oss.model.PutObjectRequest; import com.aliyun.oss.model.PutObjectResult; import lombok.extern.slf4j.Slf4j; import java.io.ByteArrayInputStream; import java.util.UUID; /** * 阿里云OSS操作工具类 */ @Slf4j public class AliyunOSSUtils { /** * 阿里云 * * @param endpoint 域名 * @param bucketName 存储空间名称 * @param content 内容字节数组 * @param extName * @return */ public static String upload(String endpoint, String bucketName, byte[] content, String extName) throws com.aliyuncs.exceptions.ClientException { //从环境变量中获取访问凭证 EnvironmentVariableCredentialsProvider credentialsProvider = CredentialsProviderFactory.newEnvironmentVariableCredentialsProvider(); // 填写Object完整路径，完整路径中不能包含Bucket名称，例如exampledir/exampleobject.txt。 String objectName = UUID.randomUUID() + extName; // 创建OSSClient实例。 OSS ossClient = OSSClientBuilder.create() .endpoint(endpoint) .credentialsProvider(credentialsProvider) .build(); try { // 创建PutObjectRequest对象。 PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, objectName, new ByteArrayInputStream(content)); // 创建PutObject请求。 PutObjectResult result = ossClient.putObject(putObjectRequest); } catch (OSSException oe) { System.out.println(\"Caught an OSSException, which means your request made it to OSS, \" + \"but was rejected with an error response for some reason.\"); System.out.println(\"Error Message:\" + oe.getErrorMessage()); System.out.println(\"Error Code:\" + oe.getErrorCode()); System.out.println(\"Request ID:\" + oe.getRequestId()); System.out.println(\"Host ID:\" + oe.getHostId()); } catch (ClientException ce) { System.out.println(\"Caught an ClientException, which means the client encountered \" + \"a serious internal problem while trying to communicate with OSS, \" + \"such as not being able to access the network.\"); System.out.println(\"Error Message:\" + ce.getMessage()); } finally { if (ossClient != null) { ossClient.shutdown(); } } return endpoint.split(\"//\")[0] + \"//\" + bucketName + \".\" + endpoint.split(\"//\")[1] + \"/\" + objectName; } } 上传图片接口开发 UploadController.java package com.javaweb.controller; import com.javaweb.entity.Result; import com.javaweb.utils.AliyunOSSUtils; import lombok.extern.slf4j.Slf4j; import org.springframework.web.bind.annotation.PostMapping; import org.springframework.web.bind.annotation.RestController; import org.springframework.web.multipart.MultipartFile; @Slf4j @RestController public class UploadController { private final String bucketName = \"steamedfish-javaweb-tlias\"; private final String endpoint = \"https://oss-cn-hangzhou.aliyuncs.com/\"; /** * 文件上传 * @param file * @return */ @PostMapping(\"upload\") public Result upload(MultipartFile file) throws Exception { //1.获取原始文件名，截取后缀 String originalFilename = file.getOriginalFilename(); log.info(\"原始文件名：{}\",originalFilename); String extName = originalFilename.substring(originalFilename.lastIndexOf(\".\")); //2.调用阿里云OSS工具类，上传文件 String url = AliyunOSSUtils.upload(endpoint, bucketName, file.getBytes(), extName); //3.返回图片访问路径 return Result.success(url); } } 进行前后端联调测试，图片正常回显 配置文件 ",
-  "wordCount" : "2768",
+  "articleBody": "新增员工 分析 阅读接口文档\n接口文档——添加员工\n分析三层架构 步骤： 完成完成准备工作，引入实体类EmpExpr及对应的Mapper接口、XML映射文件，及接收请求参数的实体类 保存员工的基本信息 注释\n使用 @Options(useGeneratedKeys = true,keyProperty = “id”)\n获取主键值赋给id，拿回数据操作emp_expr表\n批量保存员工的工作经历信息 事务管理 介绍 \u0026 操作 概念：事务是一组操作的集合，它是一个不可分割的工作单位。事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作 要么同时成功，要么同时失败。 信息\n注意：默认MySQL的事务是自动提交的，也就是说，当执行一条DML语句，MySQL会立即隐式的提交事务\n事务控制主要有三步：开启事务、提交事务/回滚事务。 Spring事务管理 事务控制 注解：@Transactional 作用：将当前方法交给spring进行事务管理，方法执行前，开启事务；成功执行完毕，提交事务；出现异常，回滚事务。 位置：业务（service）层的方法上、类上、接口上 开启Spring事务管理的debug级别日志，就可以看到控制台中事务开启、提交、回滚的日志了。 application.properties #开启spring事务管理的debug级别日志 logging.level.org.springframework.jdbc.support.JdbcTransactionManager=debug 事务进阶 属性——rollbackFor 默认情况下，只有出现RuntimeException才回滚异常。 rollbackFor属性用于控制出现何种异常类型，回滚事务 属性——propagation 事务传播行为：指的就是当一个事务方法被另一个事务方法调用时，这个事务方法应该如何进行事务控制。 属性值\r含义\rREQUIRED\r【默认值】需要事务，有则加入，无则创建新事务\rREQUIRES_NEW\r需要新事务，无论有无，总是创建新事务\rSUPPORTS\r支持事务，有则加入，无则在无事务状态中运行\rNOT_SUPPORTED\r不支持事务，在无事务状态下运行，如果当前存在已有事务，则挂起当前事务\rMANDATORY\r必须有事务，否则抛异常\rNEVER\r必须没事务，否则抛异常\r…\r…\r场景：\nREQUIRED：大部分情况下都是用该传播行为即可。 REQUIRES_NEW：当我们不希望事物之间相互影响时，可以使用该传播行为。比如：下订单前需要记录日志，不论订单保存成功与否，都需要保证日志记录能够记录成功 案例 需求：新增员工信息时，无论成功还是失败，都要记录操作日志。 步骤： 准备日志表 emp_log、实体类Emplog、Mapper接口EmpLogMapper emp_log.sql -- 创建员工日志表 create table emp_log( id int unsigned primary key auto_increment comment 'ID,主键', operate_time datetime comment '操作时间', info varchar(2000) comment '日志信息' ) comment '员工日志表'; EmpLog.java package com.javaweb.entity; import lombok.AllArgsConstructor; import lombok.Data; import lombok.NoArgsConstructor; import java.time.LocalDateTime; @Data @NoArgsConstructor @AllArgsConstructor public class EmpLog { private Integer id;//ID private LocalDateTime operateTime;//操作时间 private String info;//详细信息 } EmpLogMapper.java package com.javaweb.mapper; import com.javaweb.entity.EmpLog; import org.apache.ibatis.annotations.Insert; import org.apache.ibatis.annotations.Mapper; @Mapper public interface EmpLogMapper { @Insert(\"insert into emp_log (operate_time,info) values(#{operateTime},#{info}) \") public void insert(EmpLog empLog); } 在新增员工时记录日志 EmpLogService.java package com.javaweb.service; import com.javaweb.entity.EmpLog; public interface EmpLogService { public void insertLog(EmpLog empLog); } EmpLogServiceImpl.java package com.javaweb.service.impl; import com.javaweb.entity.EmpLog; import com.javaweb.mapper.EmpLogMapper; import com.javaweb.service.EmpLogService; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.stereotype.Service; import org.springframework.transaction.annotation.Propagation; import org.springframework.transaction.annotation.Transactional; @Service public class EmpLogServiceImpl implements EmpLogService { @Autowired private EmpLogMapper empLogMapper; /** * 插入操作日志 * * @param empLog */ @Transactional(propagation = Propagation.REQUIRES_NEW) @Override public void insertLog(EmpLog empLog) { empLogMapper.insert(empLog); } } ` package com.javaweb.service.impl; import com.github.pagehelper.Page; import com.github.pagehelper.PageHelper; import com.javaweb.entity.*; import com.javaweb.mapper.EmpExprMapper; import com.javaweb.mapper.EmpMapper; import com.javaweb.service.EmpLogService; import com.javaweb.service.EmpService; import lombok.extern.slf4j.Slf4j; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.stereotype.Service; import org.springframework.transaction.annotation.Transactional; import org.springframework.util.CollectionUtils; import java.time.LocalDateTime; import java.util.List; @Slf4j @Service public class EmpServiceImpl implements EmpService { /* 省略部分代码 */ @Autowired private EmpLogService empLogService; /* 省略部分代码 */ @Transactional(rollbackFor = Exception.class) @Override public void save(Emp emp) { try { //1.调用mapper方法，保存员工的基本信息到emp表 //1.1补充缺失字段 emp.setPassword(\"123456\"); emp.setCreateTime(LocalDateTime.now()); emp.setUpdateTime(LocalDateTime.now()); //1.2调用mapper方法 empMapper.insert(emp); Integer id = emp.getId(); log.info(\"id={}\", id); //2.调用mapper方法，保存员工的工作经历到emp_expr表 List\u003cEmpExpr\u003e exprList = emp.getExprList(); //2.1关联员工id if (!CollectionUtils.isEmpty(exprList)) { for (EmpExpr empExpr : exprList) { empExpr.setEmpId(id); log.info(\"id设置为={}\", id); } //2.2调用mapper方法，批量保存工作经历 empExprMapper.insertBatch(exprList); } } finally { //无论新增员工是否成功，都需要添加操作日志 EmpLog empLog = new EmpLog(); empLog.setOperateTime(LocalDateTime.now()); empLog.setInfo(\"插入员工信息 \" + emp); empLogService.insertLog(empLog); } } } 四大特性（ACID） 文件上传 简介 文件上传：是指将本地图片、视频、音频等文件上传到服务器，供其他用户浏览或下载的过程。 文件上传在项目中应用非常广泛，我们经常发微博、发微信朋友圈都用到了文件上传功能。 本地存储 在服务端，接受到上传上来的文件之后，将文件存储在本地服务器磁盘中。 MultipartFile transferTo(File dest)：将接收到的文件转存带磁盘文件中 getOriginalFilename()：获取原始文件名 getSize()：获取文件的大小，单位：字节 getBytes()：获取文件内容的字节数组 getInputStream()：获取接收到的文件内容的输入流 在SpringBoot中，文件上传，默认单个文件允许最大大小为 1M。如果需要上传大文件，可以进行如下配置： 阿里云OSS 阿里云是阿里巴巴集团旗下全球领先的云计算公司，也是国内最大的云服务提供商。\n阿里云对象存储OsS（objectStorageService），是一款海量、安全、低成本、高可靠的云存储服务。使用OSS,您可以通过网络随时存储和调用包括文本、图片、音频和视频等在内的各种文件。\n阿里云OSS使用步骤 注册阿里云（实名认证）\n充值（1元即可）\n开通对象存储服务（OSS）\n创建bucket 注释\nBucket：存储空间是用户用于存储对象（object，就是文件）的容器，所有的对象都必须隶属于某个存储空间。\n获取并配置AccessKey（密钥） 参照官方SDK文档编写入门程序 OSS Java SDK V1文档\n注释\nSDK：Software Development Kit的缩写，软件开发工具包，包括辅助软件开发的依赖（jar包）、代码示例等，都可以叫做SDK。\n7. 案例集成OSS 引入阿里云OSS上传文件工具类（由官方的示例代码改造而来） AliyunOSSUtils.java package com.javaweb.utils; import com.aliyun.oss.ClientException; import com.aliyun.oss.OSS; import com.aliyun.oss.OSSClientBuilder; import com.aliyun.oss.OSSException; import com.aliyun.oss.common.auth.CredentialsProviderFactory; import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider; import com.aliyun.oss.model.PutObjectRequest; import com.aliyun.oss.model.PutObjectResult; import lombok.extern.slf4j.Slf4j; import java.io.ByteArrayInputStream; import java.util.UUID; /** * 阿里云OSS操作工具类 */ @Slf4j public class AliyunOSSUtils { /** * 阿里云 * * @param endpoint 域名 * @param bucketName 存储空间名称 * @param content 内容字节数组 * @param extName * @return */ public static String upload(String endpoint, String bucketName, byte[] content, String extName) throws com.aliyuncs.exceptions.ClientException { //从环境变量中获取访问凭证 EnvironmentVariableCredentialsProvider credentialsProvider = CredentialsProviderFactory.newEnvironmentVariableCredentialsProvider(); // 填写Object完整路径，完整路径中不能包含Bucket名称，例如exampledir/exampleobject.txt。 String objectName = UUID.randomUUID() + extName; // 创建OSSClient实例。 OSS ossClient = OSSClientBuilder.create() .endpoint(endpoint) .credentialsProvider(credentialsProvider) .build(); try { // 创建PutObjectRequest对象。 PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, objectName, new ByteArrayInputStream(content)); // 创建PutObject请求。 PutObjectResult result = ossClient.putObject(putObjectRequest); } catch (OSSException oe) { System.out.println(\"Caught an OSSException, which means your request made it to OSS, \" + \"but was rejected with an error response for some reason.\"); System.out.println(\"Error Message:\" + oe.getErrorMessage()); System.out.println(\"Error Code:\" + oe.getErrorCode()); System.out.println(\"Request ID:\" + oe.getRequestId()); System.out.println(\"Host ID:\" + oe.getHostId()); } catch (ClientException ce) { System.out.println(\"Caught an ClientException, which means the client encountered \" + \"a serious internal problem while trying to communicate with OSS, \" + \"such as not being able to access the network.\"); System.out.println(\"Error Message:\" + ce.getMessage()); } finally { if (ossClient != null) { ossClient.shutdown(); } } return endpoint.split(\"//\")[0] + \"//\" + bucketName + \".\" + endpoint.split(\"//\")[1] + \"/\" + objectName; } } 上传图片接口开发 UploadController.java package com.javaweb.controller; import com.javaweb.entity.Result; import com.javaweb.utils.AliyunOSSUtils; import lombok.extern.slf4j.Slf4j; import org.springframework.web.bind.annotation.PostMapping; import org.springframework.web.bind.annotation.RestController; import org.springframework.web.multipart.MultipartFile; @Slf4j @RestController public class UploadController { private final String bucketName = \"steamedfish-javaweb-tlias\"; private final String endpoint = \"https://oss-cn-hangzhou.aliyuncs.com/\"; /** * 文件上传 * @param file * @return */ @PostMapping(\"upload\") public Result upload(MultipartFile file) throws Exception { //1.获取原始文件名，截取后缀 String originalFilename = file.getOriginalFilename(); log.info(\"原始文件名：{}\",originalFilename); String extName = originalFilename.substring(originalFilename.lastIndexOf(\".\")); //2.调用阿里云OSS工具类，上传文件 String url = AliyunOSSUtils.upload(endpoint, bucketName, file.getBytes(), extName); //3.返回图片访问路径 return Result.success(url); } } 进行前后端联调测试，图片正常回显 配置文件 参数配置化 指将一些需要灵活变化的参数，配置在配置文件中。 @Value注解通常用于外部配置的属性注入，具体用法为：@Value（\"${配置文件中的key}\"） yml/yaml配置文件 SpringBoot项目提供了多种属性配置方式 常见配置文件的格式对比 格式： 数值前边必须有空格，作为分隔符 使用缩进表示层级关系，缩进时，不允许使用Tab键，只能用空格（idea中会自动将Tab转换为空格） 缩进的空格数目不重要，只要相同层级的元素左侧对齐即可 # 表示注释，从这个字符一直到行尾，都会被解析器忽略 定义对象/Map集合 定义数组/List/Set集合： 信息\n⚠️注意：在yml格式的配置文件中，如果配置项的值是以 0 开头的，值需要使用 ''引用，因为以 0 开头的的数据在yml中表示八进制的数据\n@ConfigurationProperties 使用@Value注解注入配置文件的配置项，如果配置项多，注入繁琐，不便于 维护管理 和 复用 @ConfigurationProperties：批量将多个属性注入到Bean对象中 如果属性较少，建议用@Value注入即可\n如果属性较多，考虑复用，建议使用@ConfigurationProperties\n代码实现 AliOSSProperties.java package com.javaweb.entity; import lombok.Data; import org.springframework.boot.context.properties.ConfigurationProperties; import org.springframework.stereotype.Component; /** * 配置类 */ @Data @Component @ConfigurationProperties(prefix = \"aliyun.oss\") public class AliOSSProperties { private String endpoint; private String bucketName; } UploadController.java package com.javaweb.controller; import com.javaweb.entity.AliOSSProperties; import com.javaweb.entity.Result; import com.javaweb.utils.AliyunOSSUtils; import lombok.extern.slf4j.Slf4j; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.web.bind.annotation.PostMapping; import org.springframework.web.bind.annotation.RestController; import org.springframework.web.multipart.MultipartFile; @Slf4j @RestController public class UploadController { // private final String bucketName = \"steamedfish-javaweb-tlias\"; // private final String endpoint = \"https://oss-cn-hangzhou.aliyuncs.com/\"; // @Value(\"${aliyun.oss.endpoint}\") // private String endpoint;//oss上桶对应的域名 // @Value(\"${aliyun.oss.bucketname}\") // private String bucketName;//oss上的桶空间名 @Autowired private AliOSSProperties aliOSSProperties; /** * 文件上传 * @param file * @return */ @PostMapping(\"upload\") public Result upload(MultipartFile file) throws Exception { //1.获取原始文件名，截取后缀 String originalFilename = file.getOriginalFilename(); log.info(\"原始文件名：{}\",originalFilename); String extName = originalFilename.substring(originalFilename.lastIndexOf(\".\")); //2.调用阿里云OSS工具类，上传文件 String url = AliyunOSSUtils.upload(aliOSSProperties.getEndpoint(), aliOSSProperties.getBucketName(), file.getBytes(), extName); //3.返回图片访问路径 return Result.success(url); } } application.yml spring: application: name: tlias-management datasource: driver-class-name: com.mysql.cj.jdbc.Driver url: jdbc:mysql://localhost:3306/tlias username: root #0开头必须加 '' password: 20030420 servlet: multipart: #单个文件最大上传限制，默认1MB max-file-size: 10MB #单次请求所有文件最大可上传的总大小，默认10MB max-request-size: 100MB #mybatis配置 mybatis: configuration: #配置SQL日志输出在控制台 log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #驼峰命名规则映射 map-underscore-to-camel-case: true #开启spring事务管理的debug级别日志 logging: level: org: springframework: jdbc: support: JdbcTransactionManager: debug #自定义配置 aliyun: oss: endpoint: https://oss-cn-hangzhou.aliyuncs.com/ bucketname: steamedfish-javaweb-tlias ",
+  "wordCount" : "3675",
   "inLanguage": "zh",
   "datePublished": "2025-12-01T16:46:01+08:00",
-  "dateModified": "2025-12-01T16:55:49.73064032Z",
+  "dateModified": "2025-12-03T16:07:51.028239089Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/"
@@ -386,7 +386,7 @@
 
 
 
-<span title='2025-12-01 16:46:01 +0800 +0800'>2025-12-01</span>&nbsp;·&nbsp;<span>6 分钟</span>
+<span title='2025-12-01 16:46:01 +0800 +0800'>2025-12-01</span>&nbsp;·&nbsp;<span title='2025-12-03 16:07:51.028239089 +0000 UTC'>(最后修改于 2025-12-03)</span>&nbsp;·&nbsp;<span>8 分钟</span>
 
 </div>
   </header> <div class="toc">
@@ -441,8 +441,19 @@
                 </li></ul>
                 </li>
                 <li>
-                    <a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6" aria-label="配置文件">配置文件</a>
+                    <a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6" aria-label="配置文件">配置文件</a><ul>
+                        
+                <li>
+                    <a href="#%e5%8f%82%e6%95%b0%e9%85%8d%e7%bd%ae%e5%8c%96" aria-label="参数配置化">参数配置化</a></li>
+                <li>
+                    <a href="#ymlyaml%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6" aria-label="yml/yaml配置文件">yml/yaml配置文件</a></li>
+                <li>
+                    <a href="#configurationproperties" aria-label="@ConfigurationProperties">@ConfigurationProperties</a></li>
+                <li>
+                    <a href="#%e4%bb%a3%e7%a0%81%e5%ae%9e%e7%8e%b0" aria-label="代码实现">代码实现</a>
                 </li>
+            </ul>
+            </li>
             </ul>
         </div>
     </details>
@@ -1953,19 +1964,417 @@
 </p>
 <hr>
 <h2 id="配置文件">配置文件<a hidden class="anchor" aria-hidden="true" href="#配置文件">#</a></h2>
+<h3 id="参数配置化">参数配置化<a hidden class="anchor" aria-hidden="true" href="#参数配置化">#</a></h3>
+<ul>
+<li>指将一些需要灵活变化的参数，配置在配置文件中。
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/24.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/24.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/24.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+<code>@Value</code>注解通常用于外部配置的属性注入，具体用法为：<code>@Value（&quot;${配置文件中的key}&quot;）</code></li>
+</ul>
+<hr>
+<h3 id="ymlyaml配置文件">yml/yaml配置文件<a hidden class="anchor" aria-hidden="true" href="#ymlyaml配置文件">#</a></h3>
+<ul>
+<li>SpringBoot项目提供了多种属性配置方式
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/25.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/25.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/25.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</li>
+<li>常见配置文件的格式对比
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/26.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/26.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/26.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</li>
+<li>格式：
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/27.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/27.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/27.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+<ul>
+<li>数值前边必须有空格，作为分隔符</li>
+<li>使用缩进表示层级关系，缩进时，不允许使用Tab键，只能用空格（idea中会自动将Tab转换为空格）</li>
+<li>缩进的空格数目不重要，只要相同层级的元素左侧对齐即可</li>
+<li><code>#</code> 表示注释，从这个字符一直到行尾，都会被解析器忽略</li>
+</ul>
+</li>
+<li>定义对象/Map集合
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/28.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/28.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/28.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</li>
+<li>定义数组/List/Set集合：
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/29.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/29.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/29.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+<div class="notice info" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+        </span>信息</p><p>⚠️注意：在yml格式的配置文件中，如果配置项的值是以 0 开头的，值需要使用 <code>''</code>引用，因为以 0 开头的的数据在yml中表示八进制的数据</p></div></li>
+</ul>
+<hr>
+<h3 id="configurationproperties">@ConfigurationProperties<a hidden class="anchor" aria-hidden="true" href="#configurationproperties">#</a></h3>
+<ul>
+<li>
+<p>使用<code>@Value</code>注解注入配置文件的配置项，<strong>如果配置项多</strong>，<strong>注入繁琐</strong>，不便于 <strong>维护管理</strong> 和 <strong>复用</strong>
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/30.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/30.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/30.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+</li>
+<li>
+<p><code>@ConfigurationProperties</code>：批量将多个属性注入到Bean对象中
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-15-springboot-tlias4/index.md"
+    href="/post/java-web/javaweb-15-springboot-tlias4/31.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-15-springboot-tlias4/31.webp"
+      srcset="/post/java-web/javaweb-15-springboot-tlias4/31.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+</li>
+<li>
+<p>如果属性较少，建议用<code>@Value</code>注入即可</p>
+</li>
+<li>
+<p>如果属性较多，考虑复用，建议使用<code>@ConfigurationProperties</code></p>
+</li>
+</ul>
+<hr>
+<h3 id="代码实现">代码实现<a hidden class="anchor" aria-hidden="true" href="#代码实现">#</a></h3>
+<ul>
+<li><code>AliOSSProperties.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb.entity</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.Data</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.boot.context.properties.ConfigurationProperties</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.stereotype.Component</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 配置类
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Component</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@ConfigurationProperties</span><span class="p">(</span><span class="n">prefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;aliyun.oss&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">AliOSSProperties</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">endpoint</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">bucketName</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>UploadController.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb.controller</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.AliOSSProperties</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.Result</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.utils.AliyunOSSUtils</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.extern.slf4j.Slf4j</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.bind.annotation.PostMapping</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.multipart.MultipartFile</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Slf4j</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@RestController</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UploadController</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//    private final String bucketName = &#34;steamedfish-javaweb-tlias&#34;;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//    private final String endpoint = &#34;https://oss-cn-hangzhou.aliyuncs.com/&#34;;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//    @Value(&#34;${aliyun.oss.endpoint}&#34;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//    private String endpoint;//oss上桶对应的域名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//    @Value(&#34;${aliyun.oss.bucketname}&#34;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//    private String bucketName;//oss上的桶空间名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">AliOSSProperties</span><span class="w"> </span><span class="n">aliOSSProperties</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 文件上传
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param file
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@PostMapping</span><span class="p">(</span><span class="s">&#34;upload&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">upload</span><span class="p">(</span><span class="n">MultipartFile</span><span class="w"> </span><span class="n">file</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//1.获取原始文件名，截取后缀</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">originalFilename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="na">getOriginalFilename</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;原始文件名：{}&#34;</span><span class="p">,</span><span class="n">originalFilename</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">extName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">originalFilename</span><span class="p">.</span><span class="na">substring</span><span class="p">(</span><span class="n">originalFilename</span><span class="p">.</span><span class="na">lastIndexOf</span><span class="p">(</span><span class="s">&#34;.&#34;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//2.调用阿里云OSS工具类，上传文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AliyunOSSUtils</span><span class="p">.</span><span class="na">upload</span><span class="p">(</span><span class="n">aliOSSProperties</span><span class="p">.</span><span class="na">getEndpoint</span><span class="p">(),</span><span class="w"> </span><span class="n">aliOSSProperties</span><span class="p">.</span><span class="na">getBucketName</span><span class="p">(),</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="na">getBytes</span><span class="p">(),</span><span class="w"> </span><span class="n">extName</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//3.返回图片访问路径</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="n">url</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>application.yml</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">application</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">tlias-management</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">datasource</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">driver-class-name</span><span class="p">:</span><span class="w"> </span><span class="l">com.mysql.cj.jdbc.Driver</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">jdbc:mysql://localhost:3306/tlias</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c">#0开头必须加 &#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="m">20030420</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">servlet</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">multipart</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c">#单个文件最大上传限制，默认1MB</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">max-file-size</span><span class="p">:</span><span class="w"> </span><span class="l">10MB</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c">#单次请求所有文件最大可上传的总大小，默认10MB</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">max-request-size</span><span class="p">:</span><span class="w"> </span><span class="l">100MB</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#mybatis配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">mybatis</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">configuration</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c">#配置SQL日志输出在控制台</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">log-impl</span><span class="p">:</span><span class="w"> </span><span class="l">org.apache.ibatis.logging.stdout.StdOutImpl</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c">#驼峰命名规则映射</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">map-underscore-to-camel-case</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#开启spring事务管理的debug级别日志</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">logging</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">org</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">springframework</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">jdbc</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">support</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">JdbcTransactionManager</span><span class="p">:</span><span class="w"> </span><span class="l">debug</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#自定义配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">aliyun</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">oss</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l">https://oss-cn-hangzhou.aliyuncs.com/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">bucketname</span><span class="p">:</span><span class="w"> </span><span class="l">steamedfish-javaweb-tlias</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
 
 
   </div>
 
   <footer class="post-footer">
     <ul class="post-tags">
+      <li><a href="https://www.steamedfish.top/tags/acid/">ACID</a></li>
       <li><a href="https://www.steamedfish.top/tags/javaweb/">JavaWeb</a></li>
       <li><a href="https://www.steamedfish.top/tags/mysql/">MySQL</a></li>
       <li><a href="https://www.steamedfish.top/tags/springboot%E6%A1%86%E6%9E%B6/">SpringBoot框架</a></li>
       <li><a href="https://www.steamedfish.top/tags/tlias/">Tlias</a></li>
       <li><a href="https://www.steamedfish.top/tags/%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86/">事务管理</a></li>
+      <li><a href="https://www.steamedfish.top/tags/%E5%8A%A8%E6%80%81sql/">动态SQL</a></li>
       <li><a href="https://www.steamedfish.top/tags/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/">实战项目</a></li>
-      <li><a href="https://www.steamedfish.top/tags/acid/">ACID</a></li>
+      <li><a href="https://www.steamedfish.top/tags/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">配置文件</a></li>
     </ul>
   </footer>
 </article>
