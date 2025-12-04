@@ -7,13 +7,13 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sat, 22 Nov 2025 22:47:47 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 22 Nov 2025 22:47:47 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/categories/todo/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>杂谈 | 建站日记 | 待办</title>
-      <link>https://www.steamedfish.top/post/hugo-log/2025-11-15-log/</link>
+      <title>杂谈 | 待办</title>
+      <link>https://www.steamedfish.top/post/hugo-log/todo/</link>
       <pubDate>Sat, 15 Nov 2025 16:21:01 +0000</pubDate>
-      <guid>https://www.steamedfish.top/post/hugo-log/2025-11-15-log/</guid>
+      <guid>https://www.steamedfish.top/post/hugo-log/todo/</guid>
       <description>&lt;p&gt;近来每天都很累&lt;/p&gt;
 &lt;p&gt;真的太忙了&lt;/p&gt;
 &lt;p&gt;昨天学习完后又折腾博客到深夜，细心的朋友应该发现了我新添加的&lt;code&gt;lastmod&lt;/code&gt;，这玩意的bug还挺难搞 &lt;br&gt;

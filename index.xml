@@ -9,6 +9,36 @@
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <atom:link href="https://www.steamedfish.top/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>【建站日志】hugo为文章添加最后修改日期</title>
+      <link>https://www.steamedfish.top/post/hugo-log/lastmod/</link>
+      <pubDate>Fri, 05 Dec 2025 03:06:19 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/hugo-log/lastmod/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.steamedfish.top/post/hugo-log/todo/&#34;&gt;杂谈 | 待办&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;lastmod功能已经上线半个多月了，但碍于有些bug，一直没有写这篇日志。&lt;/p&gt;
+&lt;p&gt;今天终于抽出空来把bug修完，这里直接给出成品，有需要的朋友可以直接拿走  &lt;br&gt;
+希望对你有帮助&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;实现过程&#34;&gt;实现过程&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;修改hugo配置文件
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ...省略其他配置&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;enableGitInfo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;#允许访问git信息&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;timeZone&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Asia/Shanghai&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 设置时区&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;frontmatter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;lastmod&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;lastmod&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;- &lt;span class=&#34;s2&#34;&gt;&amp;#34;:git&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;- &lt;span class=&#34;s2&#34;&gt;&amp;#34;:fileModTime&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这里我们的lastmod优先级：手动设置的lastmod字段 ＞ git最后修改日期 ＞ 文件最后修改日期 ＞ 文章发表日期&lt;br&gt;
+并且允许hugo访问git信息来读取git提交日期，我们不必在文章元数据中手动写lastmod字段，它能根据我们的git提交日期来自动读取最后修改时间&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Javaweb——(18)SpringBoot实战·Tlias智能学习辅助系统·学员管理</title>
       <link>https://www.steamedfish.top/post/java-web/javaweb-18-springboot-tlias7/</link>
       <pubDate>Thu, 04 Dec 2025 23:52:08 +0800</pubDate>
@@ -1686,10 +1716,10 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
         &lt;/span&gt;信息&lt;/p&gt;</description>
     </item>
     <item>
-      <title>杂谈 | 建站日记 | 待办</title>
-      <link>https://www.steamedfish.top/post/hugo-log/2025-11-15-log/</link>
+      <title>杂谈 | 待办</title>
+      <link>https://www.steamedfish.top/post/hugo-log/todo/</link>
       <pubDate>Sat, 15 Nov 2025 16:21:01 +0000</pubDate>
-      <guid>https://www.steamedfish.top/post/hugo-log/2025-11-15-log/</guid>
+      <guid>https://www.steamedfish.top/post/hugo-log/todo/</guid>
       <description>&lt;p&gt;近来每天都很累&lt;/p&gt;
 &lt;p&gt;真的太忙了&lt;/p&gt;
 &lt;p&gt;昨天学习完后又折腾博客到深夜，细心的朋友应该发现了我新添加的&lt;code&gt;lastmod&lt;/code&gt;，这玩意的bug还挺难搞 &lt;br&gt;

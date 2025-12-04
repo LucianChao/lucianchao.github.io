@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>【建站日志】hugo为文章添加最后修改日期 | SteamedFish&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="前言
+
+杂谈 | 待办
+
+lastmod功能已经上线半个多月了，但碍于有些bug，一直没有写这篇日志。
+今天终于抽出空来把bug修完，这里直接给出成品，有需要的朋友可以直接拿走  
+希望对你有帮助
+
+实现过程
+
+修改hugo配置文件
+# ...省略其他配置
+enableGitInfo: true #允许访问git信息
+timeZone: Asia/Shanghai # 设置时区
+frontmatter:
+  lastmod:
+    - lastmod
+    - &#34;:git&#34;
+    - &#34;:fileModTime&#34;
+    - date
+
+
+这里我们的lastmod优先级：手动设置的lastmod字段 ＞ git最后修改日期 ＞ 文件最后修改日期 ＞ 文章发表日期
+并且允许hugo访问git信息来读取git提交日期，我们不必在文章元数据中手动写lastmod字段，它能根据我们的git提交日期来自动读取最后修改时间">
+<meta name="author" content="">
+<link rel="canonical" href="https://www.steamedfish.top/post/hugo-log/lastmod/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cab4f9d994f2a3255820d3e121c622d3d605f1bd1c99b2830f4fd817aa7dc924.css" integrity="sha256-yrT52ZTyoyVYINPhIcYi09YF8b0cmbKDD0/YF6p9ySQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
+<link rel="apple-touch-icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="mask-icon" href="https://www.steamedfish.top/favicon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://www.steamedfish.top/post/hugo-log/lastmod/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+
+
+<link
+  href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-web/style.css"
+  rel="stylesheet"
+/>
+<meta property="og:url" content="https://www.steamedfish.top/post/hugo-log/lastmod/">
+  <meta property="og:site_name" content="SteamedFish&#39;s Blog">
+  <meta property="og:title" content="【建站日志】hugo为文章添加最后修改日期">
+  <meta property="og:description" content="前言 杂谈 | 待办
+lastmod功能已经上线半个多月了，但碍于有些bug，一直没有写这篇日志。
+今天终于抽出空来把bug修完，这里直接给出成品，有需要的朋友可以直接拿走 希望对你有帮助
+实现过程 修改hugo配置文件 # ...省略其他配置 enableGitInfo: true #允许访问git信息 timeZone: Asia/Shanghai # 设置时区 frontmatter: lastmod: - lastmod - &#34;:git&#34; - &#34;:fileModTime&#34; - date 这里我们的lastmod优先级：手动设置的lastmod字段 ＞ git最后修改日期 ＞ 文件最后修改日期 ＞ 文章发表日期
+并且允许hugo访问git信息来读取git提交日期，我们不必在文章元数据中手动写lastmod字段，它能根据我们的git提交日期来自动读取最后修改时间">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-12-05T03:06:19+08:00">
+    <meta property="article:modified_time" content="2025-12-05T04:33:44+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【建站日志】hugo为文章添加最后修改日期">
+<meta name="twitter:description" content="前言
+
+杂谈 | 待办
+
+lastmod功能已经上线半个多月了，但碍于有些bug，一直没有写这篇日志。
+今天终于抽出空来把bug修完，这里直接给出成品，有需要的朋友可以直接拿走  
+希望对你有帮助
+
+实现过程
+
+修改hugo配置文件
+# ...省略其他配置
+enableGitInfo: true #允许访问git信息
+timeZone: Asia/Shanghai # 设置时区
+frontmatter:
+  lastmod:
+    - lastmod
+    - &#34;:git&#34;
+    - &#34;:fileModTime&#34;
+    - date
+
+
+这里我们的lastmod优先级：手动设置的lastmod字段 ＞ git最后修改日期 ＞ 文件最后修改日期 ＞ 文章发表日期
+并且允许hugo访问git信息来读取git提交日期，我们不必在文章元数据中手动写lastmod字段，它能根据我们的git提交日期来自动读取最后修改时间">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.steamedfish.top/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "【建站日志】hugo为文章添加最后修改日期",
+      "item": "https://www.steamedfish.top/post/hugo-log/lastmod/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【建站日志】hugo为文章添加最后修改日期",
+  "name": "【建站日志】hugo为文章添加最后修改日期",
+  "description": "前言 杂谈 | 待办\nlastmod功能已经上线半个多月了，但碍于有些bug，一直没有写这篇日志。\n今天终于抽出空来把bug修完，这里直接给出成品，有需要的朋友可以直接拿走 希望对你有帮助\n实现过程 修改hugo配置文件 # ...省略其他配置 enableGitInfo: true #允许访问git信息 timeZone: Asia/Shanghai # 设置时区 frontmatter: lastmod: - lastmod - \u0026#34;:git\u0026#34; - \u0026#34;:fileModTime\u0026#34; - date 这里我们的lastmod优先级：手动设置的lastmod字段 ＞ git最后修改日期 ＞ 文件最后修改日期 ＞ 文章发表日期\n并且允许hugo访问git信息来读取git提交日期，我们不必在文章元数据中手动写lastmod字段，它能根据我们的git提交日期来自动读取最后修改时间\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "前言 杂谈 | 待办\nlastmod功能已经上线半个多月了，但碍于有些bug，一直没有写这篇日志。\n今天终于抽出空来把bug修完，这里直接给出成品，有需要的朋友可以直接拿走 希望对你有帮助\n实现过程 修改hugo配置文件 # ...省略其他配置 enableGitInfo: true #允许访问git信息 timeZone: Asia/Shanghai # 设置时区 frontmatter: lastmod: - lastmod - \":git\" - \":fileModTime\" - date 这里我们的lastmod优先级：手动设置的lastmod字段 ＞ git最后修改日期 ＞ 文件最后修改日期 ＞ 文章发表日期\n并且允许hugo访问git信息来读取git提交日期，我们不必在文章元数据中手动写lastmod字段，它能根据我们的git提交日期来自动读取最后修改时间\n作者平时写文章会用到一个叫做frontmatter的vscode插件 它能帮我们生成文章元数据，但它生成的时间有时是UTC时间，并且github也使用的是UTC（世界标准时间） 而我们在东八区。 所以还需要设置时区来让hugo帮我们优化时间保证无论是date还是lastmod都会在被构建时转化为UTC+8时间\n修改PaperMod的post_meta.html或者直接新建layouts\\partials\\post_meta.html {{/* 动态渲染文章的元信息行 */}} {{/* 特点： */}} {{/* 日期、阅读时间、字数、作者统一收集 */}} {{/* 支持国际化（i18n） */}} {{/* 自动用 · 分隔各项 */}} {{/* 可通过页面参数控制显示（ShowReadingTime、ShowWordCount、hideAuthor 等） */}} {{ $date := .Date.Format \"02.01.2006\" }} {{ $lastmod := .Lastmod.Format \"02.01.2006\" }} {{- $scratch := newScratch }} {{- if not .Date.IsZero -}} {{- $scratch.Add \"meta\" (slice (printf \"%s\" (.Date) (.Date | time.Format (default \":date_long\" site.Params.DateFormat)))) }} {{- end }} {{- if ne $lastmod $date -}} {{- $scratch.Add \"meta\" (slice (printf \"(最后修改于 %s)\" (.Lastmod) (.Lastmod | time.Format (default \"January 2, 2006\" site.Params.DateFormat)))) }} {{- end }} {{- if (.Param \"ShowReadingTime\") -}} {{- $scratch.Add \"meta\" (slice (printf \"%s\" (i18n \"read_time\" .ReadingTime | default (printf \"%d min\" .ReadingTime)))) }} {{- end }} {{- if (.Param \"ShowWordCount\") -}} {{- $scratch.Add \"meta\" (slice (printf \"%s\" (i18n \"words\" .WordCount | default (printf \"%d words\" .WordCount)))) }} {{- end }} {{- if not (.Param \"hideAuthor\") -}} {{- with (partial \"author.html\" .) }} {{- $scratch.Add \"meta\" (slice (printf \"%s\" .)) }} {{- end }} {{- end }} {{- with ($scratch.Get \"meta\") }} {{- delimit . \"\u0026nbsp;·\u0026nbsp;\" | safeHTML -}} {{- end -}} 为文章的元数据添加lastmod字段\n使用方法如下：\n可以手动在文章元数据中添加lastmod字段 --- date: 2025-11-15T16:21:01.473Z lastmod: 2025-11-22T22:47:47.473Z draft: false title: 杂谈 | 待办 tags: [] categories: - ToDo - 建站日志 series: \"\" --- 也可以不设置lastmod，根据git提交时间来确定最后修改日期 +++ date = \"2025-12-05T03:06:19+08:00\" draft = false title = '【建站日志】hugo为文章添加最后修改日期' slug = 'Lastmod' +++ ",
+  "wordCount" : "964",
+  "inLanguage": "zh",
+  "datePublished": "2025-12-05T03:06:19+08:00",
+  "dateModified": "2025-12-05T04:33:44+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.steamedfish.top/post/hugo-log/lastmod/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SteamedFish's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.steamedfish.top/favicon.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://www.steamedfish.top/" accesskey="h" title="SteamedFish&#39;s Blog (Alt + H)">SteamedFish&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                    <ul class="lang-switch"><li>|</li>
+                        <li>
+                            <a href="https://www.steamedfish.top/en/" title="English"
+                                aria-label="English">En</a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://www.steamedfish.top/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      【建站日志】hugo为文章添加最后修改日期
+    </h1>
+    <div class="post-meta">
+
+
+
+
+
+
+<span title='2025-12-05 03:06:19 +0800 +0800'>2025-12-05</span>&nbsp;·&nbsp;<span>2 分钟</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%89%8d%e8%a8%80" aria-label="前言">前言</a></li>
+                <li>
+                    <a href="#%e5%ae%9e%e7%8e%b0%e8%bf%87%e7%a8%8b" aria-label="实现过程">实现过程</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="前言">前言<a hidden class="anchor" aria-hidden="true" href="#前言">#</a></h2>
+<blockquote>
+<p><a href="https://www.steamedfish.top/post/hugo-log/todo/">杂谈 | 待办</a></p>
+</blockquote>
+<p>lastmod功能已经上线半个多月了，但碍于有些bug，一直没有写这篇日志。</p>
+<p>今天终于抽出空来把bug修完，这里直接给出成品，有需要的朋友可以直接拿走  <br>
+希望对你有帮助</p>
+<hr>
+<h2 id="实现过程">实现过程<a hidden class="anchor" aria-hidden="true" href="#实现过程">#</a></h2>
+<ol>
+<li>修改hugo配置文件
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># ...省略其他配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">enableGitInfo</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c">#允许访问git信息</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">timeZone</span><span class="p">:</span><span class="w"> </span><span class="l">Asia/Shanghai</span><span class="w"> </span><span class="c"># 设置时区</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">frontmatter</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">lastmod</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">lastmod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;:git&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;:fileModTime&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">date</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ol>
+<p>这里我们的lastmod优先级：手动设置的lastmod字段 ＞ git最后修改日期 ＞ 文件最后修改日期 ＞ 文章发表日期<br>
+并且允许hugo访问git信息来读取git提交日期，我们不必在文章元数据中手动写lastmod字段，它能根据我们的git提交日期来自动读取最后修改时间</p>
+<p>作者平时写文章会用到一个叫做frontmatter的vscode插件  <br>
+它能帮我们生成文章元数据，但它生成的时间有时是UTC时间，并且github也使用的是UTC（世界标准时间）   <br>
+而我们在东八区。
+所以还需要设置时区来让hugo帮我们优化时间保证无论是<code>date</code>还是<code>lastmod</code>都会在被构建时转化为UTC+8时间</p>
+<ol>
+<li>修改PaperMod的<code>post_meta.html</code>或者直接新建<code>layouts\partials\post_meta.html</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="p">{{</span><span class="cm">/*  动态渲染文章的元信息行  */</span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="cm">/*  特点：  */</span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="cm">/*  日期、阅读时间、字数、作者统一收集  */</span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="cm">/*  支持国际化（i18n）  */</span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="cm">/*  自动用 · 分隔各项  */</span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="cm">/*  可通过页面参数控制显示（ShowReadingTime、ShowWordCount、hideAuthor 等）  */</span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="w"> </span><span class="err">$</span><span class="nx">date</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">.</span><span class="nx">Date</span><span class="p">.</span><span class="nx">Format</span><span class="w"> </span><span class="s">&#34;02.01.2006&#34;</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="w"> </span><span class="err">$</span><span class="nx">lastmod</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">.</span><span class="nx">Lastmod</span><span class="p">.</span><span class="nx">Format</span><span class="w"> </span><span class="s">&#34;02.01.2006&#34;</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="err">$</span><span class="nx">scratch</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">newScratch</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">not</span><span class="w"> </span><span class="p">.</span><span class="nx">Date</span><span class="p">.</span><span class="nx">IsZero</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="err">$</span><span class="nx">scratch</span><span class="p">.</span><span class="nx">Add</span><span class="w"> </span><span class="s">&#34;meta&#34;</span><span class="w"> </span><span class="p">(</span><span class="nf">slice</span><span class="w"> </span><span class="p">(</span><span class="nx">printf</span><span class="w"> </span><span class="s">&#34;&lt;span title=&#39;%s&#39;&gt;%s&lt;/span&gt;&#34;</span><span class="w"> </span><span class="p">(.</span><span class="nx">Date</span><span class="p">)</span><span class="w"> </span><span class="p">(.</span><span class="nx">Date</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nf">Format</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="w"> </span><span class="s">&#34;:date_long&#34;</span><span class="w"> </span><span class="nx">site</span><span class="p">.</span><span class="nx">Params</span><span class="p">.</span><span class="nx">DateFormat</span><span class="p">))))</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">ne</span><span class="w"> </span><span class="err">$</span><span class="nx">lastmod</span><span class="w"> </span><span class="err">$</span><span class="nx">date</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="err">$</span><span class="nx">scratch</span><span class="p">.</span><span class="nx">Add</span><span class="w"> </span><span class="s">&#34;meta&#34;</span><span class="w"> </span><span class="p">(</span><span class="nf">slice</span><span class="w"> </span><span class="p">(</span><span class="nx">printf</span><span class="w"> </span><span class="s">&#34;&lt;span title=&#39;%s&#39;&gt;(最后修改于 %s)&lt;/span&gt;&#34;</span><span class="w"> </span><span class="p">(.</span><span class="nx">Lastmod</span><span class="p">)</span><span class="w"> </span><span class="p">(.</span><span class="nx">Lastmod</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nf">Format</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="w"> </span><span class="s">&#34;January 2, 2006&#34;</span><span class="w"> </span><span class="nx">site</span><span class="p">.</span><span class="nx">Params</span><span class="p">.</span><span class="nx">DateFormat</span><span class="p">))))</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(.</span><span class="nx">Param</span><span class="w"> </span><span class="s">&#34;ShowReadingTime&#34;</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="err">$</span><span class="nx">scratch</span><span class="p">.</span><span class="nx">Add</span><span class="w"> </span><span class="s">&#34;meta&#34;</span><span class="w"> </span><span class="p">(</span><span class="nf">slice</span><span class="w"> </span><span class="p">(</span><span class="nx">printf</span><span class="w"> </span><span class="s">&#34;&lt;span&gt;%s&lt;/span&gt;&#34;</span><span class="w"> </span><span class="p">(</span><span class="nx">i18n</span><span class="w"> </span><span class="s">&#34;read_time&#34;</span><span class="w"> </span><span class="p">.</span><span class="nx">ReadingTime</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="p">(</span><span class="nx">printf</span><span class="w"> </span><span class="s">&#34;%d min&#34;</span><span class="w"> </span><span class="p">.</span><span class="nx">ReadingTime</span><span class="p">))))</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(.</span><span class="nx">Param</span><span class="w"> </span><span class="s">&#34;ShowWordCount&#34;</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="err">$</span><span class="nx">scratch</span><span class="p">.</span><span class="nx">Add</span><span class="w"> </span><span class="s">&#34;meta&#34;</span><span class="w"> </span><span class="p">(</span><span class="nf">slice</span><span class="w"> </span><span class="p">(</span><span class="nx">printf</span><span class="w"> </span><span class="s">&#34;&lt;span&gt;%s&lt;/span&gt;&#34;</span><span class="w"> </span><span class="p">(</span><span class="nx">i18n</span><span class="w"> </span><span class="s">&#34;words&#34;</span><span class="w"> </span><span class="p">.</span><span class="nx">WordCount</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="p">(</span><span class="nx">printf</span><span class="w"> </span><span class="s">&#34;%d words&#34;</span><span class="w"> </span><span class="p">.</span><span class="nx">WordCount</span><span class="p">))))</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nf">not</span><span class="w"> </span><span class="p">(.</span><span class="nx">Param</span><span class="w"> </span><span class="s">&#34;hideAuthor&#34;</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="nf">with</span><span class="w"> </span><span class="p">(</span><span class="nx">partial</span><span class="w"> </span><span class="s">&#34;author.html&#34;</span><span class="w"> </span><span class="p">.)</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="err">$</span><span class="nx">scratch</span><span class="p">.</span><span class="nx">Add</span><span class="w"> </span><span class="s">&#34;meta&#34;</span><span class="w"> </span><span class="p">(</span><span class="nf">slice</span><span class="w"> </span><span class="p">(</span><span class="nx">printf</span><span class="w"> </span><span class="s">&#34;&lt;span&gt;%s&lt;/span&gt;&#34;</span><span class="w"> </span><span class="p">.))</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="nf">with</span><span class="w"> </span><span class="p">(</span><span class="err">$</span><span class="nx">scratch</span><span class="p">.</span><span class="nx">Get</span><span class="w"> </span><span class="s">&#34;meta&#34;</span><span class="p">)</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="nx">delimit</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="s">&#34;&amp;nbsp;·&amp;nbsp;&#34;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nx">safeHTML</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ol>
+<p>为文章的元数据添加lastmod字段</p>
+<hr>
+<p>使用方法如下：</p>
+<ul>
+<li>可以手动在文章元数据中添加lastmod字段
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="ld">2025-11-15T16:21:01.473Z</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">lastmod</span><span class="p">:</span><span class="w"> </span><span class="ld">2025-11-22T22:47:47.473Z</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">draft</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">杂谈 | 待办</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">categories</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">ToDo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">建站日志</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">series</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>也可以不设置lastmod，根据git提交时间来确定最后修改日期
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="err">+++</span>
+</span></span><span class="line"><span class="cl"><span class="nx">date</span> <span class="p">=</span> <span class="s2">&#34;2025-12-05T03:06:19+08:00&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">draft</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="nx">title</span> <span class="p">=</span> <span class="s1">&#39;【建站日志】hugo为文章添加最后修改日期&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">slug</span> <span class="p">=</span> <span class="s1">&#39;Lastmod&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="err">+++</span>
+</span></span></code></pre></div></li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span><a href="https://www.steamedfish.top/">©2025 SteamedFish&rsquo;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+
+
+
+
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    Fancybox.bind("[data-fancybox]", {
+      animated: true,                  
+      showClass: 'fancybox-fadeIn',    
+      hideClass: 'fancybox-fadeOut',   
+      dragToClose: true                 
+    });
+  });
+</script>
+
+
+
+
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
