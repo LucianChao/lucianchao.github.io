@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工部门开发 | SteamedFish&#39;s Blog</title>
+<title>Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工系统开发 | SteamedFish&#39;s Blog</title>
 <meta name="keywords" content="SpringBoot框架, 动态SQL, 实战项目, JavaWeb">
 <meta name="description" content="删除员工
 分析
@@ -137,7 +137,7 @@ EmpService.java">
 />
 <meta property="og:url" content="https://www.steamedfish.top/post/java-web/javaweb-16-springboot-tlias5/">
   <meta property="og:site_name" content="SteamedFish&#39;s Blog">
-  <meta property="og:title" content="Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工部门开发">
+  <meta property="og:title" content="Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工系统开发">
   <meta property="og:description" content="删除员工 分析 阅读文档——删除员工
 Controller接收请求参数 接收请求参数：
 DELETE /emps?ids=1,2,3 方式一：在Controller方法中通过数组来接收 方式二：在Controller方法中通过集合来接收 src/main/java/com/javaweb/controller/EmpController.java // public Result delete(Integer[] ids) // 通过数组即可接收前端传递的数组值 @DeleteMapping(&#34;/emps&#34;) // 通过集合类型接收前端传递的数组值，需要加注解 @RequestParam public Result delete(@RequestParam List&lt;Integer&gt; ids) { log.info(&#34;ids = {}&#34;, ids); empService.delete(ids); return Result.success(); } } Service &amp; Mapper EmpService.java">
@@ -145,13 +145,13 @@ DELETE /emps?ids=1,2,3 方式一：在Controller方法中通过数组来接收 �
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2025-12-03T18:42:34+08:00">
-    <meta property="article:modified_time" content="2025-12-03T16:07:51+00:00">
+    <meta property="article:modified_time" content="2025-12-04T15:41:08+00:00">
     <meta property="article:tag" content="SpringBoot框架">
     <meta property="article:tag" content="动态SQL">
     <meta property="article:tag" content="实战项目">
     <meta property="article:tag" content="JavaWeb">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工部门开发">
+<meta name="twitter:title" content="Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工系统开发">
 <meta name="twitter:description" content="删除员工
 分析
 
@@ -241,7 +241,7 @@ EmpService.java">
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工部门开发",
+      "name": "Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工系统开发",
       "item": "https://www.steamedfish.top/post/java-web/javaweb-16-springboot-tlias5/"
     }
   ]
@@ -251,8 +251,8 @@ EmpService.java">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工部门开发",
-  "name": "Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工部门开发",
+  "headline": "Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工系统开发",
+  "name": "Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工系统开发",
   "description": "删除员工 分析 阅读文档——删除员工\nController接收请求参数 接收请求参数：\nDELETE /emps?ids=1,2,3 方式一：在Controller方法中通过数组来接收 方式二：在Controller方法中通过集合来接收 src/main/java/com/javaweb/controller/EmpController.java // public Result delete(Integer[] ids) // 通过数组即可接收前端传递的数组值 @DeleteMapping(\u0026#34;/emps\u0026#34;) // 通过集合类型接收前端传递的数组值，需要加注解 @RequestParam public Result delete(@RequestParam List\u0026lt;Integer\u0026gt; ids) { log.info(\u0026#34;ids = {}\u0026#34;, ids); empService.delete(ids); return Result.success(); } } Service \u0026amp; Mapper EmpService.java\n",
   "keywords": [
     "SpringBoot框架", "动态SQL", "实战项目", "JavaWeb"
@@ -261,7 +261,7 @@ EmpService.java">
   "wordCount" : "1862",
   "inLanguage": "zh",
   "datePublished": "2025-12-03T18:42:34+08:00",
-  "dateModified": "2025-12-03T16:07:51.030239078Z",
+  "dateModified": "2025-12-04T15:41:08.901711254Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/java-web/javaweb-16-springboot-tlias5/"
@@ -363,7 +363,7 @@ EmpService.java">
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://www.steamedfish.top/">主页</a>&nbsp;»&nbsp;<a href="https://www.steamedfish.top/post/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
-      Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工部门开发
+      Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工系统开发
     </h1>
     <div class="post-meta">
 
@@ -372,7 +372,7 @@ EmpService.java">
 
 
 
-<span title='2025-12-03 18:42:34 +0800 +0800'>2025-12-03</span>&nbsp;·&nbsp;<span>4 分钟</span>
+<span title='2025-12-03 18:42:34 +0800 +0800'>2025-12-03</span>&nbsp;·&nbsp;<span title='2025-12-04 15:41:08.901711254 +0000 UTC'>(最后修改于 2025-12-04)</span>&nbsp;·&nbsp;<span>4 分钟</span>
 
 </div>
   </header> <div class="toc">

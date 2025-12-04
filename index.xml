@@ -9,7 +9,16 @@
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <atom:link href="https://www.steamedfish.top/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工部门开发</title>
+      <title>Javaweb——(17)SpringBoot实战·Tlias智能学习辅助系统·班级管理</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-17-springboot-tlias6/</link>
+      <pubDate>Thu, 04 Dec 2025 16:50:12 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-17-springboot-tlias6/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;记录班级管理功能开发以及遇到的bug及解决过程&lt;br&gt;
+无论这位读者朋友是什么时候在时候看到这篇文章，跟着我一起完成这个项目，我都很鼓励您能自己先去完成它，不一定要完全开发完成，先去做，至少先把基础功能做出来，然后再来看看我的实现思路和解决bug的过程，希望能对你有帮助。如果哪天我把评论功能上线了，也可以在评论区说说你遇到的问题，共同进步💪。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工系统开发</title>
       <link>https://www.steamedfish.top/post/java-web/javaweb-16-springboot-tlias5/</link>
       <pubDate>Wed, 03 Dec 2025 18:42:34 +0800</pubDate>
       <guid>https://www.steamedfish.top/post/java-web/javaweb-16-springboot-tlias5/</guid>

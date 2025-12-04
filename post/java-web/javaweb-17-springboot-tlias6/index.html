@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Javaweb——(17)SpringBoot实战·Tlias智能学习辅助系统·班级管理 | SteamedFish&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="前言
+记录班级管理功能开发以及遇到的bug及解决过程
+无论这位读者朋友是什么时候在时候看到这篇文章，跟着我一起完成这个项目，我都很鼓励您能自己先去完成它，不一定要完全开发完成，先去做，至少先把基础功能做出来，然后再来看看我的实现思路和解决bug的过程，希望能对你有帮助。如果哪天我把评论功能上线了，也可以在评论区说说你遇到的问题，共同进步💪。">
+<meta name="author" content="">
+<link rel="canonical" href="https://www.steamedfish.top/post/java-web/javaweb-17-springboot-tlias6/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cab4f9d994f2a3255820d3e121c622d3d605f1bd1c99b2830f4fd817aa7dc924.css" integrity="sha256-yrT52ZTyoyVYINPhIcYi09YF8b0cmbKDD0/YF6p9ySQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
+<link rel="apple-touch-icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="mask-icon" href="https://www.steamedfish.top/favicon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://www.steamedfish.top/post/java-web/javaweb-17-springboot-tlias6/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+
+
+<link
+  href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-web/style.css"
+  rel="stylesheet"
+/>
+<meta property="og:url" content="https://www.steamedfish.top/post/java-web/javaweb-17-springboot-tlias6/">
+  <meta property="og:site_name" content="SteamedFish&#39;s Blog">
+  <meta property="og:title" content="Javaweb——(17)SpringBoot实战·Tlias智能学习辅助系统·班级管理">
+  <meta property="og:description" content="前言 记录班级管理功能开发以及遇到的bug及解决过程
+无论这位读者朋友是什么时候在时候看到这篇文章，跟着我一起完成这个项目，我都很鼓励您能自己先去完成它，不一定要完全开发完成，先去做，至少先把基础功能做出来，然后再来看看我的实现思路和解决bug的过程，希望能对你有帮助。如果哪天我把评论功能上线了，也可以在评论区说说你遇到的问题，共同进步💪。">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-12-04T16:50:12+08:00">
+    <meta property="article:modified_time" content="2025-12-04T15:41:08+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javaweb——(17)SpringBoot实战·Tlias智能学习辅助系统·班级管理">
+<meta name="twitter:description" content="前言
+记录班级管理功能开发以及遇到的bug及解决过程
+无论这位读者朋友是什么时候在时候看到这篇文章，跟着我一起完成这个项目，我都很鼓励您能自己先去完成它，不一定要完全开发完成，先去做，至少先把基础功能做出来，然后再来看看我的实现思路和解决bug的过程，希望能对你有帮助。如果哪天我把评论功能上线了，也可以在评论区说说你遇到的问题，共同进步💪。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.steamedfish.top/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Javaweb——(17)SpringBoot实战·Tlias智能学习辅助系统·班级管理",
+      "item": "https://www.steamedfish.top/post/java-web/javaweb-17-springboot-tlias6/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Javaweb——(17)SpringBoot实战·Tlias智能学习辅助系统·班级管理",
+  "name": "Javaweb——(17)SpringBoot实战·Tlias智能学习辅助系统·班级管理",
+  "description": "前言 记录班级管理功能开发以及遇到的bug及解决过程\n无论这位读者朋友是什么时候在时候看到这篇文章，跟着我一起完成这个项目，我都很鼓励您能自己先去完成它，不一定要完全开发完成，先去做，至少先把基础功能做出来，然后再来看看我的实现思路和解决bug的过程，希望能对你有帮助。如果哪天我把评论功能上线了，也可以在评论区说说你遇到的问题，共同进步💪。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "前言 记录班级管理功能开发以及遇到的bug及解决过程\n无论这位读者朋友是什么时候在时候看到这篇文章，跟着我一起完成这个项目，我都很鼓励您能自己先去完成它，不一定要完全开发完成，先去做，至少先把基础功能做出来，然后再来看看我的实现思路和解决bug的过程，希望能对你有帮助。如果哪天我把评论功能上线了，也可以在评论区说说你遇到的问题，共同进步💪。\n条件查询 阅读文档并分析三层架构职能。 梳理思路后进行代码实现\n代码实现 先创建实体类 Clazz.java package com.javaweb.entity; import lombok.Data; import java.time.LocalDate; import java.time.LocalDateTime; @Data public class Clazz { private Integer id; private String name; private String room; private LocalDate beginDate; private LocalDate endDate; private Integer masterId; private String masterName; private Integer subject; private LocalDateTime createTime; private LocalDateTime updateTime; private String status; } Ctroller层 ClazzController.java package com.javaweb.controller; import com.javaweb.entity.ClazzQueryParam; import com.javaweb.entity.PageBean; import com.javaweb.entity.Result; import com.javaweb.service.ClazzService; import lombok.extern.slf4j.Slf4j; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.web.bind.annotation.GetMapping; import org.springframework.web.bind.annotation.RequestMapping; import org.springframework.web.bind.annotation.RestController; @Slf4j @RequestMapping(\"/clazzs\") @RestController public class ClazzController { @Autowired private ClazzService clazzService; @GetMapping public Result list(ClazzQueryParam param){ log.info(\"分页查询：{},{},{},{},{}\",param.getName(),param.getBegin(),param.getEnd(),param.getPage(),param.getPageSize()); PageBean pageBean = clazzService.page(param); return Result.success(pageBean); } } 创建Service层接口以及实现类和Mapper层（省略接口层代码） ClazzServiceImpl.Java package com.javaweb.service.impl; import com.github.pagehelper.Page; import com.github.pagehelper.PageHelper; import com.javaweb.entity.Clazz; import com.javaweb.entity.ClazzQueryParam; import com.javaweb.entity.PageBean; import com.javaweb.mapper.ClazzMapper; import com.javaweb.service.ClazzService; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.stereotype.Service; import java.util.List; @Service public class ClazzServiceImpl implements ClazzService { @Autowired private ClazzMapper clazzMapper; @Override public PageBean page(ClazzQueryParam param) { //1.用pageHelper设置分页参数 PageHelper.startPage(param.getPage(), param.getPageSize()); //2.调用mapper方法 List\u003cClazz\u003e clazzList = clazzMapper.list(param); Page page = (Page) clazzList; //3.封装PageBean对象并返回 return new PageBean(page.getTotal(), page.getResult()); } } ClazzMapper.java package com.javaweb.mapper; import com.javaweb.entity.Clazz; import com.javaweb.entity.ClazzQueryParam; import org.apache.ibatis.annotations.Mapper; import java.util.List; @Mapper public interface ClazzMapper { List\u003cClazz\u003e list(ClazzQueryParam param); } ClazzMapper.xml \u003c?xml version=\"1.0\" encoding=\"UTF-8\" ?\u003e \u003c!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" \u003e ",
+  "wordCount" : "3048",
+  "inLanguage": "zh",
+  "datePublished": "2025-12-04T16:50:12+08:00",
+  "dateModified": "2025-12-04T15:41:08.903711289Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.steamedfish.top/post/java-web/javaweb-17-springboot-tlias6/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SteamedFish's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.steamedfish.top/favicon.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://www.steamedfish.top/" accesskey="h" title="SteamedFish&#39;s Blog (Alt + H)">SteamedFish&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                    <ul class="lang-switch"><li>|</li>
+                        <li>
+                            <a href="https://www.steamedfish.top/en/" title="English"
+                                aria-label="English">En</a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://www.steamedfish.top/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Javaweb——(17)SpringBoot实战·Tlias智能学习辅助系统·班级管理
+    </h1>
+    <div class="post-meta">
+
+
+
+
+
+
+<span title='2025-12-04 16:50:12 +0800 +0800'>2025-12-04</span>&nbsp;·&nbsp;<span>7 分钟</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%89%8d%e8%a8%80" aria-label="前言">前言</a></li>
+                <li>
+                    <a href="#%e6%9d%a1%e4%bb%b6%e6%9f%a5%e8%af%a2" aria-label="条件查询">条件查询</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bb%a3%e7%a0%81%e5%ae%9e%e7%8e%b0" aria-label="代码实现">代码实现</a></li>
+                <li>
+                    <a href="#%e6%b5%8b%e8%af%95--%e5%89%8d%e5%90%8e%e7%ab%af%e8%81%94%e8%b0%83" aria-label="测试 / 前后端联调">测试 / 前后端联调</a><ul>
+                        
+                <li>
+                    <a href="#%e5%ad%97%e6%ae%b5%e7%bc%ba%e5%a4%b1" aria-label="字段缺失">字段缺失</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%88%a0%e9%99%a4%e7%8f%ad%e7%ba%a7" aria-label="删除班级">删除班级</a><ul>
+                        
+                <li>
+                    <a href="#%e5%88%86%e6%9e%90" aria-label="分析">分析</a></li>
+                <li>
+                    <a href="#controller" aria-label="Controller">Controller</a></li>
+                <li>
+                    <a href="#service--mapper" aria-label="Service &amp; Mapper">Service &amp; Mapper</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%96%b0%e5%a2%9e%e7%8f%ad%e7%ba%a7" aria-label="新增班级">新增班级</a><ul>
+                        
+                <li>
+                    <a href="#%e5%88%86%e6%9e%90-1" aria-label="分析">分析</a></li>
+                <li>
+                    <a href="#%e6%9f%a5%e8%af%a2%e5%85%a8%e9%83%a8%e5%91%98%e5%b7%a5" aria-label="查询全部员工">查询全部员工</a></li>
+                <li>
+                    <a href="#%e6%96%b0%e5%a2%9e%e7%8f%ad%e7%ba%a7-1" aria-label="新增班级">新增班级</a><ul>
+                        
+                <li>
+                    <a href="#controller-1" aria-label="Controller">Controller</a></li>
+                <li>
+                    <a href="#service--mapper-1" aria-label="Service &amp; Mapper">Service &amp; Mapper</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%a0%b9%e6%8d%aeid%e6%9f%a5%e8%af%a2" aria-label="根据ID查询">根据ID查询</a><ul>
+                        
+                <li>
+                    <a href="#controller-2" aria-label="Controller">Controller</a><ul>
+                        
+                <li>
+                    <a href="#service--mapper-2" aria-label="Service &amp; Mapper">Service &amp; Mapper</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e4%bf%ae%e6%94%b9%e7%8f%ad%e7%ba%a7" aria-label="修改班级">修改班级</a><ul>
+                        
+                <li>
+                    <a href="#controller-3" aria-label="Controller">Controller</a><ul>
+                        
+                <li>
+                    <a href="#service--mapper-3" aria-label="Service &amp; Mapper">Service &amp; Mapper</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%9f%a5%e8%af%a2%e6%89%80%e6%9c%89%e7%8f%ad%e7%ba%a7" aria-label="查询所有班级">查询所有班级</a><ul>
+                        
+                <li>
+                    <a href="#controller-4" aria-label="Controller">Controller</a><ul>
+                        
+                <li>
+                    <a href="#service--mapper-4" aria-label="Service &amp; Mapper">Service &amp; Mapper</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="前言">前言<a hidden class="anchor" aria-hidden="true" href="#前言">#</a></h2>
+<p>记录班级管理功能开发以及遇到的bug及解决过程<br>
+无论这位读者朋友是什么时候在时候看到这篇文章，跟着我一起完成这个项目，我都很鼓励您能自己先去完成它，不一定要完全开发完成，先去做，至少先把基础功能做出来，然后再来看看我的实现思路和解决bug的过程，希望能对你有帮助。如果哪天我把评论功能上线了，也可以在评论区说说你遇到的问题，共同进步💪。</p>
+<hr>
+<h2 id="条件查询">条件查询<a hidden class="anchor" aria-hidden="true" href="#条件查询">#</a></h2>
+<p>阅读文档并分析三层架构职能。 <br>
+梳理思路后进行代码实现</p>
+<hr>
+<h3 id="代码实现">代码实现<a hidden class="anchor" aria-hidden="true" href="#代码实现">#</a></h3>
+<ol>
+<li>先创建实体类
+<ul>
+<li><code>Clazz.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb.entity</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.Data</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.time.LocalDate</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.time.LocalDateTime</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Clazz</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">room</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDate</span><span class="w"> </span><span class="n">beginDate</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDate</span><span class="w"> </span><span class="n">endDate</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">masterId</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">masterName</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">subject</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">createTime</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">updateTime</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">status</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+<li>Ctroller层
+<ul>
+<li><code>ClazzController.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb.controller</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.ClazzQueryParam</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.PageBean</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.Result</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.service.ClazzService</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.extern.slf4j.Slf4j</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.bind.annotation.GetMapping</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Slf4j</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&#34;/clazzs&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@RestController</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ClazzController</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">ClazzService</span><span class="w"> </span><span class="n">clazzService</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@GetMapping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">ClazzQueryParam</span><span class="w"> </span><span class="n">param</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;分页查询：{},{},{},{},{}&#34;</span><span class="p">,</span><span class="n">param</span><span class="p">.</span><span class="na">getName</span><span class="p">(),</span><span class="n">param</span><span class="p">.</span><span class="na">getBegin</span><span class="p">(),</span><span class="n">param</span><span class="p">.</span><span class="na">getEnd</span><span class="p">(),</span><span class="n">param</span><span class="p">.</span><span class="na">getPage</span><span class="p">(),</span><span class="n">param</span><span class="p">.</span><span class="na">getPageSize</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">PageBean</span><span class="w"> </span><span class="n">pageBean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clazzService</span><span class="p">.</span><span class="na">page</span><span class="p">(</span><span class="n">param</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="n">pageBean</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+<li>创建Service层接口以及实现类和Mapper层（省略接口层代码）
+<ul>
+<li><code>ClazzServiceImpl.Java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb.service.impl</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.pagehelper.Page</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.pagehelper.PageHelper</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.Clazz</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.ClazzQueryParam</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.PageBean</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.mapper.ClazzMapper</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.service.ClazzService</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.stereotype.Service</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.List</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ClazzServiceImpl</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">ClazzService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">ClazzMapper</span><span class="w"> </span><span class="n">clazzMapper</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">PageBean</span><span class="w"> </span><span class="nf">page</span><span class="p">(</span><span class="n">ClazzQueryParam</span><span class="w"> </span><span class="n">param</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//1.用pageHelper设置分页参数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">PageHelper</span><span class="p">.</span><span class="na">startPage</span><span class="p">(</span><span class="n">param</span><span class="p">.</span><span class="na">getPage</span><span class="p">(),</span><span class="w"> </span><span class="n">param</span><span class="p">.</span><span class="na">getPageSize</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//2.调用mapper方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Clazz</span><span class="o">&gt;</span><span class="w"> </span><span class="n">clazzList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clazzMapper</span><span class="p">.</span><span class="na">list</span><span class="p">(</span><span class="n">param</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Page</span><span class="w"> </span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Page</span><span class="p">)</span><span class="w"> </span><span class="n">clazzList</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//3.封装PageBean对象并返回</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PageBean</span><span class="p">(</span><span class="n">page</span><span class="p">.</span><span class="na">getTotal</span><span class="p">(),</span><span class="w"> </span><span class="n">page</span><span class="p">.</span><span class="na">getResult</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>ClazzMapper.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb.mapper</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.Clazz</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.ClazzQueryParam</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.ibatis.annotations.Mapper</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.List</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Mapper</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">ClazzMapper</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Clazz</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">ClazzQueryParam</span><span class="w"> </span><span class="n">param</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>ClazzMapper.xml</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE mapper PUBLIC &#34;-//mybatis.org//DTD Mapper 3.0//EN&#34; &#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34; &gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;mapper</span> <span class="na">namespace=</span><span class="s">&#34;com.javaweb.mapper.ClazzMapper&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--条件查询--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;list&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.javaweb.entity.Clazz&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        select c.id,
+</span></span><span class="line"><span class="cl">        c.name,
+</span></span><span class="line"><span class="cl">        c.room,
+</span></span><span class="line"><span class="cl">        c.begin_date,
+</span></span><span class="line"><span class="cl">        c.end_date,
+</span></span><span class="line"><span class="cl">        c.master_id,
+</span></span><span class="line"><span class="cl">        c.create_time,
+</span></span><span class="line"><span class="cl">        c.update_time,
+</span></span><span class="line"><span class="cl">        e.name,
+</span></span><span class="line"><span class="cl">        c.create_time,
+</span></span><span class="line"><span class="cl">        c.update_time
+</span></span><span class="line"><span class="cl">        from clazz c
+</span></span><span class="line"><span class="cl">        left join emp e on c.master_id = e.id
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;where&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;name != null and name != &#39;&#39;&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">                c.name like concat(&#39;%&#39;,#{name},&#39;%&#39;)
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;begin != null and end != null&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">                and c.end_date between #{begin} and #{end}
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/where&gt;</span>
+</span></span><span class="line"><span class="cl">        order by c.update_time desc
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/select&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/mapper&gt;</span>
+</span></span></code></pre></div></li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="测试--前后端联调">测试 / 前后端联调<a hidden class="anchor" aria-hidden="true" href="#测试--前后端联调">#</a></h3>
+<p>因为是条件查询，如果使用apifox需要手动输入参数，所以这里我直接选择了进行前后端联调，这样也可以通过开发人员工具更快的进行问题排查</p>
+<hr>
+<h4 id="字段缺失">字段缺失<a hidden class="anchor" aria-hidden="true" href="#字段缺失">#</a></h4>
+<p>
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-17-springboot-tlias6/index.md"
+    href="/post/java-web/javaweb-17-springboot-tlias6/1.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-17-springboot-tlias6/1.webp"
+      srcset="/post/java-web/javaweb-17-springboot-tlias6/1.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+可以看到字段并不完整，班主任和状态字段为空
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-17-springboot-tlias6/index.md"
+    href="/post/java-web/javaweb-17-springboot-tlias6/2.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-17-springboot-tlias6/2.webp"
+      srcset="/post/java-web/javaweb-17-springboot-tlias6/2.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+查看数据包发现<code>masterName</code>、<code>subject</code>和<code>status</code>都为空<br>
+缺失的字段有三个，我们一个个来解决他们。</p>
+<p>现在我的思路是：手动补齐字段，就是通过在Mapper层的xml文件SQL语句种起别名查看是否能够补齐masterName字段。 <br>
+我们一个一个来试试看</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE mapper PUBLIC &#34;-//mybatis.org//DTD Mapper 3.0//EN&#34; &#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34; &gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;mapper</span> <span class="na">namespace=</span><span class="s">&#34;com.javaweb.mapper.ClazzMapper&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--条件查询--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;list&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.javaweb.entity.Clazz&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        select c.id,
+</span></span><span class="line"><span class="cl">        c.name,
+</span></span><span class="line"><span class="cl">        c.room,
+</span></span><span class="line"><span class="cl">        c.begin_date,
+</span></span><span class="line"><span class="cl">        c.end_date,
+</span></span><span class="line"><span class="cl">        c.master_id,
+</span></span><span class="line"><span class="cl">        c.create_time,
+</span></span><span class="line"><span class="cl">        c.update_time,
+</span></span><span class="line"><span class="cl">        e.name masterName,
+</span></span><span class="line"><span class="cl">        c.create_time,
+</span></span><span class="line"><span class="cl">        c.update_time
+</span></span><span class="line"><span class="cl">        from clazz c
+</span></span><span class="line"><span class="cl">        left join emp e on c.master_id = e.id
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;where&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;name != null and name != &#39;&#39;&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">                c.name like concat(&#39;%&#39;,#{name},&#39;%&#39;)
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;begin != null and end != null&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">                and c.end_date between #{begin} and #{end}
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/where&gt;</span>
+</span></span><span class="line"><span class="cl">        order by c.update_time desc
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/select&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/mapper&gt;</span>
+</span></span></code></pre></div><p>再次进行联调
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-17-springboot-tlias6/index.md"
+    href="/post/java-web/javaweb-17-springboot-tlias6/3.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-17-springboot-tlias6/3.webp"
+      srcset="/post/java-web/javaweb-17-springboot-tlias6/3.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+如我所料，这种错误本可以避免，但有时就是难免出现这种粗心大意😓。</p>
+<p>一开始我以为<code>subject</code>字段需要手动补齐，现在看来我是错的，这波很猪鼻  <br>
+看了一下clazz表，其实是有这个字段的，没查询，手动补上果然有了。</p>
+<p>但此时我又开始思考，一开始我的条件查询语句是严格按照接口文档中的响应数据来的 <br>
+如果我直接<code>select c.* e.name masterName from ......</code>会怎么样呢？这样只需补充一个masterName就能完成全部数据的查询，多出来的数据前端还会接收吗？</p>
+<p>让我们试试看吧，如果成功，这会省去很多工作</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE mapper PUBLIC &#34;-//mybatis.org//DTD Mapper 3.0//EN&#34; &#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34; &gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;mapper</span> <span class="na">namespace=</span><span class="s">&#34;com.javaweb.mapper.ClazzMapper&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--条件查询--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;page&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.javaweb.entity.Clazz&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        select
+</span></span><span class="line"><span class="cl">        c.*,
+</span></span><span class="line"><span class="cl">        e.name masterName
+</span></span><span class="line"><span class="cl">        from clazz c
+</span></span><span class="line"><span class="cl">        left join emp e on c.master_id = e.id
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;where&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;name != null and name != &#39;&#39;&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">                c.name like concat(&#39;%&#39;,#{name},&#39;%&#39;)
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;begin != null and end != null&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">                and c.end_date between #{begin} and #{end}
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/where&gt;</span>
+</span></span><span class="line"><span class="cl">        order by c.update_time desc
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/select&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/mapper&gt;</span>
+</span></span></code></pre></div><p>
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-17-springboot-tlias6/index.md"
+    href="/post/java-web/javaweb-17-springboot-tlias6/4.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-17-springboot-tlias6/4.webp"
+      srcset="/post/java-web/javaweb-17-springboot-tlias6/4.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+成功了！我查看了之前员工管理的条件查询，也是这样的，但是我不明白为什么，多余出来的字段去哪里了？前端直接不接收吗？</p>
+<p>问了一下gpt  <br>
+<a href="https://chatgpt.com/s/t_69315857b49c8191938f84b5bca80a5d">感兴趣的朋友可以看看这个回答</a></p>
+<p>这其实是MyBatis的作用之一，它的工作正是查询数据并映射到对象，且它是 <strong>按字段匹配的</strong> 。<br>
+我们定义了返回类型为<code>Clazz</code>，所以任何Clazz中没有的字段，它都会直接丢弃。 <br>
+这一切都是在Mapper层就完成的，所以前端看不到多余的字段。 <br>
+真强大！真牛逼！真好用！👍<br>
+原来如此，很有收获。这正加强了我们对MyBatis的了解。</p>
+<p>接下来我们来看最后一个字段<code>status</code>，这个字段是<code>clazz</code>表里没有的，所以我觉得要在Service层进行手动补齐了，根据它的开课时间、结课时间来进行逻辑判断，试试吧！</p>
+<ul>
+<li><code>ClazzServiceImpl.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">PageBean</span><span class="w"> </span><span class="nf">page</span><span class="p">(</span><span class="n">ClazzQueryParam</span><span class="w"> </span><span class="n">param</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//1.用pageHelper设置分页参数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">PageHelper</span><span class="p">.</span><span class="na">startPage</span><span class="p">(</span><span class="n">param</span><span class="p">.</span><span class="na">getPage</span><span class="p">(),</span><span class="w"> </span><span class="n">param</span><span class="p">.</span><span class="na">getPageSize</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//2.调用mapper方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Clazz</span><span class="o">&gt;</span><span class="w"> </span><span class="n">clazzList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clazzMapper</span><span class="p">.</span><span class="na">list</span><span class="p">(</span><span class="n">param</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">LocalDate</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LocalDate</span><span class="p">.</span><span class="na">now</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Clazz</span><span class="w"> </span><span class="n">clazz</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">clazzList</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clazz</span><span class="p">.</span><span class="na">getBeginDate</span><span class="p">().</span><span class="na">isAfter</span><span class="p">(</span><span class="n">now</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">clazz</span><span class="p">.</span><span class="na">setStatus</span><span class="p">(</span><span class="s">&#34;未开班&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clazz</span><span class="p">.</span><span class="na">getBeginDate</span><span class="p">().</span><span class="na">isBefore</span><span class="p">(</span><span class="n">now</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">clazz</span><span class="p">.</span><span class="na">getEndDate</span><span class="p">().</span><span class="na">isAfter</span><span class="p">(</span><span class="n">now</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">clazz</span><span class="p">.</span><span class="na">setStatus</span><span class="p">(</span><span class="s">&#34;已开班&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">clazz</span><span class="p">.</span><span class="na">setStatus</span><span class="p">(</span><span class="s">&#34;已结课&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Page</span><span class="w"> </span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Page</span><span class="p">)</span><span class="w"> </span><span class="n">clazzList</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//3.封装PageBean对象并返回</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PageBean</span><span class="p">(</span><span class="n">page</span><span class="p">.</span><span class="na">getTotal</span><span class="p">(),</span><span class="w"> </span><span class="n">page</span><span class="p">.</span><span class="na">getResult</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+<p>再次进行前后端联调
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-17-springboot-tlias6/index.md"
+    href="/post/java-web/javaweb-17-springboot-tlias6/5.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-17-springboot-tlias6/5.webp"
+      srcset="/post/java-web/javaweb-17-springboot-tlias6/5.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+至此，字段已经全部补齐🎉</p>
+<hr>
+<h2 id="删除班级">删除班级<a hidden class="anchor" aria-hidden="true" href="#删除班级">#</a></h2>
+<h3 id="分析">分析<a hidden class="anchor" aria-hidden="true" href="#分析">#</a></h3>
+<p>阅读文档，梳理思路，编写代码，测试，一次过。</p>
+<h3 id="controller">Controller<a hidden class="anchor" aria-hidden="true" href="#controller">#</a></h3>
+<ul>
+<li><code>ClazzController.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 删除班级
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@DeleteMapping</span><span class="p">(</span><span class="s">&#34;/{id}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="nd">@PathVariable</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//1.调用Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">clazzService</span><span class="p">.</span><span class="na">delete</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//2.响应结果</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+<hr>
+<h3 id="service--mapper">Service &amp; Mapper<a hidden class="anchor" aria-hidden="true" href="#service--mapper">#</a></h3>
+<ul>
+<li><code>ClazzServiceImpl.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 删除班级
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//1.调用mapper方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">clazzMapper</span><span class="p">.</span><span class="na">delete</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>ClazzMapper.xml</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--删除班级--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;delete</span> <span class="na">id=</span><span class="s">&#34;delete&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    delete
+</span></span><span class="line"><span class="cl">    from clazz
+</span></span><span class="line"><span class="cl">    where id = #{id}
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/delete&gt;</span>
+</span></span></code></pre></div></li>
+</ul>
+<hr>
+<h2 id="新增班级">新增班级<a hidden class="anchor" aria-hidden="true" href="#新增班级">#</a></h2>
+<h3 id="分析-1">分析<a hidden class="anchor" aria-hidden="true" href="#分析-1">#</a></h3>
+<p>
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-17-springboot-tlias6/index.md"
+    href="/post/java-web/javaweb-17-springboot-tlias6/6.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-17-springboot-tlias6/6.webp"
+      srcset="/post/java-web/javaweb-17-springboot-tlias6/6.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+</p>
+<ol>
+<li>
+<p>阅读文档时发现请求参数中有<code>masterId</code>，所以这里应该有一个对班主任名字的请求，对员工的请求应该在<code>EmpMapper</code>中完成，保证规范性</p>
+</li>
+<li>
+<p>查看请求列表，可以发现有一个list请求，响应失败
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-17-springboot-tlias6/index.md"
+    href="/post/java-web/javaweb-17-springboot-tlias6/7.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-17-springboot-tlias6/7.webp"
+      srcset="/post/java-web/javaweb-17-springboot-tlias6/7.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+分析这个请求，可以看见这个请求正是对<code>emp</code>表的<code>list</code>查询
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-17-springboot-tlias6/index.md"
+    href="/post/java-web/javaweb-17-springboot-tlias6/8.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-17-springboot-tlias6/8.webp"
+      srcset="/post/java-web/javaweb-17-springboot-tlias6/8.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+所以我们可以合理推测，前端页面的 班主任名称，就是通过这个请求获得的，然后根据我们选择的班主任来获取<code>masterId</code>
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-17-springboot-tlias6/index.md"
+    href="/post/java-web/javaweb-17-springboot-tlias6/9.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-17-springboot-tlias6/9.webp"
+      srcset="/post/java-web/javaweb-17-springboot-tlias6/9.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+所以我们要先完善这个查询班主任的功能。<br>
+这里我觉得有两种可能，第一种是直接查询全部员工，然后从中获取班主任，第二种是只查询班主任。
+通过查阅<a href="https://www.steamedfish.top/post/java-web/javaweb-9-tlias-api-docs/#26-%E6%9F%A5%E8%AF%A2%E5%85%A8%E9%83%A8%E5%91%98%E5%B7%A5">接口文档——查询全部员工</a>发现，这里员工管理还有一个未完成的功能就是查询全部员工，可以断定，这里应该是对全部员工进行查询。</p>
+</li>
+</ol>
+<hr>
+<h3 id="查询全部员工">查询全部员工<a hidden class="anchor" aria-hidden="true" href="#查询全部员工">#</a></h3>
+<ul>
+<li><code>EmpController.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 获取员工列表
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/list&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">list</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span><span class="w"> </span><span class="n">empList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">empService</span><span class="p">.</span><span class="na">list</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="n">empList</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>EmpServiceImpl.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 查询所有员工信息
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">list</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//1.调用mapper方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span><span class="w"> </span><span class="n">empList</span><span class="w"> </span><span class="o">=</span><span class="n">empMapper</span><span class="p">.</span><span class="na">getAll</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//2.返回结果</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">empList</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>EmpMapper.xml</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- 查询所有员工--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getAll&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.javaweb.entity.Emp&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    select *
+</span></span><span class="line"><span class="cl">    from emp
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/select&gt;</span>
+</span></span></code></pre></div></li>
+</ul>
+<p>再次进行联调
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-17-springboot-tlias6/index.md"
+    href="/post/java-web/javaweb-17-springboot-tlias6/10.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-17-springboot-tlias6/10.webp"
+      srcset="/post/java-web/javaweb-17-springboot-tlias6/10.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+</div>
+
+
+
+现在可以选择班主任了。<br>
+不过我觉得这里设计的并不合理，<code>emp</code>表中有<code>job</code>字段，这里应该根据<code>job</code>字段的值来筛选员工，只能选择班主任职位的人才对，不过先不管了，这是项目设计的问题。</p>
+<hr>
+<h3 id="新增班级-1">新增班级<a hidden class="anchor" aria-hidden="true" href="#新增班级-1">#</a></h3>
+<p>现在我们继续新增班级的开发</p>
+<hr>
+<h4 id="controller-1">Controller<a hidden class="anchor" aria-hidden="true" href="#controller-1">#</a></h4>
+<ul>
+<li><code>ClazzController.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 新增班级
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param clazz
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@PostMapping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">Clazz</span><span class="w"> </span><span class="n">clazz</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//1.调用Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">clazzService</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">clazz</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//2.响应结果</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+<h4 id="service--mapper-1">Service &amp; Mapper<a hidden class="anchor" aria-hidden="true" href="#service--mapper-1">#</a></h4>
+<ul>
+<li><code>ClazzServiceImpl.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 新增班级
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param clazz
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="n">Clazz</span><span class="w"> </span><span class="n">clazz</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//1.1补齐字段</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">clazz</span><span class="p">.</span><span class="na">setCreateTime</span><span class="p">(</span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">clazz</span><span class="p">.</span><span class="na">setUpdateTime</span><span class="p">(</span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//1.2调用mapper方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">clazzMapper</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">clazz</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>ClazzMapper.xml</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--新增班级--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;insert</span> <span class="na">id=</span><span class="s">&#34;save&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    insert into clazz
+</span></span><span class="line"><span class="cl">    VALUES (null, #{name}, #{room}, #{beginDate}, #{endDate}, #{masterId}, #{subject}, #{createTime}, #{updateTime})
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/insert&gt;</span>
+</span></span></code></pre></div></li>
+</ul>
+<hr>
+<h2 id="根据id查询">根据ID查询<a hidden class="anchor" aria-hidden="true" href="#根据id查询">#</a></h2>
+<h3 id="controller-2">Controller<a hidden class="anchor" aria-hidden="true" href="#controller-2">#</a></h3>
+<ul>
+<li><code>ClazzController.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 根据ID查询班级
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/{id}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="nd">@PathVariable</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//1.调用Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Clazz</span><span class="w"> </span><span class="n">clazz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clazzService</span><span class="p">.</span><span class="na">getById</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//2.响应结果</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="n">clazz</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+<h4 id="service--mapper-2">Service &amp; Mapper<a hidden class="anchor" aria-hidden="true" href="#service--mapper-2">#</a></h4>
+<ul>
+<li><code>ClazzServiceImpl.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 根据ID查询班级
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Clazz</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//1.调用mapper方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">clazzMapper</span><span class="p">.</span><span class="na">getById</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>ClazzMapper.xml</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--根据ID查询--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getById&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.javaweb.entity.Clazz&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    select * from clazz where id = #{id}
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/select&gt;</span>
+</span></span></code></pre></div></li>
+</ul>
+<hr>
+<h2 id="修改班级">修改班级<a hidden class="anchor" aria-hidden="true" href="#修改班级">#</a></h2>
+<h3 id="controller-3">Controller<a hidden class="anchor" aria-hidden="true" href="#controller-3">#</a></h3>
+<ul>
+<li><code>ClazzController.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 修改班级
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param clazz
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@PutMapping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">Clazz</span><span class="w"> </span><span class="n">clazz</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//1.调用Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">clazzService</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">clazz</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//2.响应结果</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+<hr>
+<h4 id="service--mapper-3">Service &amp; Mapper<a hidden class="anchor" aria-hidden="true" href="#service--mapper-3">#</a></h4>
+<ul>
+<li><code>ClazzServiceImpl.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 修改班级
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param clazz
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">Clazz</span><span class="w"> </span><span class="n">clazz</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">clazz</span><span class="p">.</span><span class="na">setUpdateTime</span><span class="p">(</span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">clazzMapper</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">clazz</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>ClazzMapper.xml</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--修改班级--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;update</span> <span class="na">id=</span><span class="s">&#34;update&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    update clazz set
+</span></span><span class="line"><span class="cl">    name = #{name},
+</span></span><span class="line"><span class="cl">    room = #{room},
+</span></span><span class="line"><span class="cl">    begin_date = #{beginDate},
+</span></span><span class="line"><span class="cl">    end_date = #{endDate},
+</span></span><span class="line"><span class="cl">    master_id = #{masterId},
+</span></span><span class="line"><span class="cl">    subject = #{subject},
+</span></span><span class="line"><span class="cl">    update_time = #{updateTime}
+</span></span><span class="line"><span class="cl">    where id = #{id}
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/update&gt;</span>
+</span></span></code></pre></div></li>
+</ul>
+<hr>
+<h2 id="查询所有班级">查询所有班级<a hidden class="anchor" aria-hidden="true" href="#查询所有班级">#</a></h2>
+<h3 id="controller-4">Controller<a hidden class="anchor" aria-hidden="true" href="#controller-4">#</a></h3>
+<ul>
+<li><code>ClazzController.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 查询所有班级
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/list&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">list</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//1.调用Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Clazz</span><span class="o">&gt;</span><span class="w"> </span><span class="n">clazzList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clazzService</span><span class="p">.</span><span class="na">list</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//2.响应结果</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="n">clazzList</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+<hr>
+<h4 id="service--mapper-4">Service &amp; Mapper<a hidden class="anchor" aria-hidden="true" href="#service--mapper-4">#</a></h4>
+<ul>
+<li><code>ClazzServiceImpl.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 查询所有班级
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Clazz</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">list</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//1.调用mapper方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Clazz</span><span class="o">&gt;</span><span class="w"> </span><span class="n">clazzList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clazzMapper</span><span class="p">.</span><span class="na">list</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//2.返回结果</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">clazzList</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>ClazzMapper.xml</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--查询所有班级--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;list&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.javaweb.entity.Clazz&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    select * from clazz
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/select&gt;</span>
+</span></span></code></pre></div></li>
+</ul>
+<hr>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span><a href="https://www.steamedfish.top/">©2025 SteamedFish&rsquo;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+
+
+
+
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    Fancybox.bind("[data-fancybox]", {
+      animated: true,                  
+      showClass: 'fancybox-fadeIn',    
+      hideClass: 'fancybox-fadeOut',   
+      dragToClose: true                 
+    });
+  });
+</script>
+
+
+
+
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
