@@ -7,8 +7,79 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 27 Nov 2025 01:24:32 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 05 Dec 2025 04:36:36 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【建站日志】hugo为文章添加最后修改日期</title>
+      <link>https://www.steamedfish.top/post/hugo-log/lastmod/</link>
+      <pubDate>Fri, 05 Dec 2025 03:06:19 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/hugo-log/lastmod/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.steamedfish.top/post/hugo-log/todo/&#34;&gt;杂谈 | 待办&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;lastmod功能已经上线半个多月了，但碍于有些bug，一直没有写这篇日志。&lt;/p&gt;
+&lt;p&gt;今天终于抽出空来把bug修完，这里直接给出成品，有需要的朋友可以直接拿走  &lt;br&gt;
+希望对你有帮助&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;实现过程&#34;&gt;实现过程&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;修改hugo配置文件
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ...省略其他配置&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;enableGitInfo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;#允许访问git信息&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;timeZone&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Asia/Shanghai&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 设置时区&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;frontmatter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;lastmod&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;lastmod&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;- &lt;span class=&#34;s2&#34;&gt;&amp;#34;:git&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;- &lt;span class=&#34;s2&#34;&gt;&amp;#34;:fileModTime&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这里我们的lastmod优先级：手动设置的lastmod字段 ＞ git最后修改日期 ＞ 文件最后修改日期 ＞ 文章发表日期&lt;br&gt;
+并且允许hugo访问git信息来读取git提交日期，我们不必在文章元数据中手动写lastmod字段，它能根据我们的git提交日期来自动读取最后修改时间&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>【建站日志】霞鹜文楷！启动！</title>
+      <link>https://www.steamedfish.top/post/hugo-log/font-lxgwwenkai/</link>
+      <pubDate>Fri, 28 Nov 2025 01:51:02 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/hugo-log/font-lxgwwenkai/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;霞鹜文楷是一款非专业的开源中文字体，基于 FONTWORKS 出品字体 Klee One 衍生。
+
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/hugo-log/font-LXGWWenKai/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/hugo-log/font-lxgwwenkai/1.png&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/hugo-log/font-lxgwwenkai/1.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/hugo-log/font-lxgwwenkai/1.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+
+笔者之前在玩酷安玩机时就关注到这位大佬了，那时候还用了很久这款字体。&lt;br&gt;
+现在有了自己的博客，想要换字体，第一时间就想到了这款简约、优雅、美观的字体，遂将方法分享给大家。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>【建站日志】添加Github卡片</title>
       <link>https://www.steamedfish.top/post/hugo-log/hugo-shortcodes-github/</link>
@@ -145,6 +216,48 @@
 &lt;/div&gt;
 
 &lt;!-- FM:Snippet:End --&gt;</description>
+    </item>
+    <item>
+      <title>【建站日志】如何让自己的博客被搜索引擎收录</title>
+      <link>https://www.steamedfish.top/post/hugo-log/hugo-blog-search-engine-indexing-guide/</link>
+      <pubDate>Fri, 21 Nov 2025 23:51:15 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/hugo-log/hugo-blog-search-engine-indexing-guide/</guid>
+      <description>&lt;p&gt;Bing Webmasster Tools是必应的网站管理员工具，可以添加个人网站并带进行一些网站操作。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;打开&lt;a href=&#34;https://www.bing.com/webmasters&#34;&gt;Bing Webmasster Tools&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;点击&amp;quot;开始&amp;quot;或右上角&amp;quot;登录&amp;quot;以登录到官网。可以选择三种登录账号：Google、Microsoft、Facebook。这里我用 Microsoft 账号登录。
+
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/hugo-log/hugo-blog-search-engine-indexing-guide.md&#34;
+    href=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/1.png&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/1.png&#34;
+      srcset=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/1.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>【建站日志】hugo为文章添加最后修改日期 | SteamedFish&#39;s Blog</title>
-<meta name="keywords" content="">
+<meta name="keywords" content="Hugo">
 <meta name="description" content="前言
 
 杂谈 | 待办
@@ -98,7 +98,8 @@ lastmod功能已经上线半个多月了，但碍于有些bug，一直没有写�
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2025-12-05T03:06:19+08:00">
-    <meta property="article:modified_time" content="2025-12-05T04:33:44+08:00">
+    <meta property="article:modified_time" content="2025-12-05T04:36:36+08:00">
+    <meta property="article:tag" content="Hugo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【建站日志】hugo为文章添加最后修改日期">
 <meta name="twitter:description" content="前言
@@ -155,13 +156,13 @@ frontmatter:
   "name": "【建站日志】hugo为文章添加最后修改日期",
   "description": "前言 杂谈 | 待办\nlastmod功能已经上线半个多月了，但碍于有些bug，一直没有写这篇日志。\n今天终于抽出空来把bug修完，这里直接给出成品，有需要的朋友可以直接拿走 希望对你有帮助\n实现过程 修改hugo配置文件 # ...省略其他配置 enableGitInfo: true #允许访问git信息 timeZone: Asia/Shanghai # 设置时区 frontmatter: lastmod: - lastmod - \u0026#34;:git\u0026#34; - \u0026#34;:fileModTime\u0026#34; - date 这里我们的lastmod优先级：手动设置的lastmod字段 ＞ git最后修改日期 ＞ 文件最后修改日期 ＞ 文章发表日期\n并且允许hugo访问git信息来读取git提交日期，我们不必在文章元数据中手动写lastmod字段，它能根据我们的git提交日期来自动读取最后修改时间\n",
   "keywords": [
-    
+    "Hugo"
   ],
   "articleBody": "前言 杂谈 | 待办\nlastmod功能已经上线半个多月了，但碍于有些bug，一直没有写这篇日志。\n今天终于抽出空来把bug修完，这里直接给出成品，有需要的朋友可以直接拿走 希望对你有帮助\n实现过程 修改hugo配置文件 # ...省略其他配置 enableGitInfo: true #允许访问git信息 timeZone: Asia/Shanghai # 设置时区 frontmatter: lastmod: - lastmod - \":git\" - \":fileModTime\" - date 这里我们的lastmod优先级：手动设置的lastmod字段 ＞ git最后修改日期 ＞ 文件最后修改日期 ＞ 文章发表日期\n并且允许hugo访问git信息来读取git提交日期，我们不必在文章元数据中手动写lastmod字段，它能根据我们的git提交日期来自动读取最后修改时间\n作者平时写文章会用到一个叫做frontmatter的vscode插件 它能帮我们生成文章元数据，但它生成的时间有时是UTC时间，并且github也使用的是UTC（世界标准时间） 而我们在东八区。 所以还需要设置时区来让hugo帮我们优化时间保证无论是date还是lastmod都会在被构建时转化为UTC+8时间\n修改PaperMod的post_meta.html或者直接新建layouts\\partials\\post_meta.html {{/* 动态渲染文章的元信息行 */}} {{/* 特点： */}} {{/* 日期、阅读时间、字数、作者统一收集 */}} {{/* 支持国际化（i18n） */}} {{/* 自动用 · 分隔各项 */}} {{/* 可通过页面参数控制显示（ShowReadingTime、ShowWordCount、hideAuthor 等） */}} {{ $date := .Date.Format \"02.01.2006\" }} {{ $lastmod := .Lastmod.Format \"02.01.2006\" }} {{- $scratch := newScratch }} {{- if not .Date.IsZero -}} {{- $scratch.Add \"meta\" (slice (printf \"%s\" (.Date) (.Date | time.Format (default \":date_long\" site.Params.DateFormat)))) }} {{- end }} {{- if ne $lastmod $date -}} {{- $scratch.Add \"meta\" (slice (printf \"(最后修改于 %s)\" (.Lastmod) (.Lastmod | time.Format (default \"January 2, 2006\" site.Params.DateFormat)))) }} {{- end }} {{- if (.Param \"ShowReadingTime\") -}} {{- $scratch.Add \"meta\" (slice (printf \"%s\" (i18n \"read_time\" .ReadingTime | default (printf \"%d min\" .ReadingTime)))) }} {{- end }} {{- if (.Param \"ShowWordCount\") -}} {{- $scratch.Add \"meta\" (slice (printf \"%s\" (i18n \"words\" .WordCount | default (printf \"%d words\" .WordCount)))) }} {{- end }} {{- if not (.Param \"hideAuthor\") -}} {{- with (partial \"author.html\" .) }} {{- $scratch.Add \"meta\" (slice (printf \"%s\" .)) }} {{- end }} {{- end }} {{- with ($scratch.Get \"meta\") }} {{- delimit . \"\u0026nbsp;·\u0026nbsp;\" | safeHTML -}} {{- end -}} 为文章的元数据添加lastmod字段\n使用方法如下：\n可以手动在文章元数据中添加lastmod字段 --- date: 2025-11-15T16:21:01.473Z lastmod: 2025-11-22T22:47:47.473Z draft: false title: 杂谈 | 待办 tags: [] categories: - ToDo - 建站日志 series: \"\" --- 也可以不设置lastmod，根据git提交时间来确定最后修改日期 +++ date = \"2025-12-05T03:06:19+08:00\" draft = false title = '【建站日志】hugo为文章添加最后修改日期' slug = 'Lastmod' +++ ",
   "wordCount" : "964",
   "inLanguage": "zh",
   "datePublished": "2025-12-05T03:06:19+08:00",
-  "dateModified": "2025-12-05T04:33:44+08:00",
+  "dateModified": "2025-12-05T04:36:36+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/hugo-log/lastmod/"
@@ -391,6 +392,7 @@ frontmatter:
 
   <footer class="post-footer">
     <ul class="post-tags">
+      <li><a href="https://www.steamedfish.top/tags/hugo/">Hugo</a></li>
     </ul>
   </footer>
 </article>
