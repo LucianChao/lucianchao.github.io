@@ -2,11 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://www.steamedfish.top/post/hugo-log/lastmod/</loc>
-    <lastmod>2025-12-05T04:36:36+08:00</lastmod>
-  </url><url>
     <loc>https://www.steamedfish.top/categories/</loc>
-    <lastmod>2025-12-05T04:36:36+08:00</lastmod>
+    <lastmod>2025-12-06T01:53:29+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -18,14 +15,17 @@
                 href="https://www.steamedfish.top/categories/"
                 />
   </url><url>
-    <loc>https://www.steamedfish.top/tags/hugo/</loc>
-    <lastmod>2025-12-05T04:36:36+08:00</lastmod>
+    <loc>https://www.steamedfish.top/post/java-web/javaweb-20-springboot-tlias9/</loc>
+    <lastmod>2025-12-06T01:53:29+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/post/</loc>
-    <lastmod>2025-12-05T04:36:36+08:00</lastmod>
+    <lastmod>2025-12-06T01:53:29+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/springboot%E6%A1%86%E6%9E%B6/</loc>
+    <lastmod>2025-12-06T01:53:29+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/tags/</loc>
-    <lastmod>2025-12-05T04:36:36+08:00</lastmod>
+    <lastmod>2025-12-06T01:53:29+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -37,11 +37,29 @@
                 href="https://www.steamedfish.top/tags/"
                 />
   </url><url>
+    <loc>https://www.steamedfish.top/tags/%E4%BC%9A%E8%AF%9D%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2025-12-06T01:53:29+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/categories/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/</loc>
+    <lastmod>2025-12-06T01:53:29+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/</loc>
+    <lastmod>2025-12-06T01:53:29+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/post/java-web/javaweb-19-springboot-tlias8/</loc>
+    <lastmod>2025-12-06T01:53:29+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/post/hugo-log/lastmod/</loc>
+    <lastmod>2025-12-05T04:36:36+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/hugo/</loc>
+    <lastmod>2025-12-05T04:36:36+08:00</lastmod>
+  </url><url>
     <loc>https://www.steamedfish.top/categories/%E5%BB%BA%E7%AB%99%E6%97%A5%E5%BF%97/</loc>
     <lastmod>2025-12-05T04:36:36+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/post/java-web/javaweb-18-springboot-tlias7/</loc>
-    <lastmod>2025-12-05T02:37:33+08:00</lastmod>
+    <lastmod>2025-12-06T01:53:29+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/post/java-web/javaweb-17-springboot-tlias6/</loc>
     <lastmod>2025-12-05T02:37:33+08:00</lastmod>
@@ -52,16 +70,7 @@
     <loc>https://www.steamedfish.top/post/java-web/javaweb-16-springboot-tlias5/</loc>
     <lastmod>2025-12-05T02:37:33+08:00</lastmod>
   </url><url>
-    <loc>https://www.steamedfish.top/tags/springboot%E6%A1%86%E6%9E%B6/</loc>
-    <lastmod>2025-12-05T02:37:33+08:00</lastmod>
-  </url><url>
     <loc>https://www.steamedfish.top/tags/%E5%8A%A8%E6%80%81sql/</loc>
-    <lastmod>2025-12-05T02:37:33+08:00</lastmod>
-  </url><url>
-    <loc>https://www.steamedfish.top/categories/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/</loc>
-    <lastmod>2025-12-05T02:37:33+08:00</lastmod>
-  </url><url>
-    <loc>https://www.steamedfish.top/tags/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/</loc>
     <lastmod>2025-12-05T02:37:33+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/tags/acid/</loc>
