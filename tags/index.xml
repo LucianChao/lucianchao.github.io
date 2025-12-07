@@ -7,8 +7,29 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sat, 06 Dec 2025 01:53:29 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 08 Dec 2025 00:12:31 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Filter</title>
+      <link>https://www.steamedfish.top/tags/filter/</link>
+      <pubDate>Fri, 05 Dec 2025 21:46:13 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/filter/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Interceptor</title>
+      <link>https://www.steamedfish.top/tags/interceptor/</link>
+      <pubDate>Fri, 05 Dec 2025 21:46:13 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/interceptor/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>JWT令牌</title>
+      <link>https://www.steamedfish.top/tags/jwt%E4%BB%A4%E7%89%8C/</link>
+      <pubDate>Fri, 05 Dec 2025 21:46:13 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/jwt%E4%BB%A4%E7%89%8C/</guid>
+      <description></description>
+    </item>
     <item>
       <title>SpringBoot框架</title>
       <link>https://www.steamedfish.top/tags/springboot%E6%A1%86%E6%9E%B6/</link>
@@ -17,10 +38,31 @@
       <description></description>
     </item>
     <item>
+      <title>登录校验</title>
+      <link>https://www.steamedfish.top/tags/%E7%99%BB%E5%BD%95%E6%A0%A1%E9%AA%8C/</link>
+      <pubDate>Fri, 05 Dec 2025 21:46:13 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E7%99%BB%E5%BD%95%E6%A0%A1%E9%AA%8C/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>过滤器</title>
+      <link>https://www.steamedfish.top/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/</link>
+      <pubDate>Fri, 05 Dec 2025 21:46:13 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>会话技术</title>
       <link>https://www.steamedfish.top/tags/%E4%BC%9A%E8%AF%9D%E6%8A%80%E6%9C%AF/</link>
       <pubDate>Fri, 05 Dec 2025 21:46:13 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/%E4%BC%9A%E8%AF%9D%E6%8A%80%E6%9C%AF/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>拦截器</title>
+      <link>https://www.steamedfish.top/tags/%E6%8B%A6%E6%88%AA%E5%99%A8/</link>
+      <pubDate>Fri, 05 Dec 2025 21:46:13 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/%E6%8B%A6%E6%88%AA%E5%99%A8/</guid>
       <description></description>
     </item>
     <item>
