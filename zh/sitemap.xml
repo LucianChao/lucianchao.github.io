@@ -2,14 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://www.steamedfish.top/post/java-web/javaweb-21-tlias10/</loc>
-    <lastmod>2025-12-08T00:12:31+08:00</lastmod>
-  </url><url>
-    <loc>https://www.steamedfish.top/post/</loc>
-    <lastmod>2025-12-08T00:12:31+08:00</lastmod>
-  </url><url>
     <loc>https://www.steamedfish.top/categories/</loc>
-    <lastmod>2025-12-08T00:12:31+08:00</lastmod>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -21,23 +15,23 @@
                 href="https://www.steamedfish.top/categories/"
                 />
   </url><url>
-    <loc>https://www.steamedfish.top/tags/filter/</loc>
-    <lastmod>2025-12-08T00:12:31+08:00</lastmod>
+    <loc>https://www.steamedfish.top/post/java-web/javaweb-22/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
   </url><url>
-    <loc>https://www.steamedfish.top/tags/interceptor/</loc>
-    <lastmod>2025-12-08T00:12:31+08:00</lastmod>
-  </url><url>
-    <loc>https://www.steamedfish.top/post/java-web/javaweb-20-springboot-tlias9/</loc>
-    <lastmod>2025-12-08T00:12:31+08:00</lastmod>
-  </url><url>
-    <loc>https://www.steamedfish.top/tags/jwt%E4%BB%A4%E7%89%8C/</loc>
-    <lastmod>2025-12-08T00:12:31+08:00</lastmod>
+    <loc>https://www.steamedfish.top/post/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/tags/springboot%E6%A1%86%E6%9E%B6/</loc>
-    <lastmod>2025-12-08T00:12:31+08:00</lastmod>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/springboot%E5%8E%9F%E7%90%86/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/springboot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/tags/</loc>
-    <lastmod>2025-12-08T00:12:31+08:00</lastmod>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -49,23 +43,56 @@
                 href="https://www.steamedfish.top/tags/"
                 />
   </url><url>
-    <loc>https://www.steamedfish.top/tags/%E7%99%BB%E5%BD%95%E6%A0%A1%E9%AA%8C/</loc>
-    <lastmod>2025-12-08T00:12:31+08:00</lastmod>
-  </url><url>
-    <loc>https://www.steamedfish.top/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/</loc>
-    <lastmod>2025-12-08T00:12:31+08:00</lastmod>
-  </url><url>
-    <loc>https://www.steamedfish.top/tags/%E4%BC%9A%E8%AF%9D%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2025-12-08T00:12:31+08:00</lastmod>
-  </url><url>
-    <loc>https://www.steamedfish.top/tags/%E6%8B%A6%E6%88%AA%E5%99%A8/</loc>
-    <lastmod>2025-12-08T00:12:31+08:00</lastmod>
+    <loc>https://www.steamedfish.top/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/categories/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/</loc>
-    <lastmod>2025-12-08T00:12:31+08:00</lastmod>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/@annotation/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/aop/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/execution/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/post/java-web/javaweb-21-tlias10/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/%E5%88%87%E5%85%A5%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/filter/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/interceptor/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/post/java-web/javaweb-20-springboot-tlias9/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/jwt%E4%BB%A4%E7%89%8C/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/%E7%99%BB%E5%BD%95%E6%A0%A1%E9%AA%8C/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/%E4%BC%9A%E8%AF%9D%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/%E6%8B%A6%E6%88%AA%E5%99%A8/</loc>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/tags/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/</loc>
-    <lastmod>2025-12-08T00:12:31+08:00</lastmod>
+    <lastmod>2025-12-10T02:45:12+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/post/java-web/javaweb-19-springboot-tlias8/</loc>
     <lastmod>2025-12-06T01:53:29+08:00</lastmod>
@@ -147,9 +174,6 @@
   </url><url>
     <loc>https://www.steamedfish.top/tags/springboot/</loc>
     <lastmod>2025-11-28T02:49:16+08:00</lastmod>
-  </url><url>
-    <loc>https://www.steamedfish.top/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2025-12-08T00:12:31+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/tags/%E6%97%A5%E5%BF%97%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2025-11-28T02:49:16+08:00</lastmod>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Execution on SteamedFish&#39;s Blog</title>
+    <link>https://www.steamedfish.top/tags/execution/</link>
+    <description>Recent content in Execution on SteamedFish&#39;s Blog</description>
+    <generator>Hugo -- 0.152.2</generator>
+    <language>zh</language>
+    <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
+    <lastBuildDate>Wed, 10 Dec 2025 02:45:12 +0800</lastBuildDate>
+    <atom:link href="https://www.steamedfish.top/tags/execution/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Javaweb——(21)SpringBoot实战·面向切面编程AOP</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-21-tlias10/</link>
+      <pubDate>Sun, 07 Dec 2025 22:03:50 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-21-tlias10/</guid>
+      <description>&lt;h3 id=&#34;什么是aop&#34;&gt;什么是AOP？&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;AOP&lt;/strong&gt;：&lt;strong&gt;A&lt;/strong&gt;spect &lt;strong&gt;O&lt;/strong&gt;riented &lt;strong&gt;P&lt;/strong&gt;rogramming（&lt;strong&gt;面向切面编程&lt;/strong&gt;、&lt;strong&gt;面向方面编程&lt;/strong&gt;），其实就是面向特定方法编程。&lt;/li&gt;
+&lt;li&gt;场景：案例中部分业务方法运行较慢，定位执行耗时较长的接口，此时需要统计每一个业务方法的执行耗时。&lt;/li&gt;
+&lt;li&gt;优势：
+&lt;ol&gt;
+&lt;li&gt;减少重复代码&lt;/li&gt;
+&lt;li&gt;代码无侵入&lt;/li&gt;
+&lt;li&gt;提高开发效率&lt;/li&gt;
+&lt;li&gt;维护方便&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- FM:Snippet:Start data:{&#34;id&#34;:&#34;st-notice&#34;,&#34;fields&#34;:[]} --&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+&lt;/style&gt;&lt;div class=&#34;notice tip&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z&#34;/&gt;&lt;/svg&gt;
+        &lt;/span&gt;提示&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

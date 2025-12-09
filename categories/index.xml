@@ -7,12 +7,19 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Mon, 08 Dec 2025 00:12:31 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Dec 2025 02:45:12 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>技术博客</title>
+      <link>https://www.steamedfish.top/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Tue, 09 Dec 2025 20:07:34 +0800</pubDate>
+      <guid>https://www.steamedfish.top/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/</guid>
+      <description></description>
+    </item>
     <item>
       <title>实战项目</title>
       <link>https://www.steamedfish.top/categories/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/</link>
-      <pubDate>Fri, 05 Dec 2025 21:46:13 +0800</pubDate>
+      <pubDate>Tue, 09 Dec 2025 20:07:34 +0800</pubDate>
       <guid>https://www.steamedfish.top/categories/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/</guid>
       <description></description>
     </item>
@@ -28,13 +35,6 @@
       <link>https://www.steamedfish.top/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Fri, 28 Nov 2025 11:41:46 +0800</pubDate>
       <guid>https://www.steamedfish.top/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>技术博客</title>
-      <link>https://www.steamedfish.top/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/</link>
-      <pubDate>Thu, 27 Nov 2025 16:37:44 +0800</pubDate>
-      <guid>https://www.steamedfish.top/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/</guid>
       <description></description>
     </item>
     <item>
