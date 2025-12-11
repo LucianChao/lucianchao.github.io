@@ -7,8 +7,96 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Tue, 18 Nov 2025 23:43:27 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 11 Dec 2025 14:55:57 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Javaweb——(24)Web前端开发</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-24-web/</link>
+      <pubDate>Wed, 10 Dec 2025 17:43:11 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-24-web/</guid>
+      <description>&lt;h2 id=&#34;vue&#34;&gt;Vue&lt;/h2&gt;
+&lt;p&gt;
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-web/javaweb-24-web/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-web/javaweb-24-web/1.webp&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-web/javaweb-24-web/1.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-web/javaweb-24-web/1.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;vue工程化&#34;&gt;Vue工程化&lt;/h2&gt;
+&lt;p&gt;
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-web/javaweb-24-web/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-web/javaweb-24-web/2.webp&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-web/javaweb-24-web/2.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-web/javaweb-24-web/2.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;工程化&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;模块化&lt;/strong&gt;：&lt;br&gt;
+项目划分若干模块单独维护，单独开发维护，提高效率&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;组件化&lt;/strong&gt;：&lt;br&gt;
+将页面的各个组成部分封装为一个一个的组件，提高复用性&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;规范化&lt;/strong&gt;：&lt;br&gt;
+提供统一的目录结构、编码规范、开发流程&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自动化&lt;/strong&gt;：&lt;br&gt;
+项目的构建、开发、测试、打包、部署&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;环境准备&#34;&gt;环境准备&lt;/h3&gt;
+&lt;p&gt;介绍：create-vue是Vue官方提供的最新的脚手架工具，用于快速生成一个工程化的Vue项目。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>JavaWeb——(3)JavaScript</title>
       <link>https://www.steamedfish.top/post/java-web/javaweb-javascript/</link>

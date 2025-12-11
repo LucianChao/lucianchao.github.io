@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Maven-聚合 on SteamedFish&#39;s Blog</title>
+    <link>https://www.steamedfish.top/tags/maven-%E8%81%9A%E5%90%88/</link>
+    <description>Recent content in Maven-聚合 on SteamedFish&#39;s Blog</description>
+    <generator>Hugo -- 0.152.2</generator>
+    <language>zh</language>
+    <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
+    <lastBuildDate>Thu, 11 Dec 2025 04:00:54 +0800</lastBuildDate>
+    <atom:link href="https://www.steamedfish.top/tags/maven-%E8%81%9A%E5%90%88/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Javaweb——(23)Maven高级技术</title>
+      <link>https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/</link>
+      <pubDate>Wed, 10 Dec 2025 14:39:33 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/</guid>
+      <description>&lt;h2 id=&#34;分模块设计与开发&#34;&gt;分模块设计与开发&lt;/h2&gt;
+&lt;h4 id=&#34;为什么要分模块设计与开发&#34;&gt;为什么要分模块设计与开发？&lt;/h4&gt;
+&lt;p&gt;
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-web/javaweb-23-maven-pro/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/1.webp&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/1.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/1.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+
+将项目按照功能拆分成若干个子模块，方便项目的管理维护、扩展。也方便模块间的相互调用，资源共享
+
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-web/javaweb-23-maven-pro/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/2.webp&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/2.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/2.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;分模块设计&#34;&gt;分模块设计&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+    
+
+
+
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-web/javaweb-23-maven-pro/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/3.webp&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/3.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/3.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建maven模块 tlias-pojo，存放实体类&lt;/li&gt;
+&lt;li&gt;创建maven模块 tlias-utils，存放相关工具类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- FM:Snippet:Start data:{&#34;id&#34;:&#34;st-notice&#34;,&#34;fields&#34;:[]} --&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+&lt;/style&gt;&lt;div class=&#34;notice info&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
+        &lt;/span&gt;信息&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
