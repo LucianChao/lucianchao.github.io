@@ -168,10 +168,9 @@
     </h2>
   </header>
   <div class="entry-content">
-    <p>起因 昨天写完文章推送至远程仓库之后，今天发现网页没有更新，将问题溯源过程以及解决办法进行总结 SecretId:IKIDfBNesv1AC3mLky0rX2IYbWEoFUZSAmDT SecretKey:61nMi15zfAWjiU7b4NUtCICxVou4vc6N 溯源过程 先重新推送一遍文章到远程仓库 网页端一开始并没有更新，这在以往是很正常的，因为我的站点用到了edgeone的cdn加速，需要等待cdn缓存刷新。
+    <p>起因 昨天写完文章推送至远程仓库之后，今天发现网页没有更新，将问题溯源过程以及解决办法进行总结
+溯源过程 先重新推送一遍文章到远程仓库 网页端一开始并没有更新，这在以往是很正常的，因为我的站点用到了edgeone的cdn加速，需要等待cdn缓存刷新。
 过了半小时左右，我再次打开网站，依旧没有更新，此时我意识到事情有些不对。
-先说一下我的自动部署方案，我有两个仓库，A仓库是一个私有仓库，负责存放整个hugo博客资源。B仓库是一个公开的仓库，也是这个博客的githubPages，负责存放hugo生成的静态网页资源。
-当我在本地写完文章，用git提交到A仓库时，触发github actions，运行我的workflow，生成网页资源到B仓库。
 ...</p>
   </div>
   <footer class="entry-footer">
