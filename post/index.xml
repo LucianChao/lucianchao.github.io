@@ -7,7 +7,7 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 11 Dec 2025 16:53:59 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 11 Dec 2025 17:53:09 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【建站日志|异常解决】hugo在github远程仓库自动部署异常溯源过程及解决办法</title>
@@ -15,8 +15,9 @@
       <pubDate>Thu, 11 Dec 2025 15:27:28 +0800</pubDate>
       <guid>https://www.steamedfish.top/post/hugo-log/deploy-error/</guid>
       <description>&lt;h3 id=&#34;起因&#34;&gt;起因&lt;/h3&gt;
-&lt;p&gt;昨天写完文章推送至远程仓库之后，今天发现网页没有更新，将问题溯源过程以及解决办法进行总结&lt;/p&gt;
-&lt;hr&gt;
+&lt;h2 id=&#34;secretkey61nmi15zfawjiu7b4nutcicxvou4vc6n&#34;&gt;昨天写完文章推送至远程仓库之后，今天发现网页没有更新，将问题溯源过程以及解决办法进行总结
+SecretId:IKIDfBNesv1AC3mLky0rX2IYbWEoFUZSAmDT
+SecretKey:61nMi15zfAWjiU7b4NUtCICxVou4vc6N&lt;/h2&gt;
 &lt;h3 id=&#34;溯源过程&#34;&gt;溯源过程&lt;/h3&gt;
 &lt;p&gt;先重新推送一遍文章到远程仓库
 
@@ -54,7 +55,9 @@
 
 &lt;/p&gt;
 &lt;p&gt;网页端一开始并没有更新，这在以往是很正常的，因为我的站点用到了edgeone的cdn加速，需要等待cdn缓存刷新。&lt;br&gt;
-过了半小时左右，我再次打开网站，依旧没有更新，此时我意识到事情有些不对。&lt;/p&gt;</description>
+过了半小时左右，我再次打开网站，依旧没有更新，此时我意识到事情有些不对。&lt;/p&gt;
+&lt;p&gt;先说一下我的自动部署方案，我有两个仓库，A仓库是一个私有仓库，负责存放整个hugo博客资源。B仓库是一个公开的仓库，也是这个博客的githubPages，负责存放hugo生成的静态网页资源。&lt;br&gt;
+当我在本地写完文章，用git提交到A仓库时，触发github actions，运行我的workflow，生成网页资源到B仓库。&lt;/p&gt;</description>
     </item>
     <item>
       <title>Javaweb——(24)Web前端开发</title>
