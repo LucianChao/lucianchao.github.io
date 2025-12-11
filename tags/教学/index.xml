@@ -339,7 +339,8 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
     
 
 
-
+       
+    
 
 
 
@@ -357,6 +358,10 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
       style=&#34;max-width: 100%; height: auto;&#34;
     /&gt;
   &lt;/a&gt;
+    
+  
+  &lt;figcaption class=&#34;post-img-view-caption&#34;&gt;MSG&lt;/figcaption&gt;
+  
 &lt;/div&gt;
 
 
