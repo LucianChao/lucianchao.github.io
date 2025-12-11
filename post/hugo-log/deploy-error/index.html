@@ -103,7 +103,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2025-12-11T15:27:28+08:00">
-    <meta property="article:modified_time" content="2025-12-11T16:53:29+08:00">
+    <meta property="article:modified_time" content="2025-12-11T16:53:59+08:00">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【建站日志|异常解决】hugo在github远程仓库自动部署异常溯源过程及解决办法">
 <meta name="twitter:description" content="起因
@@ -169,11 +169,11 @@
   "keywords": [
     
   ],
-  "articleBody": "起因 昨天写完文章推送至远程仓库之后，今天发现网页没有更新，将问题溯源过程以及解决办法进行总结\n溯源过程 先重新推送一遍文章到远程仓库 网页端一开始并没有更新，这在以往是很正常的，因为我的站点用到了edgeone的cdn加速，需要等待cdn缓存刷新。\n过了半小时左右，我再次打开网站，依旧没有更新，此时我意识到事情有些不对。\n先说一下我的自动部署方案，我有两个仓库，A仓库是一个私有仓库，负责存放整个hugo博客资源。B仓库是一个公开的仓库，也是这个博客的githubPages，负责存放hugo生成的静态网页资源。\n当我在本地写完文章，用git提交到A仓库时，触发github actions，运行我的workflow，生成网页资源到B仓库。\n于是我进入A仓库查看github actions的记录，果然发现最近两条推送都报错。 这是修复后截图，所以第一条报错显示成功\r查看报错信息 /usr/bin/git push origin main remote: Invalid username or token. Password authentication is not supported for Git operations. fatal: Authentication failed for 'https://github.com/LucianChao/lucianchao.github.io.git/' Error: Action failed with \"The process '/usr/bin/git' failed with exit code 128\" 查看workflows脚本\nname: deploy # 代码提交到main分支时触发github action on: push: branches: - main jobs: deploy: runs-on: ubuntu-latest steps: - name: Checkout uses: actions/checkout@v4 with: fetch-depth: 0 - name: Setup Hugo uses: peaceiris/actions-hugo@v3 with: hugo-version: \"latest\" extended: true - name: Build Web run: hugo -D --ignoreCache --cleanDestinationDir - name: Deploy Web uses: peaceiris/actions-gh-pages@v4 with: PERSONAL_TOKEN: ${{ secrets.TOKEN }} EXTERNAL_REPOSITORY: LucianChao/lucianchao.github.io PUBLISH_BRANCH: main PUBLISH_DIR: ./public commit_message: auto deploy 分析得知是 认证失败（Invalid username or token）,也就是workflow中的${{ secrets.TOKEN }}失效\nPERSONAL_TOKEN: ${{ secrets.TOKEN }} 这让我想起昨晚我的Github Tokens失效，重新生成后直接提交了一次，提交成功，但今天站点并没有更新。\n那么现在问题应该已经很明了了。重新生成的token并没有同步配置到仓库中造成的这次错误。\n解决方案 把新的token配置到仓库中\nSettings-\u003eSecrets and variables-\u003eActions 重新部署： 重新提交一次 把失败的部署重新运行 查看博客站点，已经成功更新 ",
+  "articleBody": "起因 昨天写完文章推送至远程仓库之后，今天发现网页没有更新，将问题溯源过程以及解决办法进行总结\n溯源过程 先重新推送一遍文章到远程仓库 网页端一开始并没有更新，这在以往是很正常的，因为我的站点用到了edgeone的cdn加速，需要等待cdn缓存刷新。\n过了半小时左右，我再次打开网站，依旧没有更新，此时我意识到事情有些不对。\n先说一下我的自动部署方案，我有两个仓库，A仓库是一个私有仓库，负责存放整个hugo博客资源。B仓库是一个公开的仓库，也是这个博客的githubPages，负责存放hugo生成的静态网页资源。\n当我在本地写完文章，用git提交到A仓库时，触发github actions，运行我的workflow，生成网页资源到B仓库。\n于是我进入A仓库查看github actions的记录，果然发现最近两条推送都报错。 这是修复后截图，所以第一条报错显示成功\r查看报错信息 /usr/bin/git push origin main remote: Invalid username or token. Password authentication is not supported for Git operations. fatal: Authentication failed for 'https://github.com/LucianChao/lucianchao.github.io.git/' Error: Action failed with \"The process '/usr/bin/git' failed with exit code 128\" 查看workflows脚本\nname: deploy # 代码提交到main分支时触发github action on: push: branches: - main jobs: deploy: runs-on: ubuntu-latest steps: - name: Checkout uses: actions/checkout@v4 with: fetch-depth: 0 - name: Setup Hugo uses: peaceiris/actions-hugo@v3 with: hugo-version: \"latest\" extended: true - name: Build Web run: hugo -D --ignoreCache --cleanDestinationDir - name: Deploy Web uses: peaceiris/actions-gh-pages@v4 with: PERSONAL_TOKEN: ${{ secrets.TOKEN }} EXTERNAL_REPOSITORY: LucianChao/lucianchao.github.io PUBLISH_BRANCH: main PUBLISH_DIR: ./public commit_message: auto deploy 分析得知是 认证失败（Invalid username or token）,也就是workflow中的${{ secrets.TOKEN }}失效\nPERSONAL_TOKEN: ${{ secrets.TOKEN }} 这让我想起昨晚我的Github Tokens失效，重新生成后直接提交了一次，提交成功，但今天站点并没有更新。\n那么现在问题应该已经很明了了：重新生成的token并没有同步配置到仓库中造成的这次错误。\n解决方案 把新的token配置到仓库中\nSettings-\u003eSecrets and variables-\u003eActions 重新部署： 重新提交一次 把失败的部署重新运行 查看博客站点，已经成功更新 ",
   "wordCount" : "712",
   "inLanguage": "zh",
   "datePublished": "2025-12-11T15:27:28+08:00",
-  "dateModified": "2025-12-11T16:53:29+08:00",
+  "dateModified": "2025-12-11T16:53:59+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/hugo-log/deploy-error/"
@@ -463,7 +463,7 @@
 </span></span></span></code></pre></div><p>分析得知是 认证失败（Invalid username or token）,也就是workflow中的<code>${{ secrets.TOKEN }}</code>失效</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">              </span><span class="nt">PERSONAL_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.TOKEN }}</span><span class="w">
 </span></span></span></code></pre></div><p>这让我想起昨晚我的Github Tokens失效，重新生成后直接提交了一次，提交成功，但今天站点并没有更新。<br>
-那么现在问题应该已经很明了了。重新生成的token并没有同步配置到仓库中造成的这次错误。</p>
+那么现在问题应该已经很明了了：重新生成的token并没有同步配置到仓库中造成的这次错误。</p>
 <h3 id="解决方案">解决方案<a hidden class="anchor" aria-hidden="true" href="#解决方案">#</a></h3>
 <ol>
 <li>把新的token配置到仓库中<br>
