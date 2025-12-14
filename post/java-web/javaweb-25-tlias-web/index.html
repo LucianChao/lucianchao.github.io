@@ -223,7 +223,7 @@ Container布局容器
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2025-12-12T17:18:12+08:00">
-    <meta property="article:modified_time" content="2025-12-13T03:53:05+08:00">
+    <meta property="article:modified_time" content="2025-12-15T04:43:52+08:00">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Javaweb——(25)Tlias前端开发">
 <meta name="twitter:description" content="准备工作
@@ -410,11 +410,11 @@ Container布局容器
   "keywords": [
     
   ],
-  "articleBody": "准备工作 环境准备 创建Vue项目 npm init vue@latest 下载依赖 cd tlias-management npm install 为创建好的Vue项目按照ElementPlus、Axios依赖 npm install element-plus --save npm install axios 为创建好的Vue项目配置ElementPlus（参照官网） main.ts import './assets/main.css' import { createApp } from 'vue' import { createPinia } from 'pinia' import App from './App.vue' import router from './router' // 导入Element Plus及其样式 import ElementPlus from 'element-plus' import 'element-plus/dist/index.css' import zhCn from \"element-plus/es/locale/lang/zh-cn\"; import * as ElementPlusIconsVue from '@element-plus/icons-vue' // 创建vue应用实例 const app = createApp(App) // 注册ElementPlus的Icon组件 for (const [key, component] of Object.entries(ElementPlusIconsVue)) { app.component(key, component) } //应用pinia、router、element plus插件 app.use(createPinia()) app.use(router) app.use(ElementPlus,{locale:zhCn}) //挂载应用 app.mount('#app') 整理脚手架生成的Vue项目中多余的vue组件；并准备对应的组件存放的目录 页面布局 整体布局 Container布局容器 ：外层容器 ：顶栏容器 ：侧边栏容器 ：主要区域容器 ：底栏容器 CSS属性：float 作用：指定一个元素沿其容器的左侧或右侧放置 left：元素浮动在其所在容器的左侧 right：元素浮动在其所在容器的右侧 信息\n浮动元素在标准流中不占位置，即不会按照网页的默认方式排列（相当于漂浮在网页之上）。下一个浮动元素会在上一个浮动元素后面左右浮动\n左侧菜单 菜单可以参考官方提供的menu组件的样例制作 菜单名称前面可以加上icon图标 Vue Router Vue Router：Vue的官方路由。为Vue提供富有表现力、可配置的，方便的路由 Vue中的路由：路径 与 组件 的对应关系 组成： Router实例：路由实例，基于createRouter函数创建，维护了应用的路由信息。 ：路由链接组件，浏览器会解析成。 ：动态视图组件，用来渲染展示与路由路径对应的组件。 介绍 安装vue-router（创建vue项目时已安装） npm install vue-router@4 定义路由 router/index.ts import { createRouter, createWebHistory } from 'vue-router' // import HomeView from '../views/HomeView.vue' //路由实例--管理路由与组件的映射关系 const router = createRouter({ history: createWebHistory(import.meta.env.BASE_URL), routes: [ { path:'/', name:'home', component: () =\u003e import('../views/layout/index.vue') }, { path: '/index', name: 'index', component: () =\u003e import('../views/index/index.vue') }, { path: '/dept', name: 'dept', component: () =\u003e import('../views/dept/index.vue'), }, ], }) export default router main.ts（已自动配置） import App from './App.vue' import router from './router' // ... 省略其他代码 const app = createApp(App) app.use(router) App.vue \u003ctemplate\u003e \u003cRouterView\u003e\u003c/RouterView\u003e \u003c/template\u003e 子路由/嵌套路由 一些应用程序的 UI 由多层嵌套的组件组成。在这种情况下，URL 的片段通常对应于特定的嵌套组件结构，例如：\n/user/johnny/profile /user/johnny/posts ┌──────────────────┐ ┌──────────────────┐ │ User │ │ User │ │ ┌──────────────┐ │ │ ┌──────────────┐ │ │ │ Profile │ │ ────────────\u003e │ │ Posts │ │ │ │ │ │ │ │ │ │ │ └──────────────┘ │ │ └──────────────┘ │ └──────────────────┘ └──────────────────┘ 通过 Vue Router，你可以使用嵌套路由配置来表达这种关系。\nconst routes = [ { path: '/user/:id', component: User, children: [ { // 当 /user/:id/profile 匹配成功 // UserProfile 将被渲染到 User 的 内部 path: 'profile', component: UserProfile, }, { // 当 /user/:id/posts 匹配成功 // UserPosts 将被渲染到 User 的 内部 path: 'posts', component: UserPosts, }, ], }, ] 案例 通过Vue Roter完成左侧菜单栏动态切换效果 创建router实例，配置路由信息 src\\router\\index.ts import { createRouter, createWebHistory } from 'vue-router' // import HomeView from '../views/HomeView.vue' //路由实例--管理路由与组件的映射关系 const router = createRouter({ history: createWebHistory(import.meta.env.BASE_URL), routes: [ { path: '/', name: 'home', component: () =\u003e import('../views/layout/index.vue'), redirect: 'index', //重定向至index子路由 children: [ { path: 'index', name: 'index', component: () =\u003e import('../views/index/index.vue'), //首页组件 }, { path: 'emp', name: 'emp', component: () =\u003e import('../views/emp/index.vue'), //员工管理组件 }, { path: 'dept', name: 'dept', component: () =\u003e import('../views/dept/index.vue'), //部门管理组件 }, { path: 'clazz', name: 'clazz', component: () =\u003e import('../views/clazz/index.vue'), //班级管理组件 }, { path: 'stu', name: 'stu', component: () =\u003e import('../views/stu/index.vue'), //学员管理组件 }, ], }, ], }) export default router 完成左侧菜单栏，菜单栏关联路由 \u003cel-aside width=\"200px\" class=\"aside\"\u003e \u003cel-scrollbar\u003e \u003cel-menu router\u003e \u003cel-menu-item index=\"index\"\u003e \u003cel-icon\u003e \u003cHomeFilled /\u003e \u003c/el-icon\u003e首页 \u003c/el-menu-item\u003e \u003cel-sub-menu index=\"/manage\"\u003e \u003ctemplate #title\u003e \u003cel-icon\u003e \u003cOperation /\u003e \u003c/el-icon\u003e班级学员管理 \u003c/template\u003e \u003cel-menu-item index=\"/clazz\"\u003e\u003cel-icon\u003e \u003cSchool /\u003e \u003c/el-icon\u003e班级管理\u003c/el-menu-item\u003e \u003cel-menu-item index=\"/stu\"\u003e\u003cel-icon\u003e \u003cUserFilled /\u003e \u003c/el-icon\u003e学员管理\u003c/el-menu-item\u003e \u003c/el-sub-menu\u003e \u003cel-sub-menu index=\"/system\"\u003e \u003ctemplate #title\u003e \u003cel-icon\u003e \u003cEdit /\u003e \u003c/el-icon\u003e系统信息管理 \u003c/template\u003e \u003cel-menu-item index=\"/dept\"\u003e\u003cel-icon\u003e \u003cSchool /\u003e \u003c/el-icon\u003e部门管理\u003c/el-menu-item\u003e \u003cel-menu-item index=\"/emp\"\u003e\u003cel-icon\u003e \u003cUserFilled /\u003e \u003c/el-icon\u003e员工管理\u003c/el-menu-item\u003e \u003c/el-sub-menu\u003e \u003cel-sub-menu index=\"data-stats-manage\"\u003e \u003ctemplate #title\u003e \u003cel-icon\u003e\u003cHistogram /\u003e\u003c/el-icon\u003e数据统计管理 \u003c/template\u003e \u003cel-menu-item index=\"/empRepost\"\u003e\u003cel-icon\u003e\u003cInfoFilled /\u003e\u003c/el-icon\u003e员工信息统计\u003c/el-menu-item\u003e \u003cel-menu-item index=\"/stuRepost\"\u003e\u003cel-icon\u003e\u003cUser /\u003e\u003c/el-icon\u003e学员信息统计\u003c/el-menu-item\u003e \u003cel-menu-item index=\"/log\"\u003e\u003cel-icon\u003e \u003cUserFilled /\u003e \u003c/el-icon\u003e日志信息统计\u003c/el-menu-item\u003e \u003c/el-sub-menu\u003e \u003c/el-menu\u003e \u003c/el-scrollbar\u003e \u003c/el-aside\u003e 在vue组件中，动态展示与路由对应的组件 \u003cel-main\u003e \u003crouter-view\u003e\u003c/router-view\u003e \u003c/el-main\u003e 部门管理 列表查询 页面布局 Button按钮组件 Table表格组件 提示\nref函数声明响应式数据时，可以指定数据的泛型，形式为：ref()\n加载数据 根据需求，需要在新增、修改、删除部门之后，加载最新的部门数据。在打开页面之后，也需要自动加载部门数据。 基于axios发送异步请求，动态获取数据 程序优化 新增部门 修改部门 删除部门 表单校验 ",
-  "wordCount" : "2173",
+  "articleBody": "准备工作 环境准备 创建Vue项目 npm init vue@latest 下载依赖 cd tlias-management npm install 为创建好的Vue项目按照ElementPlus、Axios依赖 npm install element-plus --save npm install axios 为创建好的Vue项目配置ElementPlus（参照官网） main.ts import './assets/main.css' import { createApp } from 'vue' import { createPinia } from 'pinia' import App from './App.vue' import router from './router' // 导入Element Plus及其样式 import ElementPlus from 'element-plus' import 'element-plus/dist/index.css' import zhCn from \"element-plus/es/locale/lang/zh-cn\"; import * as ElementPlusIconsVue from '@element-plus/icons-vue' // 创建vue应用实例 const app = createApp(App) // 注册ElementPlus的Icon组件 for (const [key, component] of Object.entries(ElementPlusIconsVue)) { app.component(key, component) } //应用pinia、router、element plus插件 app.use(createPinia()) app.use(router) app.use(ElementPlus,{locale:zhCn}) //挂载应用 app.mount('#app') 整理脚手架生成的Vue项目中多余的vue组件；并准备对应的组件存放的目录 页面布局 整体布局 Container布局容器 ：外层容器 ：顶栏容器 ：侧边栏容器 ：主要区域容器 ：底栏容器 CSS属性：float 作用：指定一个元素沿其容器的左侧或右侧放置 left：元素浮动在其所在容器的左侧 right：元素浮动在其所在容器的右侧 信息\n浮动元素在标准流中不占位置，即不会按照网页的默认方式排列（相当于漂浮在网页之上）。下一个浮动元素会在上一个浮动元素后面左右浮动\n左侧菜单 菜单可以参考官方提供的menu组件的样例制作 菜单名称前面可以加上icon图标 Vue Router Vue Router：Vue的官方路由。为Vue提供富有表现力、可配置的，方便的路由 Vue中的路由：路径 与 组件 的对应关系 组成： Router实例：路由实例，基于createRouter函数创建，维护了应用的路由信息。 ：路由链接组件，浏览器会解析成。 ：动态视图组件，用来渲染展示与路由路径对应的组件。 介绍 安装vue-router（创建vue项目时已安装） npm install vue-router@4 定义路由 router/index.ts import { createRouter, createWebHistory } from 'vue-router' // import HomeView from '../views/HomeView.vue' //路由实例--管理路由与组件的映射关系 const router = createRouter({ history: createWebHistory(import.meta.env.BASE_URL), routes: [ { path:'/', name:'home', component: () =\u003e import('../views/layout/index.vue') }, { path: '/index', name: 'index', component: () =\u003e import('../views/index/index.vue') }, { path: '/dept', name: 'dept', component: () =\u003e import('../views/dept/index.vue'), }, ], }) export default router main.ts（已自动配置） import App from './App.vue' import router from './router' // ... 省略其他代码 const app = createApp(App) app.use(router) App.vue \u003ctemplate\u003e \u003cRouterView\u003e\u003c/RouterView\u003e \u003c/template\u003e 子路由/嵌套路由 一些应用程序的 UI 由多层嵌套的组件组成。在这种情况下，URL 的片段通常对应于特定的嵌套组件结构，例如：\n/user/johnny/profile /user/johnny/posts ┌──────────────────┐ ┌──────────────────┐ │ User │ │ User │ │ ┌──────────────┐ │ │ ┌──────────────┐ │ │ │ Profile │ │ ────────────\u003e │ │ Posts │ │ │ │ │ │ │ │ │ │ │ └──────────────┘ │ │ └──────────────┘ │ └──────────────────┘ └──────────────────┘ 通过 Vue Router，你可以使用嵌套路由配置来表达这种关系。\nconst routes = [ { path: '/user/:id', component: User, children: [ { // 当 /user/:id/profile 匹配成功 // UserProfile 将被渲染到 User 的 内部 path: 'profile', component: UserProfile, }, { // 当 /user/:id/posts 匹配成功 // UserPosts 将被渲染到 User 的 内部 path: 'posts', component: UserPosts, }, ], }, ] 案例 通过Vue Roter完成左侧菜单栏动态切换效果 创建router实例，配置路由信息 src\\router\\index.ts import { createRouter, createWebHistory } from 'vue-router' // import HomeView from '../views/HomeView.vue' //路由实例--管理路由与组件的映射关系 const router = createRouter({ history: createWebHistory(import.meta.env.BASE_URL), routes: [ { path: '/', name: 'home', component: () =\u003e import('../views/layout/index.vue'), redirect: 'index', //重定向至index子路由 children: [ { path: 'index', name: 'index', component: () =\u003e import('../views/index/index.vue'), //首页组件 }, { path: 'emp', name: 'emp', component: () =\u003e import('../views/emp/index.vue'), //员工管理组件 }, { path: 'dept', name: 'dept', component: () =\u003e import('../views/dept/index.vue'), //部门管理组件 }, { path: 'clazz', name: 'clazz', component: () =\u003e import('../views/clazz/index.vue'), //班级管理组件 }, { path: 'stu', name: 'stu', component: () =\u003e import('../views/stu/index.vue'), //学员管理组件 }, ], }, ], }) export default router 完成左侧菜单栏，菜单栏关联路由 \u003cel-aside width=\"200px\" class=\"aside\"\u003e \u003cel-scrollbar\u003e \u003cel-menu router\u003e \u003cel-menu-item index=\"index\"\u003e \u003cel-icon\u003e \u003cHomeFilled /\u003e \u003c/el-icon\u003e首页 \u003c/el-menu-item\u003e \u003cel-sub-menu index=\"/manage\"\u003e \u003ctemplate #title\u003e \u003cel-icon\u003e \u003cOperation /\u003e \u003c/el-icon\u003e班级学员管理 \u003c/template\u003e \u003cel-menu-item index=\"/clazz\"\u003e\u003cel-icon\u003e \u003cSchool /\u003e \u003c/el-icon\u003e班级管理\u003c/el-menu-item\u003e \u003cel-menu-item index=\"/stu\"\u003e\u003cel-icon\u003e \u003cUserFilled /\u003e \u003c/el-icon\u003e学员管理\u003c/el-menu-item\u003e \u003c/el-sub-menu\u003e \u003cel-sub-menu index=\"/system\"\u003e \u003ctemplate #title\u003e \u003cel-icon\u003e \u003cEdit /\u003e \u003c/el-icon\u003e系统信息管理 \u003c/template\u003e \u003cel-menu-item index=\"/dept\"\u003e\u003cel-icon\u003e \u003cSchool /\u003e \u003c/el-icon\u003e部门管理\u003c/el-menu-item\u003e \u003cel-menu-item index=\"/emp\"\u003e\u003cel-icon\u003e \u003cUserFilled /\u003e \u003c/el-icon\u003e员工管理\u003c/el-menu-item\u003e \u003c/el-sub-menu\u003e \u003cel-sub-menu index=\"data-stats-manage\"\u003e \u003ctemplate #title\u003e \u003cel-icon\u003e\u003cHistogram /\u003e\u003c/el-icon\u003e数据统计管理 \u003c/template\u003e \u003cel-menu-item index=\"/empRepost\"\u003e\u003cel-icon\u003e\u003cInfoFilled /\u003e\u003c/el-icon\u003e员工信息统计\u003c/el-menu-item\u003e \u003cel-menu-item index=\"/stuRepost\"\u003e\u003cel-icon\u003e\u003cUser /\u003e\u003c/el-icon\u003e学员信息统计\u003c/el-menu-item\u003e \u003cel-menu-item index=\"/log\"\u003e\u003cel-icon\u003e \u003cUserFilled /\u003e \u003c/el-icon\u003e日志信息统计\u003c/el-menu-item\u003e \u003c/el-sub-menu\u003e \u003c/el-menu\u003e \u003c/el-scrollbar\u003e \u003c/el-aside\u003e 在vue组件中，动态展示与路由对应的组件 \u003cel-main\u003e \u003crouter-view\u003e\u003c/router-view\u003e \u003c/el-main\u003e 部门管理 列表查询 页面布局 Button按钮组件 Table表格组件 提示\nref函数声明响应式数据时，可以指定数据的泛型，形式为：ref()\n加载数据 根据需求，需要在新增、修改、删除部门之后，加载最新的部门数据。在打开页面之后，也需要自动加载部门数据。 基于axios发送异步请求，动态获取数据 程序优化 我们在前端项目开发时，通常会定义一个请求处理的工具类 - request.ts 与服务端进行异步交互的逻辑，通常会封装到一个单独的api中，如：dept.ts 在vite.config.ts中配置前端请求服务器信息 新增部门 根据页面原型、需求文档、接口文档，先完成页面的基本布局 Dialog对话框组件 Form表单组件 提示\n新增部门 和 编辑部门 可以共用一个Dialog对话框\n修改部门 对于修改操作，通常会分为两步进行：1.查询回显，2.修改保存 交互逻辑： 点击编辑按钮，根据ID进行查询，弹出对话框，完成页面回显展示。（查询回显） 点击确定按钮，保存修改后的数据，完成数据更新操作。（保存修改） 删除部门 点击删除按钮，需要删除当前这条数据，删除完成之后，刷新页面，展示出最新的数据。 由于删除是一个比较危险的操作，为避免误操作，通常会在点击删除之后，弹出确认框进行确认。 ELement组件：ELMessageBox消息弹出框组件 表单校验 在ElementPlus提供的form表单组件中，就提供了对应的表单校验的功能。具体步骤如下： 通过ref属性注册元素的引用。 定义表单校验规则，通过rules属性与表单绑定，并通过prop属性绑定对应的表单项。 表单提交时，校验表单，校验通过，则允许提交表单。 ",
+  "wordCount" : "2681",
   "inLanguage": "zh",
   "datePublished": "2025-12-12T17:18:12+08:00",
-  "dateModified": "2025-12-13T03:53:05+08:00",
+  "dateModified": "2025-12-15T04:43:52+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/java-web/javaweb-25-tlias-web/"
@@ -525,7 +525,7 @@ Container布局容器
 
 
 
-<span title='2025-12-12 17:18:12 +0800 +0800'>2025-12-12</span>&nbsp;·&nbsp;<span title='2025-12-13 03:53:05 +0800 +0800'>(最后修改于 2025-12-13)</span>&nbsp;·&nbsp;<span>5 分钟</span>
+<span title='2025-12-12 17:18:12 +0800 +0800'>2025-12-12</span>&nbsp;·&nbsp;<span title='2025-12-15 04:43:52 +0800 +0800'>(最后修改于 2025-12-15)</span>&nbsp;·&nbsp;<span>6 分钟</span>
 
 </div>
   </header> <div class="toc">
@@ -1238,12 +1238,161 @@ Container布局容器
 </li>
 </ul>
 </li>
-<li>程序优化</li>
+<li>程序优化
+<ul>
+<li>我们在前端项目开发时，通常会定义一个请求处理的工具类 - <code>request.ts</code></li>
+<li>与服务端进行异步交互的逻辑，通常会封装到一个单独的api中，如：<code>dept.ts</code>
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-25-tlias-web/index.md"
+    href="/post/java-web/javaweb-25-tlias-web/8.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-25-tlias-web/8.webp"
+      srcset="/post/java-web/javaweb-25-tlias-web/8.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>在<code>vite.config.ts</code>中配置前端请求服务器信息
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-25-tlias-web/index.md"
+    href="/post/java-web/javaweb-25-tlias-web/9.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-25-tlias-web/9.webp"
+      srcset="/post/java-web/javaweb-25-tlias-web/9.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
 </ul>
+</li>
+</ul>
+<hr>
 <h3 id="新增部门">新增部门<a hidden class="anchor" aria-hidden="true" href="#新增部门">#</a></h3>
+<ul>
+<li>根据页面原型、需求文档、接口文档，先完成页面的基本布局
+<ul>
+<li>Dialog对话框组件</li>
+<li>Form表单组件</li>
+</ul>
+</li>
+</ul>
+<!-- FM:Snippet:Start data:{"id":"st-notice","fields":[]} -->
+<div class="notice tip" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+        </span>提示</p><p>新增部门 和 编辑部门 可以共用一个Dialog对话框</p></div>
+<!-- FM:Snippet:End -->
+<p>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-web/javaweb-25-tlias-web/index.md"
+    href="/post/java-web/javaweb-25-tlias-web/10.webp"
+    data-caption=""
+  >
+    <img
+      src="/post/java-web/javaweb-25-tlias-web/10.webp"
+      srcset="/post/java-web/javaweb-25-tlias-web/10.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<hr>
 <h3 id="修改部门">修改部门<a hidden class="anchor" aria-hidden="true" href="#修改部门">#</a></h3>
+<ul>
+<li>对于修改操作，通常会分为两步进行：1.查询回显，2.修改保存</li>
+<li>交互逻辑：
+<ul>
+<li>点击编辑按钮，根据ID进行查询，弹出对话框，完成页面回显展示。（查询回显）</li>
+<li>点击确定按钮，保存修改后的数据，完成数据更新操作。（保存修改）</li>
+</ul>
+</li>
+</ul>
 <h3 id="删除部门">删除部门<a hidden class="anchor" aria-hidden="true" href="#删除部门">#</a></h3>
+<ul>
+<li>点击删除按钮，需要删除当前这条数据，删除完成之后，刷新页面，展示出最新的数据。</li>
+<li>由于删除是一个比较危险的操作，为避免误操作，通常会在点击删除之后，弹出确认框进行确认。</li>
+<li>ELement组件：ELMessageBox消息弹出框组件</li>
+</ul>
+<hr>
 <h3 id="表单校验">表单校验<a hidden class="anchor" aria-hidden="true" href="#表单校验">#</a></h3>
+<ul>
+<li>在ElementPlus提供的form表单组件中，就提供了对应的表单校验的功能。具体步骤如下：
+<ul>
+<li>通过ref属性注册元素的引用。</li>
+<li>定义表单校验规则，通过rules属性与表单绑定，并通过prop属性绑定对应的表单项。</li>
+<li>表单提交时，校验表单，校验通过，则允许提交表单。</li>
+</ul>
+</li>
+</ul>
 
 
   </div>
