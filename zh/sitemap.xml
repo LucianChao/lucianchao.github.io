@@ -2,8 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://www.steamedfish.top/post/java-web/javaweb-28-tliasweb-linux/</loc>
+    <lastmod>2025-12-16T04:55:00+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/post/</loc>
+    <lastmod>2025-12-16T04:55:00+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/post/java-web/javaweb-27-tliasweb-logon-nginx/</loc>
+    <lastmod>2025-12-16T04:55:00+08:00</lastmod>
+  </url><url>
     <loc>https://www.steamedfish.top/categories/</loc>
-    <lastmod>2025-12-15T04:43:52+08:00</lastmod>
+    <lastmod>2025-12-16T04:55:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -16,13 +25,10 @@
                 />
   </url><url>
     <loc>https://www.steamedfish.top/post/java-web/javaweb-26-tliasweb-emp/</loc>
-    <lastmod>2025-12-15T04:43:52+08:00</lastmod>
-  </url><url>
-    <loc>https://www.steamedfish.top/post/</loc>
-    <lastmod>2025-12-15T04:43:52+08:00</lastmod>
+    <lastmod>2025-12-16T04:55:00+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/tags/</loc>
-    <lastmod>2025-12-15T04:43:52+08:00</lastmod>
+    <lastmod>2025-12-16T04:55:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -35,13 +41,13 @@
                 />
   </url><url>
     <loc>https://www.steamedfish.top/tags/%E5%89%8D%E7%AB%AF/</loc>
-    <lastmod>2025-12-15T04:43:52+08:00</lastmod>
+    <lastmod>2025-12-16T04:55:00+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/categories/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/</loc>
-    <lastmod>2025-12-15T04:43:52+08:00</lastmod>
+    <lastmod>2025-12-16T04:55:00+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/post/java-web/javaweb-25-tlias-web/</loc>
-    <lastmod>2025-12-15T04:43:52+08:00</lastmod>
+    <lastmod>2025-12-16T04:55:00+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/post/hugo-log/deploy-error/</loc>
     <lastmod>2025-12-13T03:53:05+08:00</lastmod>
