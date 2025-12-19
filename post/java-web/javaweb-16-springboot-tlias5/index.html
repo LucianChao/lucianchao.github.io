@@ -526,15 +526,15 @@ EmpService.java">
 <ul>
 <li><code>src/main/java/com/javaweb/controller/EmpController.java</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//    public Result delete(Integer[] ids)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//    通过数组即可接收前端传递的数组值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//    通过数组即可接收前端传递的数组值</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@DeleteMapping</span><span class="p">(</span><span class="s">&#34;/emps&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//    通过集合类型接收前端传递的数组值，需要加注解 @RequestParam</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//    通过集合类型接收前端传递的数组值，需要加注解 @RequestParam</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="nd">@RequestParam</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ids</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;ids = {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">ids</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">empService</span><span class="p">.</span><span class="na">delete</span><span class="p">(</span><span class="n">ids</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div></li>
 </ul>
 </li>
@@ -548,7 +548,7 @@ EmpService.java">
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * 删除员工
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param ids
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">void</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ids</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ids</span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></div></li>
 <li>
 <p><code>EmpServiceImpl.java</code></p>
@@ -664,8 +664,8 @@ EmpService.java">
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * 批量删除员工基本信息
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param ids
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//基于XML开发- 动态SQL</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">void</span><span class="w"> </span><span class="nf">deleteBatch</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ids</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//基于XML开发- 动态SQL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">deleteBatch</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ids</span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></div></li>
 <li>
 <p><code>EmpExprMapper.java</code></p>
@@ -673,8 +673,8 @@ EmpService.java">
 </span></span></span><span class="line"><span class="cl"><span class="cm">* 批量删除员工工作经历
 </span></span></span><span class="line"><span class="cl"><span class="cm">* @param ids
 </span></span></span><span class="line"><span class="cl"><span class="cm">*/</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//基于XML开发-动态SQL -- &lt;foreach&gt;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">void</span><span class="w"> </span><span class="nf">deleteBatch</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ids</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//基于XML开发-动态SQL -- &lt;foreach&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">deleteBatch</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ids</span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></div></li>
 <li>
 <p><code>EmpMapper.xml</code></p>
@@ -746,12 +746,12 @@ EmpService.java">
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/emps/{id}&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="nd">@PathVariable</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/emps/{id}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="nd">@PathVariable</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;回显员工id = {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Emp</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">empService</span><span class="p">.</span><span class="na">getById</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="n">emp</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div></li>
 </ul>
 <hr>
@@ -763,14 +763,14 @@ EmpService.java">
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Emp</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Emp</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></div></li>
 <li><code>EmpServiceImpl.java</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Emp</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">Emp</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//1.调用mapper的查询方法，查询员工基本信息以及经历列表信息</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">empMapper</span><span class="p">.</span><span class="na">getById</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div></li>
 <li><code>EmpMapper.java</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
@@ -779,8 +779,8 @@ EmpService.java">
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//    @Select(&#34;select * from emp e left join emp_expr ee on e.id = ee.emp_id where e.id = #{id}&#34;)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Emp</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//    @Select(&#34;select * from emp e left join emp_expr ee on e.id = ee.emp_id where e.id = #{id}&#34;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Emp</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></div></li>
 <li><code>EmpMapper.xml</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">  <span class="c">&lt;!--resultMap标签，进行一对多数据映射 autoMapping设置为true可以进行自动映射--&gt;</span>
@@ -829,11 +829,11 @@ EmpService.java">
 </span></span></span></code></pre></div></li>
 <li><code>EmpMapper.java</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Select</span><span class="p">(</span><span class="s">&#34;select * from emp where id = #{id}&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Emp</span><span class="w"> </span><span class="nf">getById2</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Emp</span><span class="w"> </span><span class="nf">getById2</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></div></li>
 <li><code>EmpExprMapper.java</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//基于XML开发-动态SQL -- &lt;foreach&gt;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">EmpExpr</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getByEmpId</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">empId</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">EmpExpr</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getByEmpId</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">empId</span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></div></li>
 <li><code>EmpExprMapper.xml</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--    根据员工id查询员工工作经历列表--&gt;</span>
@@ -890,12 +890,12 @@ EmpService.java">
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param emp
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@PutMapping</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">Emp</span><span class="w"> </span><span class="n">emp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@PutMapping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">Emp</span><span class="w"> </span><span class="n">emp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;修改员工：emp = {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">emp</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">empService</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">emp</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div></li>
 </ul>
 <hr>
@@ -907,12 +907,12 @@ EmpService.java">
 </span></span></span><span class="line"><span class="cl"><span class="cm"> *
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param emp
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">Emp</span><span class="w"> </span><span class="n">emp</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">Emp</span><span class="w"> </span><span class="n">emp</span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></div></li>
 <li><code>EmpServiceImpl.java</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Transactional</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">Emp</span><span class="w"> </span><span class="n">emp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Transactional</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">Emp</span><span class="w"> </span><span class="n">emp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//1.修改员工的基本信息   emp表</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//1.1 补充缺失字段 -- 更新时间</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">emp</span><span class="p">.</span><span class="na">setUpdateTime</span><span class="p">(</span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">());</span><span class="w">
@@ -926,15 +926,15 @@ EmpService.java">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">exprList</span><span class="p">.</span><span class="na">forEach</span><span class="p">(</span><span class="n">empExpr</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">empExpr</span><span class="p">.</span><span class="na">setEmpId</span><span class="p">(</span><span class="n">emp</span><span class="p">.</span><span class="na">getId</span><span class="p">()));</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">empExprMapper</span><span class="p">.</span><span class="na">insertBatch</span><span class="p">(</span><span class="n">exprList</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div></li>
 <li><code>EmpMapper.java</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * 修改员工基本信息
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param emp
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//基于XML开发- 动态SQL</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">Emp</span><span class="w"> </span><span class="n">emp</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//基于XML开发- 动态SQL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">Emp</span><span class="w"> </span><span class="n">emp</span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></div></li>
 <li><code>EmpMapper.xml</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--更新员工--&gt;</span>
@@ -961,7 +961,7 @@ EmpService.java">
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * 根据员工id删除员工工作经历
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">void</span><span class="w"> </span><span class="nf">deleteByEmpId</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">deleteByEmpId</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></div></li>
 <li><code>EmpExprMapper.xml</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--根据员工id删除员工工作经历--&gt;</span>
@@ -1026,18 +1026,18 @@ EmpService.java">
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param dept
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@PostMapping</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">Dept</span><span class="w"> </span><span class="n">dept</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@PostMapping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">Dept</span><span class="w"> </span><span class="n">dept</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;dept= {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">dept</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//调用service方法</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">deptService</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">dept</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//        throw new RuntimeException(e);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//        throw new RuntimeException(e);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">error</span><span class="p">(</span><span class="s">&#34;出错了，请联系管理员！&#34;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div></li>
 </ul>
 </li>
@@ -1091,22 +1091,22 @@ EmpService.java">
 <li><code>src/main/java/com/javaweb/exception/GlobalExceptionHandler.java</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.javaweb.exception</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.Result</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.extern.slf4j.Slf4j</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.bind.annotation.ExceptionHandler</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.bind.annotation.RestControllerAdvice</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">com.javaweb.entity.Result</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.extern.slf4j.Slf4j</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.bind.annotation.ExceptionHandler</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.bind.annotation.RestControllerAdvice</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Slf4j</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@RestControllerAdvice</span><span class="c1">//作用：用来捕获控制器controller中抛出的的所有异常</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//@ControllerAdvice</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//@RequestBody</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">GlobalExceptionHandler</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@RestControllerAdvice</span><span class="c1">//作用：用来捕获控制器controller中抛出的的所有异常</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//@ControllerAdvice</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//@RequestBody</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">GlobalExceptionHandler</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@ExceptionHandler</span><span class="w">   </span><span class="c1">//指定处理何种异常，默认为Exception，即所有异常</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">doException</span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">){</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">error</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">error</span><span class="p">(</span><span class="s">&#34;出错了，请联系管理员！！！&#34;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div></li>
 </ul>
 <ol start="2">

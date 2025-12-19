@@ -530,7 +530,7 @@ SpringBoot中支持三种格式的配置文件：
 <h3 id="获取bean">获取Bean<a hidden class="anchor" aria-hidden="true" href="#获取bean">#</a></h3>
 <p>默认情况下，Spring项目启动时，会把bean都创建好放在IOC容器中。如果要获取到容器对象，可以通过如下方式：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Autowired</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="n">ApplicationContext</span><span class="w"> </span><span class="n">applicationContext</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="n">ApplicationContext</span><span class="w"> </span><span class="n">applicationContext</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><p>如果想要主动获取这些bean，可以通过如下方式：</p>
 <ol>
 <li>根据name获取bean:

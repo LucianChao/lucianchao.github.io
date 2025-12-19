@@ -556,7 +556,7 @@ JAVA——万事万物皆对象
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">类名</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 成员变量（属性）</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 成员方法（行为）</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>举个例子，我们定义一个学生类：
 学生都有：</p>
 <ul>
@@ -571,7 +571,7 @@ JAVA——万事万物皆对象
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">study</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34; 正在学习 Java！&#34;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>这里的 <code>Student</code> 就是一个类，它描述了“学生”这个概念中共同的属性。
 在这个类中：</p>
 <ul>
@@ -595,7 +595,7 @@ JAVA——万事万物皆对象
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">s1</span><span class="p">.</span><span class="na">study</span><span class="p">();</span><span class="w"> </span><span class="c1">// 调用方法</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>输出：</p>
 <blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">小明</span><span class="w"> </span><span class="n">正在学习</span><span class="w"> </span><span class="n">Java</span><span class="err">！</span><span class="w">
@@ -621,22 +621,22 @@ JAVA——万事万物皆对象
 <blockquote>
 <p>当我们只创建一个对象并重复引用它：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Student</span><span class="w"> </span><span class="n">s1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Student</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Student</span><span class="w"> </span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s1</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//s1创建了一个新对象并引用它</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//把s1的引用赋值给s2</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//s2和s1引用着同一个对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Student</span><span class="w"> </span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//s1创建了一个新对象并引用它</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//把s1的引用赋值给s2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//s2和s1引用着同一个对象</span><span class="w">
 </span></span></span></code></pre></div><p>此时 s1 和 s2 指向同一个对象，修改其中一个，另一个也会变。</p>
 </blockquote>
 <blockquote>
 <p>当我们创建多个对象时，它们之间是相互独立的。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Student</span><span class="w"> </span><span class="n">s1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Student</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">s1</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;小明&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">s1</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;小明&#34;</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Student</span><span class="w"> </span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Student</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">s2</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;小红&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Student</span><span class="w"> </span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Student</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">s2</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;小红&#34;</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">s1</span><span class="p">.</span><span class="na">study</span><span class="p">();</span><span class="w"> </span><span class="c1">// 输出：小明 正在学习 Java！</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">s2</span><span class="p">.</span><span class="na">study</span><span class="p">();</span><span class="w"> </span><span class="c1">// 输出：小红 正在学习 Java！</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">s1</span><span class="p">.</span><span class="na">study</span><span class="p">();</span><span class="w"> </span><span class="c1">// 输出：小明 正在学习 Java！</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">s2</span><span class="p">.</span><span class="na">study</span><span class="p">();</span><span class="w"> </span><span class="c1">// 输出：小红 正在学习 Java！</span><span class="w">
 </span></span></span></code></pre></div><p>在上面的示例中，<code>s1</code> 就是一个“学生对象”，它拥有独立的数据空间。       <br>
 如果再创建一个 <code>s2</code>，两个对象各自拥有自己的 <code>name</code>，互不干扰。
 它们就像两台独立运行的电脑，拥有自己的内存空间。</p>
@@ -665,7 +665,7 @@ JAVA——万事万物皆对象
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">showInfo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;姓名：&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;，年龄：&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">age</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>创建对象时会自动调用构造方法</p>
 <p>示例：</p>
 <blockquote>
@@ -674,7 +674,7 @@ JAVA——万事万物皆对象
 </span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">Student</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Student</span><span class="p">(</span><span class="s">&#34;小明&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">18</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">s</span><span class="p">.</span><span class="na">showInfo</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><blockquote>
 <p>输出：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">姓名</span><span class="err">：</span><span class="n">小明</span><span class="err">，</span><span class="n">年龄</span><span class="err">：</span><span class="n">18</span><span class="w">
@@ -793,7 +793,7 @@ JAVA——万事万物皆对象
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><h2 id="4this关键字">4.this关键字<a hidden class="anchor" aria-hidden="true" href="#4this关键字">#</a></h2>
 <p><code>this</code> 表示<strong>当前对象的引用</strong>。</p>
 <p>当方法或构造函数中，参数名和成员变量<strong>相同时</strong>，可以用 <code>this</code> 来区分：</p>
@@ -805,7 +805,7 @@ JAVA——万事万物皆对象
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">  </span><span class="c1">// this.name 表示成员变量</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p><code>this</code> 表示“当前对象自己”。</p>
 <h1 id="类与对象的实例">类与对象的实例<a hidden class="anchor" aria-hidden="true" href="#类与对象的实例">#</a></h1>
 <p>看这个示例：</p>
@@ -823,9 +823,9 @@ JAVA——万事万物皆对象
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">show</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;姓名：&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;，年龄：&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;，成绩：&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">score</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Test</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Test</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Student</span><span class="w"> </span><span class="n">s1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Student</span><span class="p">(</span><span class="s">&#34;小明&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">18</span><span class="p">,</span><span class="w"> </span><span class="n">95</span><span class="p">.</span><span class="na">5</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Student</span><span class="w"> </span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Student</span><span class="p">(</span><span class="s">&#34;小红&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">17</span><span class="p">,</span><span class="w"> </span><span class="n">88</span><span class="p">.</span><span class="na">0</span><span class="p">);</span><span class="w">
@@ -833,10 +833,10 @@ JAVA——万事万物皆对象
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">s1</span><span class="p">.</span><span class="na">show</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">s2</span><span class="p">.</span><span class="na">show</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>输出：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">姓名</span><span class="err">：</span><span class="n">小明</span><span class="err">，</span><span class="n">年龄</span><span class="err">：</span><span class="n">18</span><span class="err">，</span><span class="n">成绩</span><span class="err">：</span><span class="n">95</span><span class="p">.</span><span class="na">5</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">姓名</span><span class="err">：</span><span class="n">小红</span><span class="err">，</span><span class="n">年龄</span><span class="err">：</span><span class="n">17</span><span class="err">，</span><span class="n">成绩</span><span class="err">：</span><span class="n">88</span><span class="p">.</span><span class="na">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">姓名</span><span class="err">：</span><span class="n">小红</span><span class="err">，</span><span class="n">年龄</span><span class="err">：</span><span class="n">17</span><span class="err">，</span><span class="n">成绩</span><span class="err">：</span><span class="n">88</span><span class="p">.</span><span class="na">0</span><span class="w">
 </span></span></span></code></pre></div><h2 id="思考与练习">思考与练习<a hidden class="anchor" aria-hidden="true" href="#思考与练习">#</a></h2>
 <ol>
 <li>写一个 Dog 类，包含属性：name、color、age，并添加方法 bark() 输出 &ldquo;汪汪汪！&rdquo;.</li>
@@ -856,7 +856,7 @@ JAVA——万事万物皆对象
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Student</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div></blockquote>
 <p>别人可以这样使用：</p>
 <blockquote>
@@ -1282,13 +1282,13 @@ s.age = -10; // ❌ 不合理！
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Student</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div></blockquote>
 <p>我们可以直接修改它：</p>
 <blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Student</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Student</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">s</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;小明&#34;</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">s</span><span class="p">.</span><span class="na">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">20</span><span class="p">;</span><span class="w"> </span><span class="c1">// 不合理！</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">s</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;小明&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">s</span><span class="p">.</span><span class="na">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">20</span><span class="p">;</span><span class="w"> </span><span class="c1">// 不合理！</span><span class="w">
 </span></span></span></code></pre></div></blockquote>
 <p>这时我们把它改成封装版：</p>
 <blockquote>
@@ -1316,7 +1316,7 @@ s.age = -10; // ❌ 不合理！
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getAge</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div></blockquote>
 <p>使用方法：</p>
 <blockquote>
@@ -1329,11 +1329,11 @@ s.age = -10; // ❌ 不合理！
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">getName</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34; 今年 &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">getAge</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34; 岁&#34;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><blockquote>
 <p>输出：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">年龄不合法</span><span class="err">！</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">小明</span><span class="w"> </span><span class="n">今年</span><span class="w"> </span><span class="n">18</span><span class="w"> </span><span class="n">岁</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">小明</span><span class="w"> </span><span class="n">今年</span><span class="w"> </span><span class="n">18</span><span class="w"> </span><span class="n">岁</span><span class="w">
 </span></span></span></code></pre></div></blockquote>
 </blockquote>
 <h2 id="4封装的优点">4.封装的优点<a hidden class="anchor" aria-hidden="true" href="#4封装的优点">#</a></h2>
@@ -1352,7 +1352,7 @@ s.age = -10; // ❌ 不合理！
 <p>在封装中，<code>this</code> 通常用来区分成员变量和方法参数。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setName</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p><code>this.name</code> 表示当前对象的成员变量，
 右边的 <code>name</code> 是传入的参数。</p>
 <h2 id="6构造方法与封装结合">6.构造方法与封装结合<a hidden class="anchor" aria-hidden="true" href="#6构造方法与封装结合">#</a></h2>
@@ -1367,7 +1367,7 @@ s.age = -10; // ❌ 不合理！
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// getter / setter 同上</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>这样即使在创建对象时，也会经过合法性检查。</p>
 
 

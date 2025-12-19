@@ -418,8 +418,8 @@
 </span></span><span class="line"><span class="cl">        <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">search</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">// 动态加载省市区
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// 1.获取所有的省 https://web-server.itheima.net/province
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">axios</span>
+</span></span></span><span class="line"><span class="cl">            <span class="c1">// 1.获取所有的省 https://web-server.itheima.net/province
+</span></span></span><span class="line"><span class="cl">            <span class="nx">axios</span>
 </span></span><span class="line"><span class="cl">              <span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;https://web-server.itheima.net/province&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">              <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
@@ -427,10 +427,10 @@
 </span></span><span class="line"><span class="cl">                <span class="k">this</span><span class="p">.</span><span class="nx">province</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">provinces</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">id</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">                <span class="c1">// 为什么要写在获取省的里面？
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="c1">// 因为这是一个异步函数，有时候可能pid还没赋值，也就是还没获取到${this.province}的值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="c1">// 已经走向下一步了，所以写在里面，确保代码已经给${this.province}赋值之后再进行下一步
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="c1">// 2.获取第一个省对应的市 https://web-server.itheima.net/city?pid=xxx
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nx">axios</span>
+</span></span></span><span class="line"><span class="cl">                <span class="c1">// 因为这是一个异步函数，有时候可能pid还没赋值，也就是还没获取到${this.province}的值
+</span></span></span><span class="line"><span class="cl">                <span class="c1">// 已经走向下一步了，所以写在里面，确保代码已经给${this.province}赋值之后再进行下一步
+</span></span></span><span class="line"><span class="cl">                <span class="c1">// 2.获取第一个省对应的市 https://web-server.itheima.net/city?pid=xxx
+</span></span></span><span class="line"><span class="cl">                <span class="nx">axios</span>
 </span></span><span class="line"><span class="cl">                  <span class="p">.</span><span class="nx">get</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">                    <span class="sb">`https://web-server.itheima.net/city?pid=</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">province</span><span class="si">}</span><span class="sb">`</span>
 </span></span><span class="line"><span class="cl">                  <span class="p">)</span>
@@ -439,7 +439,7 @@
 </span></span><span class="line"><span class="cl">                    <span class="k">this</span><span class="p">.</span><span class="nx">city</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">cities</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">id</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">                    <span class="c1">// 获取第一个市对应的区
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="nx">axios</span>
+</span></span></span><span class="line"><span class="cl">                    <span class="nx">axios</span>
 </span></span><span class="line"><span class="cl">                      <span class="p">.</span><span class="nx">get</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">                        <span class="sb">`https://web-server.itheima.net/area?cid=</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">city</span><span class="si">}</span><span class="sb">`</span>
 </span></span><span class="line"><span class="cl">                      <span class="p">)</span>
@@ -650,23 +650,23 @@
 </span></span><span class="line"><span class="cl">          
 </span></span><span class="line"><span class="cl">        <span class="p">},</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 通过async声明异步方法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kr">async</span> <span class="nx">search</span><span class="p">()</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kr">async</span> <span class="nx">search</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">          <span class="c1">// 1.获取所有的省 https://web-server.itheima.net/province
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="kd">let</span> <span class="nx">presult</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">          <span class="kd">let</span> <span class="nx">presult</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="s2">&#34;https://web-server.itheima.net/province&#34;</span>
 </span></span><span class="line"><span class="cl">          <span class="p">);</span>
 </span></span><span class="line"><span class="cl">          <span class="k">this</span><span class="p">.</span><span class="nx">provinces</span> <span class="o">=</span> <span class="nx">presult</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">          <span class="k">this</span><span class="p">.</span><span class="nx">province</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">provinces</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">id</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">          <span class="c1">// 2.获取第一个省对应的市
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="kd">let</span> <span class="nx">cresult</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">          <span class="kd">let</span> <span class="nx">cresult</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="sb">`https://web-server.itheima.net/city?pid=</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">province</span><span class="si">}</span><span class="sb">`</span>
 </span></span><span class="line"><span class="cl">          <span class="p">);</span>
 </span></span><span class="line"><span class="cl">          <span class="k">this</span><span class="p">.</span><span class="nx">cities</span> <span class="o">=</span> <span class="nx">cresult</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">          <span class="k">this</span><span class="p">.</span><span class="nx">city</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">cities</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">id</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">          <span class="c1">// 获取第一个市对应的区
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="kd">let</span> <span class="nx">aresult</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">          <span class="kd">let</span> <span class="nx">aresult</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="sb">`https://web-server.itheima.net/area?cid=</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">city</span><span class="si">}</span><span class="sb">`</span>
 </span></span><span class="line"><span class="cl">          <span class="p">);</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">aresult</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>

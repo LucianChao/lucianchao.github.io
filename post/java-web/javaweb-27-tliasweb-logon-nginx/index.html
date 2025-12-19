@@ -699,14 +699,14 @@ export default router
 </span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="kr">type</span> <span class="p">{</span> <span class="nx">LoginEmp</span><span class="p">,</span> <span class="nx">ResultModel</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;./model/model&#39;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 登录
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">export</span> <span class="kr">const</span> <span class="nx">loginApi</span> <span class="o">=</span> <span class="p">(</span><span class="nx">loginEmp</span>: <span class="kt">LoginEmp</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">request</span><span class="p">.</span><span class="nx">post</span><span class="p">&lt;</span><span class="nt">any</span><span class="p">,</span> <span class="na">ResultModel</span><span class="p">&gt;(</span><span class="sb">`/login`</span><span class="p">,</span> <span class="nx">loginEmp</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">loginApi</span> <span class="o">=</span> <span class="p">(</span><span class="nx">loginEmp</span>: <span class="kt">LoginEmp</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">request</span><span class="p">.</span><span class="nx">post</span><span class="p">&lt;</span><span class="nt">any</span><span class="p">,</span> <span class="na">ResultModel</span><span class="p">&gt;(</span><span class="sb">`/login`</span><span class="p">,</span> <span class="nx">loginEmp</span><span class="p">)</span>
 </span></span></code></pre></div></li>
 <li><code>src\router\index.ts</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">createRouter</span><span class="p">,</span> <span class="nx">createWebHistory</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;vue-router&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// import HomeView from &#39;../views/HomeView.vue&#39;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//路由实例--管理路由与组件的映射关系
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">createRouter</span><span class="p">({</span>
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">createRouter</span><span class="p">({</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">history</span>: <span class="kt">createWebHistory</span><span class="p">(</span><span class="kr">import</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">BASE_URL</span><span class="p">),</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">routes</span><span class="o">:</span> <span class="p">[</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
@@ -714,39 +714,39 @@ export default router
 </span></span><span class="line"><span class="cl">      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;home&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;../views/layout/index.vue&#39;</span><span class="p">),</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">redirect</span><span class="o">:</span> <span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="c1">//重定向至index子路由
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">children</span><span class="o">:</span> <span class="p">[</span>
+</span></span></span><span class="line"><span class="cl">      <span class="nx">children</span><span class="o">:</span> <span class="p">[</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;index&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;index&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;../views/index/index.vue&#39;</span><span class="p">),</span> <span class="c1">//首页组件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">},</span>
+</span></span></span><span class="line"><span class="cl">        <span class="p">},</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;emp&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;emp&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;../views/emp/index.vue&#39;</span><span class="p">),</span> <span class="c1">//员工管理组件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">},</span>
+</span></span></span><span class="line"><span class="cl">        <span class="p">},</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;dept&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;dept&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;../views/dept/index.vue&#39;</span><span class="p">),</span> <span class="c1">//部门管理组件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">},</span>
+</span></span></span><span class="line"><span class="cl">        <span class="p">},</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;clazz&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;clazz&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;../views/clazz/index.vue&#39;</span><span class="p">),</span> <span class="c1">//班级管理组件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">},</span>
+</span></span></span><span class="line"><span class="cl">        <span class="p">},</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;stu&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;stu&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;../views/stu/index.vue&#39;</span><span class="p">),</span> <span class="c1">//学员管理组件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">},</span>
+</span></span></span><span class="line"><span class="cl">        <span class="p">},</span>
 </span></span><span class="line"><span class="cl">      <span class="p">],</span>
 </span></span><span class="line"><span class="cl">    <span class="p">},</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/login&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;login&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;../views/login/index.vue&#39;</span><span class="p">),</span> <span class="c1">//登录页面
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span>
+</span></span></span><span class="line"><span class="cl">    <span class="p">},</span>
 </span></span><span class="line"><span class="cl">  <span class="p">],</span>
 </span></span><span class="line"><span class="cl"><span class="p">})</span>
 </span></span><span class="line"><span class="cl">
@@ -765,22 +765,22 @@ export default router
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">loginForm</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">LoginEmp</span><span class="p">&gt;({</span> <span class="nx">username</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nx">password</span><span class="o">:</span> <span class="s1">&#39;&#39;</span> <span class="p">})</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 登录
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">login</span> <span class="o">=</span> <span class="nx">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">login</span> <span class="o">=</span> <span class="nx">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 发起异步请求--登录操作
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">loginApi</span><span class="p">(</span><span class="nx">loginForm</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">loginApi</span><span class="p">(</span><span class="nx">loginForm</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">code</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">ElMessage</span><span class="p">.</span><span class="nx">success</span><span class="p">(</span><span class="s1">&#39;登录成功&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 登录成功，跳转到首页-----通过路由进行跳转
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">    <span class="nx">router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">ElMessage</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">msg</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 重置
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">clean</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">clean</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 清理表单数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">loginForm</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">username</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nx">password</span><span class="o">:</span> <span class="s1">&#39;&#39;</span> <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">  <span class="nx">loginForm</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">username</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nx">password</span><span class="o">:</span> <span class="s1">&#39;&#39;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
@@ -1021,22 +1021,22 @@ export default router
 </span></span><span class="line"><span class="cl"><span class="c1">// Store对象--通过defineStore创建--用来管理所有的共享状态
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 第一个参数==&gt;counter：一个唯一标识
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 第二个参数==&gt;定义函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">export</span> <span class="kr">const</span> <span class="nx">useCounterStore</span> <span class="o">=</span> <span class="nx">defineStore</span><span class="p">(</span><span class="s1">&#39;loginEmpInfo&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">useCounterStore</span> <span class="o">=</span> <span class="nx">defineStore</span><span class="p">(</span><span class="s1">&#39;loginEmpInfo&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 1.定义一个对象--存储所有用户登录信息
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">loginEmp</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">LoginInfo</span><span class="p">&gt;({})</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">loginEmp</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">LoginInfo</span><span class="p">&gt;({})</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="c1">// 2.存储用户登录信息---loginEMmp对象数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">setLoginEmp</span> <span class="o">=</span> <span class="p">(</span><span class="nx">loginInfo</span>: <span class="kt">LoginInfo</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">setLoginEmp</span> <span class="o">=</span> <span class="p">(</span><span class="nx">loginInfo</span>: <span class="kt">LoginInfo</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">loginEmp</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">loginInfo</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="c1">// 3.获取用户登录信息---loginEMmp对象数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">getLonginEmp</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">getLonginEmp</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">loginEmp</span><span class="p">.</span><span class="nx">value</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="c1">// 4.清除用户登录信息---loginEMmp对象数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">removeLoginEmp</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">removeLoginEmp</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">loginEmp</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -1160,11 +1160,11 @@ export default router
 <ul>
 <li><code>src\utils\request.ts</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="c1">// 添加请求拦截器
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">request</span><span class="p">.</span><span class="nx">interceptors</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl"><span class="nx">request</span><span class="p">.</span><span class="nx">interceptors</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 发起请求前
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 将令牌存入到请求头中
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">loginEmp</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">getLonginEmp</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// 将令牌存入到请求头中
+</span></span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">loginEmp</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">getLonginEmp</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">loginEmp</span> <span class="o">&amp;&amp;</span> <span class="nx">loginEmp</span><span class="p">.</span><span class="nx">token</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">config</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">loginEmp</span><span class="p">.</span><span class="nx">token</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -1173,7 +1173,7 @@ export default router
 </span></span><span class="line"><span class="cl">  <span class="p">},</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 请求错误处理
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">},</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span></code></pre></div></li>
@@ -1232,18 +1232,18 @@ export default router
         </span>提示</p><p>确保已经安装<code>pinia-plugin-persistedstate</code>，若没有安装可以运行<code>npm i pinia-plugin-persistedstate</code>安装插件</p></div></li>
 <li><code>main.ts</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="c1">// 导入Pinia插件（持久化）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="nx">piniaPluginPersistedstate</span> <span class="kr">from</span> <span class="s1">&#39;pinia-plugin-persistedstate&#39;</span>
+</span></span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">piniaPluginPersistedstate</span> <span class="kr">from</span> <span class="s1">&#39;pinia-plugin-persistedstate&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 创建pinia实例
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">pinia</span><span class="o">=</span><span class="nx">createPinia</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">pinia</span><span class="o">=</span><span class="nx">createPinia</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 为pinia挂载插件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">pinia</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">piniaPluginPersistedstate</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="nx">pinia</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">piniaPluginPersistedstate</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="c1">//应用pinia、router、element plus插件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">pinia</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">pinia</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">router</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">ElementPlus</span><span class="p">,{</span><span class="nx">locale</span>:<span class="kt">zhCn</span><span class="p">})</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//挂载应用
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">app</span><span class="p">.</span><span class="nx">mount</span><span class="p">(</span><span class="s1">&#39;#app&#39;</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">mount</span><span class="p">(</span><span class="s1">&#39;#app&#39;</span><span class="p">)</span>
 </span></span></code></pre></div></li>
 <li><code>src\stores\loginEmp.ts</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ref</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;vue&#39;</span>
@@ -1254,24 +1254,24 @@ export default router
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 第一个参数==&gt;counter：一个唯一标识
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 第二个参数==&gt;定义函数
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 第三个参数==&gt;{ persist: true }声明要持久化
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">export</span> <span class="kr">const</span> <span class="nx">useLoginEmpStore</span> <span class="o">=</span> <span class="nx">defineStore</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">useLoginEmpStore</span> <span class="o">=</span> <span class="nx">defineStore</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">  <span class="s1">&#39;loginEmpInfo&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">  <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 1.定义一个对象--存储所有用户登录信息
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">loginEmp</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">LoginInfo</span><span class="p">&gt;({})</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">loginEmp</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">LoginInfo</span><span class="p">&gt;({})</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 2.存储用户登录信息---loginEMmp对象数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">setLoginEmp</span> <span class="o">=</span> <span class="p">(</span><span class="nx">loginInfo</span>: <span class="kt">LoginInfo</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">setLoginEmp</span> <span class="o">=</span> <span class="p">(</span><span class="nx">loginInfo</span>: <span class="kt">LoginInfo</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">loginEmp</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">loginInfo</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 3.获取用户登录信息---loginEMmp对象数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">getLonginEmp</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">getLonginEmp</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">loginEmp</span><span class="p">.</span><span class="nx">value</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 4.清除用户登录信息---loginEMmp对象数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">removeLoginEmp</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">removeLoginEmp</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">loginEmp</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -1287,18 +1287,18 @@ export default router
 <li><code>src\views\layout\index.vue</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 省略部分代码
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 使用store
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">useLoginEmpStore</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">useLoginEmpStore</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 登录人
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">loginName</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">string</span> <span class="err">|</span> <span class="na">undefined</span><span class="p">&gt;(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">loginName</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">string</span> <span class="err">|</span> <span class="na">undefined</span><span class="p">&gt;(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nx">loginName</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">loginEmp</span><span class="p">.</span><span class="nx">name</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 退出登录信息
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">logout</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">logout</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 1.清楚登录信息
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">store</span><span class="p">.</span><span class="nx">removeLoginEmp</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl">  <span class="nx">store</span><span class="p">.</span><span class="nx">removeLoginEmp</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">//2.跳转到登录页面
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">  <span class="nx">router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">ElMessage</span><span class="p">.</span><span class="nx">success</span><span class="p">(</span><span class="s1">&#39;退出成功&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Git on SteamedFish&#39;s Blog</title>
+    <link>https://www.steamedfish.top/tags/git/</link>
+    <description>Recent content in Git on SteamedFish&#39;s Blog</description>
+    <generator>Hugo -- 0.153.0</generator>
+    <language>zh</language>
+    <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
+    <lastBuildDate>Sat, 20 Dec 2025 03:56:22 +0800</lastBuildDate>
+    <atom:link href="https://www.steamedfish.top/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git入门</title>
+      <link>https://www.steamedfish.top/post/git/</link>
+      <pubDate>Fri, 19 Dec 2025 17:06:27 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/git/</guid>
+      <description>&lt;h2 id=&#34;什么是git&#34;&gt;什么是git？&lt;/h2&gt;
+&lt;p&gt;Git是一个分布式版本控制工具，主要用于管理开发过程中的源代码文件（Java类、xml文件、html页面等），在软件开发过程中被广泛使用。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;git概述&#34;&gt;Git概述&lt;/h2&gt;
+&lt;h3 id=&#34;git简介&#34;&gt;Git简介&lt;/h3&gt;
+&lt;p&gt;Git是一个分布式版本控制工具，通常用来对软件开发过程中的源代码文件进行管理。通过Git仓库来存储和管理这些文件，Git仓库分为两种：&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
