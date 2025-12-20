@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://www.steamedfish.top/post/java-project/sky-take-out/</loc>
-    <lastmod>2025-12-20T03:56:22+08:00</lastmod>
+    <loc>https://www.steamedfish.top/post/java-project/sky-take-out-2/</loc>
+    <lastmod>2025-12-20T21:08:41+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/post/</loc>
-    <lastmod>2025-12-20T03:56:22+08:00</lastmod>
+    <lastmod>2025-12-20T21:08:41+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/tags/</loc>
-    <lastmod>2025-12-20T03:56:22+08:00</lastmod>
+    <lastmod>2025-12-20T21:08:41+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -21,8 +21,17 @@
                 href="https://www.steamedfish.top/tags/"
                 />
   </url><url>
+    <loc>https://www.steamedfish.top/tags/threadlocal/</loc>
+    <lastmod>2025-12-20T21:08:41+08:00</lastmod>
+  </url><url>
     <loc>https://www.steamedfish.top/tags/%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96/</loc>
-    <lastmod>2025-12-20T03:56:22+08:00</lastmod>
+    <lastmod>2025-12-20T21:08:41+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/post/java-project/sky-take-out/</loc>
+    <lastmod>2025-12-20T21:08:41+08:00</lastmod>
+  </url><url>
+    <loc>https://www.steamedfish.top/tags/swagger/</loc>
+    <lastmod>2025-12-20T21:08:41+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/tags/git/</loc>
     <lastmod>2025-12-20T03:56:22+08:00</lastmod>

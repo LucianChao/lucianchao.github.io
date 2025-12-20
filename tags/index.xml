@@ -7,13 +7,27 @@
     <generator>Hugo -- 0.153.0</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sat, 20 Dec 2025 03:56:22 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 20 Dec 2025 21:08:41 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ThreadLocal</title>
+      <link>https://www.steamedfish.top/tags/threadlocal/</link>
+      <pubDate>Sat, 20 Dec 2025 14:21:00 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/threadlocal/</guid>
+      <description></description>
+    </item>
     <item>
       <title>苍穹外卖</title>
       <link>https://www.steamedfish.top/tags/%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96/</link>
-      <pubDate>Fri, 19 Dec 2025 18:06:27 +0800</pubDate>
+      <pubDate>Sat, 20 Dec 2025 14:21:00 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Swagger</title>
+      <link>https://www.steamedfish.top/tags/swagger/</link>
+      <pubDate>Fri, 19 Dec 2025 18:06:27 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/swagger/</guid>
       <description></description>
     </item>
     <item>
@@ -318,7 +332,7 @@
       <description></description>
     </item>
     <item>
-      <title>MyBatis</title>
+      <title>Mybatis</title>
       <link>https://www.steamedfish.top/tags/mybatis/</link>
       <pubDate>Thu, 27 Nov 2025 16:37:44 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/mybatis/</guid>
