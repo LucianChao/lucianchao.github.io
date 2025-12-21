@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>【苍穹外卖】（2）员工管理、分类管理· | SteamedFish&#39;s Blog</title>
+<title>【苍穹外卖】（2）员工管理、分类管理 | SteamedFish&#39;s Blog</title>
 <meta name="keywords" content="苍穹外卖, ThreadLocal">
 <meta name="description" content="完善登录功能
 问题：员工表中的密码是明文存储，安全性太低
@@ -126,17 +126,17 @@ update employee set password = md5(password);
   rel="stylesheet"
 /><meta property="og:url" content="https://www.steamedfish.top/post/java-project/sky-take-out-2/">
   <meta property="og:site_name" content="SteamedFish&#39;s Blog">
-  <meta property="og:title" content="【苍穹外卖】（2）员工管理、分类管理·">
+  <meta property="og:title" content="【苍穹外卖】（2）员工管理、分类管理">
   <meta property="og:description" content="完善登录功能 问题：员工表中的密码是明文存储，安全性太低 解决：使用MD5加密方式对明文密码加密 修改数据库中明文密码，改为MD5加密后的密文 执行sql语句 update employee set password = md5(password); 提示">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2025-12-20T14:21:00+08:00">
-    <meta property="article:modified_time" content="2025-12-20T21:08:41+08:00">
+    <meta property="article:modified_time" content="2025-12-22T01:20:03+08:00">
     <meta property="article:tag" content="苍穹外卖">
     <meta property="article:tag" content="ThreadLocal">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【苍穹外卖】（2）员工管理、分类管理·">
+<meta name="twitter:title" content="【苍穹外卖】（2）员工管理、分类管理">
 <meta name="twitter:description" content="完善登录功能
 问题：员工表中的密码是明文存储，安全性太低
 
@@ -214,7 +214,7 @@ update employee set password = md5(password);
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "【苍穹外卖】（2）员工管理、分类管理·",
+      "name": "【苍穹外卖】（2）员工管理、分类管理",
       "item": "https://www.steamedfish.top/post/java-project/sky-take-out-2/"
     }
   ]
@@ -224,17 +224,17 @@ update employee set password = md5(password);
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "【苍穹外卖】（2）员工管理、分类管理·",
-  "name": "【苍穹外卖】（2）员工管理、分类管理·",
+  "headline": "【苍穹外卖】（2）员工管理、分类管理",
+  "name": "【苍穹外卖】（2）员工管理、分类管理",
   "description": "完善登录功能 问题：员工表中的密码是明文存储，安全性太低 解决：使用MD5加密方式对明文密码加密 修改数据库中明文密码，改为MD5加密后的密文 执行sql语句 update employee set password = md5(password); 提示\n",
   "keywords": [
     "苍穹外卖", "ThreadLocal"
   ],
-  "articleBody": "完善登录功能 问题：员工表中的密码是明文存储，安全性太低 解决：使用MD5加密方式对明文密码加密 修改数据库中明文密码，改为MD5加密后的密文 执行sql语句 update employee set password = md5(password); 提示\n加密语句只能执行一次 修改Java代码，前端提交的密码进行MD5加密后再跟数据库中密码比对 新增员工 需求分析和设计 产品原型： 接口设计： 信息\n本项目约定：\n管理端发出的请求，统一使用/admin作为前缀 用户端发出的请求，统一使用/user作为前缀 数据库设计（employee表）: 代码开发 根据新增员工接口设计对应DTO： 提示\n当前端提交的数据和实体类中对应的属性差别比较大时，建议使用DTO来封装数据\n在EmployeeController中创建新增员工方法，接收前端提交的参数： 在EmployeeService接口中声明新增员工方法： 在EmployeeServicelmpl中实现新增员工方法： 在EmployeeMapper中声明insert方法： 功能测试 功能测试方式：\n通过接口文档测试 通过前后端联调测试 信息\n由于开发阶段前端和后端是并行开发的，后端完成某个功能后，此时前端对应的功能可能还没有开发完成，导致无法进行前后端联调测试。所以在开发阶段，后端测试主要以接口文档测试为主。\n通过接口文档进行功能测试： 由于JWT令牌校验失败，导致EmployeeController的save方法没用被调用 调用员工登录接口获得一个合法的JWT令牌： 将合法的JWT令牌添加到全局参数中：\n文档管理-\u003e全局参数设置-\u003e添加参数 代码完善 程序存在的问题：\n录入的用户名已存在，抛出异常后没有处理 可以通过全局异常处理器来处理： 新增员工时，创建人id和修改人id设置为了固定值 需要通过某种方式动态获取当前登录员工的id： 初始工程中已经封装了ThreadLocal操作的工具类： 在拦截器中解析出当前登录员工id，并放入线程局部变量中： 在Service中获取线程局部变量中的值： ThreadLocal ThreadLocal并不是一个Thread，而是Thread的局部变量。 ThreadLocal为每个线程提供单独一份存储空间，具有线程隔离的效果，只有在线程内才能获取到对应的值，线程外则不能访问。\nThreadLocal常用方法：\npublicvoid set(T value)设置当前线程的线程局部变量的值 public T get()返回当前线程所对应的线程局部变量的值 public void remove()移除当前线程的线程局部变量 信息\n客户端发送的每次请求，后端的Tomcat服务器都会分配一个单独的线程来处理请求\n员工分页查询 需求分析和设计 产品原型： 业务规则：\n根据页码展示员工信息 每页展示10条数据 分页查询时可以根据需要，输入员工姓名进行查询（支持模糊查询） 排序：根据创建的时间倒序排序 接口设计： 代码开发 根据分页查询接口设计对应的DTO： 后面所有的分页查询，统一都封装成PageResult对象： 员工信息分页查询后端返回的对象类型为：Result 根据接口定义创建分页查询方法： 在EmployeeService接口中声明pageQuery方法： 在EmployeeServicelmpl中实现pageQuery方法： 信息\n此处使用 mybatis 的分页插件PageHelper来简化分页代码的开发。底层基于 mybatis的拦截器实现。\n在 EmployeeMapper 中声明 pageQuery 方法: 在 EmployeeMapper.xml 中编写SQL: 功能测试 通过接口文档进行测试，也可以进行前后端联调测试，最后操作时间字段展示有问题，如下： 代码完善 解决方式：\n方式一：在属性上加入注解，对日期进行格式化 @JsonFormat(pattern = \"yyyy-MM-dd HH:mm:ss\") private LocalDateTime updateTime; 方式二：在WebMvcConfiguration中扩展SpringMVC的消息转换器，统一对日期类型进行格式化处理 启用禁用员工账户 需求分析和设计 业务规则：\n可以对状态为“启用”的员工账号进行“禁用”操作 可以对状态为“禁用”的员工账号进行“启用”操作 状态为“禁用”的员工账号不能登录系统 接口设计： 代码开发 根据接口设计中的请求参数形式对应的在EmployeeController中创建启用禁用员工账号的方法： 在EmployeeService接口中声明启用禁用员工账号的业务方法： 在EmployeeServicelmpl中实现启用禁用员工账号的业务方法： 在 EmployeeMapper接口中声明 update 方法： 在 EmployeeMapper.xml 中编写SQL： 编辑员工 需求分析和设计 编辑员工功能涉及到两个接口：\n根据id查询员工信息 编辑员工信息 代码开发 在 EmployeeController 中创建 getByld 方法： 在 EmployeeService 接口中声明 getByld 方法： 在 EmployeeServicelmpl 中实现 getByld 方法： 在 EmployeeMapper 接口中声明 getByld 方法： 通过接口测试确认数据回显是否有问题，如果没有问题再继续开发 在 EmployeeController 中创建 update 方法： 在 EmployeeService 接口中声明 update 方法: 在 EmployeeServicelmpl 中实现 update 方法： 功能测试 通过Swagger接口文档进行测试，通过后再前后端联调测试即可\n导入分类模块功能代码 需求分析和设计 产品原型： 业务规则：\n分类名称必须是唯一的 分类按照类型可以分为菜品分类和套餐分类 新添加的分类状态默认为“禁用” 接口设计：\n新增分类 分类分页查询 根据id删除分类 修改分类 启用禁用分类 根据类型查询分类 数据库设计(category表): ",
-  "wordCount" : "2064",
+  "articleBody": "完善登录功能 问题：员工表中的密码是明文存储，安全性太低 解决：使用MD5加密方式对明文密码加密 修改数据库中明文密码，改为MD5加密后的密文 执行sql语句 update employee set password = md5(password); 提示\n加密语句只能执行一次 修改Java代码，前端提交的密码进行MD5加密后再跟数据库中密码比对 新增员工 需求分析和设计 产品原型： 接口设计： 信息\n本项目约定：\n管理端发出的请求，统一使用/admin作为前缀 用户端发出的请求，统一使用/user作为前缀 数据库设计（employee表）: 代码开发 根据新增员工接口设计对应DTO： 提示\n当前端提交的数据和实体类中对应的属性差别比较大时，建议使用DTO来封装数据\n在EmployeeController中创建新增员工方法，接收前端提交的参数： 在EmployeeService接口中声明新增员工方法： 在EmployeeServicelmpl中实现新增员工方法： 在EmployeeMapper中声明insert方法： 功能测试 功能测试方式：\n通过接口文档测试 通过前后端联调测试 信息\n由于开发阶段前端和后端是并行开发的，后端完成某个功能后，此时前端对应的功能可能还没有开发完成，导致无法进行前后端联调测试。所以在开发阶段，后端测试主要以接口文档测试为主。\n通过接口文档进行功能测试： 由于JWT令牌校验失败，导致EmployeeController的save方法没用被调用 调用员工登录接口获得一个合法的JWT令牌： 将合法的JWT令牌添加到全局参数中：\n文档管理-\u003e全局参数设置-\u003e添加参数 代码完善 程序存在的问题：\n录入的用户名已存在，抛出异常后没有处理 可以通过全局异常处理器来处理： 新增员工时，创建人id和修改人id设置为了固定值 需要通过某种方式动态获取当前登录员工的id： 初始工程中已经封装了ThreadLocal操作的工具类： 在拦截器中解析出当前登录员工id，并放入线程局部变量中： 在Service中获取线程局部变量中的值： ThreadLocal ThreadLocal并不是一个Thread，而是Thread的局部变量。 ThreadLocal为每个线程提供单独一份存储空间，具有线程隔离的效果，只有在线程内才能获取到对应的值，线程外则不能访问。\nThreadLocal常用方法：\npublic void set(T value)设置当前线程的线程局部变量的值 public T get()返回当前线程所对应的线程局部变量的值 public void remove()移除当前线程的线程局部变量 信息\n客户端发送的每次请求，后端的Tomcat服务器都会分配一个单独的线程来处理请求\n员工分页查询 需求分析和设计 产品原型： 业务规则：\n根据页码展示员工信息 每页展示10条数据 分页查询时可以根据需要，输入员工姓名进行查询（支持模糊查询） 排序：根据创建的时间倒序排序 接口设计： 代码开发 根据分页查询接口设计对应的DTO： 后面所有的分页查询，统一都封装成PageResult对象： 员工信息分页查询后端返回的对象类型为：Result 根据接口定义创建分页查询方法： 在EmployeeService接口中声明pageQuery方法： 在EmployeeServicelmpl中实现pageQuery方法： 信息\n此处使用 mybatis 的分页插件PageHelper来简化分页代码的开发。底层基于 mybatis的拦截器实现。\n在 EmployeeMapper 中声明 pageQuery 方法: 在 EmployeeMapper.xml 中编写SQL: 功能测试 通过接口文档进行测试，也可以进行前后端联调测试，最后操作时间字段展示有问题，如下： 代码完善 解决方式：\n方式一：在属性上加入注解，对日期进行格式化 @JsonFormat(pattern = \"yyyy-MM-dd HH:mm:ss\") private LocalDateTime updateTime; 方式二：在WebMvcConfiguration中扩展SpringMVC的消息转换器，统一对日期类型进行格式化处理 启用禁用员工账户 需求分析和设计 业务规则：\n可以对状态为“启用”的员工账号进行“禁用”操作 可以对状态为“禁用”的员工账号进行“启用”操作 状态为“禁用”的员工账号不能登录系统 接口设计： 代码开发 根据接口设计中的请求参数形式对应的在EmployeeController中创建启用禁用员工账号的方法： 在EmployeeService接口中声明启用禁用员工账号的业务方法： 在EmployeeServicelmpl中实现启用禁用员工账号的业务方法： 在 EmployeeMapper接口中声明 update 方法： 在 EmployeeMapper.xml 中编写SQL： 编辑员工 需求分析和设计 编辑员工功能涉及到两个接口：\n根据id查询员工信息 编辑员工信息 代码开发 在 EmployeeController 中创建 getByld 方法： 在 EmployeeService 接口中声明 getByld 方法： 在 EmployeeServicelmpl 中实现 getByld 方法： 在 EmployeeMapper 接口中声明 getByld 方法： 通过接口测试确认数据回显是否有问题，如果没有问题再继续开发 在 EmployeeController 中创建 update 方法： 在 EmployeeService 接口中声明 update 方法: 在 EmployeeServicelmpl 中实现 update 方法： 功能测试 通过Swagger接口文档进行测试，通过后再前后端联调测试即可\n导入分类模块功能代码 需求分析和设计 产品原型： 业务规则：\n分类名称必须是唯一的 分类按照类型可以分为菜品分类和套餐分类 新添加的分类状态默认为“禁用” 接口设计：\n新增分类 分类分页查询 根据id删除分类 修改分类 启用禁用分类 根据类型查询分类 数据库设计(category表): ",
+  "wordCount" : "2065",
   "inLanguage": "zh",
   "datePublished": "2025-12-20T14:21:00+08:00",
-  "dateModified": "2025-12-20T21:08:41+08:00",
+  "dateModified": "2025-12-22T01:20:03+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/java-project/sky-take-out-2/"
@@ -336,7 +336,7 @@ update employee set password = md5(password);
   <header class="post-header">
     
     <h1 class="post-title entry-hint-parent">
-      【苍穹外卖】（2）员工管理、分类管理·
+      【苍穹外卖】（2）员工管理、分类管理
     </h1>
     <div class="post-meta">
 
@@ -345,7 +345,7 @@ update employee set password = md5(password);
 
 
 
-<span title='2025-12-20 14:21:00 +0800 +0800'>2025-12-20</span>&nbsp;·&nbsp;<span>5 分钟</span>
+<span title='2025-12-20 14:21:00 +0800 +0800'>2025-12-20</span>&nbsp;·&nbsp;<span title='2025-12-22 01:20:03 +0800 +0800'>(最后修改于 2025-12-22)</span>&nbsp;·&nbsp;<span>5 分钟</span>
 
 </div>
   </header> <div class="toc">
@@ -1245,7 +1245,7 @@ update employee set password = md5(password);
 <code>ThreadLocal</code>为每个线程提供单独一份存储空间，具有线程隔离的效果，只有在线程内才能获取到对应的值，线程外则不能访问。</p>
 <p><code>ThreadLocal</code>常用方法：</p>
 <ul>
-<li><code>publicvoid set(T value)</code>设置当前线程的线程局部变量的值</li>
+<li><code>public void set(T value)</code>设置当前线程的线程局部变量的值</li>
 <li><code>public T get()</code>返回当前线程所对应的线程局部变量的值</li>
 <li><code>public void remove()</code>移除当前线程的线程局部变量
 <div class="notice info" >
