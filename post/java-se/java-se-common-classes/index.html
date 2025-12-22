@@ -16,7 +16,7 @@ String 对象是不可变的（immutable）
 也就是说，一旦创建，就不能修改。">
 <meta name="author" content="">
 <link rel="canonical" href="https://www.steamedfish.top/post/java-se/java-se-common-classes/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.f1d179fd7d33e9bd1a3ecb8e8b40a80d90ffdf3a9958f70502e9b648b3e2649b.css" integrity="sha256-8dF5/X0z6b0aPsuOi0CoDZD/3zqZWPcFAum2SLPiZJs=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bb75ad9cd3f177416820549c7dcf1fbd230a3e6d5746d0421cdd343c8a204e05.css" integrity="sha256-u3WtnNPxd0FoIFScfc8fvSMKPm1XRtBCHN00PIogTgU=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
@@ -149,7 +149,8 @@ String 对象是不可变的（immutable）
 </script>
 </head>
 
-<body class="" id="top">
+<body data-barba="wrapper" class="" id="top">
+<div id="aplayer"></div>
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -228,7 +229,7 @@ String 对象是不可变的（immutable）
         </ul>
     </nav>
 </header>
-<main class="main">
+<main class="main" data-barba="container" data-barba-namespace="main">
 
 <article class="post-single">
   <header class="post-header">
@@ -753,6 +754,21 @@ String 对象是不可变的（immutable）
         <path d="M12 6H0l6-6z" />
     </svg>
 </a>
+<script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
+
+
+
+
+
+
+
+<link href="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.2/Meting.min.js"></script>
+<script src="/js/player.js"></script>
+<script src="/js/pjax.js"></script>
+
+
 
 
 <link

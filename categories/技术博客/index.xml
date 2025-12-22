@@ -510,9 +510,10 @@
         &lt;a class=&#34;name&#34; href=https://github.com/coreybutler/nvm-windows target=&#34;_blank&#34;&gt;nvm-windows&lt;/a&gt;
     &lt;/div&gt;
     &lt;div class=&#34;description&#34;&gt;在 Windows 电脑上管理多个 node.js 安装！&lt;/div&gt;
+    
+    
     &lt;div class=&#34;language&#34;&gt;
-        &lt;span class=&#34;language-color&#34; style=&#34;background-color: #00add8&#34;&gt;&lt;/span&gt;
-        &lt;span class=&#34;language-name&#34;&gt;Go&lt;/span&gt;
+        
     &lt;/div&gt;
 &lt;/div&gt;
 
