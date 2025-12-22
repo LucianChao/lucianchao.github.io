@@ -7,15 +7,15 @@
     <generator>Hugo -- 0.153.1</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sat, 20 Dec 2025 21:08:41 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 23 Dec 2025 00:29:00 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/swagger/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>【苍穹外卖】（1）·项目概览</title>
-      <link>https://www.steamedfish.top/post/java-project/sky-take-out/</link>
+      <title>【苍穹外卖】（ 1 ）项目概览 </title>
+      <link>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out/</link>
       <pubDate>Fri, 19 Dec 2025 18:06:27 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-project/sky-take-out/</guid>
+      <guid>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out/</guid>
       <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
-&lt;p&gt;终于是把tlias做完了。下个阶段打算快速把苍穹外卖过一遍，不够这次的计划是，先跟着网上的视频和资料把博客写完，后面再跟着接口文档进行开发，祝我成功吧。&lt;/p&gt;
+&lt;p&gt;终于是把 tlias 做完了。下个阶段打算快速把苍穹外卖过一遍，不够这次的计划是，先跟着网上的视频和资料把博客写完，后面再跟着接口文档进行开发，祝我成功吧。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;项目介绍&#34;&gt;项目介绍&lt;/h2&gt;
 &lt;p&gt;定位：专门为餐饮企业（餐厅、饭店）定制的一款软件产品&lt;br&gt;
@@ -36,13 +36,13 @@
 
 &lt;div class=&#34;post-img-view&#34;&gt;
   &lt;a
-    data-fancybox=&#34;post-post/java-project/sky-take-out-1/index.md&#34;
-    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/1.webp&#34;
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-1/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out/1.webp&#34;
     data-caption=&#34;&#34;
   &gt;
     &lt;img
-      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/1.webp&#34;
-      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/1.webp 2x&#34;
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out/1.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out/1.webp 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
       style=&#34;max-width: 100%; height: auto;&#34;
@@ -71,13 +71,13 @@
 
 &lt;div class=&#34;post-img-view&#34;&gt;
   &lt;a
-    data-fancybox=&#34;post-post/java-project/sky-take-out-1/index.md&#34;
-    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/2.webp&#34;
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-1/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out/2.webp&#34;
     data-caption=&#34;&#34;
   &gt;
     &lt;img
-      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/2.webp&#34;
-      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/2.webp 2x&#34;
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out/2.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out/2.webp 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
       style=&#34;max-width: 100%; height: auto;&#34;

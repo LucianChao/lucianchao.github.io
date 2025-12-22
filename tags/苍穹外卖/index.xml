@@ -7,13 +7,13 @@
     <generator>Hugo -- 0.153.1</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Mon, 22 Dec 2025 01:20:03 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 23 Dec 2025 00:29:00 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【苍穹外卖】（2）员工管理、分类管理</title>
-      <link>https://www.steamedfish.top/post/java-project/sky-take-out-2/</link>
+      <link>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/</link>
       <pubDate>Sat, 20 Dec 2025 14:21:00 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-project/sky-take-out-2/</guid>
+      <guid>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/</guid>
       <description>&lt;h2 id=&#34;完善登录功能&#34;&gt;完善登录功能&lt;/h2&gt;
 &lt;p&gt;问题：员工表中的密码是明文存储，安全性太低
 
@@ -32,13 +32,13 @@
 
 &lt;div class=&#34;post-img-view&#34;&gt;
   &lt;a
-    data-fancybox=&#34;post-post/java-project/sky-take-out-2/index.md&#34;
-    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out-2/1.webp&#34;
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-2/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/1.webp&#34;
     data-caption=&#34;&#34;
   &gt;
     &lt;img
-      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out-2/1.webp&#34;
-      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out-2/1.webp 2x&#34;
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/1.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/1.webp 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
       style=&#34;max-width: 100%; height: auto;&#34;
@@ -67,13 +67,13 @@
 
 &lt;div class=&#34;post-img-view&#34;&gt;
   &lt;a
-    data-fancybox=&#34;post-post/java-project/sky-take-out-2/index.md&#34;
-    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out-2/2.webp&#34;
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-2/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/2.webp&#34;
     data-caption=&#34;&#34;
   &gt;
     &lt;img
-      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out-2/2.webp&#34;
-      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out-2/2.webp 2x&#34;
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/2.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/2.webp 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
       style=&#34;max-width: 100%; height: auto;&#34;
@@ -187,87 +187,6 @@
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z&#34;/&gt;&lt;/svg&gt;
         &lt;/span&gt;提示&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>【苍穹外卖】（1）·项目概览</title>
-      <link>https://www.steamedfish.top/post/java-project/sky-take-out/</link>
-      <pubDate>Fri, 19 Dec 2025 18:06:27 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-project/sky-take-out/</guid>
-      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
-&lt;p&gt;终于是把tlias做完了。下个阶段打算快速把苍穹外卖过一遍，不够这次的计划是，先跟着网上的视频和资料把博客写完，后面再跟着接口文档进行开发，祝我成功吧。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;项目介绍&#34;&gt;项目介绍&lt;/h2&gt;
-&lt;p&gt;定位：专门为餐饮企业（餐厅、饭店）定制的一款软件产品&lt;br&gt;
-功能架构：体现项目中的业务功能模块
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-&lt;div class=&#34;post-img-view&#34;&gt;
-  &lt;a
-    data-fancybox=&#34;post-post/java-project/sky-take-out-1/index.md&#34;
-    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/1.webp&#34;
-    data-caption=&#34;&#34;
-  &gt;
-    &lt;img
-      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/1.webp&#34;
-      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/1.webp 2x&#34;
-      alt=&#34;&#34;
-      loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto;&#34;
-    /&gt;
-  &lt;/a&gt;
-    
-  
-&lt;/div&gt;
-
-
-
-技术选型：展示项目中使用到的技术框架和中间件等
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-&lt;div class=&#34;post-img-view&#34;&gt;
-  &lt;a
-    data-fancybox=&#34;post-post/java-project/sky-take-out-1/index.md&#34;
-    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/2.webp&#34;
-    data-caption=&#34;&#34;
-  &gt;
-    &lt;img
-      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/2.webp&#34;
-      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/2.webp 2x&#34;
-      alt=&#34;&#34;
-      loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto;&#34;
-    /&gt;
-  &lt;/a&gt;
-    
-  
-&lt;/div&gt;
-
-
-&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

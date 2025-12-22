@@ -7,13 +7,13 @@
     <generator>Hugo -- 0.153.1</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Mon, 22 Dec 2025 01:20:03 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 23 Dec 2025 00:29:00 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/threadlocal/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【苍穹外卖】（2）员工管理、分类管理</title>
-      <link>https://www.steamedfish.top/post/java-project/sky-take-out-2/</link>
+      <link>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/</link>
       <pubDate>Sat, 20 Dec 2025 14:21:00 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/java-project/sky-take-out-2/</guid>
+      <guid>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/</guid>
       <description>&lt;h2 id=&#34;完善登录功能&#34;&gt;完善登录功能&lt;/h2&gt;
 &lt;p&gt;问题：员工表中的密码是明文存储，安全性太低
 
@@ -32,13 +32,13 @@
 
 &lt;div class=&#34;post-img-view&#34;&gt;
   &lt;a
-    data-fancybox=&#34;post-post/java-project/sky-take-out-2/index.md&#34;
-    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out-2/1.webp&#34;
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-2/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/1.webp&#34;
     data-caption=&#34;&#34;
   &gt;
     &lt;img
-      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out-2/1.webp&#34;
-      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out-2/1.webp 2x&#34;
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/1.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/1.webp 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
       style=&#34;max-width: 100%; height: auto;&#34;
@@ -67,13 +67,13 @@
 
 &lt;div class=&#34;post-img-view&#34;&gt;
   &lt;a
-    data-fancybox=&#34;post-post/java-project/sky-take-out-2/index.md&#34;
-    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out-2/2.webp&#34;
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-2/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/2.webp&#34;
     data-caption=&#34;&#34;
   &gt;
     &lt;img
-      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out-2/2.webp&#34;
-      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out-2/2.webp 2x&#34;
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/2.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/2.webp 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
       style=&#34;max-width: 100%; height: auto;&#34;
