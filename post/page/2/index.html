@@ -180,6 +180,26 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Javaweb——(28)Linux入门
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Linux Linux是一套免费使用和自由传播的操作系统 Linux概述 主流操作系统 分类系统特点桌面操作系统windows用户数量最多Mac OS操作体验好，办公人士首选Linux用户数量少服务器操作系统Unix安全、稳定、付费Linux安全、稳定、免费、占有率高Windows Server付费、占有率低移动设备操作系统Android基于Linux、开源，主要用智能手机、平板、智能电视IOS苹果公司开发、不开源，用于苹果公司的产品Harmonyos华为公司开发、开源，目前用于华为公司的产品Linux系统版本 Linux系统分为内核版和发行版
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2025-12-15 20:57:41 +0800 +0800'>2025-12-15</span>&nbsp;·&nbsp;<span title='2025-12-16 04:55:00 +0800 +0800'>(最后修改于 2025-12-16)</span>&nbsp;·&nbsp;<span>10 分钟</span></footer>
+  <a class="entry-link" aria-label="post link to Javaweb——(28)Linux入门" href="https://www.steamedfish.top/post/java-web/javaweb-28-tliasweb-linux/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Javaweb——(27)Tlias前端开发·登录·部署
     </h2>
   </header>
@@ -369,25 +389,6 @@
 
 <span title='2025-12-05 21:46:13 +0800 +0800'>2025-12-05</span>&nbsp;·&nbsp;<span title='2025-12-10 02:45:12 +0800 +0800'>(最后修改于 2025-12-10)</span>&nbsp;·&nbsp;<span>9 分钟</span></footer>
   <a class="entry-link" aria-label="post link to Javaweb——(20)SpringBoot实战·Tlias智能学习辅助系统·登录认证" href="https://www.steamedfish.top/post/java-web/javaweb-20-springboot-tlias9/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Javaweb——(19)SpringBoot实战·Tlias智能学习辅助系统·数据统计【未完成】
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>员工性别统计 实体类 EmpGenderData.java package com.javaweb.entity; import lombok.Data; @Data public class EmpGenderData { private String name; private Integer value; } Controller ReportController.java package com.javaweb.controller; import com.javaweb.entity.EmpGenderData; import com.javaweb.entity.Result; import com.javaweb.service.ReportService; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.web.bind.annotation.GetMapping; import org.springframework.web.bind.annotation.RequestMapping; import org.springframework.web.bind.annotation.RestController; import java.util.List; @RequestMapping(&#34;/report&#34;) @RestController public class ReportController { @Autowired private ReportService reportService; /** * 获取员工性别数据 * @return */ @GetMapping(&#34;/empGenderData&#34;) public Result genderCount() { List&lt;EmpGenderData&gt; empGenderDataList= reportService.genderCount(); return Result.success(empGenderDataList); } } Service &amp; Mapper ReportService.java package com.javaweb.service; import com.javaweb.entity.EmpGenderData; import java.util.List; /** * 获取员工性别数据 * * @return */ public interface ReportService { List&lt;EmpGenderData&gt; genderCount(); } ReportServiceImpl.java package com.javaweb.service.impl; import com.javaweb.entity.EmpGenderData; import com.javaweb.mapper.ReportMapper; import com.javaweb.service.ReportService; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.stereotype.Service; import java.util.List; @Service public class ReportServiceImpl implements ReportService { @Autowired private ReportMapper reportMapper; /** * 获取员工性别数据 * * @return */ @Override public List&lt;EmpGenderData&gt; genderCount() { List&lt;EmpGenderData&gt; empGenderDataList = reportMapper.genderCount(); return empGenderDataList; } } ReportMapper.java package com.javaweb.mapper; import com.javaweb.entity.EmpGenderData; import org.apache.ibatis.annotations.Mapper; import java.util.List; @Mapper public interface ReportMapper { /** * 查询员工性别数据 * * @return */ List&lt;EmpGenderData&gt; genderCount(); } ReportMapper.xml &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt; &lt;!DOCTYPE mapper PUBLIC &#34;-//mybatis.org//DTD Mapper 3.0//EN&#34; &#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34; &gt; &lt;mapper namespace=&#34;com.javaweb.mapper.ReportMapper&#34;&gt; &lt;!-- 性别统计--&gt; &lt;select id=&#34;genderCount&#34; resultType=&#34;com.javaweb.entity.EmpGenderData&#34;&gt; select case gender when 1 then &#39;男性员工&#39; when 2 then &#39;女性员工&#39; end as name, count(*) as value from emp group by gender&lt;/select&gt; &lt;/mapper&gt; 员工职位人数统计</p>
-  </div>
-  <footer class="entry-footer">
-
-
-
-
-
-
-<span title='2025-12-05 17:53:18 +0800 +0800'>2025-12-05</span>&nbsp;·&nbsp;<span title='2025-12-06 01:53:29 +0800 +0800'>(最后修改于 2025-12-06)</span>&nbsp;·&nbsp;<span>1 分钟</span></footer>
-  <a class="entry-link" aria-label="post link to Javaweb——(19)SpringBoot实战·Tlias智能学习辅助系统·数据统计【未完成】" href="https://www.steamedfish.top/post/java-web/javaweb-19-springboot-tlias8/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
