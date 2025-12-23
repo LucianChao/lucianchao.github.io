@@ -4,10 +4,323 @@
     <title>首页 on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/</link>
     <description>Recent content in 首页 on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.153.1</generator>
+    <generator>Hugo -- 0.153.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <atom:link href="https://www.steamedfish.top/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【苍穹外卖】（5）店铺营业状态（基于Redis）</title>
+      <link>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/</link>
+      <pubDate>Tue, 23 Dec 2025 20:59:29 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/</guid>
+      <description>&lt;h2 id=&#34;需求分析和设计&#34;&gt;需求分析和设计&lt;/h2&gt;
+&lt;p&gt;产品原型：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-6/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/1.png&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/1.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/1.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+
+接口设计：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;设置营业状态&lt;/li&gt;
+&lt;li&gt;管理端查询营业状态&lt;/li&gt;
+&lt;li&gt;用户端查询营业状态&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本项目约定：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;管理端 发出的请求，统一使用 &lt;code&gt;/admin&lt;/code&gt; 作为前缀&lt;/li&gt;
+&lt;li&gt;用户端 发出的请求，统一使用 &lt;code&gt;/user&lt;/code&gt; 作为前缀
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-6/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/2.png&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/2.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/2.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+
+营业状态数据存储方式：基于Redis的字符串来进行存储
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-6/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/3.png&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/3.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/3.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+
+约定：&lt;code&gt;1&lt;/code&gt;表示营业 &lt;code&gt;0&lt;/code&gt;表示打烊&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;代码开发&#34;&gt;代码开发&lt;/h2&gt;
+&lt;p&gt;
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-6/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/4.png&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/4.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/4.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-6/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/5.png&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/5.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/5.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-6/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/6.png&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/6.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/6.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Redis入门</title>
+      <link>https://www.steamedfish.top/post/java-project/sky-take-out/redis/</link>
+      <pubDate>Tue, 23 Dec 2025 15:38:40 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-project/sky-take-out/redis/</guid>
+      <description>&lt;h2 id=&#34;redis入门&#34;&gt;Redis入门&lt;/h2&gt;
+&lt;h3 id=&#34;redis简介&#34;&gt;Redis简介&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-5-redis/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/redis/1.png&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/redis/1.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/redis/1.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+
+Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数据库。&lt;br&gt;
+它存储的value类型比较丰富，也被称为结构化的&lt;strong&gt;非关系型数据库&lt;/strong&gt;（NoSQL）&lt;br&gt;
+官网： &lt;a href=&#34;https://redis.io&#34;&gt;https://redis.io&lt;/a&gt;&lt;br&gt;
+中文网： &lt;a href=&#34;https://www.redis.net.cn/&#34;&gt;https://www.redis.net.cn/&lt;/a&gt;
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-5-redis/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/redis/2.png&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/redis/2.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/redis/2.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+
+特点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基于内存存储，读写性能高&lt;/li&gt;
+&lt;li&gt;适合存储热点数据（热点商品、资讯、新闻）&lt;/li&gt;
+&lt;li&gt;企业应用广泛&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;应用场景：&lt;/p&gt;</description>
+    </item>
     <item>
       <title>【建站日志】为 hugo 添加音乐播放器 </title>
       <link>https://www.steamedfish.top/post/hugo-log/music-card/</link>
