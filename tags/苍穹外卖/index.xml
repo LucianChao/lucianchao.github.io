@@ -7,8 +7,61 @@
     <generator>Hugo -- 0.153.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Tue, 23 Dec 2025 00:29:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 25 Dec 2025 01:15:47 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【苍穹外卖】（7）缓存商品、购物车</title>
+      <link>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-8/</link>
+      <pubDate>Wed, 24 Dec 2025 21:17:36 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-8/</guid>
+      <description>&lt;h1 id=&#34;目标&#34;&gt;目标：&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;能够实现缓存菜品的功能代码开发&lt;/li&gt;
+&lt;li&gt;能够基于 &lt;code&gt;Spring Cache&lt;/code&gt; 实现缓存套餐功能代码&lt;/li&gt;
+&lt;li&gt;能够进行需求分析并实现添加购物车业务代码的开发&lt;/li&gt;
+&lt;li&gt;能够进行需求分析并实现查看购物车业务代码的开发&lt;/li&gt;
+&lt;li&gt;能够进行需求分析并实现清空购物车业务代码的开发&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;缓存菜品&#34;&gt;缓存菜品&lt;/h2&gt;
+&lt;h3 id=&#34;问题说明&#34;&gt;问题说明&lt;/h3&gt;
+&lt;p&gt;用户端小程序展示的菜品数据都是通过查询数据库获得，如果用户端访问量比较大，数据库访问压力随之增大。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-8/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-8/1.png&#34;
+    data-caption=&#34;&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-8/1.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-8/1.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+
+&lt;strong&gt;系统响应慢、用户体验差&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>【苍穹外卖】（2）员工管理、分类管理</title>
       <link>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/</link>
