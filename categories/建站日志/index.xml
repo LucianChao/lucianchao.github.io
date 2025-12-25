@@ -38,6 +38,7 @@
     data-fancybox=&#34;post-post/hugo-log/deploy-error/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/hugo-log/deploy-error/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/hugo-log/deploy-error/1.webp&#34;
@@ -112,6 +113,7 @@
     data-fancybox=&#34;post-post/hugo-log/font-LXGWWenKai/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/hugo-log/font-lxgwwenkai/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/hugo-log/font-lxgwwenkai/1.png&#34;
@@ -329,6 +331,7 @@
     data-fancybox=&#34;post-post/hugo-log/hugo-blog-search-engine-indexing-guide.md&#34;
     href=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/1.png&#34;

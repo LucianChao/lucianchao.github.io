@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>MyBatis on SteamedFish&#39;s Blog</title>
+    <title>Mybatis on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/mybatis/</link>
-    <description>Recent content in MyBatis on SteamedFish&#39;s Blog</description>
+    <description>Recent content in Mybatis on SteamedFish&#39;s Blog</description>
     <generator>Hugo -- 0.153.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
@@ -45,6 +45,7 @@
     data-fancybox=&#34;post-post/java-web/javaweb-12-jdbc/index.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-web/JDBC/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-web/JDBC/1.png&#34;
@@ -83,6 +84,7 @@
     data-fancybox=&#34;post-post/java-web/javaweb-12-jdbc/index.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-web/JDBC/2.png#center&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-web/JDBC/2.png#center&#34;

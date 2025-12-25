@@ -35,6 +35,7 @@
     data-fancybox=&#34;post-post/java-web/javaweb-15-springboot-tlias4/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/1.webp&#34;
@@ -73,6 +74,7 @@
     data-fancybox=&#34;post-post/java-web/javaweb-15-springboot-tlias4/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/2.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/2.webp&#34;
@@ -112,6 +114,7 @@
     data-fancybox=&#34;post-post/java-web/javaweb-15-springboot-tlias4/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/3.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/3.webp&#34;
@@ -196,6 +199,7 @@ node -v
     data-fancybox=&#34;post-post/java-web/javaweb-file/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/1.webp&#34;
@@ -233,6 +237,7 @@ npm run dev
     data-fancybox=&#34;post-post/java-web/javaweb-file/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/2.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/2.webp&#34;
@@ -268,6 +273,7 @@ npm run dev
     data-fancybox=&#34;post-post/java-web/javaweb-file/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/3.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/3.webp&#34;
@@ -310,6 +316,7 @@ npm run dev
     data-fancybox=&#34;post-post/java-web/javaweb-12-jdbc/index.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-web/JDBC/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-web/JDBC/1.png&#34;
@@ -348,6 +355,7 @@ npm run dev
     data-fancybox=&#34;post-post/java-web/javaweb-12-jdbc/index.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-web/JDBC/2.png#center&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-web/JDBC/2.png#center&#34;
@@ -585,6 +593,7 @@ npm run dev
     data-fancybox=&#34;post-post/java-web/javaweb-10-springboot-ioc-di.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-web/springbootproject01/19.png#center&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-web/springbootproject01/19.png#center&#34;
@@ -704,6 +713,7 @@ npm run dev
     data-fancybox=&#34;post-post/java-web/javaweb-9-springboot1.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-web/springbootproject01/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-web/springbootproject01/1.png&#34;

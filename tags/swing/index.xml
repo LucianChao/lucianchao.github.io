@@ -55,6 +55,7 @@
     data-fancybox=&#34;post-post/java-se/java-se-project/java-se-GUI.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/1.png&#34;
@@ -310,6 +311,7 @@
     data-fancybox=&#34;post-post/java-se/java-se-project/java-se-GUI.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/2.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/2.png&#34;

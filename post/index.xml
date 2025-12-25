@@ -7,8 +7,23 @@
     <generator>Hugo -- 0.153.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 25 Dec 2025 01:15:47 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 25 Dec 2025 21:11:45 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【建站日志】关于通过 Aplayer &#43; MetingJS &#43; PJAX / barba 引入音乐播放器带来的灾难性异常的修复过程</title>
+      <link>https://www.steamedfish.top/post/hugo-log/barba-fix/</link>
+      <pubDate>Thu, 25 Dec 2025 17:39:54 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/hugo-log/barba-fix/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;前几天给博客上线了音乐播放器功能，技术选型是 APlayer + MetingJS，并尝试配合 PJAX / Barba.js 实现无刷新页面切换。
+一开始在本地测试时一切正常：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;播放器能正常加载&lt;/li&gt;
+&lt;li&gt;音乐可以播放&lt;/li&gt;
+&lt;li&gt;打开新页面之后播放器后能保持播放&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但上线并实际使用后，问题开始集中爆发，而且&lt;strong&gt;问题之间相互叠加&lt;/strong&gt;，&lt;strong&gt;极难定位&lt;/strong&gt;，包括但不限于：&lt;/p&gt;</description>
+    </item>
     <item>
       <title>【苍穹外卖】（7）缓存商品、购物车</title>
       <link>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-8/</link>
@@ -45,6 +60,7 @@
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-8/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-8/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-8/1.png&#34;
@@ -89,6 +105,7 @@
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-7/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-7/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-7/1.png&#34;
@@ -129,6 +146,7 @@ HttpClient作用：&lt;/p&gt;
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-7/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-7/2.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-7/2.webp&#34;
@@ -166,6 +184,7 @@ HttpClient作用：&lt;/p&gt;
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-7/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-7/3.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-7/3.png&#34;
@@ -209,6 +228,7 @@ HttpClient作用：&lt;/p&gt;
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-6/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/1.png&#34;
@@ -253,6 +273,7 @@ HttpClient作用：&lt;/p&gt;
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-6/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/2.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/2.png&#34;
@@ -288,6 +309,7 @@ HttpClient作用：&lt;/p&gt;
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-6/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/3.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/3.png&#34;
@@ -325,6 +347,7 @@ HttpClient作用：&lt;/p&gt;
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-6/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/4.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/4.png&#34;
@@ -359,6 +382,7 @@ HttpClient作用：&lt;/p&gt;
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-6/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/5.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/5.png&#34;
@@ -393,6 +417,7 @@ HttpClient作用：&lt;/p&gt;
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-6/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/6.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/6.png&#34;
@@ -435,6 +460,7 @@ HttpClient作用：&lt;/p&gt;
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-5-redis/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/redis/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/redis/1.png&#34;
@@ -473,6 +499,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-5-redis/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/redis/2.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/redis/2.png&#34;
@@ -709,6 +736,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-4/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-4/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-4/1.webp&#34;
@@ -789,6 +817,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-3/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-3/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-3/1.webp&#34;
@@ -804,56 +833,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
 
 
 
-问题：代码冗余、不便于后期维护&lt;/p&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;实现思路&#34;&gt;实现思路&lt;/h3&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th style=&#34;text-align: left&#34;&gt;序号&lt;/th&gt;
-          &lt;th style=&#34;text-align: left&#34;&gt;字段名&lt;/th&gt;
-          &lt;th style=&#34;text-align: left&#34;&gt;含义&lt;/th&gt;
-          &lt;th style=&#34;text-align: left&#34;&gt;数据类型&lt;/th&gt;
-          &lt;th style=&#34;text-align: center&#34;&gt;操作类型&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;1&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;create_time&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;创建时间&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;datetime&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;^&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;2&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;create_user&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;创建人 id&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;bigint&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;insert&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;3&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;update_time&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;修改时间&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;datetime&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;insert&lt;/code&gt;、&lt;code&gt;update&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;4&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;update_user&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;修改人 id&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;bigint&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;^&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;ul&gt;
-&lt;li&gt;自定义注解 &lt;code&gt;AutoFill&lt;/code&gt;，用于标识需要进行公共字段自动填充的方法&lt;/li&gt;
-&lt;li&gt;自定义切面类 &lt;code&gt;AutoFillAspect&lt;/code&gt;，统一拦截加入了 &lt;code&gt;AutoFill&lt;/code&gt; 注解的方法，通过反射为公共字段赋值&lt;/li&gt;
-&lt;li&gt;在 Mapper 的方法上加入 &lt;code&gt;AutoFill&lt;/code&gt; 注解&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;技术点：枚举、注解、 AOP、反射&lt;/p&gt;</description>
+问题：代码冗余、不便于后期维护&lt;/p&gt;</description>
     </item>
     <item>
       <title>【苍穹外卖】（2）员工管理、分类管理</title>
@@ -881,6 +861,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-2/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/1.webp&#34;
@@ -916,6 +897,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-2/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/2.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/2.webp&#34;
@@ -1064,6 +1046,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-1/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out/1.webp&#34;
@@ -1099,6 +1082,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-1/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out/2.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out/2.webp&#34;
@@ -1153,6 +1137,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-28-tliasweb-linux/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-28-tliasweb-linux/2.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-28-tliasweb-linux/2.webp&#34;
@@ -1264,6 +1249,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-27-tliasweb-logon-nginx/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-27-tliasweb-logon-nginx/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-27-tliasweb-logon-nginx/1.webp&#34;
@@ -1436,6 +1422,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-26-tliasweb-emp/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-26-tliasweb-emp/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-26-tliasweb-emp/1.webp&#34;
@@ -1474,6 +1461,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-26-tliasweb-emp/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-26-tliasweb-emp/2.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-26-tliasweb-emp/2.webp&#34;
@@ -1521,6 +1509,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-26-tliasweb-emp/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-26-tliasweb-emp/3.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-26-tliasweb-emp/3.webp&#34;
@@ -1566,6 +1555,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-25-tlias-web/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-25-tlias-web/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-25-tlias-web/1.webp&#34;
@@ -1603,6 +1593,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-25-tlias-web/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-25-tlias-web/2.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-25-tlias-web/2.webp&#34;
@@ -1678,6 +1669,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-25-tlias-web/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-25-tlias-web/3.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-25-tlias-web/3.webp&#34;
@@ -1719,6 +1711,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-25-tlias-web/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-25-tlias-web/5.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-25-tlias-web/5.webp&#34;
@@ -1764,6 +1757,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/hugo-log/deploy-error/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/hugo-log/deploy-error/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/hugo-log/deploy-error/1.webp&#34;
@@ -1807,6 +1801,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-24-web/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-24-web/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-24-web/1.webp&#34;
@@ -1843,6 +1838,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-24-web/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-24-web/2.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-24-web/2.webp&#34;
@@ -1902,6 +1898,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-23-maven-pro/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/1.webp&#34;
@@ -1937,6 +1934,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-23-maven-pro/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/2.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/2.webp&#34;
@@ -1973,6 +1971,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-23-maven-pro/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/3.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-23-maven-pro/3.webp&#34;
@@ -2117,6 +2116,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-22/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-22/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-22/1.webp&#34;
@@ -2284,6 +2284,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-20-springboot-tlias9/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-20-springboot-tlias9/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-20-springboot-tlias9/1.webp&#34;
@@ -2422,6 +2423,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     data-fancybox=&#34;post-post/java-web/javaweb-20-springboot-tlias9/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-20-springboot-tlias9/2.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-20-springboot-tlias9/2.webp&#34;
@@ -3060,6 +3062,7 @@ public void violation(Integer id, Integer score) {
     data-fancybox=&#34;post-post/java-web/javaweb-16-springboot-tlias5/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-16-springboot-tlias5/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-16-springboot-tlias5/1.webp&#34;
@@ -3101,6 +3104,7 @@ public void violation(Integer id, Integer score) {
     data-fancybox=&#34;post-post/java-web/javaweb-16-springboot-tlias5/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-16-springboot-tlias5/2.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-16-springboot-tlias5/2.webp&#34;
@@ -3165,6 +3169,7 @@ public void violation(Integer id, Integer score) {
     data-fancybox=&#34;post-post/java-web/javaweb-15-springboot-tlias4/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/1.webp&#34;
@@ -3203,6 +3208,7 @@ public void violation(Integer id, Integer score) {
     data-fancybox=&#34;post-post/java-web/javaweb-15-springboot-tlias4/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/2.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/2.webp&#34;
@@ -3242,6 +3248,7 @@ public void violation(Integer id, Integer score) {
     data-fancybox=&#34;post-post/java-web/javaweb-15-springboot-tlias4/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/3.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/3.webp&#34;
@@ -3299,6 +3306,7 @@ public void violation(Integer id, Integer score) {
     data-fancybox=&#34;post-post/java-web/javaweb-14-springboot-tlias3/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-14-springboot-tlias3/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-14-springboot-tlias3/1.webp&#34;
@@ -3346,6 +3354,7 @@ public void violation(Integer id, Integer score) {
     data-fancybox=&#34;post-post/hugo-log/font-LXGWWenKai/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/hugo-log/font-lxgwwenkai/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/hugo-log/font-lxgwwenkai/1.png&#34;
@@ -3581,6 +3590,7 @@ node -v
     data-fancybox=&#34;post-post/java-web/javaweb-file/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/1.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/1.webp&#34;
@@ -3618,6 +3628,7 @@ npm run dev
     data-fancybox=&#34;post-post/java-web/javaweb-file/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/2.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/2.webp&#34;
@@ -3653,6 +3664,7 @@ npm run dev
     data-fancybox=&#34;post-post/java-web/javaweb-file/index.md&#34;
     href=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/3.webp&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/post/java-web/javaweb-file/3.webp&#34;
@@ -3711,6 +3723,7 @@ npm run dev
     data-fancybox=&#34;post-post/java-web/javaweb-12-jdbc/index.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-web/JDBC/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-web/JDBC/1.png&#34;
@@ -3749,6 +3762,7 @@ npm run dev
     data-fancybox=&#34;post-post/java-web/javaweb-12-jdbc/index.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-web/JDBC/2.png#center&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-web/JDBC/2.png#center&#34;
@@ -4022,6 +4036,7 @@ npm run dev
     data-fancybox=&#34;post-post/java-web/javaweb-11-mysql-basic.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-web/mysql/3.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-web/mysql/3.png&#34;
@@ -4078,6 +4093,7 @@ npm run dev
     data-fancybox=&#34;post-post/java-web/javaweb-10-springboot-ioc-di.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-web/springbootproject01/19.png#center&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-web/springbootproject01/19.png#center&#34;
@@ -4124,6 +4140,7 @@ npm run dev
     data-fancybox=&#34;post-post/hugo-log/hugo-blog-search-engine-indexing-guide.md&#34;
     href=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/1.png&#34;
@@ -4242,6 +4259,7 @@ npm run dev
     data-fancybox=&#34;post-post/java-web/javaweb-9-springboot1.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-web/springbootproject01/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-web/springbootproject01/1.png&#34;
@@ -4337,6 +4355,7 @@ JDBC、JNDI、EJB、RMI、JSP、Servlet、XML、JMS、JavaIDL、JTS、JTA、Java
     data-fancybox=&#34;post-post/java-web/javaweb-6-maven.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-web/Maven/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-web/Maven/1.png&#34;
@@ -4386,6 +4405,7 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
     data-fancybox=&#34;post-post/java-web/javaweb-5-vuedemo.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-web/Vue-demo/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-web/Vue-demo/1.png&#34;
@@ -4436,6 +4456,7 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
     data-fancybox=&#34;post-post/java-web/javaweb-4-vue.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-web/VUE/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-web/VUE/1.png&#34;
@@ -4771,6 +4792,7 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
     data-fancybox=&#34;post-post/java-se/java-se-project/java-se-GUI.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/1.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/1.png&#34;
@@ -5026,6 +5048,7 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
     data-fancybox=&#34;post-post/java-se/java-se-project/java-se-GUI.md&#34;
     href=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/2.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/java-se/project/demo/tcp-chat-gui/2.png&#34;
@@ -5406,6 +5429,7 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
     data-fancybox=&#34;post-post/Markdown-basic-syntax.md&#34;
     href=&#34;https://www.steamedfish.top/images/msg.png&#34;
     data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
       src=&#34;https://www.steamedfish.top/images/msg.png&#34;

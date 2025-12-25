@@ -10,7 +10,7 @@
 <meta name="description" content="Posts - SteamedFish&#39;s Blog">
 <meta name="author" content="">
 <link rel="canonical" href="https://www.steamedfish.top/post/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.f48d871461b8fb3a1553fea454e13b33902d0d0180ddbf237b75b3db10a7d730.css" integrity="sha256-9I2HFGG4&#43;zoVU/6kVOE7M5AtDQGA3b8je3Wz2xCn1zA=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.c27e1246cb66d388c2c28ba2cad7d8e45b296bdd6da67c05cf15ef27e74594b2.css" integrity="sha256-wn4SRstm04jCwouiytfY5Fspa91tpnwFzxXvJ&#43;dFlLI=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
@@ -92,6 +92,7 @@
 </head>
 
 <body data-barba="wrapper" class="list" id="top">
+
 <div id="aplayer"></div>
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
@@ -177,6 +178,32 @@
     Posts
   </h1>
 </header>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Javaweb——(21)SpringBoot实战·面向切面编程AOP
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>什么是AOP？ AOP：Aspect Oriented Programming（面向切面编程、面向方面编程），其实就是面向特定方法编程。 场景：案例中部分业务方法运行较慢，定位执行耗时较长的接口，此时需要统计每一个业务方法的执行耗时。 优势： 减少重复代码 代码无侵入 提高开发效率 维护方便 提示
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2025-12-07 22:03:50 +0800 +0800'>2025-12-07</span>&nbsp;·&nbsp;<span title='2025-12-10 02:45:12 +0800 +0800'>(最后修改于 2025-12-10)</span>&nbsp;·&nbsp;<span>7 分钟</span></footer>
+  <a class="entry-link" aria-label="post link to Javaweb——(21)SpringBoot实战·面向切面编程AOP" href="https://www.steamedfish.top/post/java-web/javaweb-21-tlias10/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
@@ -368,28 +395,6 @@ DELETE /emps?ids=1,2,3 方式一：在Controller方法中通过数组来接收 �
 <span title='2025-11-28 01:51:02 +0800 +0800'>2025-11-28</span>&nbsp;·&nbsp;<span title='2025-12-05 04:36:36 +0800 +0800'>(最后修改于 2025-12-05)</span>&nbsp;·&nbsp;<span>1 分钟</span></footer>
   <a class="entry-link" aria-label="post link to 【建站日志】霞鹜文楷！启动！" href="https://www.steamedfish.top/post/hugo-log/font-lxgwwenkai/"></a>
 </article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Javaweb——(13)SpringBoot实战·Tlias智能学习辅助系统·部门管理开发
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>前言 在之前我们只完成了部门管理的查询功能，现在我们要把部门管理的完整功能进行开发，以及日志技术的应用
-现在回想一下标准开发流程： 需求分析 → 接口文档 → 思路分析 → 前后端开发 → 测试 → 联调
-我们尽量按照标准的开发流程来进行开发，一上来就想着直接写代码是不可取的。
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-
-
-
-
-
-<span title='2025-11-27 16:37:44 +0800 +0800'>2025-11-27</span>&nbsp;·&nbsp;<span title='2025-11-28 02:49:16 +0800 +0800'>(最后修改于 2025-11-28)</span>&nbsp;·&nbsp;<span>8 分钟</span></footer>
-  <a class="entry-link" aria-label="post link to Javaweb——(13)SpringBoot实战·Tlias智能学习辅助系统·部门管理开发" href="https://www.steamedfish.top/post/java-web/javaweb-13-springboot-tlias2/"></a>
-</article>
 <footer class="page-footer">
   <nav class="pagination">
     <a class="prev" href="https://www.steamedfish.top/post/page/2/">
@@ -418,16 +423,190 @@ DELETE /emps?ids=1,2,3 方式一：在Controller方法中通过数组来接收 �
 <script src="https://unpkg.com/@barba/core"></script>
 
 
+<script>
+  window.PaperMod = window.PaperMod || {};
+  PaperMod.state = { once: false };
+
+  PaperMod.initOnce = function () {
+    if (PaperMod.state.once) return;
+    PaperMod.state.once = true;
+
+    console.log("PaperMod initOnce");
+
+    if (PaperMod.initAPlayer) {
+      PaperMod.initAPlayer();
+    }
+  };
+
+  PaperMod.initPage = function (container = document) {
+    console.log("PaperMod initPage");
+
+    PaperMod.initFancybox && PaperMod.initFancybox(container);
+    PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
+  };
+
+  barba.init({
+    transitions: [
+      {
+        name: "default",
+        leave() {
+          return Promise.resolve();
+        },
+        enter(data) {
+          PaperMod.initOnce();
+          PaperMod.initPage(data.next.container);
+        },
+      },
+    ],
+  });
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    PaperMod.initOnce();
+    PaperMod.initPage(document);
+  });
+</script>
 
 
 
 
 
-<link href="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.css" rel="stylesheet">
+
+
+<link
+  href="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.css"
+  rel="stylesheet"
+/>
 <script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.2/Meting.min.js"></script>
-<script src="/js/player.js"></script>
-<script src="/js/pjax.js"></script>
+<script>
+window.PaperMod = window.PaperMod || {};
+console.log("player.js loaded");
+PaperMod.initAPlayer = async function () {
+    if (window.__aplayer_inited__) {
+      console.log("APlayer already exists, skip");
+      return;
+    }
+
+    const container = document.getElementById("aplayer");
+    if (!container) {
+      console.warn("APlayer container not found");
+      return;
+    }
+
+    console.log("Init APlayer");
+    
+
+    const localAudio = [
+      
+      
+      
+      
+      
+      
+      
+      
+    ];
+
+    
+
+    let metingAudio = [];
+    try {
+      const res = await fetch(
+        "https://api.i-meto.com/meting/api?server=netease&type=playlist&id=9729906436"
+      );
+      metingAudio = await res.json();
+    } catch (e) {
+      console.warn("Meting load failed, fallback to local only");
+    }
+
+    
+
+    const audioList = [...localAudio, ...metingAudio];
+
+    window.aplayer = new APlayer({
+      container,
+      fixed: true,
+      autoplay: true,
+      preload: "auto",
+      lrcType: 1,
+      
+      audio: metingAudio,
+    });
+    console.log("APlayer created with", audioList.length, "tracks");
+
+};
+</script>
+
+
+<script>
+  window.PaperMod = window.PaperMod || {};
+
+  PaperMod.initCodeCopyButtons = function (root = document) {
+    root.querySelectorAll("pre > code").forEach((codeblock) => {
+      const container = codeblock.parentNode.parentNode;
+
+      
+      if (container.querySelector(".copy-code")) return;
+
+      const copybutton = document.createElement("button");
+      copybutton.classList.add("copy-code");
+      copybutton.innerHTML = '复制';
+
+      function copyingDone() {
+        copybutton.innerHTML = '已复制！';
+        setTimeout(() => {
+          copybutton.innerHTML = '复制';
+        }, 2000);
+      }
+
+      copybutton.addEventListener("click", (cb) => {
+        if ("clipboard" in navigator) {
+          navigator.clipboard.writeText(codeblock.textContent);
+          copyingDone();
+          return;
+        }
+
+        const range = document.createRange();
+        range.selectNodeContents(codeblock);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        try {
+          document.execCommand("copy");
+          copyingDone();
+        } catch (e) {}
+        selection.removeRange(range);
+      });
+      container.appendChild(copybutton);
+    });
+  };
+</script>
+
+
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css" />
+<script src="/lib/fancybox/fancybox.umd.js"></script>
+<script>
+  function initFancybox() {
+    Fancybox.unbind("[data-fancybox]");
+
+    Fancybox.bind("[data-fancybox]", {
+      animated: true,
+      showClass: "fancybox-fadeIn",
+      hideClass: "fancybox-fadeOut",
+      dragToClose: true,
+    });
+  }
+
+  
+  if (document.readyState !== "loading") {
+    initFancybox();
+  } else {
+    document.addEventListener("DOMContentLoaded", initFancybox);
+  }
+  
+  document.addEventListener("barba:afterEnter", initFancybox);
+</script>
+
 
 
 
