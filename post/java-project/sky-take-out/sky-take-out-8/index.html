@@ -108,7 +108,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2025-12-24T21:17:36+08:00">
-    <meta property="article:modified_time" content="2025-12-25T01:15:47+08:00">
+    <meta property="article:modified_time" content="2025-12-26T20:57:33+08:00">
     <meta property="article:tag" content="Redis">
     <meta property="article:tag" content="Spring Cache">
     <meta property="article:tag" content="苍穹外卖">
@@ -183,11 +183,11 @@
   "keywords": [
     "Redis", "Spring Cache", "苍穹外卖"
   ],
-  "articleBody": "目标： 能够实现缓存菜品的功能代码开发 能够基于 Spring Cache 实现缓存套餐功能代码 能够进行需求分析并实现添加购物车业务代码的开发 能够进行需求分析并实现查看购物车业务代码的开发 能够进行需求分析并实现清空购物车业务代码的开发 缓存菜品 问题说明 用户端小程序展示的菜品数据都是通过查询数据库获得，如果用户端访问量比较大，数据库访问压力随之增大。 系统响应慢、用户体验差\n实现思路 通过Redis来缓存菜品数据，减少数据库查询操作。 缓存逻辑分析：\n每个分类下的菜品保存一份缓存数据 数据库中菜品数据有变更时清理缓存数据 key\rvalue\rdish_1\rstring(…)\rdish_2\rstring(…)\rdish_3\rstring(…)\r代码开发 修改用户端接口 DishController 的 list 方法，加入缓存处理逻辑： 修改管理端接口 DishController 的相关方法，加入清理缓存的逻辑，需要改造的方法：\n新增菜品 修改菜品 批量删除菜品 起售、停售菜品 调用清理缓存的方法，保证数据一致性： 功能测试 可以通过如下方式进行测试：\n查看控制台sql 前后端联调 查看Redis中的缓存数据 缓存套餐 Spring Cache Spring Cache 是一个框架，实现了基于注解的缓存功能，只需要简单地加一个注解，就能实现缓存功能。\nSpring Cache 提供了一层抽象，底层可以切换不同的缓存实现，例如：\nEHCache Caffeine Redis 常用注解： 注解\r说明\r@EnableCaching\r开启缓存注解功能，通常加在启动类上\r@Cacheable\r在方法执行前先查询缓存中是否有数据，如果有数据，则直接返回缓存数据；如果没有缓存数据，调用方法并将方法返回值放到缓存中\r@CachePut\r将方法的返回值放到缓存中\r@CacheEvict\r将一条或多条数据从缓存中删除\r入门案例：导入资料中的初始工程，在此基础上加入 Spring Cache 注解即可 实现思路 具体的实现思路如下：\n导入 Spring Cache 和 Redis 相关maven坐标 在启动类上加入 @EnableCaching 注解，开启缓存注解功能 在用户端接口 SetmealController 的 list 方法上加入 @Cacheable 注解 在管理端接口 SetmealController 的 save 、 delete 、 update 、 startOrStop 等方法上加入 CacheEvict 注解 代码开发 在用户端接口 SetmealController 的 list 方法上加入@Cacheable注解： 在管理端接口 SetmealController 的 save 、 delete 、 update 、 startOrStop 等方法上加入 CacheEvict 注解： 功能测试 通过前后端联调方式来进行测试，同时观察redis中缓存的套餐数据。\n添加购物车 需求分析和设计 产品原型： 接口设计：\n请求方式： POST 请求路径： /user/shoppingCart/add 请求参数：套餐id、菜品id、口味 返回结果：code、data、msg 数据库设计： 作用：暂时存放所选商品的地方 选的什么商品 每个商品都买了几个 不同用户的购物车需要区分开 数据库设计（shopping_cart表）： 代码开发 根据添加购物车接口的参数设计 DTO： 根据添加购物车接口创建 ShoppingCartController ： 创建 ShoppingCartService 接口： 创建 ShoppingCartServiceImpl 实现类，并实现 add 方法： 创建 ShoppingCartMapper 接口： 创建 ShoppingCartMapper.xml ： 功能测试 可以通过如下方式进行测试：\n查看控制台sql Swagger接口文档测试 前后端联调 查看购物车 需求分析和设计 产品原型： 接口设计： 代码开发 在 ShoppingCartController 中创建查看购物车的方法： 在 ShoppingCartService 接口中声明查看购物车的方法： 功能测试 在 ShoppingCartServiceImpl 中实现查看购物车的方法： 清空购物车 需求分析和设计 产品原型： 接口设计： 代码开发 在 ShoppingCartController 中创建清空购物车的方法： 在 ShoppingCartService 接口中声明清空购物车的方法： 在 ShoppingCartServiceImpl 中实现清空购物车的方法： 在 ShoppingCartMapper 接口中创建删除购物车数据的方法： ",
-  "wordCount" : "1202",
+  "articleBody": "目标： 能够实现缓存菜品的功能代码开发 能够基于 Spring Cache 实现缓存套餐功能代码 能够进行需求分析并实现添加购物车业务代码的开发 能够进行需求分析并实现查看购物车业务代码的开发 能够进行需求分析并实现清空购物车业务代码的开发 缓存菜品 问题说明 用户端小程序展示的菜品数据都是通过查询数据库获得，如果用户端访问量比较大，数据库访问压力随之增大。 系统响应慢、用户体验差\n实现思路 通过Redis来缓存菜品数据，减少数据库查询操作。 缓存逻辑分析：\n每个分类下的菜品保存一份缓存数据 数据库中菜品数据有变更时清理缓存数据 key\rvalue\rdish_1\rstring(…)\rdish_2\rstring(…)\rdish_3\rstring(…)\r代码开发 修改用户端接口 DishController 的 list 方法，加入缓存处理逻辑： 修改管理端接口 DishController 的相关方法，加入清理缓存的逻辑，需要改造的方法：\n新增菜品 修改菜品 批量删除菜品 起售、停售菜品 调用清理缓存的方法，保证数据一致性： 功能测试 可以通过如下方式进行测试：\n查看控制台sql 前后端联调 查看Redis中的缓存数据 缓存套餐 Spring Cache Spring Cache 是一个框架，实现了基于注解的缓存功能，只需要简单地加一个注解，就能实现缓存功能。\nSpring Cache 提供了一层抽象，底层可以切换不同的缓存实现，例如：\nEHCache Caffeine Redis 常用注解： 注解\r说明\r@EnableCaching\r开启缓存注解功能，通常加在启动类上\r@Cacheable\r在方法执行前先查询缓存中是否有数据，如果有数据，则直接返回缓存数据；如果没有缓存数据，调用方法并将方法返回值放到缓存中\r@CachePut\r将方法的返回值放到缓存中\r@CacheEvict\r将一条或多条数据从缓存中删除\r入门案例：导入资料中的初始工程，在此基础上加入 Spring Cache 注解即可 实现思路 具体的实现思路如下：\n导入 Spring Cache 和 Redis 相关maven坐标 在启动类上加入 @EnableCaching 注解，开启缓存注解功能 在用户端接口 SetmealController 的 list 方法上加入 @Cacheable 注解 在管理端接口 SetmealController 的 save 、 delete 、 update 、 startOrStop 等方法上加入 CacheEvict 注解 代码开发 在用户端接口 SetmealController 的 list 方法上加入@Cacheable注解： 在管理端接口 SetmealController 的 save 、 delete 、 update 、 startOrStop 等方法上加入 CacheEvict 注解： 功能测试 通过前后端联调方式来进行测试，同时观察redis中缓存的套餐数据。\n添加购物车 需求分析和设计 产品原型： 接口设计：\n请求方式： POST 请求路径： /user/shoppingCart/add 请求参数：套餐id、菜品id、口味 返回结果：code、data、msg 数据库设计： 作用：暂时存放所选商品的地方 选的什么商品 每个商品都买了几个 不同用户的购物车需要区分开 数据库设计（shopping_cart表）： 代码开发 根据添加购物车接口的参数设计 DTO： 根据添加购物车接口创建 ShoppingCartController ： 创建 ShoppingCartService 接口： 创建 ShoppingCartServiceImpl 实现类，并实现 add 方法： 创建 ShoppingCartMapper 接口： 创建 ShoppingCartMapper.xml ： 功能测试 可以通过如下方式进行测试：\n查看控制台sql Swagger接口文档测试 前后端联调 查看购物车 需求分析和设计 产品原型： 接口设计： 代码开发 在 ShoppingCartController 中创建查看购物车的方法： 在 ShoppingCartService 接口中声明查看购物车的方法： 在 ShoppingCartServiceImpl 中实现查看购物车的方法： 清空购物车 需求分析和设计 产品原型： 接口设计： 代码开发 在 ShoppingCartController 中创建清空购物车的方法： 在 ShoppingCartService 接口中声明清空购物车的方法： 在 ShoppingCartServiceImpl 中实现清空购物车的方法： 在 ShoppingCartMapper 接口中创建删除购物车数据的方法： 删除购物车中一个商品 接口设计 Path: /user/shoppingCard/sub\nMethod: POST\n请求参数：无\n代码开发 在 ShoppingCartController 中创建删除商品的方法：\n/** * 删除购物车商品 * * @param dto * @return */ @PostMapping(\"/sub\") @ApiOperation(\"删除购物车商品\") public Result sub(@RequestBody ShoppingCartDTO dto){ log.info(\"删除购物车：{}\",dto); shoppingCartService.sub(dto); return Result.success(); } 在 ShoppingCartService 接口中声明删除商品的方法：\n/** * 清空购物车 */ void clean(); 在 ShoppingCartServiceImpl 中实现删除商品的方法：\n/** * 删除购物车 * * @param dto */ @Override public void sub(ShoppingCartDTO dto) { // 查询条件 ShoppingCart query = new ShoppingCart(); // 当前菜品 BeanUtils.copyProperties(dto,query); // 当前用户 query.setUserId(BaseContext.getCurrentId()); ShoppingCart shoppingCart = shoppingCartMapper.getByUserIdAndDishIdOrSetmealId(query); // 判断购物车剩余数量 if (shoppingCart.getNumber() == 1) { // 只剩一份 shoppingCartMapper.delete(shoppingCart); } else { // 还有一份以上 shoppingCart.setNumber(shoppingCart.getNumber() - 1); shoppingCartMapper.update(shoppingCart); } } ShoppingCartMapper 接口中 getByUserIdAndDishIdOrSetmealId 方法（xml实现）：\n",
+  "wordCount" : "1639",
   "inLanguage": "zh",
   "datePublished": "2025-12-24T21:17:36+08:00",
-  "dateModified": "2025-12-25T01:15:47+08:00",
+  "dateModified": "2025-12-26T20:57:33+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-8/"
@@ -300,7 +300,7 @@
 
 
 
-<span title='2025-12-24 21:17:36 +0800 +0800'>2025-12-24</span>&nbsp;·&nbsp;<span title='2025-12-25 01:15:47 +0800 +0800'>(最后修改于 2025-12-25)</span>&nbsp;·&nbsp;<span>3 分钟</span>
+<span title='2025-12-24 21:17:36 +0800 +0800'>2025-12-24</span>&nbsp;·&nbsp;<span title='2025-12-26 20:57:33 +0800 +0800'>(最后修改于 2025-12-26)</span>&nbsp;·&nbsp;<span>4 分钟</span>
 
 </div>
   </header> <div class="toc">
@@ -353,9 +353,7 @@
                 <li>
                     <a href="#%e9%9c%80%e6%b1%82%e5%88%86%e6%9e%90%e5%92%8c%e8%ae%be%e8%ae%a1-1" aria-label="需求分析和设计">需求分析和设计</a></li>
                 <li>
-                    <a href="#%e4%bb%a3%e7%a0%81%e5%bc%80%e5%8f%91-3" aria-label="代码开发">代码开发</a></li>
-                <li>
-                    <a href="#%e5%8a%9f%e8%83%bd%e6%b5%8b%e8%af%95-3" aria-label="功能测试">功能测试</a></li></ul>
+                    <a href="#%e4%bb%a3%e7%a0%81%e5%bc%80%e5%8f%91-3" aria-label="代码开发">代码开发</a></li></ul>
                 </li>
                 <li>
                     <a href="#%e6%b8%85%e7%a9%ba%e8%b4%ad%e7%89%a9%e8%bd%a6" aria-label="清空购物车">清空购物车</a><ul>
@@ -363,7 +361,15 @@
                 <li>
                     <a href="#%e9%9c%80%e6%b1%82%e5%88%86%e6%9e%90%e5%92%8c%e8%ae%be%e8%ae%a1-2" aria-label="需求分析和设计">需求分析和设计</a></li>
                 <li>
-                    <a href="#%e4%bb%a3%e7%a0%81%e5%bc%80%e5%8f%91-4" aria-label="代码开发">代码开发</a>
+                    <a href="#%e4%bb%a3%e7%a0%81%e5%bc%80%e5%8f%91-4" aria-label="代码开发">代码开发</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%88%a0%e9%99%a4%e8%b4%ad%e7%89%a9%e8%bd%a6%e4%b8%ad%e4%b8%80%e4%b8%aa%e5%95%86%e5%93%81" aria-label="删除购物车中一个商品">删除购物车中一个商品</a><ul>
+                        
+                <li>
+                    <a href="#%e6%8e%a5%e5%8f%a3%e8%ae%be%e8%ae%a1" aria-label="接口设计">接口设计</a></li>
+                <li>
+                    <a href="#%e4%bb%a3%e7%a0%81%e5%bc%80%e5%8f%91-5" aria-label="代码开发">代码开发</a>
                 </li>
             </ul>
             </li>
@@ -1742,9 +1748,8 @@
 </div>
 
 
-</p>
-<h3 id="功能测试-3">功能测试<a hidden class="anchor" aria-hidden="true" href="#功能测试-3">#</a></h3>
-<p>在 <code>ShoppingCartServiceImpl</code> 中实现查看购物车的方法：
+
+在 <code>ShoppingCartServiceImpl</code> 中实现查看购物车的方法：
 
 
 
@@ -1857,7 +1862,7 @@
 </p>
 <hr>
 <h3 id="代码开发-4">代码开发<a hidden class="anchor" aria-hidden="true" href="#代码开发-4">#</a></h3>
-<h2>在 <code>ShoppingCartController</code> 中创建清空购物车的方法：
+<p>在 <code>ShoppingCartController</code> 中创建清空购物车的方法：
 
 
 
@@ -2000,8 +2005,143 @@
 </div>
 
 
-</h2>
+</p>
+<hr>
+<h2 id="删除购物车中一个商品">删除购物车中一个商品<a hidden class="anchor" aria-hidden="true" href="#删除购物车中一个商品">#</a></h2>
+<h3 id="接口设计">接口设计<a hidden class="anchor" aria-hidden="true" href="#接口设计">#</a></h3>
+<p><code>Path</code>: <code>/user/shoppingCard/sub</code><br>
+<code>Method</code>: <code>POST</code><br>
+请求参数：无<br>
 
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/java-project/sky-take-out/sky-take-out-8/index.md"
+    href="/post/java-project/sky-take-out/sky-take-out-8/35.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/java-project/sky-take-out/sky-take-out-8/35.webp"
+      srcset="/post/java-project/sky-take-out/sky-take-out-8/35.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<hr>
+<h3 id="代码开发-5">代码开发<a hidden class="anchor" aria-hidden="true" href="#代码开发-5">#</a></h3>
+<p>在 <code>ShoppingCartController</code> 中创建删除商品的方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 删除购物车商品
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param dto
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@PostMapping</span><span class="p">(</span><span class="s">&#34;/sub&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@ApiOperation</span><span class="p">(</span><span class="s">&#34;删除购物车商品&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">sub</span><span class="p">(</span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">ShoppingCartDTO</span><span class="w"> </span><span class="n">dto</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;删除购物车：{}&#34;</span><span class="p">,</span><span class="n">dto</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">shoppingCartService</span><span class="p">.</span><span class="na">sub</span><span class="p">(</span><span class="n">dto</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>在 <code>ShoppingCartService</code> 接口中声明删除商品的方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 清空购物车
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">clean</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></div><p>在 <code>ShoppingCartServiceImpl</code> 中实现删除商品的方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 删除购物车
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param dto
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">sub</span><span class="p">(</span><span class="n">ShoppingCartDTO</span><span class="w"> </span><span class="n">dto</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//        查询条件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ShoppingCart</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ShoppingCart</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//        当前菜品</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">BeanUtils</span><span class="p">.</span><span class="na">copyProperties</span><span class="p">(</span><span class="n">dto</span><span class="p">,</span><span class="n">query</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//        当前用户</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">query</span><span class="p">.</span><span class="na">setUserId</span><span class="p">(</span><span class="n">BaseContext</span><span class="p">.</span><span class="na">getCurrentId</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ShoppingCart</span><span class="w"> </span><span class="n">shoppingCart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shoppingCartMapper</span><span class="p">.</span><span class="na">getByUserIdAndDishIdOrSetmealId</span><span class="p">(</span><span class="n">query</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//        判断购物车剩余数量</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">shoppingCart</span><span class="p">.</span><span class="na">getNumber</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//            只剩一份</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">shoppingCartMapper</span><span class="p">.</span><span class="na">delete</span><span class="p">(</span><span class="n">shoppingCart</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//            还有一份以上</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">shoppingCart</span><span class="p">.</span><span class="na">setNumber</span><span class="p">(</span><span class="n">shoppingCart</span><span class="p">.</span><span class="na">getNumber</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">shoppingCartMapper</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">shoppingCart</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p><code>ShoppingCartMapper</code> 接口中 <code>getByUserIdAndDishIdOrSetmealId</code> 方法（xml实现）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--  根据用户id和菜品id或套餐id查询--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getByUserIdAndDishIdOrSetmealId&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.sky.entity.ShoppingCart&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    select id,
+</span></span><span class="line"><span class="cl">    name,
+</span></span><span class="line"><span class="cl">    image,
+</span></span><span class="line"><span class="cl">    user_id,
+</span></span><span class="line"><span class="cl">    dish_id,
+</span></span><span class="line"><span class="cl">    setmeal_id,
+</span></span><span class="line"><span class="cl">    dish_flavor,
+</span></span><span class="line"><span class="cl">    number,
+</span></span><span class="line"><span class="cl">    amount,
+</span></span><span class="line"><span class="cl">    create_time
+</span></span><span class="line"><span class="cl">    from shopping_cart
+</span></span><span class="line"><span class="cl">    where user_id = #{userId}
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;dishId != null&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        and dish_id = #{dishId}
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;setmealId != null&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        and setmeal_id = #{setmealId}
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;dishFlavor != null&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        and dish_flavor = #{dishFlavor}
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/select&gt;</span>
+</span></span></code></pre></div><p><code>ShoppingCartMapper</code> 接口中 <code>delete</code> 方法（xml实现）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--   删除购物车--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;delete</span> <span class="na">id=</span><span class="s">&#34;delete&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    delete
+</span></span><span class="line"><span class="cl">    from shopping_cart
+</span></span><span class="line"><span class="cl">    where user_id = #{userId}
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;dishId != null&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        and dish_id = #{dishId}
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;setmealId != null&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        and setmeal_id = #{setmealId}
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;dishFlavor&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        and dish_flavor = #{dishFlavor}
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/delete&gt;</span>
+</span></span></code></pre></div><p><code>ShoppingCartMapper</code> 接口中 <code>update</code> 方法（xml实现）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--  修改购物车--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;update</span> <span class="na">id=</span><span class="s">&#34;update&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    update shopping_cart
+</span></span><span class="line"><span class="cl">    set number = #{number}
+</span></span><span class="line"><span class="cl">   where id = #{id}
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/update&gt;</span>
+</span></span></code></pre></div>
 
   </div>
 
