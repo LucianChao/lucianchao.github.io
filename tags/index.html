@@ -186,7 +186,7 @@
         <a href="https://www.steamedfish.top/tags/arrays/">Arrays <sup><strong><sup>1</sup></strong></sup> </a>
     </li>
     <li>
-        <a href="https://www.steamedfish.top/tags/axios/">axios <sup><strong><sup>2</sup></strong></sup> </a>
+        <a href="https://www.steamedfish.top/tags/axios/">Axios <sup><strong><sup>2</sup></strong></sup> </a>
     </li>
     <li>
         <a href="https://www.steamedfish.top/tags/b-s%E6%9E%B6%E6%9E%84/">B-S架构 <sup><strong><sup>1</sup></strong></sup> </a>
@@ -621,9 +621,9 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.2/Meting.min.js"></script>
 <script>
-window.PaperMod = window.PaperMod || {};
-console.log("player.js loaded");
-PaperMod.initAPlayer = async function () {
+  window.PaperMod = window.PaperMod || {};
+  console.log("player.js loaded");
+  PaperMod.initAPlayer = async function () {
     if (window.__aplayer_inited__) {
       console.log("APlayer already exists, skip");
       return;
@@ -655,7 +655,10 @@ PaperMod.initAPlayer = async function () {
     try {
       const res = await fetch(
         
-"https://api.qijieya.cn/meting/?type=playlist&id=2245453903"
+        
+        
+        
+        "https://api.qijieya.cn/meting/?type=playlist&id=4968737249"
       );
       metingAudio = await res.json();
     } catch (e) {
@@ -676,9 +679,9 @@ PaperMod.initAPlayer = async function () {
       audio: metingAudio,
     });
     console.log("APlayer created with", audioList.length, "tracks");
-
-};
+  };
 </script>
+
 
 
 <script>

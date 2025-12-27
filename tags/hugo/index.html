@@ -324,9 +324,9 @@ lastmod功能已经上线半个多月了，但碍于有些bug，一直没有写�
 <script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.2/Meting.min.js"></script>
 <script>
-window.PaperMod = window.PaperMod || {};
-console.log("player.js loaded");
-PaperMod.initAPlayer = async function () {
+  window.PaperMod = window.PaperMod || {};
+  console.log("player.js loaded");
+  PaperMod.initAPlayer = async function () {
     if (window.__aplayer_inited__) {
       console.log("APlayer already exists, skip");
       return;
@@ -358,7 +358,10 @@ PaperMod.initAPlayer = async function () {
     try {
       const res = await fetch(
         
-"https://api.qijieya.cn/meting/?type=playlist&id=2245453903"
+        
+        
+        
+        "https://api.qijieya.cn/meting/?type=playlist&id=4968737249"
       );
       metingAudio = await res.json();
     } catch (e) {
@@ -379,9 +382,9 @@ PaperMod.initAPlayer = async function () {
       audio: metingAudio,
     });
     console.log("APlayer created with", audioList.length, "tracks");
-
-};
+  };
 </script>
+
 
 
 <script>

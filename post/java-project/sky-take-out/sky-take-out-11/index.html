@@ -1,0 +1,2047 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>【苍穹外卖】（10）用户端历史订单、商家端订单管理 | SteamedFish&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="用户端历史订单
+代码
+
+OrderController.java
+@GetMapping(&#34;/historyOrders&#34;)
+public Result&lt;PageResult&gt; historyOrders(OrdersPageQueryDTO dto){
+    log.info(&#34;查询历史订单：{}&#34;, dto);
+    PageResult pageResult = orderService.historyOrders(dto);
+    return Result.success(pageResult);
+}
+
+OrderService.java
+/**
+ * 历史订单查询
+ *
+ * @param dto
+ * @return
+ */
+PageResult historyOrders(OrdersPageQueryDTO dto);
+
+OrderServiceImpl.java
+@Override
+public PageResult historyOrders(OrdersPageQueryDTO dto) {
+    PageHelper.startPage(dto.getPage(),dto.getPageSize());
+    Orders orders = new Orders();
+    BeanUtils.copyProperties(dto,orders);
+    orders.setUserId(BaseContext.getCurrentId());
+    Page&lt;OrderVO&gt; page = orderMapper.pageQuery(orders);
+//      构造订单明细
+    for (OrderVO orderVO : page.getResult()) {
+        orderVO.setOrderDetailList(orderDetailMapper.getByOrderId(orderVO.getId()));
+    }
+    return new PageResult(page.getTotal(),page.getResult());
+}
+
+OrderMapper.java
+/**
+ * 历史订单分页查询
+ * @param dto
+ * @return
+ */
+Page&lt;OrderVO&gt; pageQuery(OrdersPageQueryDTO dto);
+
+OrderMapper.xml
+&lt;!--  分页查询--&gt;
+&lt;select id=&#34;pageQuery&#34; resultType=&#34;com.sky.vo.OrderVO&#34;&gt;
+    select id,
+    number,
+    status,
+    user_id,
+    address_book_id,
+    order_time,
+    checkout_time,
+    pay_method,
+    pay_status,
+    amount,
+    remark,
+    phone,
+    address,
+    user_name,
+    consignee,
+    cancel_reason,
+    rejection_reason,
+    cancel_time,
+    estimated_delivery_time,
+    delivery_status,
+    delivery_time,
+    pack_amount,
+    tableware_number,
+    tableware_status
+    from orders
+    &lt;where&gt;
+        &lt;if test=&#34;userId != null&#34;&gt;
+            and user_id = #{userId}
+        &lt;/if&gt;
+        &lt;if test=&#34;status != null&#34;&gt;
+            and status = #{status}
+        &lt;/if&gt;
+        &lt;if test=&#34;beginTime != null and endTime != null&#34;&gt;
+            and order_time between #{beginTime} and #{endTime}
+        &lt;/if&gt;
+        &lt;if test=&#34;number != null&#34;&gt;
+            and number like concat(&#39;%&#39;,#{number},&#39;%&#39;)
+        &lt;/if&gt;
+        &lt;if test=&#34;phone != null&#34;&gt;
+            and phone like concat(&#39;%&#39;,#{phone},&#39;%&#39;)
+        &lt;/if&gt;
+    &lt;/where&gt;
+    order by order_time desc
+&lt;/select&gt;
+
+OrderDetailMapper.java
+/**
+ * 根据订单id查询订单明细
+ * @param id
+ * @return
+ */
+List&lt;OrderDetail&gt; getByOrderId(Long id);
+
+OrderDetailMapper.xml
+&lt;!--  根据订单id查询--&gt;
+&lt;select id=&#34;getByOrderId&#34; resultType=&#34;com.sky.entity.OrderDetail&#34;&gt;
+    select id,
+           name,
+           image,
+           order_id,
+           dish_id,
+           setmeal_id,
+           dish_flavor,
+           number,
+           amount
+    from order_detail
+    where order_id = #{id}
+&lt;/select&gt;
+
+
+
+订单管理
+代码
+
+OrderController.java
+package com.sky.controller.admin;
+
+
+import com.sky.dto.OrdersPageQueryDTO;
+import com.sky.entity.Orders;
+import com.sky.result.PageResult;
+import com.sky.result.Result;
+import com.sky.service.OrderService;
+import com.sky.vo.OrderStatisticsVO;
+import com.sky.vo.OrderVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@Slf4j
+@Api(tags = &#34;订单管理&#34;)
+@RestController
+@RequestMapping(&#34;/admin/order&#34;)
+public class OrderController {
+
+    @Autowired
+    private OrderService orderService;
+
+    /**
+     * 订单搜索
+     * @param dto
+     * @return
+     */
+    @GetMapping(&#34;/conditionSearch&#34;)
+    @ApiOperation(&#34;订单搜索&#34;)
+    public Result&lt;PageResult&gt; pageQuery(OrdersPageQueryDTO dto){
+        log.info(&#34;订单搜索：{}&#34;, dto);
+        PageResult pageResult = orderService.adminPageQuery(dto);
+        return Result.success(pageResult);
+    }
+
+    /**
+     * 订单状态统计
+     * @return
+     */
+    @GetMapping(&#34;/statistics&#34;)
+    @ApiOperation(&#34;订单状态统计&#34;)
+    public Result&lt;OrderStatisticsVO&gt; statistics(){
+        log.info(&#34;订单状态统计&#34;);
+        OrderStatisticsVO statisticsVO = orderService.statistics();
+        return Result.success(statisticsVO);
+    }
+
+    /**
+     * 查询订单详情
+     * @param id
+     * @return
+     */
+    @GetMapping(&#34;/details/{id}&#34;)
+    @ApiOperation(&#34;查询订单详情&#34;)
+    public Result&lt;OrderVO&gt; getOrderDetailById(@PathVariable Long id){
+        log.info(&#34;查询订单详情：{}&#34;, id);
+        OrderVO orderVO = orderService.getOrderDetailById(id);
+        return Result.success(orderVO);
+    }
+
+    /**
+     * 接单
+     * @param orders
+     * @return
+     */
+    @PutMapping(&#34;/confirm&#34;)
+    @ApiOperation(&#34;接单&#34;)
+    public Result&lt;String&gt; confirm(@RequestBody Orders orders){
+        log.info(&#34;接单：{}&#34;, orders.getId());
+        orderService.confirm(orders);
+        return Result.success();
+    }
+
+    /**
+     * 拒单
+     * @param orders
+     * @return
+     */
+    @PutMapping(&#34;/rejection&#34;)
+    @ApiOperation(&#34;拒单&#34;)
+    public Result&lt;String&gt; rejection(@RequestBody Orders orders){
+        log.info(&#34;拒单：{}&#34;, orders.getId());
+        orderService.rejection(orders);
+        return Result.success();
+    }
+
+    /**
+     * 取消订单
+     * @param orders
+     * @return
+     */
+    @PutMapping(&#34;/cancel&#34;)
+    @ApiOperation(&#34;取消订单&#34;)
+    public Result&lt;String&gt; cancel(@RequestBody Orders orders){
+        log.info(&#34;取消订单：{}&#34;, orders.getId());
+        orderService.cancel(orders);
+        return Result.success();
+    }
+
+    /**
+     * 派送订单
+     * @param id
+     * @return
+     */
+    @PutMapping(&#34;/delivery/{id}&#34;)
+    @ApiOperation(&#34;派送订单&#34;)
+    public Result&lt;String&gt; delivery(@PathVariable Long id){
+        log.info(&#34;派送订单：{}&#34;, id);
+        Orders orders = new Orders();
+        orders.setId(id);
+        orderService.delivery(orders);
+        return Result.success();
+    }
+
+    /**
+     * 完成订单
+     * @param id
+     * @return
+     */
+    @PutMapping(&#34;/complete/{id}&#34;)
+    @ApiOperation(&#34;完成订单&#34;)
+    public Result&lt;String&gt; complete(@PathVariable Long id){
+         log.info(&#34;完成订单：{}&#34;, id);
+         Orders orders = new Orders();
+         orders.setId(id);
+         orderService.complete(orders);
+         return Result.success();
+    }
+}
+
+OrderService.java
+/**
+ * 管理端分页查询
+ * @param dto
+ * @return
+ */
+PageResult adminPageQuery(OrdersPageQueryDTO dto);
+
+/**
+ * 订单详情
+ * @param id
+ * @return
+ */
+OrderVO getOrderDetailById(Long id);
+
+/**
+ * 取消订单
+ * @param id
+ */
+void cancel(Long id);
+
+/**
+ * 再来一单
+ * @param id
+ */
+void repetition(Long id);
+
+/**
+ * 统计订单数据
+ * @return
+ */
+OrderStatisticsVO statistics();
+
+/**
+ * 接单/确认订单
+ * @param orders
+ */
+void confirm(Orders orders);
+
+/**
+ * 拒单
+ * @param orders
+ */
+void rejection(Orders orders);
+
+/**
+ * 取消订单
+ * @param orders
+ */
+void cancel(Orders orders);
+
+/**
+ * 派单
+ * @param orders
+ */
+void delivery(Orders orders);
+
+/**
+ * 完成订单
+ * @param orders
+ */
+void complete(Orders orders);
+
+OrderServiceImpl.java
+/**
+ * 管理端分页查询
+ *
+ * @param dto
+ * @return
+ */
+@Override
+public PageResult adminPageQuery(OrdersPageQueryDTO dto) {
+    PageHelper.startPage(dto.getPage(), dto.getPageSize());
+//        dto.setUserId(BaseContext.getCurrentId());
+    Page&lt;OrderVO&gt; page = orderMapper.pageQuery(dto);
+//        构造订单明细
+    for (OrderVO orderVO : page.getResult()) {
+        List&lt;OrderDetail&gt; detailList = orderDetailMapper.getByOrderId(orderVO.getId());
+        String orderDishes = detailList.stream()
+                .map(OrderDetail::getName)
+                .collect(Collectors.joining(&#34;,&#34;));
+        orderVO.setOrderDishes(orderDishes);
+        orderVO.setOrderDetailList(detailList);
+    }
+    return new PageResult(page.getTotal(), page.getResult());
+}
+
+/**
+ * 订单详情
+ *
+ * @param id
+ * @return
+ */
+@Override
+public OrderVO getOrderDetailById(Long id) {
+    Orders orders = orderMapper.getByOrderId(id);
+    OrderVO orderVO = new OrderVO();
+    BeanUtils.copyProperties(orders, orderVO);
+    orderVO.setOrderDetailList(orderDetailMapper.getByOrderId(id));
+    return orderVO;
+}
+
+/**
+ * 取消订单
+ *
+ * @param id
+ */
+@Override
+public void cancel(Long id) {
+    Orders orders = Orders.builder()
+            .id(id)
+            .status(Orders.CANCELLED)
+            .cancelTime(LocalDateTime.now())
+            .build();
+    orderMapper.update(orders);
+}
+
+/**
+ * 再来一单
+ *
+ * @param id
+ */
+@Override
+public void repetition(Long id) {
+    List&lt;OrderDetail&gt; orderDetail = orderDetailMapper.getByOrderId(id);
+    for (OrderDetail detail : orderDetail) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        BeanUtils.copyProperties(detail, shoppingCart);
+        shoppingCart.setUserId(BaseContext.getCurrentId());
+        shoppingCartMapper.add(shoppingCart);
+    }
+}
+
+/**
+ * 订单统计
+ *
+ * @return
+ */
+@Override
+public OrderStatisticsVO statistics() {
+    OrderStatisticsVO orderStatisticsVO = orderMapper.statistics();
+    return orderStatisticsVO;
+}
+
+/**
+ * 接单
+ *
+ * @param orders
+ */
+@Override
+public void confirm(Orders orders) {
+    orders.setStatus(Orders.CONFIRMED);
+    orderMapper.update(orders);
+}
+
+/**
+ * 拒单
+ *
+ * @param orders
+ */
+@Override
+public void rejection(Orders orders) {
+    orders.setStatus(Orders.CANCELLED);
+    orders.setCancelReason(orders.getRejectionReason());
+    orders.setCancelTime(LocalDateTime.now());
+    orderMapper.update(orders);
+}
+
+/**
+ * 撤销订单
+ *
+ * @param orders
+ */
+@Override
+public void cancel(Orders orders) {
+    orders.setStatus(Orders.CANCELLED);
+    orders.setCancelTime(LocalDateTime.now());
+    orderMapper.update(orders);
+}
+
+/**
+ * 派送订单
+ *
+ * @param orders
+ */
+@Override
+public void delivery(Orders orders) {
+    orders.setStatus(Orders.DELIVERY_IN_PROGRESS);
+    orderMapper.update(orders);
+}
+
+/**
+ * 完成订单
+ *
+ * @param orders
+ */
+@Override
+public void complete(Orders orders) {
+    orders.setStatus(Orders.COMPLETED);
+    orders.setDeliveryTime(LocalDateTime.now());
+    orderMapper.update(orders);
+}
+
+OrderMapper.java
+/**
+ * 历史订单分页查询
+ * @param dto
+ * @return
+ */
+Page&lt;OrderVO&gt; pageQuery(OrdersPageQueryDTO dto);
+
+/**
+ * 根据id查询订单
+ * @param id
+ * @return
+ */
+@Select(&#34;select * from orders where id = #{id}&#34;)
+Orders getByOrderId(Long id);
+
+/**
+ * 统计订单数据
+ * @return
+ */
+OrderStatisticsVO statistics();
+
+OrderMapper.xml
+&lt;!--  订单统计--&gt;
+&lt;select id=&#34;statistics&#34; resultType=&#34;com.sky.vo.OrderStatisticsVO&#34;&gt;
+    select sum(case when status = 2 then 1 else 0 end) as toBeConfirmed,
+           sum(case when status = 3 then 1 else 0 end) as confirmed,
+           sum(case when status = 4 then 1 else 0 end) as deliveryInProgress
+    from orders;
+&lt;/select&gt;
+
+">
+<meta name="author" content="">
+<link rel="canonical" href="https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-11/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.c27e1246cb66d388c2c28ba2cad7d8e45b296bdd6da67c05cf15ef27e74594b2.css" integrity="sha256-wn4SRstm04jCwouiytfY5Fspa91tpnwFzxXvJ&#43;dFlLI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
+<link rel="apple-touch-icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="mask-icon" href="https://www.steamedfish.top/favicon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-11/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+
+
+
+
+<link
+  href="/fonts/lxgw/style.css"
+  rel="stylesheet"
+/><meta property="og:url" content="https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-11/">
+  <meta property="og:site_name" content="SteamedFish&#39;s Blog">
+  <meta property="og:title" content="【苍穹外卖】（10）用户端历史订单、商家端订单管理">
+  <meta property="og:description" content="用户端历史订单 代码 OrderController.java @GetMapping(&#34;/historyOrders&#34;) public Result&lt;PageResult&gt; historyOrders(OrdersPageQueryDTO dto){ log.info(&#34;查询历史订单：{}&#34;, dto); PageResult pageResult = orderService.historyOrders(dto); return Result.success(pageResult); } OrderService.java /** * 历史订单查询 * * @param dto * @return */ PageResult historyOrders(OrdersPageQueryDTO dto); OrderServiceImpl.java @Override public PageResult historyOrders(OrdersPageQueryDTO dto) { PageHelper.startPage(dto.getPage(),dto.getPageSize()); Orders orders = new Orders(); BeanUtils.copyProperties(dto,orders); orders.setUserId(BaseContext.getCurrentId()); Page&lt;OrderVO&gt; page = orderMapper.pageQuery(orders); // 构造订单明细 for (OrderVO orderVO : page.getResult()) { orderVO.setOrderDetailList(orderDetailMapper.getByOrderId(orderVO.getId())); } return new PageResult(page.getTotal(),page.getResult()); } OrderMapper.java /** * 历史订单分页查询 * @param dto * @return */ Page&lt;OrderVO&gt; pageQuery(OrdersPageQueryDTO dto); OrderMapper.xml &lt;!-- 分页查询--&gt; &lt;select id=&#34;pageQuery&#34; resultType=&#34;com.sky.vo.OrderVO&#34;&gt; select id, number, status, user_id, address_book_id, order_time, checkout_time, pay_method, pay_status, amount, remark, phone, address, user_name, consignee, cancel_reason, rejection_reason, cancel_time, estimated_delivery_time, delivery_status, delivery_time, pack_amount, tableware_number, tableware_status from orders &lt;where&gt; &lt;if test=&#34;userId != null&#34;&gt; and user_id = #{userId} &lt;/if&gt; &lt;if test=&#34;status != null&#34;&gt; and status = #{status} &lt;/if&gt; &lt;if test=&#34;beginTime != null and endTime != null&#34;&gt; and order_time between #{beginTime} and #{endTime} &lt;/if&gt; &lt;if test=&#34;number != null&#34;&gt; and number like concat(&#39;%&#39;,#{number},&#39;%&#39;) &lt;/if&gt; &lt;if test=&#34;phone != null&#34;&gt; and phone like concat(&#39;%&#39;,#{phone},&#39;%&#39;) &lt;/if&gt; &lt;/where&gt; order by order_time desc &lt;/select&gt; OrderDetailMapper.java /** * 根据订单id查询订单明细 * @param id * @return */ List&lt;OrderDetail&gt; getByOrderId(Long id); OrderDetailMapper.xml &lt;!-- 根据订单id查询--&gt; &lt;select id=&#34;getByOrderId&#34; resultType=&#34;com.sky.entity.OrderDetail&#34;&gt; select id, name, image, order_id, dish_id, setmeal_id, dish_flavor, number, amount from order_detail where order_id = #{id} &lt;/select&gt; 订单管理 代码 OrderController.java package com.sky.controller.admin; import com.sky.dto.OrdersPageQueryDTO; import com.sky.entity.Orders; import com.sky.result.PageResult; import com.sky.result.Result; import com.sky.service.OrderService; import com.sky.vo.OrderStatisticsVO; import com.sky.vo.OrderVO; import io.swagger.annotations.Api; import io.swagger.annotations.ApiOperation; import lombok.extern.slf4j.Slf4j; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.web.bind.annotation.*; @Slf4j @Api(tags = &#34;订单管理&#34;) @RestController @RequestMapping(&#34;/admin/order&#34;) public class OrderController { @Autowired private OrderService orderService; /** * 订单搜索 * @param dto * @return */ @GetMapping(&#34;/conditionSearch&#34;) @ApiOperation(&#34;订单搜索&#34;) public Result&lt;PageResult&gt; pageQuery(OrdersPageQueryDTO dto){ log.info(&#34;订单搜索：{}&#34;, dto); PageResult pageResult = orderService.adminPageQuery(dto); return Result.success(pageResult); } /** * 订单状态统计 * @return */ @GetMapping(&#34;/statistics&#34;) @ApiOperation(&#34;订单状态统计&#34;) public Result&lt;OrderStatisticsVO&gt; statistics(){ log.info(&#34;订单状态统计&#34;); OrderStatisticsVO statisticsVO = orderService.statistics(); return Result.success(statisticsVO); } /** * 查询订单详情 * @param id * @return */ @GetMapping(&#34;/details/{id}&#34;) @ApiOperation(&#34;查询订单详情&#34;) public Result&lt;OrderVO&gt; getOrderDetailById(@PathVariable Long id){ log.info(&#34;查询订单详情：{}&#34;, id); OrderVO orderVO = orderService.getOrderDetailById(id); return Result.success(orderVO); } /** * 接单 * @param orders * @return */ @PutMapping(&#34;/confirm&#34;) @ApiOperation(&#34;接单&#34;) public Result&lt;String&gt; confirm(@RequestBody Orders orders){ log.info(&#34;接单：{}&#34;, orders.getId()); orderService.confirm(orders); return Result.success(); } /** * 拒单 * @param orders * @return */ @PutMapping(&#34;/rejection&#34;) @ApiOperation(&#34;拒单&#34;) public Result&lt;String&gt; rejection(@RequestBody Orders orders){ log.info(&#34;拒单：{}&#34;, orders.getId()); orderService.rejection(orders); return Result.success(); } /** * 取消订单 * @param orders * @return */ @PutMapping(&#34;/cancel&#34;) @ApiOperation(&#34;取消订单&#34;) public Result&lt;String&gt; cancel(@RequestBody Orders orders){ log.info(&#34;取消订单：{}&#34;, orders.getId()); orderService.cancel(orders); return Result.success(); } /** * 派送订单 * @param id * @return */ @PutMapping(&#34;/delivery/{id}&#34;) @ApiOperation(&#34;派送订单&#34;) public Result&lt;String&gt; delivery(@PathVariable Long id){ log.info(&#34;派送订单：{}&#34;, id); Orders orders = new Orders(); orders.setId(id); orderService.delivery(orders); return Result.success(); } /** * 完成订单 * @param id * @return */ @PutMapping(&#34;/complete/{id}&#34;) @ApiOperation(&#34;完成订单&#34;) public Result&lt;String&gt; complete(@PathVariable Long id){ log.info(&#34;完成订单：{}&#34;, id); Orders orders = new Orders(); orders.setId(id); orderService.complete(orders); return Result.success(); } } OrderService.java /** * 管理端分页查询 * @param dto * @return */ PageResult adminPageQuery(OrdersPageQueryDTO dto); /** * 订单详情 * @param id * @return */ OrderVO getOrderDetailById(Long id); /** * 取消订单 * @param id */ void cancel(Long id); /** * 再来一单 * @param id */ void repetition(Long id); /** * 统计订单数据 * @return */ OrderStatisticsVO statistics(); /** * 接单/确认订单 * @param orders */ void confirm(Orders orders); /** * 拒单 * @param orders */ void rejection(Orders orders); /** * 取消订单 * @param orders */ void cancel(Orders orders); /** * 派单 * @param orders */ void delivery(Orders orders); /** * 完成订单 * @param orders */ void complete(Orders orders); OrderServiceImpl.java /** * 管理端分页查询 * * @param dto * @return */ @Override public PageResult adminPageQuery(OrdersPageQueryDTO dto) { PageHelper.startPage(dto.getPage(), dto.getPageSize()); // dto.setUserId(BaseContext.getCurrentId()); Page&lt;OrderVO&gt; page = orderMapper.pageQuery(dto); // 构造订单明细 for (OrderVO orderVO : page.getResult()) { List&lt;OrderDetail&gt; detailList = orderDetailMapper.getByOrderId(orderVO.getId()); String orderDishes = detailList.stream() .map(OrderDetail::getName) .collect(Collectors.joining(&#34;,&#34;)); orderVO.setOrderDishes(orderDishes); orderVO.setOrderDetailList(detailList); } return new PageResult(page.getTotal(), page.getResult()); } /** * 订单详情 * * @param id * @return */ @Override public OrderVO getOrderDetailById(Long id) { Orders orders = orderMapper.getByOrderId(id); OrderVO orderVO = new OrderVO(); BeanUtils.copyProperties(orders, orderVO); orderVO.setOrderDetailList(orderDetailMapper.getByOrderId(id)); return orderVO; } /** * 取消订单 * * @param id */ @Override public void cancel(Long id) { Orders orders = Orders.builder() .id(id) .status(Orders.CANCELLED) .cancelTime(LocalDateTime.now()) .build(); orderMapper.update(orders); } /** * 再来一单 * * @param id */ @Override public void repetition(Long id) { List&lt;OrderDetail&gt; orderDetail = orderDetailMapper.getByOrderId(id); for (OrderDetail detail : orderDetail) { ShoppingCart shoppingCart = new ShoppingCart(); BeanUtils.copyProperties(detail, shoppingCart); shoppingCart.setUserId(BaseContext.getCurrentId()); shoppingCartMapper.add(shoppingCart); } } /** * 订单统计 * * @return */ @Override public OrderStatisticsVO statistics() { OrderStatisticsVO orderStatisticsVO = orderMapper.statistics(); return orderStatisticsVO; } /** * 接单 * * @param orders */ @Override public void confirm(Orders orders) { orders.setStatus(Orders.CONFIRMED); orderMapper.update(orders); } /** * 拒单 * * @param orders */ @Override public void rejection(Orders orders) { orders.setStatus(Orders.CANCELLED); orders.setCancelReason(orders.getRejectionReason()); orders.setCancelTime(LocalDateTime.now()); orderMapper.update(orders); } /** * 撤销订单 * * @param orders */ @Override public void cancel(Orders orders) { orders.setStatus(Orders.CANCELLED); orders.setCancelTime(LocalDateTime.now()); orderMapper.update(orders); } /** * 派送订单 * * @param orders */ @Override public void delivery(Orders orders) { orders.setStatus(Orders.DELIVERY_IN_PROGRESS); orderMapper.update(orders); } /** * 完成订单 * * @param orders */ @Override public void complete(Orders orders) { orders.setStatus(Orders.COMPLETED); orders.setDeliveryTime(LocalDateTime.now()); orderMapper.update(orders); } OrderMapper.java /** * 历史订单分页查询 * @param dto * @return */ Page&lt;OrderVO&gt; pageQuery(OrdersPageQueryDTO dto); /** * 根据id查询订单 * @param id * @return */ @Select(&#34;select * from orders where id = #{id}&#34;) Orders getByOrderId(Long id); /** * 统计订单数据 * @return */ OrderStatisticsVO statistics(); OrderMapper.xml &lt;!-- 订单统计--&gt; &lt;select id=&#34;statistics&#34; resultType=&#34;com.sky.vo.OrderStatisticsVO&#34;&gt; select sum(case when status = 2 then 1 else 0 end) as toBeConfirmed, sum(case when status = 3 then 1 else 0 end) as confirmed, sum(case when status = 4 then 1 else 0 end) as deliveryInProgress from orders; &lt;/select&gt; ">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-12-27T23:35:56+08:00">
+    <meta property="article:modified_time" content="2025-12-27T23:56:09+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【苍穹外卖】（10）用户端历史订单、商家端订单管理">
+<meta name="twitter:description" content="用户端历史订单
+代码
+
+OrderController.java
+@GetMapping(&#34;/historyOrders&#34;)
+public Result&lt;PageResult&gt; historyOrders(OrdersPageQueryDTO dto){
+    log.info(&#34;查询历史订单：{}&#34;, dto);
+    PageResult pageResult = orderService.historyOrders(dto);
+    return Result.success(pageResult);
+}
+
+OrderService.java
+/**
+ * 历史订单查询
+ *
+ * @param dto
+ * @return
+ */
+PageResult historyOrders(OrdersPageQueryDTO dto);
+
+OrderServiceImpl.java
+@Override
+public PageResult historyOrders(OrdersPageQueryDTO dto) {
+    PageHelper.startPage(dto.getPage(),dto.getPageSize());
+    Orders orders = new Orders();
+    BeanUtils.copyProperties(dto,orders);
+    orders.setUserId(BaseContext.getCurrentId());
+    Page&lt;OrderVO&gt; page = orderMapper.pageQuery(orders);
+//      构造订单明细
+    for (OrderVO orderVO : page.getResult()) {
+        orderVO.setOrderDetailList(orderDetailMapper.getByOrderId(orderVO.getId()));
+    }
+    return new PageResult(page.getTotal(),page.getResult());
+}
+
+OrderMapper.java
+/**
+ * 历史订单分页查询
+ * @param dto
+ * @return
+ */
+Page&lt;OrderVO&gt; pageQuery(OrdersPageQueryDTO dto);
+
+OrderMapper.xml
+&lt;!--  分页查询--&gt;
+&lt;select id=&#34;pageQuery&#34; resultType=&#34;com.sky.vo.OrderVO&#34;&gt;
+    select id,
+    number,
+    status,
+    user_id,
+    address_book_id,
+    order_time,
+    checkout_time,
+    pay_method,
+    pay_status,
+    amount,
+    remark,
+    phone,
+    address,
+    user_name,
+    consignee,
+    cancel_reason,
+    rejection_reason,
+    cancel_time,
+    estimated_delivery_time,
+    delivery_status,
+    delivery_time,
+    pack_amount,
+    tableware_number,
+    tableware_status
+    from orders
+    &lt;where&gt;
+        &lt;if test=&#34;userId != null&#34;&gt;
+            and user_id = #{userId}
+        &lt;/if&gt;
+        &lt;if test=&#34;status != null&#34;&gt;
+            and status = #{status}
+        &lt;/if&gt;
+        &lt;if test=&#34;beginTime != null and endTime != null&#34;&gt;
+            and order_time between #{beginTime} and #{endTime}
+        &lt;/if&gt;
+        &lt;if test=&#34;number != null&#34;&gt;
+            and number like concat(&#39;%&#39;,#{number},&#39;%&#39;)
+        &lt;/if&gt;
+        &lt;if test=&#34;phone != null&#34;&gt;
+            and phone like concat(&#39;%&#39;,#{phone},&#39;%&#39;)
+        &lt;/if&gt;
+    &lt;/where&gt;
+    order by order_time desc
+&lt;/select&gt;
+
+OrderDetailMapper.java
+/**
+ * 根据订单id查询订单明细
+ * @param id
+ * @return
+ */
+List&lt;OrderDetail&gt; getByOrderId(Long id);
+
+OrderDetailMapper.xml
+&lt;!--  根据订单id查询--&gt;
+&lt;select id=&#34;getByOrderId&#34; resultType=&#34;com.sky.entity.OrderDetail&#34;&gt;
+    select id,
+           name,
+           image,
+           order_id,
+           dish_id,
+           setmeal_id,
+           dish_flavor,
+           number,
+           amount
+    from order_detail
+    where order_id = #{id}
+&lt;/select&gt;
+
+
+
+订单管理
+代码
+
+OrderController.java
+package com.sky.controller.admin;
+
+
+import com.sky.dto.OrdersPageQueryDTO;
+import com.sky.entity.Orders;
+import com.sky.result.PageResult;
+import com.sky.result.Result;
+import com.sky.service.OrderService;
+import com.sky.vo.OrderStatisticsVO;
+import com.sky.vo.OrderVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@Slf4j
+@Api(tags = &#34;订单管理&#34;)
+@RestController
+@RequestMapping(&#34;/admin/order&#34;)
+public class OrderController {
+
+    @Autowired
+    private OrderService orderService;
+
+    /**
+     * 订单搜索
+     * @param dto
+     * @return
+     */
+    @GetMapping(&#34;/conditionSearch&#34;)
+    @ApiOperation(&#34;订单搜索&#34;)
+    public Result&lt;PageResult&gt; pageQuery(OrdersPageQueryDTO dto){
+        log.info(&#34;订单搜索：{}&#34;, dto);
+        PageResult pageResult = orderService.adminPageQuery(dto);
+        return Result.success(pageResult);
+    }
+
+    /**
+     * 订单状态统计
+     * @return
+     */
+    @GetMapping(&#34;/statistics&#34;)
+    @ApiOperation(&#34;订单状态统计&#34;)
+    public Result&lt;OrderStatisticsVO&gt; statistics(){
+        log.info(&#34;订单状态统计&#34;);
+        OrderStatisticsVO statisticsVO = orderService.statistics();
+        return Result.success(statisticsVO);
+    }
+
+    /**
+     * 查询订单详情
+     * @param id
+     * @return
+     */
+    @GetMapping(&#34;/details/{id}&#34;)
+    @ApiOperation(&#34;查询订单详情&#34;)
+    public Result&lt;OrderVO&gt; getOrderDetailById(@PathVariable Long id){
+        log.info(&#34;查询订单详情：{}&#34;, id);
+        OrderVO orderVO = orderService.getOrderDetailById(id);
+        return Result.success(orderVO);
+    }
+
+    /**
+     * 接单
+     * @param orders
+     * @return
+     */
+    @PutMapping(&#34;/confirm&#34;)
+    @ApiOperation(&#34;接单&#34;)
+    public Result&lt;String&gt; confirm(@RequestBody Orders orders){
+        log.info(&#34;接单：{}&#34;, orders.getId());
+        orderService.confirm(orders);
+        return Result.success();
+    }
+
+    /**
+     * 拒单
+     * @param orders
+     * @return
+     */
+    @PutMapping(&#34;/rejection&#34;)
+    @ApiOperation(&#34;拒单&#34;)
+    public Result&lt;String&gt; rejection(@RequestBody Orders orders){
+        log.info(&#34;拒单：{}&#34;, orders.getId());
+        orderService.rejection(orders);
+        return Result.success();
+    }
+
+    /**
+     * 取消订单
+     * @param orders
+     * @return
+     */
+    @PutMapping(&#34;/cancel&#34;)
+    @ApiOperation(&#34;取消订单&#34;)
+    public Result&lt;String&gt; cancel(@RequestBody Orders orders){
+        log.info(&#34;取消订单：{}&#34;, orders.getId());
+        orderService.cancel(orders);
+        return Result.success();
+    }
+
+    /**
+     * 派送订单
+     * @param id
+     * @return
+     */
+    @PutMapping(&#34;/delivery/{id}&#34;)
+    @ApiOperation(&#34;派送订单&#34;)
+    public Result&lt;String&gt; delivery(@PathVariable Long id){
+        log.info(&#34;派送订单：{}&#34;, id);
+        Orders orders = new Orders();
+        orders.setId(id);
+        orderService.delivery(orders);
+        return Result.success();
+    }
+
+    /**
+     * 完成订单
+     * @param id
+     * @return
+     */
+    @PutMapping(&#34;/complete/{id}&#34;)
+    @ApiOperation(&#34;完成订单&#34;)
+    public Result&lt;String&gt; complete(@PathVariable Long id){
+         log.info(&#34;完成订单：{}&#34;, id);
+         Orders orders = new Orders();
+         orders.setId(id);
+         orderService.complete(orders);
+         return Result.success();
+    }
+}
+
+OrderService.java
+/**
+ * 管理端分页查询
+ * @param dto
+ * @return
+ */
+PageResult adminPageQuery(OrdersPageQueryDTO dto);
+
+/**
+ * 订单详情
+ * @param id
+ * @return
+ */
+OrderVO getOrderDetailById(Long id);
+
+/**
+ * 取消订单
+ * @param id
+ */
+void cancel(Long id);
+
+/**
+ * 再来一单
+ * @param id
+ */
+void repetition(Long id);
+
+/**
+ * 统计订单数据
+ * @return
+ */
+OrderStatisticsVO statistics();
+
+/**
+ * 接单/确认订单
+ * @param orders
+ */
+void confirm(Orders orders);
+
+/**
+ * 拒单
+ * @param orders
+ */
+void rejection(Orders orders);
+
+/**
+ * 取消订单
+ * @param orders
+ */
+void cancel(Orders orders);
+
+/**
+ * 派单
+ * @param orders
+ */
+void delivery(Orders orders);
+
+/**
+ * 完成订单
+ * @param orders
+ */
+void complete(Orders orders);
+
+OrderServiceImpl.java
+/**
+ * 管理端分页查询
+ *
+ * @param dto
+ * @return
+ */
+@Override
+public PageResult adminPageQuery(OrdersPageQueryDTO dto) {
+    PageHelper.startPage(dto.getPage(), dto.getPageSize());
+//        dto.setUserId(BaseContext.getCurrentId());
+    Page&lt;OrderVO&gt; page = orderMapper.pageQuery(dto);
+//        构造订单明细
+    for (OrderVO orderVO : page.getResult()) {
+        List&lt;OrderDetail&gt; detailList = orderDetailMapper.getByOrderId(orderVO.getId());
+        String orderDishes = detailList.stream()
+                .map(OrderDetail::getName)
+                .collect(Collectors.joining(&#34;,&#34;));
+        orderVO.setOrderDishes(orderDishes);
+        orderVO.setOrderDetailList(detailList);
+    }
+    return new PageResult(page.getTotal(), page.getResult());
+}
+
+/**
+ * 订单详情
+ *
+ * @param id
+ * @return
+ */
+@Override
+public OrderVO getOrderDetailById(Long id) {
+    Orders orders = orderMapper.getByOrderId(id);
+    OrderVO orderVO = new OrderVO();
+    BeanUtils.copyProperties(orders, orderVO);
+    orderVO.setOrderDetailList(orderDetailMapper.getByOrderId(id));
+    return orderVO;
+}
+
+/**
+ * 取消订单
+ *
+ * @param id
+ */
+@Override
+public void cancel(Long id) {
+    Orders orders = Orders.builder()
+            .id(id)
+            .status(Orders.CANCELLED)
+            .cancelTime(LocalDateTime.now())
+            .build();
+    orderMapper.update(orders);
+}
+
+/**
+ * 再来一单
+ *
+ * @param id
+ */
+@Override
+public void repetition(Long id) {
+    List&lt;OrderDetail&gt; orderDetail = orderDetailMapper.getByOrderId(id);
+    for (OrderDetail detail : orderDetail) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        BeanUtils.copyProperties(detail, shoppingCart);
+        shoppingCart.setUserId(BaseContext.getCurrentId());
+        shoppingCartMapper.add(shoppingCart);
+    }
+}
+
+/**
+ * 订单统计
+ *
+ * @return
+ */
+@Override
+public OrderStatisticsVO statistics() {
+    OrderStatisticsVO orderStatisticsVO = orderMapper.statistics();
+    return orderStatisticsVO;
+}
+
+/**
+ * 接单
+ *
+ * @param orders
+ */
+@Override
+public void confirm(Orders orders) {
+    orders.setStatus(Orders.CONFIRMED);
+    orderMapper.update(orders);
+}
+
+/**
+ * 拒单
+ *
+ * @param orders
+ */
+@Override
+public void rejection(Orders orders) {
+    orders.setStatus(Orders.CANCELLED);
+    orders.setCancelReason(orders.getRejectionReason());
+    orders.setCancelTime(LocalDateTime.now());
+    orderMapper.update(orders);
+}
+
+/**
+ * 撤销订单
+ *
+ * @param orders
+ */
+@Override
+public void cancel(Orders orders) {
+    orders.setStatus(Orders.CANCELLED);
+    orders.setCancelTime(LocalDateTime.now());
+    orderMapper.update(orders);
+}
+
+/**
+ * 派送订单
+ *
+ * @param orders
+ */
+@Override
+public void delivery(Orders orders) {
+    orders.setStatus(Orders.DELIVERY_IN_PROGRESS);
+    orderMapper.update(orders);
+}
+
+/**
+ * 完成订单
+ *
+ * @param orders
+ */
+@Override
+public void complete(Orders orders) {
+    orders.setStatus(Orders.COMPLETED);
+    orders.setDeliveryTime(LocalDateTime.now());
+    orderMapper.update(orders);
+}
+
+OrderMapper.java
+/**
+ * 历史订单分页查询
+ * @param dto
+ * @return
+ */
+Page&lt;OrderVO&gt; pageQuery(OrdersPageQueryDTO dto);
+
+/**
+ * 根据id查询订单
+ * @param id
+ * @return
+ */
+@Select(&#34;select * from orders where id = #{id}&#34;)
+Orders getByOrderId(Long id);
+
+/**
+ * 统计订单数据
+ * @return
+ */
+OrderStatisticsVO statistics();
+
+OrderMapper.xml
+&lt;!--  订单统计--&gt;
+&lt;select id=&#34;statistics&#34; resultType=&#34;com.sky.vo.OrderStatisticsVO&#34;&gt;
+    select sum(case when status = 2 then 1 else 0 end) as toBeConfirmed,
+           sum(case when status = 3 then 1 else 0 end) as confirmed,
+           sum(case when status = 4 then 1 else 0 end) as deliveryInProgress
+    from orders;
+&lt;/select&gt;
+
+">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.steamedfish.top/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "【苍穹外卖】（10）用户端历史订单、商家端订单管理",
+      "item": "https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-11/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【苍穹外卖】（10）用户端历史订单、商家端订单管理",
+  "name": "【苍穹外卖】（10）用户端历史订单、商家端订单管理",
+  "description": "用户端历史订单 代码 OrderController.java @GetMapping(\u0026#34;/historyOrders\u0026#34;) public Result\u0026lt;PageResult\u0026gt; historyOrders(OrdersPageQueryDTO dto){ log.info(\u0026#34;查询历史订单：{}\u0026#34;, dto); PageResult pageResult = orderService.historyOrders(dto); return Result.success(pageResult); } OrderService.java /** * 历史订单查询 * * @param dto * @return */ PageResult historyOrders(OrdersPageQueryDTO dto); OrderServiceImpl.java @Override public PageResult historyOrders(OrdersPageQueryDTO dto) { PageHelper.startPage(dto.getPage(),dto.getPageSize()); Orders orders = new Orders(); BeanUtils.copyProperties(dto,orders); orders.setUserId(BaseContext.getCurrentId()); Page\u0026lt;OrderVO\u0026gt; page = orderMapper.pageQuery(orders); // 构造订单明细 for (OrderVO orderVO : page.getResult()) { orderVO.setOrderDetailList(orderDetailMapper.getByOrderId(orderVO.getId())); } return new PageResult(page.getTotal(),page.getResult()); } OrderMapper.java /** * 历史订单分页查询 * @param dto * @return */ Page\u0026lt;OrderVO\u0026gt; pageQuery(OrdersPageQueryDTO dto); OrderMapper.xml \u0026lt;!-- 分页查询--\u0026gt; \u0026lt;select id=\u0026#34;pageQuery\u0026#34; resultType=\u0026#34;com.sky.vo.OrderVO\u0026#34;\u0026gt; select id, number, status, user_id, address_book_id, order_time, checkout_time, pay_method, pay_status, amount, remark, phone, address, user_name, consignee, cancel_reason, rejection_reason, cancel_time, estimated_delivery_time, delivery_status, delivery_time, pack_amount, tableware_number, tableware_status from orders \u0026lt;where\u0026gt; \u0026lt;if test=\u0026#34;userId != null\u0026#34;\u0026gt; and user_id = #{userId} \u0026lt;/if\u0026gt; \u0026lt;if test=\u0026#34;status != null\u0026#34;\u0026gt; and status = #{status} \u0026lt;/if\u0026gt; \u0026lt;if test=\u0026#34;beginTime != null and endTime != null\u0026#34;\u0026gt; and order_time between #{beginTime} and #{endTime} \u0026lt;/if\u0026gt; \u0026lt;if test=\u0026#34;number != null\u0026#34;\u0026gt; and number like concat(\u0026#39;%\u0026#39;,#{number},\u0026#39;%\u0026#39;) \u0026lt;/if\u0026gt; \u0026lt;if test=\u0026#34;phone != null\u0026#34;\u0026gt; and phone like concat(\u0026#39;%\u0026#39;,#{phone},\u0026#39;%\u0026#39;) \u0026lt;/if\u0026gt; \u0026lt;/where\u0026gt; order by order_time desc \u0026lt;/select\u0026gt; OrderDetailMapper.java /** * 根据订单id查询订单明细 * @param id * @return */ List\u0026lt;OrderDetail\u0026gt; getByOrderId(Long id); OrderDetailMapper.xml \u0026lt;!-- 根据订单id查询--\u0026gt; \u0026lt;select id=\u0026#34;getByOrderId\u0026#34; resultType=\u0026#34;com.sky.entity.OrderDetail\u0026#34;\u0026gt; select id, name, image, order_id, dish_id, setmeal_id, dish_flavor, number, amount from order_detail where order_id = #{id} \u0026lt;/select\u0026gt; 订单管理 代码 OrderController.java package com.sky.controller.admin; import com.sky.dto.OrdersPageQueryDTO; import com.sky.entity.Orders; import com.sky.result.PageResult; import com.sky.result.Result; import com.sky.service.OrderService; import com.sky.vo.OrderStatisticsVO; import com.sky.vo.OrderVO; import io.swagger.annotations.Api; import io.swagger.annotations.ApiOperation; import lombok.extern.slf4j.Slf4j; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.web.bind.annotation.*; @Slf4j @Api(tags = \u0026#34;订单管理\u0026#34;) @RestController @RequestMapping(\u0026#34;/admin/order\u0026#34;) public class OrderController { @Autowired private OrderService orderService; /** * 订单搜索 * @param dto * @return */ @GetMapping(\u0026#34;/conditionSearch\u0026#34;) @ApiOperation(\u0026#34;订单搜索\u0026#34;) public Result\u0026lt;PageResult\u0026gt; pageQuery(OrdersPageQueryDTO dto){ log.info(\u0026#34;订单搜索：{}\u0026#34;, dto); PageResult pageResult = orderService.adminPageQuery(dto); return Result.success(pageResult); } /** * 订单状态统计 * @return */ @GetMapping(\u0026#34;/statistics\u0026#34;) @ApiOperation(\u0026#34;订单状态统计\u0026#34;) public Result\u0026lt;OrderStatisticsVO\u0026gt; statistics(){ log.info(\u0026#34;订单状态统计\u0026#34;); OrderStatisticsVO statisticsVO = orderService.statistics(); return Result.success(statisticsVO); } /** * 查询订单详情 * @param id * @return */ @GetMapping(\u0026#34;/details/{id}\u0026#34;) @ApiOperation(\u0026#34;查询订单详情\u0026#34;) public Result\u0026lt;OrderVO\u0026gt; getOrderDetailById(@PathVariable Long id){ log.info(\u0026#34;查询订单详情：{}\u0026#34;, id); OrderVO orderVO = orderService.getOrderDetailById(id); return Result.success(orderVO); } /** * 接单 * @param orders * @return */ @PutMapping(\u0026#34;/confirm\u0026#34;) @ApiOperation(\u0026#34;接单\u0026#34;) public Result\u0026lt;String\u0026gt; confirm(@RequestBody Orders orders){ log.info(\u0026#34;接单：{}\u0026#34;, orders.getId()); orderService.confirm(orders); return Result.success(); } /** * 拒单 * @param orders * @return */ @PutMapping(\u0026#34;/rejection\u0026#34;) @ApiOperation(\u0026#34;拒单\u0026#34;) public Result\u0026lt;String\u0026gt; rejection(@RequestBody Orders orders){ log.info(\u0026#34;拒单：{}\u0026#34;, orders.getId()); orderService.rejection(orders); return Result.success(); } /** * 取消订单 * @param orders * @return */ @PutMapping(\u0026#34;/cancel\u0026#34;) @ApiOperation(\u0026#34;取消订单\u0026#34;) public Result\u0026lt;String\u0026gt; cancel(@RequestBody Orders orders){ log.info(\u0026#34;取消订单：{}\u0026#34;, orders.getId()); orderService.cancel(orders); return Result.success(); } /** * 派送订单 * @param id * @return */ @PutMapping(\u0026#34;/delivery/{id}\u0026#34;) @ApiOperation(\u0026#34;派送订单\u0026#34;) public Result\u0026lt;String\u0026gt; delivery(@PathVariable Long id){ log.info(\u0026#34;派送订单：{}\u0026#34;, id); Orders orders = new Orders(); orders.setId(id); orderService.delivery(orders); return Result.success(); } /** * 完成订单 * @param id * @return */ @PutMapping(\u0026#34;/complete/{id}\u0026#34;) @ApiOperation(\u0026#34;完成订单\u0026#34;) public Result\u0026lt;String\u0026gt; complete(@PathVariable Long id){ log.info(\u0026#34;完成订单：{}\u0026#34;, id); Orders orders = new Orders(); orders.setId(id); orderService.complete(orders); return Result.success(); } } OrderService.java /** * 管理端分页查询 * @param dto * @return */ PageResult adminPageQuery(OrdersPageQueryDTO dto); /** * 订单详情 * @param id * @return */ OrderVO getOrderDetailById(Long id); /** * 取消订单 * @param id */ void cancel(Long id); /** * 再来一单 * @param id */ void repetition(Long id); /** * 统计订单数据 * @return */ OrderStatisticsVO statistics(); /** * 接单/确认订单 * @param orders */ void confirm(Orders orders); /** * 拒单 * @param orders */ void rejection(Orders orders); /** * 取消订单 * @param orders */ void cancel(Orders orders); /** * 派单 * @param orders */ void delivery(Orders orders); /** * 完成订单 * @param orders */ void complete(Orders orders); OrderServiceImpl.java /** * 管理端分页查询 * * @param dto * @return */ @Override public PageResult adminPageQuery(OrdersPageQueryDTO dto) { PageHelper.startPage(dto.getPage(), dto.getPageSize()); // dto.setUserId(BaseContext.getCurrentId()); Page\u0026lt;OrderVO\u0026gt; page = orderMapper.pageQuery(dto); // 构造订单明细 for (OrderVO orderVO : page.getResult()) { List\u0026lt;OrderDetail\u0026gt; detailList = orderDetailMapper.getByOrderId(orderVO.getId()); String orderDishes = detailList.stream() .map(OrderDetail::getName) .collect(Collectors.joining(\u0026#34;,\u0026#34;)); orderVO.setOrderDishes(orderDishes); orderVO.setOrderDetailList(detailList); } return new PageResult(page.getTotal(), page.getResult()); } /** * 订单详情 * * @param id * @return */ @Override public OrderVO getOrderDetailById(Long id) { Orders orders = orderMapper.getByOrderId(id); OrderVO orderVO = new OrderVO(); BeanUtils.copyProperties(orders, orderVO); orderVO.setOrderDetailList(orderDetailMapper.getByOrderId(id)); return orderVO; } /** * 取消订单 * * @param id */ @Override public void cancel(Long id) { Orders orders = Orders.builder() .id(id) .status(Orders.CANCELLED) .cancelTime(LocalDateTime.now()) .build(); orderMapper.update(orders); } /** * 再来一单 * * @param id */ @Override public void repetition(Long id) { List\u0026lt;OrderDetail\u0026gt; orderDetail = orderDetailMapper.getByOrderId(id); for (OrderDetail detail : orderDetail) { ShoppingCart shoppingCart = new ShoppingCart(); BeanUtils.copyProperties(detail, shoppingCart); shoppingCart.setUserId(BaseContext.getCurrentId()); shoppingCartMapper.add(shoppingCart); } } /** * 订单统计 * * @return */ @Override public OrderStatisticsVO statistics() { OrderStatisticsVO orderStatisticsVO = orderMapper.statistics(); return orderStatisticsVO; } /** * 接单 * * @param orders */ @Override public void confirm(Orders orders) { orders.setStatus(Orders.CONFIRMED); orderMapper.update(orders); } /** * 拒单 * * @param orders */ @Override public void rejection(Orders orders) { orders.setStatus(Orders.CANCELLED); orders.setCancelReason(orders.getRejectionReason()); orders.setCancelTime(LocalDateTime.now()); orderMapper.update(orders); } /** * 撤销订单 * * @param orders */ @Override public void cancel(Orders orders) { orders.setStatus(Orders.CANCELLED); orders.setCancelTime(LocalDateTime.now()); orderMapper.update(orders); } /** * 派送订单 * * @param orders */ @Override public void delivery(Orders orders) { orders.setStatus(Orders.DELIVERY_IN_PROGRESS); orderMapper.update(orders); } /** * 完成订单 * * @param orders */ @Override public void complete(Orders orders) { orders.setStatus(Orders.COMPLETED); orders.setDeliveryTime(LocalDateTime.now()); orderMapper.update(orders); } OrderMapper.java /** * 历史订单分页查询 * @param dto * @return */ Page\u0026lt;OrderVO\u0026gt; pageQuery(OrdersPageQueryDTO dto); /** * 根据id查询订单 * @param id * @return */ @Select(\u0026#34;select * from orders where id = #{id}\u0026#34;) Orders getByOrderId(Long id); /** * 统计订单数据 * @return */ OrderStatisticsVO statistics(); OrderMapper.xml \u0026lt;!-- 订单统计--\u0026gt; \u0026lt;select id=\u0026#34;statistics\u0026#34; resultType=\u0026#34;com.sky.vo.OrderStatisticsVO\u0026#34;\u0026gt; select sum(case when status = 2 then 1 else 0 end) as toBeConfirmed, sum(case when status = 3 then 1 else 0 end) as confirmed, sum(case when status = 4 then 1 else 0 end) as deliveryInProgress from orders; \u0026lt;/select\u0026gt; ",
+  "keywords": [
+    
+  ],
+  "articleBody": "用户端历史订单 代码 OrderController.java @GetMapping(\"/historyOrders\") public Result\u003cPageResult\u003e historyOrders(OrdersPageQueryDTO dto){ log.info(\"查询历史订单：{}\", dto); PageResult pageResult = orderService.historyOrders(dto); return Result.success(pageResult); } OrderService.java /** * 历史订单查询 * * @param dto * @return */ PageResult historyOrders(OrdersPageQueryDTO dto); OrderServiceImpl.java @Override public PageResult historyOrders(OrdersPageQueryDTO dto) { PageHelper.startPage(dto.getPage(),dto.getPageSize()); Orders orders = new Orders(); BeanUtils.copyProperties(dto,orders); orders.setUserId(BaseContext.getCurrentId()); Page\u003cOrderVO\u003e page = orderMapper.pageQuery(orders); // 构造订单明细 for (OrderVO orderVO : page.getResult()) { orderVO.setOrderDetailList(orderDetailMapper.getByOrderId(orderVO.getId())); } return new PageResult(page.getTotal(),page.getResult()); } OrderMapper.java /** * 历史订单分页查询 * @param dto * @return */ Page\u003cOrderVO\u003e pageQuery(OrdersPageQueryDTO dto); OrderMapper.xml ",
+  "wordCount" : "1530",
+  "inLanguage": "zh",
+  "datePublished": "2025-12-27T23:35:56+08:00",
+  "dateModified": "2025-12-27T23:56:09+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-11/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SteamedFish's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.steamedfish.top/favicon.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body data-barba="wrapper" class="" id="top">
+
+<div id="aplayer"></div>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://www.steamedfish.top/" accesskey="h" title="SteamedFish&#39;s Blog (Alt + H)">SteamedFish&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                    <ul class="lang-switch"><li>|</li>
+                        <li>
+                            <a href="https://www.steamedfish.top/en/" title="English"
+                                aria-label="English">En</a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://www.steamedfish.top/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main" data-barba="container" data-barba-namespace="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      【苍穹外卖】（10）用户端历史订单、商家端订单管理
+    </h1>
+    <div class="post-meta">
+
+
+
+
+
+
+<span title='2025-12-27 23:35:56 +0800 +0800'>2025-12-27</span>&nbsp;·&nbsp;<span>4 分钟</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e7%94%a8%e6%88%b7%e7%ab%af%e5%8e%86%e5%8f%b2%e8%ae%a2%e5%8d%95" aria-label="用户端历史订单">用户端历史订单</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bb%a3%e7%a0%81" aria-label="代码">代码</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e8%ae%a2%e5%8d%95%e7%ae%a1%e7%90%86" aria-label="订单管理">订单管理</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bb%a3%e7%a0%81-1" aria-label="代码">代码</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="用户端历史订单">用户端历史订单<a hidden class="anchor" aria-hidden="true" href="#用户端历史订单">#</a></h2>
+<h3 id="代码">代码<a hidden class="anchor" aria-hidden="true" href="#代码">#</a></h3>
+<ul>
+<li><code>OrderController.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/historyOrders&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">PageResult</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">historyOrders</span><span class="p">(</span><span class="n">OrdersPageQueryDTO</span><span class="w"> </span><span class="n">dto</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;查询历史订单：{}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">dto</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">PageResult</span><span class="w"> </span><span class="n">pageResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orderService</span><span class="p">.</span><span class="na">historyOrders</span><span class="p">(</span><span class="n">dto</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="n">pageResult</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>OrderService.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 历史订单查询
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param dto
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">PageResult</span><span class="w"> </span><span class="nf">historyOrders</span><span class="p">(</span><span class="n">OrdersPageQueryDTO</span><span class="w"> </span><span class="n">dto</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>OrderServiceImpl.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">PageResult</span><span class="w"> </span><span class="nf">historyOrders</span><span class="p">(</span><span class="n">OrdersPageQueryDTO</span><span class="w"> </span><span class="n">dto</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">PageHelper</span><span class="p">.</span><span class="na">startPage</span><span class="p">(</span><span class="n">dto</span><span class="p">.</span><span class="na">getPage</span><span class="p">(),</span><span class="n">dto</span><span class="p">.</span><span class="na">getPageSize</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Orders</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">BeanUtils</span><span class="p">.</span><span class="na">copyProperties</span><span class="p">(</span><span class="n">dto</span><span class="p">,</span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orders</span><span class="p">.</span><span class="na">setUserId</span><span class="p">(</span><span class="n">BaseContext</span><span class="p">.</span><span class="na">getCurrentId</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Page</span><span class="o">&lt;</span><span class="n">OrderVO</span><span class="o">&gt;</span><span class="w"> </span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orderMapper</span><span class="p">.</span><span class="na">pageQuery</span><span class="p">(</span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//      构造订单明细</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">OrderVO</span><span class="w"> </span><span class="n">orderVO</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">page</span><span class="p">.</span><span class="na">getResult</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">orderVO</span><span class="p">.</span><span class="na">setOrderDetailList</span><span class="p">(</span><span class="n">orderDetailMapper</span><span class="p">.</span><span class="na">getByOrderId</span><span class="p">(</span><span class="n">orderVO</span><span class="p">.</span><span class="na">getId</span><span class="p">()));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PageResult</span><span class="p">(</span><span class="n">page</span><span class="p">.</span><span class="na">getTotal</span><span class="p">(),</span><span class="n">page</span><span class="p">.</span><span class="na">getResult</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>OrderMapper.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 历史订单分页查询
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param dto
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Page</span><span class="o">&lt;</span><span class="n">OrderVO</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">pageQuery</span><span class="p">(</span><span class="n">OrdersPageQueryDTO</span><span class="w"> </span><span class="n">dto</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>OrderMapper.xml</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--  分页查询--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;pageQuery&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.sky.vo.OrderVO&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    select id,
+</span></span><span class="line"><span class="cl">    number,
+</span></span><span class="line"><span class="cl">    status,
+</span></span><span class="line"><span class="cl">    user_id,
+</span></span><span class="line"><span class="cl">    address_book_id,
+</span></span><span class="line"><span class="cl">    order_time,
+</span></span><span class="line"><span class="cl">    checkout_time,
+</span></span><span class="line"><span class="cl">    pay_method,
+</span></span><span class="line"><span class="cl">    pay_status,
+</span></span><span class="line"><span class="cl">    amount,
+</span></span><span class="line"><span class="cl">    remark,
+</span></span><span class="line"><span class="cl">    phone,
+</span></span><span class="line"><span class="cl">    address,
+</span></span><span class="line"><span class="cl">    user_name,
+</span></span><span class="line"><span class="cl">    consignee,
+</span></span><span class="line"><span class="cl">    cancel_reason,
+</span></span><span class="line"><span class="cl">    rejection_reason,
+</span></span><span class="line"><span class="cl">    cancel_time,
+</span></span><span class="line"><span class="cl">    estimated_delivery_time,
+</span></span><span class="line"><span class="cl">    delivery_status,
+</span></span><span class="line"><span class="cl">    delivery_time,
+</span></span><span class="line"><span class="cl">    pack_amount,
+</span></span><span class="line"><span class="cl">    tableware_number,
+</span></span><span class="line"><span class="cl">    tableware_status
+</span></span><span class="line"><span class="cl">    from orders
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;where&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;userId != null&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">            and user_id = #{userId}
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;status != null&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">            and status = #{status}
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;beginTime != null and endTime != null&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">            and order_time between #{beginTime} and #{endTime}
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;number != null&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">            and number like concat(&#39;%&#39;,#{number},&#39;%&#39;)
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;phone != null&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">            and phone like concat(&#39;%&#39;,#{phone},&#39;%&#39;)
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/where&gt;</span>
+</span></span><span class="line"><span class="cl">    order by order_time desc
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/select&gt;</span>
+</span></span></code></pre></div></li>
+<li><code>OrderDetailMapper.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 根据订单id查询订单明细
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">OrderDetail</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getByOrderId</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>OrderDetailMapper.xml</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--  根据订单id查询--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getByOrderId&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.sky.entity.OrderDetail&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    select id,
+</span></span><span class="line"><span class="cl">           name,
+</span></span><span class="line"><span class="cl">           image,
+</span></span><span class="line"><span class="cl">           order_id,
+</span></span><span class="line"><span class="cl">           dish_id,
+</span></span><span class="line"><span class="cl">           setmeal_id,
+</span></span><span class="line"><span class="cl">           dish_flavor,
+</span></span><span class="line"><span class="cl">           number,
+</span></span><span class="line"><span class="cl">           amount
+</span></span><span class="line"><span class="cl">    from order_detail
+</span></span><span class="line"><span class="cl">    where order_id = #{id}
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/select&gt;</span>
+</span></span></code></pre></div></li>
+</ul>
+<hr>
+<h2 id="订单管理">订单管理<a hidden class="anchor" aria-hidden="true" href="#订单管理">#</a></h2>
+<h3 id="代码-1">代码<a hidden class="anchor" aria-hidden="true" href="#代码-1">#</a></h3>
+<ul>
+<li><code>OrderController.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.sky.controller.admin</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">com.sky.dto.OrdersPageQueryDTO</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">com.sky.entity.Orders</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">com.sky.result.PageResult</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">com.sky.result.Result</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">com.sky.service.OrderService</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">com.sky.vo.OrderStatisticsVO</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">com.sky.vo.OrderVO</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">io.swagger.annotations.Api</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">io.swagger.annotations.ApiOperation</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.extern.slf4j.Slf4j</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.bind.annotation.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Api</span><span class="p">(</span><span class="n">tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;订单管理&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@RestController</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&#34;/admin/order&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OrderController</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">OrderService</span><span class="w"> </span><span class="n">orderService</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 订单搜索
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param dto
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/conditionSearch&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@ApiOperation</span><span class="p">(</span><span class="s">&#34;订单搜索&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">PageResult</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">pageQuery</span><span class="p">(</span><span class="n">OrdersPageQueryDTO</span><span class="w"> </span><span class="n">dto</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;订单搜索：{}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">dto</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">PageResult</span><span class="w"> </span><span class="n">pageResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orderService</span><span class="p">.</span><span class="na">adminPageQuery</span><span class="p">(</span><span class="n">dto</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="n">pageResult</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 订单状态统计
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/statistics&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@ApiOperation</span><span class="p">(</span><span class="s">&#34;订单状态统计&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">OrderStatisticsVO</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">statistics</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;订单状态统计&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">OrderStatisticsVO</span><span class="w"> </span><span class="n">statisticsVO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orderService</span><span class="p">.</span><span class="na">statistics</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="n">statisticsVO</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 查询订单详情
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/details/{id}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@ApiOperation</span><span class="p">(</span><span class="s">&#34;查询订单详情&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">OrderVO</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getOrderDetailById</span><span class="p">(</span><span class="nd">@PathVariable</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;查询订单详情：{}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">OrderVO</span><span class="w"> </span><span class="n">orderVO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orderService</span><span class="p">.</span><span class="na">getOrderDetailById</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="n">orderVO</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 接单
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param orders
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@PutMapping</span><span class="p">(</span><span class="s">&#34;/confirm&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@ApiOperation</span><span class="p">(</span><span class="s">&#34;接单&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">confirm</span><span class="p">(</span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;接单：{}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="na">getId</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">orderService</span><span class="p">.</span><span class="na">confirm</span><span class="p">(</span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 拒单
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param orders
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@PutMapping</span><span class="p">(</span><span class="s">&#34;/rejection&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@ApiOperation</span><span class="p">(</span><span class="s">&#34;拒单&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">rejection</span><span class="p">(</span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;拒单：{}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="na">getId</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">orderService</span><span class="p">.</span><span class="na">rejection</span><span class="p">(</span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 取消订单
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param orders
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@PutMapping</span><span class="p">(</span><span class="s">&#34;/cancel&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@ApiOperation</span><span class="p">(</span><span class="s">&#34;取消订单&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">cancel</span><span class="p">(</span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;取消订单：{}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="na">getId</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">orderService</span><span class="p">.</span><span class="na">cancel</span><span class="p">(</span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 派送订单
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@PutMapping</span><span class="p">(</span><span class="s">&#34;/delivery/{id}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@ApiOperation</span><span class="p">(</span><span class="s">&#34;派送订单&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">delivery</span><span class="p">(</span><span class="nd">@PathVariable</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;派送订单：{}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Orders</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">orders</span><span class="p">.</span><span class="na">setId</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">orderService</span><span class="p">.</span><span class="na">delivery</span><span class="p">(</span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 完成订单
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@PutMapping</span><span class="p">(</span><span class="s">&#34;/complete/{id}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@ApiOperation</span><span class="p">(</span><span class="s">&#34;完成订单&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">complete</span><span class="p">(</span><span class="nd">@PathVariable</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;完成订单：{}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Orders</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="n">orders</span><span class="p">.</span><span class="na">setId</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="n">orderService</span><span class="p">.</span><span class="na">complete</span><span class="p">(</span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>OrderService.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 管理端分页查询
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param dto
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">PageResult</span><span class="w"> </span><span class="nf">adminPageQuery</span><span class="p">(</span><span class="n">OrdersPageQueryDTO</span><span class="w"> </span><span class="n">dto</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 订单详情
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">OrderVO</span><span class="w"> </span><span class="nf">getOrderDetailById</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 取消订单
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">cancel</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 再来一单
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">repetition</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 统计订单数据
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">OrderStatisticsVO</span><span class="w"> </span><span class="nf">statistics</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 接单/确认订单
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param orders
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">confirm</span><span class="p">(</span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 拒单
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param orders
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">rejection</span><span class="p">(</span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 取消订单
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param orders
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">cancel</span><span class="p">(</span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 派单
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param orders
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">delivery</span><span class="p">(</span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 完成订单
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param orders
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">complete</span><span class="p">(</span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>OrderServiceImpl.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 管理端分页查询
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param dto
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">PageResult</span><span class="w"> </span><span class="nf">adminPageQuery</span><span class="p">(</span><span class="n">OrdersPageQueryDTO</span><span class="w"> </span><span class="n">dto</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">PageHelper</span><span class="p">.</span><span class="na">startPage</span><span class="p">(</span><span class="n">dto</span><span class="p">.</span><span class="na">getPage</span><span class="p">(),</span><span class="w"> </span><span class="n">dto</span><span class="p">.</span><span class="na">getPageSize</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//        dto.setUserId(BaseContext.getCurrentId());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Page</span><span class="o">&lt;</span><span class="n">OrderVO</span><span class="o">&gt;</span><span class="w"> </span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orderMapper</span><span class="p">.</span><span class="na">pageQuery</span><span class="p">(</span><span class="n">dto</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//        构造订单明细</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">OrderVO</span><span class="w"> </span><span class="n">orderVO</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">page</span><span class="p">.</span><span class="na">getResult</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">List</span><span class="o">&lt;</span><span class="n">OrderDetail</span><span class="o">&gt;</span><span class="w"> </span><span class="n">detailList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orderDetailMapper</span><span class="p">.</span><span class="na">getByOrderId</span><span class="p">(</span><span class="n">orderVO</span><span class="p">.</span><span class="na">getId</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">orderDishes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">detailList</span><span class="p">.</span><span class="na">stream</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">OrderDetail</span><span class="p">::</span><span class="n">getName</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">Collectors</span><span class="p">.</span><span class="na">joining</span><span class="p">(</span><span class="s">&#34;,&#34;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">orderVO</span><span class="p">.</span><span class="na">setOrderDishes</span><span class="p">(</span><span class="n">orderDishes</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">orderVO</span><span class="p">.</span><span class="na">setOrderDetailList</span><span class="p">(</span><span class="n">detailList</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PageResult</span><span class="p">(</span><span class="n">page</span><span class="p">.</span><span class="na">getTotal</span><span class="p">(),</span><span class="w"> </span><span class="n">page</span><span class="p">.</span><span class="na">getResult</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 订单详情
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">OrderVO</span><span class="w"> </span><span class="nf">getOrderDetailById</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orderMapper</span><span class="p">.</span><span class="na">getByOrderId</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">OrderVO</span><span class="w"> </span><span class="n">orderVO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">OrderVO</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">BeanUtils</span><span class="p">.</span><span class="na">copyProperties</span><span class="p">(</span><span class="n">orders</span><span class="p">,</span><span class="w"> </span><span class="n">orderVO</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orderVO</span><span class="p">.</span><span class="na">setOrderDetailList</span><span class="p">(</span><span class="n">orderDetailMapper</span><span class="p">.</span><span class="na">getByOrderId</span><span class="p">(</span><span class="n">id</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">orderVO</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 取消订单
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">cancel</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Orders</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">id</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">status</span><span class="p">(</span><span class="n">Orders</span><span class="p">.</span><span class="na">CANCELLED</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">cancelTime</span><span class="p">(</span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orderMapper</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 再来一单
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">repetition</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">OrderDetail</span><span class="o">&gt;</span><span class="w"> </span><span class="n">orderDetail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orderDetailMapper</span><span class="p">.</span><span class="na">getByOrderId</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">OrderDetail</span><span class="w"> </span><span class="n">detail</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">orderDetail</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ShoppingCart</span><span class="w"> </span><span class="n">shoppingCart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ShoppingCart</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">BeanUtils</span><span class="p">.</span><span class="na">copyProperties</span><span class="p">(</span><span class="n">detail</span><span class="p">,</span><span class="w"> </span><span class="n">shoppingCart</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">shoppingCart</span><span class="p">.</span><span class="na">setUserId</span><span class="p">(</span><span class="n">BaseContext</span><span class="p">.</span><span class="na">getCurrentId</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">shoppingCartMapper</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">shoppingCart</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 订单统计
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">OrderStatisticsVO</span><span class="w"> </span><span class="nf">statistics</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">OrderStatisticsVO</span><span class="w"> </span><span class="n">orderStatisticsVO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orderMapper</span><span class="p">.</span><span class="na">statistics</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">orderStatisticsVO</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 接单
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param orders
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">confirm</span><span class="p">(</span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orders</span><span class="p">.</span><span class="na">setStatus</span><span class="p">(</span><span class="n">Orders</span><span class="p">.</span><span class="na">CONFIRMED</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orderMapper</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 拒单
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param orders
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">rejection</span><span class="p">(</span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orders</span><span class="p">.</span><span class="na">setStatus</span><span class="p">(</span><span class="n">Orders</span><span class="p">.</span><span class="na">CANCELLED</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orders</span><span class="p">.</span><span class="na">setCancelReason</span><span class="p">(</span><span class="n">orders</span><span class="p">.</span><span class="na">getRejectionReason</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orders</span><span class="p">.</span><span class="na">setCancelTime</span><span class="p">(</span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orderMapper</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 撤销订单
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param orders
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">cancel</span><span class="p">(</span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orders</span><span class="p">.</span><span class="na">setStatus</span><span class="p">(</span><span class="n">Orders</span><span class="p">.</span><span class="na">CANCELLED</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orders</span><span class="p">.</span><span class="na">setCancelTime</span><span class="p">(</span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orderMapper</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 派送订单
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param orders
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">delivery</span><span class="p">(</span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orders</span><span class="p">.</span><span class="na">setStatus</span><span class="p">(</span><span class="n">Orders</span><span class="p">.</span><span class="na">DELIVERY_IN_PROGRESS</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orderMapper</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 完成订单
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param orders
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">complete</span><span class="p">(</span><span class="n">Orders</span><span class="w"> </span><span class="n">orders</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orders</span><span class="p">.</span><span class="na">setStatus</span><span class="p">(</span><span class="n">Orders</span><span class="p">.</span><span class="na">COMPLETED</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orders</span><span class="p">.</span><span class="na">setDeliveryTime</span><span class="p">(</span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">orderMapper</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">orders</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>OrderMapper.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 历史订单分页查询
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param dto
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Page</span><span class="o">&lt;</span><span class="n">OrderVO</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">pageQuery</span><span class="p">(</span><span class="n">OrdersPageQueryDTO</span><span class="w"> </span><span class="n">dto</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 根据id查询订单
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Select</span><span class="p">(</span><span class="s">&#34;select * from orders where id = #{id}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Orders</span><span class="w"> </span><span class="nf">getByOrderId</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 统计订单数据
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">OrderStatisticsVO</span><span class="w"> </span><span class="nf">statistics</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li><code>OrderMapper.xml</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--  订单统计--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;statistics&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.sky.vo.OrderStatisticsVO&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    select sum(case when status = 2 then 1 else 0 end) as toBeConfirmed,
+</span></span><span class="line"><span class="cl">           sum(case when status = 3 then 1 else 0 end) as confirmed,
+</span></span><span class="line"><span class="cl">           sum(case when status = 4 then 1 else 0 end) as deliveryInProgress
+</span></span><span class="line"><span class="cl">    from orders;
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/select&gt;</span>
+</span></span></code></pre></div></li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span><a href="https://www.steamedfish.top/">©2025 SteamedFish&rsquo;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+<script src="https://unpkg.com/@barba/core"></script>
+
+
+<script>
+  window.PaperMod = window.PaperMod || {};
+  PaperMod.state = { once: false };
+
+  PaperMod.initOnce = function () {
+    if (PaperMod.state.once) return;
+    PaperMod.state.once = true;
+
+    console.log("PaperMod initOnce");
+
+    if (PaperMod.initAPlayer) {
+      PaperMod.initAPlayer();
+    }
+  };
+
+  PaperMod.initPage = function (container = document) {
+    console.log("PaperMod initPage");
+
+    PaperMod.initFancybox && PaperMod.initFancybox(container);
+    PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
+  };
+
+  barba.init({
+    transitions: [
+      {
+        name: "default",
+        leave() {
+          return Promise.resolve();
+        },
+        enter(data) {
+          PaperMod.initOnce();
+          PaperMod.initPage(data.next.container);
+        },
+      },
+    ],
+  });
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    PaperMod.initOnce();
+    PaperMod.initPage(document);
+  });
+</script>
+
+
+
+
+
+
+
+<link
+  href="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.css"
+  rel="stylesheet"
+/>
+<script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.2/Meting.min.js"></script>
+<script>
+  window.PaperMod = window.PaperMod || {};
+  console.log("player.js loaded");
+  PaperMod.initAPlayer = async function () {
+    if (window.__aplayer_inited__) {
+      console.log("APlayer already exists, skip");
+      return;
+    }
+
+    const container = document.getElementById("aplayer");
+    if (!container) {
+      console.warn("APlayer container not found");
+      return;
+    }
+
+    console.log("Init APlayer");
+    
+
+    const localAudio = [
+      
+      
+      
+      
+      
+      
+      
+      
+    ];
+
+    
+
+    let metingAudio = [];
+    try {
+      const res = await fetch(
+        
+        
+        
+        
+        "https://api.qijieya.cn/meting/?type=playlist&id=4968737249"
+      );
+      metingAudio = await res.json();
+    } catch (e) {
+      console.warn("Meting load failed, fallback to local only");
+    }
+
+    
+
+    const audioList = [...localAudio, ...metingAudio];
+
+    window.aplayer = new APlayer({
+      container,
+      fixed: true,
+      autoplay: true,
+      preload: "auto",
+      lrcType: 1,
+      
+      audio: metingAudio,
+    });
+    console.log("APlayer created with", audioList.length, "tracks");
+  };
+</script>
+
+
+
+<script>
+  window.PaperMod = window.PaperMod || {};
+
+  PaperMod.initCodeCopyButtons = function (root = document) {
+    root.querySelectorAll("pre > code").forEach((codeblock) => {
+      const container = codeblock.parentNode.parentNode;
+
+      
+      if (container.querySelector(".copy-code")) return;
+
+      const copybutton = document.createElement("button");
+      copybutton.classList.add("copy-code");
+      copybutton.innerHTML = '复制';
+
+      function copyingDone() {
+        copybutton.innerHTML = '已复制！';
+        setTimeout(() => {
+          copybutton.innerHTML = '复制';
+        }, 2000);
+      }
+
+      copybutton.addEventListener("click", (cb) => {
+        if ("clipboard" in navigator) {
+          navigator.clipboard.writeText(codeblock.textContent);
+          copyingDone();
+          return;
+        }
+
+        const range = document.createRange();
+        range.selectNodeContents(codeblock);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        try {
+          document.execCommand("copy");
+          copyingDone();
+        } catch (e) {}
+        selection.removeRange(range);
+      });
+      container.appendChild(copybutton);
+    });
+  };
+</script>
+
+
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css" />
+<script src="/lib/fancybox/fancybox.umd.js"></script>
+<script>
+  function initFancybox() {
+    Fancybox.unbind("[data-fancybox]");
+
+    Fancybox.bind("[data-fancybox]", {
+      animated: true,
+      showClass: "fancybox-fadeIn",
+      hideClass: "fancybox-fadeOut",
+      dragToClose: true,
+    });
+  }
+
+  
+  if (document.readyState !== "loading") {
+    initFancybox();
+  } else {
+    document.addEventListener("DOMContentLoaded", initFancybox);
+  }
+  
+  document.addEventListener("barba:afterEnter", initFancybox);
+</script>
+
+
+
+
+
+
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

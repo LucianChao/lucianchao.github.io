@@ -181,6 +181,25 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">【苍穹外卖】（10）用户端历史订单、商家端订单管理
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>用户端历史订单 代码 OrderController.java @GetMapping(&#34;/historyOrders&#34;) public Result&lt;PageResult&gt; historyOrders(OrdersPageQueryDTO dto){ log.info(&#34;查询历史订单：{}&#34;, dto); PageResult pageResult = orderService.historyOrders(dto); return Result.success(pageResult); } OrderService.java /** * 历史订单查询 * * @param dto * @return */ PageResult historyOrders(OrdersPageQueryDTO dto); OrderServiceImpl.java @Override public PageResult historyOrders(OrdersPageQueryDTO dto) { PageHelper.startPage(dto.getPage(),dto.getPageSize()); Orders orders = new Orders(); BeanUtils.copyProperties(dto,orders); orders.setUserId(BaseContext.getCurrentId()); Page&lt;OrderVO&gt; page = orderMapper.pageQuery(orders); // 构造订单明细 for (OrderVO orderVO : page.getResult()) { orderVO.setOrderDetailList(orderDetailMapper.getByOrderId(orderVO.getId())); } return new PageResult(page.getTotal(),page.getResult()); } OrderMapper.java /** * 历史订单分页查询 * @param dto * @return */ Page&lt;OrderVO&gt; pageQuery(OrdersPageQueryDTO dto); OrderMapper.xml &lt;!-- 分页查询--&gt; &lt;select id=&#34;pageQuery&#34; resultType=&#34;com.sky.vo.OrderVO&#34;&gt; select id, number, status, user_id, address_book_id, order_time, checkout_time, pay_method, pay_status, amount, remark, phone, address, user_name, consignee, cancel_reason, rejection_reason, cancel_time, estimated_delivery_time, delivery_status, delivery_time, pack_amount, tableware_number, tableware_status from orders &lt;where&gt; &lt;if test=&#34;userId != null&#34;&gt; and user_id = #{userId} &lt;/if&gt; &lt;if test=&#34;status != null&#34;&gt; and status = #{status} &lt;/if&gt; &lt;if test=&#34;beginTime != null and endTime != null&#34;&gt; and order_time between #{beginTime} and #{endTime} &lt;/if&gt; &lt;if test=&#34;number != null&#34;&gt; and number like concat(&#39;%&#39;,#{number},&#39;%&#39;) &lt;/if&gt; &lt;if test=&#34;phone != null&#34;&gt; and phone like concat(&#39;%&#39;,#{phone},&#39;%&#39;) &lt;/if&gt; &lt;/where&gt; order by order_time desc &lt;/select&gt; OrderDetailMapper.java /** * 根据订单id查询订单明细 * @param id * @return */ List&lt;OrderDetail&gt; getByOrderId(Long id); OrderDetailMapper.xml &lt;!-- 根据订单id查询--&gt; &lt;select id=&#34;getByOrderId&#34; resultType=&#34;com.sky.entity.OrderDetail&#34;&gt; select id, name, image, order_id, dish_id, setmeal_id, dish_flavor, number, amount from order_detail where order_id = #{id} &lt;/select&gt; 订单管理 代码 OrderController.java package com.sky.controller.admin; import com.sky.dto.OrdersPageQueryDTO; import com.sky.entity.Orders; import com.sky.result.PageResult; import com.sky.result.Result; import com.sky.service.OrderService; import com.sky.vo.OrderStatisticsVO; import com.sky.vo.OrderVO; import io.swagger.annotations.Api; import io.swagger.annotations.ApiOperation; import lombok.extern.slf4j.Slf4j; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.web.bind.annotation.*; @Slf4j @Api(tags = &#34;订单管理&#34;) @RestController @RequestMapping(&#34;/admin/order&#34;) public class OrderController { @Autowired private OrderService orderService; /** * 订单搜索 * @param dto * @return */ @GetMapping(&#34;/conditionSearch&#34;) @ApiOperation(&#34;订单搜索&#34;) public Result&lt;PageResult&gt; pageQuery(OrdersPageQueryDTO dto){ log.info(&#34;订单搜索：{}&#34;, dto); PageResult pageResult = orderService.adminPageQuery(dto); return Result.success(pageResult); } /** * 订单状态统计 * @return */ @GetMapping(&#34;/statistics&#34;) @ApiOperation(&#34;订单状态统计&#34;) public Result&lt;OrderStatisticsVO&gt; statistics(){ log.info(&#34;订单状态统计&#34;); OrderStatisticsVO statisticsVO = orderService.statistics(); return Result.success(statisticsVO); } /** * 查询订单详情 * @param id * @return */ @GetMapping(&#34;/details/{id}&#34;) @ApiOperation(&#34;查询订单详情&#34;) public Result&lt;OrderVO&gt; getOrderDetailById(@PathVariable Long id){ log.info(&#34;查询订单详情：{}&#34;, id); OrderVO orderVO = orderService.getOrderDetailById(id); return Result.success(orderVO); } /** * 接单 * @param orders * @return */ @PutMapping(&#34;/confirm&#34;) @ApiOperation(&#34;接单&#34;) public Result&lt;String&gt; confirm(@RequestBody Orders orders){ log.info(&#34;接单：{}&#34;, orders.getId()); orderService.confirm(orders); return Result.success(); } /** * 拒单 * @param orders * @return */ @PutMapping(&#34;/rejection&#34;) @ApiOperation(&#34;拒单&#34;) public Result&lt;String&gt; rejection(@RequestBody Orders orders){ log.info(&#34;拒单：{}&#34;, orders.getId()); orderService.rejection(orders); return Result.success(); } /** * 取消订单 * @param orders * @return */ @PutMapping(&#34;/cancel&#34;) @ApiOperation(&#34;取消订单&#34;) public Result&lt;String&gt; cancel(@RequestBody Orders orders){ log.info(&#34;取消订单：{}&#34;, orders.getId()); orderService.cancel(orders); return Result.success(); } /** * 派送订单 * @param id * @return */ @PutMapping(&#34;/delivery/{id}&#34;) @ApiOperation(&#34;派送订单&#34;) public Result&lt;String&gt; delivery(@PathVariable Long id){ log.info(&#34;派送订单：{}&#34;, id); Orders orders = new Orders(); orders.setId(id); orderService.delivery(orders); return Result.success(); } /** * 完成订单 * @param id * @return */ @PutMapping(&#34;/complete/{id}&#34;) @ApiOperation(&#34;完成订单&#34;) public Result&lt;String&gt; complete(@PathVariable Long id){ log.info(&#34;完成订单：{}&#34;, id); Orders orders = new Orders(); orders.setId(id); orderService.complete(orders); return Result.success(); } } OrderService.java /** * 管理端分页查询 * @param dto * @return */ PageResult adminPageQuery(OrdersPageQueryDTO dto); /** * 订单详情 * @param id * @return */ OrderVO getOrderDetailById(Long id); /** * 取消订单 * @param id */ void cancel(Long id); /** * 再来一单 * @param id */ void repetition(Long id); /** * 统计订单数据 * @return */ OrderStatisticsVO statistics(); /** * 接单/确认订单 * @param orders */ void confirm(Orders orders); /** * 拒单 * @param orders */ void rejection(Orders orders); /** * 取消订单 * @param orders */ void cancel(Orders orders); /** * 派单 * @param orders */ void delivery(Orders orders); /** * 完成订单 * @param orders */ void complete(Orders orders); OrderServiceImpl.java /** * 管理端分页查询 * * @param dto * @return */ @Override public PageResult adminPageQuery(OrdersPageQueryDTO dto) { PageHelper.startPage(dto.getPage(), dto.getPageSize()); // dto.setUserId(BaseContext.getCurrentId()); Page&lt;OrderVO&gt; page = orderMapper.pageQuery(dto); // 构造订单明细 for (OrderVO orderVO : page.getResult()) { List&lt;OrderDetail&gt; detailList = orderDetailMapper.getByOrderId(orderVO.getId()); String orderDishes = detailList.stream() .map(OrderDetail::getName) .collect(Collectors.joining(&#34;,&#34;)); orderVO.setOrderDishes(orderDishes); orderVO.setOrderDetailList(detailList); } return new PageResult(page.getTotal(), page.getResult()); } /** * 订单详情 * * @param id * @return */ @Override public OrderVO getOrderDetailById(Long id) { Orders orders = orderMapper.getByOrderId(id); OrderVO orderVO = new OrderVO(); BeanUtils.copyProperties(orders, orderVO); orderVO.setOrderDetailList(orderDetailMapper.getByOrderId(id)); return orderVO; } /** * 取消订单 * * @param id */ @Override public void cancel(Long id) { Orders orders = Orders.builder() .id(id) .status(Orders.CANCELLED) .cancelTime(LocalDateTime.now()) .build(); orderMapper.update(orders); } /** * 再来一单 * * @param id */ @Override public void repetition(Long id) { List&lt;OrderDetail&gt; orderDetail = orderDetailMapper.getByOrderId(id); for (OrderDetail detail : orderDetail) { ShoppingCart shoppingCart = new ShoppingCart(); BeanUtils.copyProperties(detail, shoppingCart); shoppingCart.setUserId(BaseContext.getCurrentId()); shoppingCartMapper.add(shoppingCart); } } /** * 订单统计 * * @return */ @Override public OrderStatisticsVO statistics() { OrderStatisticsVO orderStatisticsVO = orderMapper.statistics(); return orderStatisticsVO; } /** * 接单 * * @param orders */ @Override public void confirm(Orders orders) { orders.setStatus(Orders.CONFIRMED); orderMapper.update(orders); } /** * 拒单 * * @param orders */ @Override public void rejection(Orders orders) { orders.setStatus(Orders.CANCELLED); orders.setCancelReason(orders.getRejectionReason()); orders.setCancelTime(LocalDateTime.now()); orderMapper.update(orders); } /** * 撤销订单 * * @param orders */ @Override public void cancel(Orders orders) { orders.setStatus(Orders.CANCELLED); orders.setCancelTime(LocalDateTime.now()); orderMapper.update(orders); } /** * 派送订单 * * @param orders */ @Override public void delivery(Orders orders) { orders.setStatus(Orders.DELIVERY_IN_PROGRESS); orderMapper.update(orders); } /** * 完成订单 * * @param orders */ @Override public void complete(Orders orders) { orders.setStatus(Orders.COMPLETED); orders.setDeliveryTime(LocalDateTime.now()); orderMapper.update(orders); } OrderMapper.java /** * 历史订单分页查询 * @param dto * @return */ Page&lt;OrderVO&gt; pageQuery(OrdersPageQueryDTO dto); /** * 根据id查询订单 * @param id * @return */ @Select(&#34;select * from orders where id = #{id}&#34;) Orders getByOrderId(Long id); /** * 统计订单数据 * @return */ OrderStatisticsVO statistics(); OrderMapper.xml &lt;!-- 订单统计--&gt; &lt;select id=&#34;statistics&#34; resultType=&#34;com.sky.vo.OrderStatisticsVO&#34;&gt; select sum(case when status = 2 then 1 else 0 end) as toBeConfirmed, sum(case when status = 3 then 1 else 0 end) as confirmed, sum(case when status = 4 then 1 else 0 end) as deliveryInProgress from orders; &lt;/select&gt; </p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2025-12-27 23:35:56 +0800 +0800'>2025-12-27</span>&nbsp;·&nbsp;<span>4 分钟</span></footer>
+  <a class="entry-link" aria-label="post link to 【苍穹外卖】（10）用户端历史订单、商家端订单管理" href="https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-11/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">【苍穹外卖】（9）模拟微信支付成功
     </h2>
   </header>
@@ -380,27 +399,6 @@ https://api.map.baidu.com/geocoding/v3/?address=北京市海淀区上地十街10
 <span title='2025-12-22 23:34:45 +0800 +0800'>2025-12-22</span>&nbsp;·&nbsp;<span title='2025-12-23 00:29:00 +0800 +0800'>(最后修改于 2025-12-23)</span>&nbsp;·&nbsp;<span>2 分钟</span></footer>
   <a class="entry-link" aria-label="post link to 【建站日志】对博客功能注入结构的逻辑进行重构 " href="https://www.steamedfish.top/post/hugo-log/partial-optimized/"></a>
 </article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">【苍穹外卖】（ 4 ）套餐管理 
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>文件上传 创建配置类 OssConfiguration 实例化 AliOssUtil 对象并交由 IOC 容器管理
-代码开发 application.yml sky: alioss: endpoint: ${sky.alioss.endpoint} access-key-id: ${sky.alioss.access-key-id} access-key-secret: ${sky.alioss.access-key-secret} bucket-name: ${sky.alioss.bucket-name} OssConfiguration.java package com.sky.config; import com.sky.properties.AliOssProperties; import com.sky.utils.AliOssUtil; import lombok.extern.slf4j.Slf4j; import org.springframework.context.annotation.Bean; import org.springframework.context.annotation.Configuration; /** * 阿里云文件上传配置类，生成 AliOssUtil 对象，并交由 IOC 容器管理 */ @Slf4j @Configuration public class OssConfiguration { @Bean public AliOssUtil aliOssUtil(AliOssProperties aliOssProperties) { log.info(&#34; 开始创建阿里云 OSS 工具类 &#34;); return new AliOssUtil(aliOssProperties.getEndpoint(), aliOssProperties.getAccessKeyId(), aliOssProperties.getAccessKeySecret(), aliOssProperties.getBucketName()); } } AliOssUtil.java package com.sky.utils; import com.aliyun.oss.ClientException; import com.aliyun.oss.OSS; import com.aliyun.oss.OSSClientBuilder; import com.aliyun.oss.OSSException; import lombok.AllArgsConstructor; import lombok.Data; import lombok.extern.slf4j.Slf4j; import java.io.ByteArrayInputStream; @Data @AllArgsConstructor @Slf4j public class AliOssUtil { private String endpoint; private String accessKeyId; private String accessKeySecret; private String bucketName; /** * 文件上传 * * @param bytes * @param objectName * @return */ public String upload(byte[] bytes, String objectName) { // 创建 OSSClient 实例。 OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret); try { // 创建 PutObject 请求。 ossClient.putObject(bucketName, objectName, new ByteArrayInputStream(bytes)); } catch (OSSException oe) { System.out.println(&#34;Caught an OSSException, which means your request made it to OSS, &#34; &#43; &#34;but was rejected with an error response for some reason.&#34;); System.out.println(&#34;Error Message:&#34; &#43; oe.getErrorMessage()); System.out.println(&#34;Error Code:&#34; &#43; oe.getErrorCode()); System.out.println(&#34;Request ID:&#34; &#43; oe.getRequestId()); System.out.println(&#34;Host ID:&#34; &#43; oe.getHostId()); } catch (ClientException ce) { System.out.println(&#34;Caught an ClientException, which means the client encountered &#34; &#43; &#34;a serious internal problem while trying to communicate with OSS, &#34; &#43; &#34;such as not being able to access the network.&#34;); System.out.println(&#34;Error Message:&#34; &#43; ce.getMessage()); } finally { if (ossClient != null) { ossClient.shutdown(); } } // 文件访问路径规则 https://BucketName.Endpoint/ObjectName StringBuilder stringBuilder = new StringBuilder(&#34;https://&#34;); stringBuilder .append(bucketName) .append(&#34;.&#34;) .append(endpoint) .append(&#34;/&#34;) .append(objectName); log.info(&#34; 文件上传到 :{}&#34;, stringBuilder.toString()); return stringBuilder.toString(); } } 分页查询 需求分析 页面原型： 业务规则：
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-
-
-
-
-
-<span title='2025-12-22 22:00:21 +0800 +0800'>2025-12-22</span>&nbsp;·&nbsp;<span title='2025-12-23 00:29:00 +0800 +0800'>(最后修改于 2025-12-23)</span>&nbsp;·&nbsp;<span>5 分钟</span></footer>
-  <a class="entry-link" aria-label="post link to 【苍穹外卖】（ 4 ）套餐管理 " href="https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-4/"></a>
-</article>
 <footer class="page-footer">
   <nav class="pagination">
     <a class="next" href="https://www.steamedfish.top/post/page/2/">下一页&nbsp;&nbsp;»
@@ -482,9 +480,9 @@ https://api.map.baidu.com/geocoding/v3/?address=北京市海淀区上地十街10
 <script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.2/Meting.min.js"></script>
 <script>
-window.PaperMod = window.PaperMod || {};
-console.log("player.js loaded");
-PaperMod.initAPlayer = async function () {
+  window.PaperMod = window.PaperMod || {};
+  console.log("player.js loaded");
+  PaperMod.initAPlayer = async function () {
     if (window.__aplayer_inited__) {
       console.log("APlayer already exists, skip");
       return;
@@ -516,7 +514,10 @@ PaperMod.initAPlayer = async function () {
     try {
       const res = await fetch(
         
-"https://api.qijieya.cn/meting/?type=playlist&id=2245453903"
+        
+        
+        
+        "https://api.qijieya.cn/meting/?type=playlist&id=4968737249"
       );
       metingAudio = await res.json();
     } catch (e) {
@@ -537,9 +538,9 @@ PaperMod.initAPlayer = async function () {
       audio: metingAudio,
     });
     console.log("APlayer created with", audioList.length, "tracks");
-
-};
+  };
 </script>
+
 
 
 <script>
