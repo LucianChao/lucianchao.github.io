@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>WebSocket on SteamedFish&#39;s Blog</title>
+    <link>https://www.steamedfish.top/tags/websocket/</link>
+    <description>Recent content in WebSocket on SteamedFish&#39;s Blog</description>
+    <generator>Hugo -- 0.153.3</generator>
+    <language>zh</language>
+    <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
+    <lastBuildDate>Mon, 29 Dec 2025 00:38:42 +0800</lastBuildDate>
+    <atom:link href="https://www.steamedfish.top/tags/websocket/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【苍穹外卖】（12）SpringTask（定时任务）、Websocket（来单提醒、催单）</title>
+      <link>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-13/</link>
+      <pubDate>Sun, 28 Dec 2025 21:44:24 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-13/</guid>
+      <description>&lt;h2 id=&#34;spring-task&#34;&gt;Spring Task&lt;/h2&gt;
+&lt;h3 id=&#34;介绍&#34;&gt;介绍&lt;/h3&gt;
+&lt;p&gt;Spring Task 是Spring框架提供的&lt;strong&gt;任务调度工具&lt;/strong&gt;，可以按照约定的时间自动执行某个代码逻辑。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;定位：定时任务框架&lt;/li&gt;
+&lt;li&gt;作用：定时自动执行某段Java代码&lt;/li&gt;
+&lt;li&gt;应用场景：
+&lt;ul&gt;
+&lt;li&gt;信用卡每月还款提醒&lt;/li&gt;
+&lt;li&gt;银行贷款每月还款提醒&lt;/li&gt;
+&lt;li&gt;火车票售票系统处理未支付订单&lt;/li&gt;
+&lt;li&gt;入职纪念日为用户发送通知&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- FM:Snippet:Start data:{&#34;id&#34;:&#34;st-notice&#34;,&#34;fields&#34;:[]} --&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+&lt;/style&gt;&lt;div class=&#34;notice info&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
+        &lt;/span&gt;信息&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

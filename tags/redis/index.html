@@ -183,6 +183,51 @@
 <span title='2025-12-24 21:17:36 +0800 +0800'>2025-12-24</span>&nbsp;·&nbsp;<span title='2025-12-26 20:57:33 +0800 +0800'>(最后修改于 2025-12-26)</span>&nbsp;·&nbsp;<span>4 分钟</span></footer>
   <a class="entry-link" aria-label="post link to 【苍穹外卖】（7）缓存商品、购物车" href="https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-8/"></a>
 </article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">【苍穹外卖】（5）店铺营业状态（基于Redis）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>需求分析和设计 产品原型： 接口设计：
+设置营业状态 管理端查询营业状态 用户端查询营业状态 本项目约定：
+管理端 发出的请求，统一使用 /admin 作为前缀 用户端 发出的请求，统一使用 /user 作为前缀 营业状态数据存储方式：基于Redis的字符串来进行存储 约定：1表示营业 0表示打烊 代码开发 ...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2025-12-23 20:59:29 +0800 +0800'>2025-12-23</span>&nbsp;·&nbsp;<span title='2025-12-29 00:38:42 +0800 +0800'>(最后修改于 2025-12-29)</span>&nbsp;·&nbsp;<span>1 分钟</span></footer>
+  <a class="entry-link" aria-label="post link to 【苍穹外卖】（5）店铺营业状态（基于Redis）" href="https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-6/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Redis入门
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Redis入门 Redis简介 Redis是一个基于内存的 key-value 结构数据库。
+它存储的value类型比较丰富，也被称为结构化的非关系型数据库（NoSQL）
+官网： https://redis.io
+中文网： https://www.redis.net.cn/ 特点：
+基于内存存储，读写性能高 适合存储热点数据（热点商品、资讯、新闻） 企业应用广泛 应用场景：
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2025-12-23 15:38:40 +0800 +0800'>2025-12-23</span>&nbsp;·&nbsp;<span title='2025-12-29 00:38:42 +0800 +0800'>(最后修改于 2025-12-29)</span>&nbsp;·&nbsp;<span>5 分钟</span></footer>
+  <a class="entry-link" aria-label="post link to Redis入门" href="https://www.steamedfish.top/post/java-project/sky-take-out/redis/"></a>
+</article>
     </main>
     
 <footer class="footer">
@@ -293,9 +338,9 @@
       const res = await fetch(
         
         
+        "https://api.qijieya.cn/meting/?type=playlist&id=2245453903"
         
         
-        "https://api.qijieya.cn/meting/?type=playlist&id=4968737249"
       );
       metingAudio = await res.json();
     } catch (e) {

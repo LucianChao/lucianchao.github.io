@@ -9,6 +9,183 @@
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <atom:link href="https://www.steamedfish.top/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>【苍穹外卖】（完结篇）资源附录</title>
+      <link>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-15/</link>
+      <pubDate>Sun, 28 Dec 2025 23:28:23 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-15/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;总的来说收获很多，特别是对单体服务架构有了更深的理解。项目接近尾声这几天，人也变得特别浮躁。&lt;br&gt;
+好在总算是结束了，这里附上项目需要的资源和我的项目仓库。&lt;br&gt;
+如果哪天你也在学习这个项目的话，希望能够帮到你，不懂的话可以在对应章节的评论区问我。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;已学完，这个老师讲的真他妈的好，什么叫抽丝剥茧，循循渐进，不像有的老师一上来就搞最终过程，根本听不懂，而且老师那还有很多面试题，笔试题我都买了，经过一个月的猛肝，终于在美团面试的时候一把过，美团的福利我就不多说了，免费换电瓶和充电，不说了老板叫我出餐了。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>【苍穹外卖】（13）数据统计（图像报表、Excel报表）</title>
+      <link>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-14/</link>
+      <pubDate>Sun, 28 Dec 2025 22:36:55 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-14/</guid>
+      <description>&lt;h2 id=&#34;apache-echarts&#34;&gt;Apache ECharts&lt;/h2&gt;
+&lt;p&gt;Apache ECharts 是一款基于 Javascript 的数据可视化图表库，提供直观，生动，可交互，可个性化定制的数据可视化图表。
+官网地址： &lt;a href=&#34;https://echarts.apache.org/zh/index.html&#34;&gt;https://echarts.apache.org/zh/index.html&lt;/a&gt;
+Apache Echarts官方提供的快速入门： &lt;a href=&#34;https://echarts.apache.org/handbook/zh/get-started/&#34;&gt;https://echarts.apache.org/handbook/zh/get-started/&lt;/a&gt;
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-14/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-14/1.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-14/1.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-14/1.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+
+使用Echarts，重点在于研究当前图表所需的&lt;strong&gt;数据格式&lt;/strong&gt;。通常是需要后端提供符合格式要求的动态数据，然后响应给前端来展示图表。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>【苍穹外卖】（12）SpringTask（定时任务）、Websocket（来单提醒、催单）</title>
+      <link>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-13/</link>
+      <pubDate>Sun, 28 Dec 2025 21:44:24 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-13/</guid>
+      <description>&lt;h2 id=&#34;spring-task&#34;&gt;Spring Task&lt;/h2&gt;
+&lt;h3 id=&#34;介绍&#34;&gt;介绍&lt;/h3&gt;
+&lt;p&gt;Spring Task 是Spring框架提供的&lt;strong&gt;任务调度工具&lt;/strong&gt;，可以按照约定的时间自动执行某个代码逻辑。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;定位：定时任务框架&lt;/li&gt;
+&lt;li&gt;作用：定时自动执行某段Java代码&lt;/li&gt;
+&lt;li&gt;应用场景：
+&lt;ul&gt;
+&lt;li&gt;信用卡每月还款提醒&lt;/li&gt;
+&lt;li&gt;银行贷款每月还款提醒&lt;/li&gt;
+&lt;li&gt;火车票售票系统处理未支付订单&lt;/li&gt;
+&lt;li&gt;入职纪念日为用户发送通知&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- FM:Snippet:Start data:{&#34;id&#34;:&#34;st-notice&#34;,&#34;fields&#34;:[]} --&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+&lt;/style&gt;&lt;div class=&#34;notice info&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
+        &lt;/span&gt;信息&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>【苍穹外卖】（11）优化用户下单功能</title>
       <link>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-12/</link>
       <pubDate>Sat, 27 Dec 2025 23:57:04 +0800</pubDate>

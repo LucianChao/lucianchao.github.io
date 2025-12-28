@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Apache ECharts on SteamedFish&#39;s Blog</title>
+    <link>https://www.steamedfish.top/tags/apache-echarts/</link>
+    <description>Recent content in Apache ECharts on SteamedFish&#39;s Blog</description>
+    <generator>Hugo -- 0.153.3</generator>
+    <language>zh</language>
+    <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
+    <lastBuildDate>Mon, 29 Dec 2025 00:38:42 +0800</lastBuildDate>
+    <atom:link href="https://www.steamedfish.top/tags/apache-echarts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【苍穹外卖】（13）数据统计（图像报表、Excel报表）</title>
+      <link>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-14/</link>
+      <pubDate>Sun, 28 Dec 2025 22:36:55 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-14/</guid>
+      <description>&lt;h2 id=&#34;apache-echarts&#34;&gt;Apache ECharts&lt;/h2&gt;
+&lt;p&gt;Apache ECharts 是一款基于 Javascript 的数据可视化图表库，提供直观，生动，可交互，可个性化定制的数据可视化图表。
+官网地址： &lt;a href=&#34;https://echarts.apache.org/zh/index.html&#34;&gt;https://echarts.apache.org/zh/index.html&lt;/a&gt;
+Apache Echarts官方提供的快速入门： &lt;a href=&#34;https://echarts.apache.org/handbook/zh/get-started/&#34;&gt;https://echarts.apache.org/handbook/zh/get-started/&lt;/a&gt;
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-14/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-14/1.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-14/1.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-14/1.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+
+使用Echarts，重点在于研究当前图表所需的&lt;strong&gt;数据格式&lt;/strong&gt;。通常是需要后端提供符合格式要求的动态数据，然后响应给前端来展示图表。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
