@@ -2,7 +2,7 @@
 <html lang="zh" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.153.3"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.153.4"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -180,6 +180,27 @@
 
 
 </div>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Java SE从入门到跑路（十七·多线程与并发）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>多线程与并发 线程基础 1.什么是线程 线程（Thread）是程序执行的最小单位。一个程序至少有一个主线程（main），通过多线程我们可以让程序同时做多件事。 例如：
+浏览器一边加载网页、一边播放音乐。 游戏一边渲染画面、一边检测输入。 多线程可以提升程序效率，但也可能带来同步问题（比如两个线程同时修改同一个变量）。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2025-11-02 02:22:51.772 +0000 UTC'>2025-11-02</span>&nbsp;·&nbsp;<span title='2025-11-06 17:32:53 +0800 +0800'>(最后修改于 2025-11-06)</span>&nbsp;·&nbsp;<span>7 分钟</span></footer>
+  <a class="entry-link" aria-label="post link to Java SE从入门到跑路（十七·多线程与并发）" href="https://www.steamedfish.top/post/java-se/java-se-thread-and-concurrency/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
@@ -392,29 +413,6 @@ com.school.student.Student 2.包的命名规则 一般使用 公司域名倒写 
 <span title='2025-10-30 19:21:03 +0800 +0800'>2025-10-30</span>&nbsp;·&nbsp;<span title='2025-11-06 17:32:53 +0800 +0800'>(最后修改于 2025-11-06)</span>&nbsp;·&nbsp;<span>3 分钟</span></footer>
   <a class="entry-link" aria-label="post link to Java SE从入门到跑路（八·内部类）" href="https://www.steamedfish.top/post/java-se/java-se-inner-class/"></a>
 </article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Java SE从入门到跑路（七·抽象类与接口）
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p> 定义规则，比实现更重要。
-前言 在上一章中，我们学习了“继承”和“多态”，让类与类之间能够共享结构、灵活协作。
-但在实际开发中，我们往往还需要一种“模板”——它不关心具体实现，只规定所有子类必须遵守的行为。
-Java 为此提供了两种机制：抽象类（abstract class） 与 接口（interface）。
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-
-
-
-
-
-<span title='2025-10-30 19:00:44 +0800 +0800'>2025-10-30</span>&nbsp;·&nbsp;<span title='2025-11-22 22:47:47 +0800 +0800'>(最后修改于 2025-11-22)</span>&nbsp;·&nbsp;<span>4 分钟</span></footer>
-  <a class="entry-link" aria-label="post link to Java SE从入门到跑路（七·抽象类与接口）" href="https://www.steamedfish.top/post/java-se/java-se-abstract-interface/"></a>
-</article>
 <footer class="page-footer">
   <nav class="pagination">
     <a class="prev" href="https://www.steamedfish.top/page/6/">
@@ -550,7 +548,7 @@ Java 为此提供了两种机制：抽象类（abstract class） 与 接口（in
     window.aplayer = new APlayer({
       container,
       fixed: true,
-      autoplay: true,
+      autoplay: false,
       preload: "auto",
       lrcType: 1,
       

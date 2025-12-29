@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>链表 on SteamedFish&#39;s Blog</title>
+    <link>https://www.steamedfish.top/tags/%E9%93%BE%E8%A1%A8/</link>
+    <description>Recent content in 链表 on SteamedFish&#39;s Blog</description>
+    <generator>Hugo -- 0.153.4</generator>
+    <language>zh</language>
+    <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
+    <lastBuildDate>Mon, 29 Dec 2025 15:36:32 +0800</lastBuildDate>
+    <atom:link href="https://www.steamedfish.top/tags/%E9%93%BE%E8%A1%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【HOT100】160.相交链表</title>
+      <link>https://www.steamedfish.top/post/leetcode/hot100/160/</link>
+      <pubDate>Mon, 29 Dec 2025 14:07:09 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/leetcode/hot100/160/</guid>
+      <description>&lt;h2 id=&#34;题目描述&#34;&gt;题目描述&lt;/h2&gt;
+&lt;p&gt;给你两个单链表的头节点 &lt;code&gt;headA&lt;/code&gt; 和 &lt;code&gt;headB&lt;/code&gt; ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 &lt;code&gt;null&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;图示两个链表在节点 &lt;code&gt;c1&lt;/code&gt; 开始相交：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/leetcode/hot100/160/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/leetcode/hot100/160/1.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/leetcode/hot100/160/1.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/leetcode/hot100/160/1.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+
+题目数据 &lt;strong&gt;保证&lt;/strong&gt; 整个链式结构中不存在环。&lt;/p&gt;
+&lt;p&gt;注意，函数返回结果后，链表必须 &lt;strong&gt;保持其原始结构&lt;/strong&gt; 。&lt;/p&gt;
+&lt;p&gt;自定义评测：&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
