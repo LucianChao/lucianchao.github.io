@@ -2,7 +2,7 @@
 <html lang="zh" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.153.4"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.153.5"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -192,6 +192,31 @@
 </div>
 
     </footer>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Mybatis Plus
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>介绍 MybatisPlus（简称 MP）是一个 Mybatis 的增强工具 ，在Mybatis的基础上只做增强不做改变，为简化开发、提高效率而生。 快速入门 入门案例 需求：基于资料提供的项目，实现下列功能：
+新增用户功能 根据id查询用户 根据id批量查询用户 根据id更新用户 根据id删除用户 步骤 运行src/test/java/com/itheima/mp/mapper/UserMapperTest.java下的testQueryByIds测试方法，查看环境是否正常 引入MybatisPlus的起步依赖
+MyBatisPlus官方提供了starter，其中集成了Mybatis和MybatisPlus的所有功能，并且实现了自动装配效果。
+因此我们可以用MybatisPlus的starter代替Mybatis的starter： 定义Mapper
+自定义的Mapper继承MybatisPlus提供的BaseMapper接口： 改造Mapper
+继承之后删掉Mapper中原本的代码 修改测试方法，使用Mybatis-plus的方法，查看能否进行增删改查 常见注解 MyBatisPlus通过扫描实体类，并基于反射获取实体类信息作为数据库表信息。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2025-12-30 16:21:57 +0800 +0800'>2025-12-30</span>&nbsp;·&nbsp;<span title='2025-12-31 02:18:48 +0800 +0800'>(最后修改于 2025-12-31)</span>&nbsp;·&nbsp;<span>5 分钟</span></footer>
+  <a class="entry-link" aria-label="post link to Mybatis Plus" href="https://www.steamedfish.top/post/microservices/mp/1/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -409,25 +434,6 @@
 
 <span title='2025-12-27 23:57:04 +0800 +0800'>2025-12-27</span>&nbsp;·&nbsp;<span title='2025-12-29 00:38:42 +0800 +0800'>(最后修改于 2025-12-29)</span>&nbsp;·&nbsp;<span>2 分钟</span></footer>
   <a class="entry-link" aria-label="post link to 【苍穹外卖】（11）优化用户下单功能" href="https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-12/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">【苍穹外卖】（10）用户端历史订单、商家端订单管理
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>用户端历史订单 代码 OrderController.java @GetMapping(&#34;/historyOrders&#34;) public Result&lt;PageResult&gt; historyOrders(OrdersPageQueryDTO dto){ log.info(&#34;查询历史订单：{}&#34;, dto); PageResult pageResult = orderService.historyOrders(dto); return Result.success(pageResult); } OrderService.java /** * 历史订单查询 * * @param dto * @return */ PageResult historyOrders(OrdersPageQueryDTO dto); OrderServiceImpl.java @Override public PageResult historyOrders(OrdersPageQueryDTO dto) { PageHelper.startPage(dto.getPage(),dto.getPageSize()); Orders orders = new Orders(); BeanUtils.copyProperties(dto,orders); orders.setUserId(BaseContext.getCurrentId()); Page&lt;OrderVO&gt; page = orderMapper.pageQuery(orders); // 构造订单明细 for (OrderVO orderVO : page.getResult()) { orderVO.setOrderDetailList(orderDetailMapper.getByOrderId(orderVO.getId())); } return new PageResult(page.getTotal(),page.getResult()); } OrderMapper.java /** * 历史订单分页查询 * @param dto * @return */ Page&lt;OrderVO&gt; pageQuery(OrdersPageQueryDTO dto); OrderMapper.xml &lt;!-- 分页查询--&gt; &lt;select id=&#34;pageQuery&#34; resultType=&#34;com.sky.vo.OrderVO&#34;&gt; select id, number, status, user_id, address_book_id, order_time, checkout_time, pay_method, pay_status, amount, remark, phone, address, user_name, consignee, cancel_reason, rejection_reason, cancel_time, estimated_delivery_time, delivery_status, delivery_time, pack_amount, tableware_number, tableware_status from orders &lt;where&gt; &lt;if test=&#34;userId != null&#34;&gt; and user_id = #{userId} &lt;/if&gt; &lt;if test=&#34;status != null&#34;&gt; and status = #{status} &lt;/if&gt; &lt;if test=&#34;beginTime != null and endTime != null&#34;&gt; and order_time between #{beginTime} and #{endTime} &lt;/if&gt; &lt;if test=&#34;number != null&#34;&gt; and number like concat(&#39;%&#39;,#{number},&#39;%&#39;) &lt;/if&gt; &lt;if test=&#34;phone != null&#34;&gt; and phone like concat(&#39;%&#39;,#{phone},&#39;%&#39;) &lt;/if&gt; &lt;/where&gt; order by order_time desc &lt;/select&gt; OrderDetailMapper.java /** * 根据订单id查询订单明细 * @param id * @return */ List&lt;OrderDetail&gt; getByOrderId(Long id); OrderDetailMapper.xml &lt;!-- 根据订单id查询--&gt; &lt;select id=&#34;getByOrderId&#34; resultType=&#34;com.sky.entity.OrderDetail&#34;&gt; select id, name, image, order_id, dish_id, setmeal_id, dish_flavor, number, amount from order_detail where order_id = #{id} &lt;/select&gt; 订单管理 代码 OrderController.java package com.sky.controller.admin; import com.sky.dto.OrdersPageQueryDTO; import com.sky.entity.Orders; import com.sky.result.PageResult; import com.sky.result.Result; import com.sky.service.OrderService; import com.sky.vo.OrderStatisticsVO; import com.sky.vo.OrderVO; import io.swagger.annotations.Api; import io.swagger.annotations.ApiOperation; import lombok.extern.slf4j.Slf4j; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.web.bind.annotation.*; @Slf4j @Api(tags = &#34;订单管理&#34;) @RestController @RequestMapping(&#34;/admin/order&#34;) public class OrderController { @Autowired private OrderService orderService; /** * 订单搜索 * @param dto * @return */ @GetMapping(&#34;/conditionSearch&#34;) @ApiOperation(&#34;订单搜索&#34;) public Result&lt;PageResult&gt; pageQuery(OrdersPageQueryDTO dto){ log.info(&#34;订单搜索：{}&#34;, dto); PageResult pageResult = orderService.adminPageQuery(dto); return Result.success(pageResult); } /** * 订单状态统计 * @return */ @GetMapping(&#34;/statistics&#34;) @ApiOperation(&#34;订单状态统计&#34;) public Result&lt;OrderStatisticsVO&gt; statistics(){ log.info(&#34;订单状态统计&#34;); OrderStatisticsVO statisticsVO = orderService.statistics(); return Result.success(statisticsVO); } /** * 查询订单详情 * @param id * @return */ @GetMapping(&#34;/details/{id}&#34;) @ApiOperation(&#34;查询订单详情&#34;) public Result&lt;OrderVO&gt; getOrderDetailById(@PathVariable Long id){ log.info(&#34;查询订单详情：{}&#34;, id); OrderVO orderVO = orderService.getOrderDetailById(id); return Result.success(orderVO); } /** * 接单 * @param orders * @return */ @PutMapping(&#34;/confirm&#34;) @ApiOperation(&#34;接单&#34;) public Result&lt;String&gt; confirm(@RequestBody Orders orders){ log.info(&#34;接单：{}&#34;, orders.getId()); orderService.confirm(orders); return Result.success(); } /** * 拒单 * @param orders * @return */ @PutMapping(&#34;/rejection&#34;) @ApiOperation(&#34;拒单&#34;) public Result&lt;String&gt; rejection(@RequestBody Orders orders){ log.info(&#34;拒单：{}&#34;, orders.getId()); orderService.rejection(orders); return Result.success(); } /** * 取消订单 * @param orders * @return */ @PutMapping(&#34;/cancel&#34;) @ApiOperation(&#34;取消订单&#34;) public Result&lt;String&gt; cancel(@RequestBody Orders orders){ log.info(&#34;取消订单：{}&#34;, orders.getId()); orderService.cancel(orders); return Result.success(); } /** * 派送订单 * @param id * @return */ @PutMapping(&#34;/delivery/{id}&#34;) @ApiOperation(&#34;派送订单&#34;) public Result&lt;String&gt; delivery(@PathVariable Long id){ log.info(&#34;派送订单：{}&#34;, id); Orders orders = new Orders(); orders.setId(id); orderService.delivery(orders); return Result.success(); } /** * 完成订单 * @param id * @return */ @PutMapping(&#34;/complete/{id}&#34;) @ApiOperation(&#34;完成订单&#34;) public Result&lt;String&gt; complete(@PathVariable Long id){ log.info(&#34;完成订单：{}&#34;, id); Orders orders = new Orders(); orders.setId(id); orderService.complete(orders); return Result.success(); } } OrderService.java /** * 管理端分页查询 * @param dto * @return */ PageResult adminPageQuery(OrdersPageQueryDTO dto); /** * 订单详情 * @param id * @return */ OrderVO getOrderDetailById(Long id); /** * 取消订单 * @param id */ void cancel(Long id); /** * 再来一单 * @param id */ void repetition(Long id); /** * 统计订单数据 * @return */ OrderStatisticsVO statistics(); /** * 接单/确认订单 * @param orders */ void confirm(Orders orders); /** * 拒单 * @param orders */ void rejection(Orders orders); /** * 取消订单 * @param orders */ void cancel(Orders orders); /** * 派单 * @param orders */ void delivery(Orders orders); /** * 完成订单 * @param orders */ void complete(Orders orders); OrderServiceImpl.java /** * 管理端分页查询 * * @param dto * @return */ @Override public PageResult adminPageQuery(OrdersPageQueryDTO dto) { PageHelper.startPage(dto.getPage(), dto.getPageSize()); // dto.setUserId(BaseContext.getCurrentId()); Page&lt;OrderVO&gt; page = orderMapper.pageQuery(dto); // 构造订单明细 for (OrderVO orderVO : page.getResult()) { List&lt;OrderDetail&gt; detailList = orderDetailMapper.getByOrderId(orderVO.getId()); String orderDishes = detailList.stream() .map(OrderDetail::getName) .collect(Collectors.joining(&#34;,&#34;)); orderVO.setOrderDishes(orderDishes); orderVO.setOrderDetailList(detailList); } return new PageResult(page.getTotal(), page.getResult()); } /** * 订单详情 * * @param id * @return */ @Override public OrderVO getOrderDetailById(Long id) { Orders orders = orderMapper.getByOrderId(id); OrderVO orderVO = new OrderVO(); BeanUtils.copyProperties(orders, orderVO); orderVO.setOrderDetailList(orderDetailMapper.getByOrderId(id)); return orderVO; } /** * 取消订单 * * @param id */ @Override public void cancel(Long id) { Orders orders = Orders.builder() .id(id) .status(Orders.CANCELLED) .cancelTime(LocalDateTime.now()) .build(); orderMapper.update(orders); } /** * 再来一单 * * @param id */ @Override public void repetition(Long id) { List&lt;OrderDetail&gt; orderDetail = orderDetailMapper.getByOrderId(id); for (OrderDetail detail : orderDetail) { ShoppingCart shoppingCart = new ShoppingCart(); BeanUtils.copyProperties(detail, shoppingCart); shoppingCart.setUserId(BaseContext.getCurrentId()); shoppingCartMapper.add(shoppingCart); } } /** * 订单统计 * * @return */ @Override public OrderStatisticsVO statistics() { OrderStatisticsVO orderStatisticsVO = orderMapper.statistics(); return orderStatisticsVO; } /** * 接单 * * @param orders */ @Override public void confirm(Orders orders) { orders.setStatus(Orders.CONFIRMED); orderMapper.update(orders); } /** * 拒单 * * @param orders */ @Override public void rejection(Orders orders) { orders.setStatus(Orders.CANCELLED); orders.setCancelReason(orders.getRejectionReason()); orders.setCancelTime(LocalDateTime.now()); orderMapper.update(orders); } /** * 撤销订单 * * @param orders */ @Override public void cancel(Orders orders) { orders.setStatus(Orders.CANCELLED); orders.setCancelTime(LocalDateTime.now()); orderMapper.update(orders); } /** * 派送订单 * * @param orders */ @Override public void delivery(Orders orders) { orders.setStatus(Orders.DELIVERY_IN_PROGRESS); orderMapper.update(orders); } /** * 完成订单 * * @param orders */ @Override public void complete(Orders orders) { orders.setStatus(Orders.COMPLETED); orders.setDeliveryTime(LocalDateTime.now()); orderMapper.update(orders); } OrderMapper.java /** * 历史订单分页查询 * @param dto * @return */ Page&lt;OrderVO&gt; pageQuery(OrdersPageQueryDTO dto); /** * 根据id查询订单 * @param id * @return */ @Select(&#34;select * from orders where id = #{id}&#34;) Orders getByOrderId(Long id); /** * 统计订单数据 * @return */ OrderStatisticsVO statistics(); OrderMapper.xml &lt;!-- 订单统计--&gt; &lt;select id=&#34;statistics&#34; resultType=&#34;com.sky.vo.OrderStatisticsVO&#34;&gt; select sum(case when status = 2 then 1 else 0 end) as toBeConfirmed, sum(case when status = 3 then 1 else 0 end) as confirmed, sum(case when status = 4 then 1 else 0 end) as deliveryInProgress from orders; &lt;/select&gt; </p>
-  </div>
-  <footer class="entry-footer">
-
-
-
-
-
-
-<span title='2025-12-27 23:35:56 +0800 +0800'>2025-12-27</span>&nbsp;·&nbsp;<span title='2025-12-29 00:38:42 +0800 +0800'>(最后修改于 2025-12-29)</span>&nbsp;·&nbsp;<span>4 分钟</span></footer>
-  <a class="entry-link" aria-label="post link to 【苍穹外卖】（10）用户端历史订单、商家端订单管理" href="https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-11/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
