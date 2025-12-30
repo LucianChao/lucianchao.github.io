@@ -7,8 +7,42 @@
     <generator>Hugo -- 0.153.4</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Mon, 29 Dec 2025 15:39:49 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 30 Dec 2025 13:31:16 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【HOT100】3.无重复字符的最长子串</title>
+      <link>https://www.steamedfish.top/post/leetcode/hot100/3/</link>
+      <pubDate>Tue, 30 Dec 2025 12:59:43 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/leetcode/hot100/3/</guid>
+      <description>&lt;h2 id=&#34;题目&#34;&gt;题目&lt;/h2&gt;
+&lt;p&gt;给定一个字符串 &lt;code&gt;s&lt;/code&gt; ，请你找出其中不含有重复字符的 &lt;code&gt;最长子串&lt;/code&gt; 的长度。&lt;/p&gt;
+&lt;p&gt;示例 1:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;输入: &lt;code&gt;s = &amp;quot;abcabcbb&amp;quot;&lt;/code&gt;&lt;br&gt;
+输出: &lt;code&gt;3&lt;/code&gt;&lt;br&gt;
+解释: &lt;code&gt;因为无重复字符的最长子串是 &amp;quot;abc&amp;quot;，所以其长度为 3。注意 &amp;quot;bca&amp;quot; 和 &amp;quot;cab&amp;quot; 也是正确答案。&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;示例 2:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;输入: &lt;code&gt;s = &amp;quot;bbbbb&amp;quot;&lt;/code&gt;&lt;br&gt;
+输出: &lt;code&gt;1&lt;/code&gt;&lt;br&gt;
+解释: &lt;code&gt;因为无重复字符的最长子串是 &amp;quot;b&amp;quot;，所以其长度为 1。&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>【HOT100】1.两数之和</title>
+      <link>https://www.steamedfish.top/post/leetcode/hot100/1/</link>
+      <pubDate>Tue, 30 Dec 2025 11:12:39 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/leetcode/hot100/1/</guid>
+      <description>&lt;h2 id=&#34;题目&#34;&gt;题目&lt;/h2&gt;
+&lt;p&gt;给定一个整数数组 &lt;code&gt;nums&lt;/code&gt; 和一个整数目标值 &lt;code&gt;target&lt;/code&gt;，请你在该数组中找出 和为目标值 &lt;code&gt;target&lt;/code&gt;  的那 两个 整数，并返回它们的数组下标。&lt;br&gt;
+你可以假设每种输入只会对应一个答案，并且你不能使用两次相同的元素。&lt;br&gt;
+你可以按任意顺序返回答案。&lt;/p&gt;
+&lt;p&gt;示例 1：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;输入：&lt;code&gt;nums = [2,7,11,15], target = 9&lt;/code&gt;&lt;br&gt;
+输出：&lt;code&gt;[0,1]&lt;/code&gt;&lt;br&gt;
+解释：&lt;code&gt;因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>【HOT100】160.相交链表</title>
       <link>https://www.steamedfish.top/post/leetcode/hot100/160/</link>

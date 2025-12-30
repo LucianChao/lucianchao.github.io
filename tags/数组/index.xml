@@ -7,8 +7,23 @@
     <generator>Hugo -- 0.153.4</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 06 Nov 2025 17:32:53 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 30 Dec 2025 13:31:16 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/%E6%95%B0%E7%BB%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【HOT100】1.两数之和</title>
+      <link>https://www.steamedfish.top/post/leetcode/hot100/1/</link>
+      <pubDate>Tue, 30 Dec 2025 11:12:39 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/leetcode/hot100/1/</guid>
+      <description>&lt;h2 id=&#34;题目&#34;&gt;题目&lt;/h2&gt;
+&lt;p&gt;给定一个整数数组 &lt;code&gt;nums&lt;/code&gt; 和一个整数目标值 &lt;code&gt;target&lt;/code&gt;，请你在该数组中找出 和为目标值 &lt;code&gt;target&lt;/code&gt;  的那 两个 整数，并返回它们的数组下标。&lt;br&gt;
+你可以假设每种输入只会对应一个答案，并且你不能使用两次相同的元素。&lt;br&gt;
+你可以按任意顺序返回答案。&lt;/p&gt;
+&lt;p&gt;示例 1：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;输入：&lt;code&gt;nums = [2,7,11,15], target = 9&lt;/code&gt;&lt;br&gt;
+输出：&lt;code&gt;[0,1]&lt;/code&gt;&lt;br&gt;
+解释：&lt;code&gt;因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Java SE从入门到跑路（三·数组与方法篇）</title>
       <link>https://www.steamedfish.top/post/java-se/java-se-arrays-methods/</link>
