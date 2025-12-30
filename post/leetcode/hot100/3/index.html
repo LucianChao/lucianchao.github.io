@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>【HOT100】3.无重复字符的最长子串 | SteamedFish&#39;s Blog</title>
-<meta name="keywords" content="HashSet, 哈希表, 哈希集合, 滑动窗口, HashMap">
+<meta name="keywords" content="滑动窗口">
 <meta name="description" content="题目
 给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。
 示例 1:
@@ -92,7 +92,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2025-12-30T12:59:43+08:00">
-    <meta property="article:modified_time" content="2025-12-30T13:31:16+08:00">
+    <meta property="article:modified_time" content="2025-12-30T16:08:01+08:00">
     <meta property="article:tag" content="HashSet">
     <meta property="article:tag" content="哈希表">
     <meta property="article:tag" content="哈希集合">
@@ -143,13 +143,13 @@
   "name": "【HOT100】3.无重复字符的最长子串",
   "description": "题目 给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。\n示例 1:\n输入: s = \u0026quot;abcabcbb\u0026quot;\n输出: 3\n解释: 因为无重复字符的最长子串是 \u0026quot;abc\u0026quot;，所以其长度为 3。注意 \u0026quot;bca\u0026quot; 和 \u0026quot;cab\u0026quot; 也是正确答案。\n示例 2:\n输入: s = \u0026quot;bbbbb\u0026quot;\n输出: 1\n解释: 因为无重复字符的最长子串是 \u0026quot;b\u0026quot;，所以其长度为 1。\n",
   "keywords": [
-    "HashSet", "哈希表", "哈希集合", "滑动窗口", "HashMap"
+    "滑动窗口"
   ],
   "articleBody": "题目 给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。\n示例 1:\n输入: s = \"abcabcbb\"\n输出: 3\n解释: 因为无重复字符的最长子串是 \"abc\"，所以其长度为 3。注意 \"bca\" 和 \"cab\" 也是正确答案。\n示例 2:\n输入: s = \"bbbbb\"\n输出: 1\n解释: 因为无重复字符的最长子串是 \"b\"，所以其长度为 1。\n示例 3:\n输入: s = \"pwwkew\"\n输出: 3\n解释: 因为无重复字符的最长子串是 \"wke\"，所以其长度为 3。\n请注意，你的答案必须是 子串 的长度，“pwke” 是一个子序列，不是子串。\n提示：\n0 \u003c= s.length \u003c= 5 * 104 s 由英文字母、数字、符号和空格组成 题解 滑动窗口 的关键在于滑动，它一定是移动的，并且是左边界和右边界一起移动 滑动窗口题的模板\n//外层循环扩展右边界，内层循环扩展左边界 for (int l = 0, r = 0 ; r \u003c n ; r++) { //当前考虑的元素 while (l \u003c= r \u0026\u0026 check()) {//区间[left,right]不符合题意 //扩展左边界 } //区间[left,right]符合题意，统计相关信息 } 方法一 import java.util.HashSet; import java.util.Set; class Solution { public int lengthOfLongestSubstring(String s) { Set\u003cCharacter\u003e set = new HashSet\u003c\u003e(); // 哈希集合 int left = 0, res = 0; // res是最长长度 // left--左边界指针下标为0 for (int right = 0; right \u003c s.length(); right++) { // 右边界从0到末尾移动 char c = s.charAt(right); // 右指针所在的字符 // 重复，左指针右移，直到不重复 while (set.contains(c)) { set.remove(s.charAt(left)); left++; } // 不重复加入哈希集合 set.add(c); res = Math.max(res, right - left + 1); // 比较新长度和原先记录的最长长度谁更大，取最大值为答案 // right 和 left 都指向下标，所以+1 // 如： 1 3 5 // 下标 0 1 2 // 2-0 = 2，实际长度为2+1=3 } return res; } } 优化 可以发现，这种解法利用了 hashset 去重的特性，直接查哈希表查看是否出现过，出现过则在right暂时不动的基础下移动left直到不重复为止，满足我们要找的“无重复字符的最长子串”。\n如果我们用hashmap记录下当前字符串最后一次出现的位置，然后直接把left移动到 最后一次出现的位置+1 的话，会更快。这样就不用一个一个移动left直到不出现了。\nclass Solution { public int lengthOfLongestSubstring(String s) { Map\u003cCharacter, Integer\u003e dir = new HashMap\u003c\u003e(); int left = 0,res = 0; for(int right = 0; right \u003c s.length ; right++){ // 当前字符c char c = s.charAt(right); if(dir.cantainsKey(c)){ // 如果dir包含c，说明出现过，拿到最后一次出现的下标并+1 left = Math.max(left, dir.get(c) + 1); // dir中存的是最近一次出现的下边，例如 \"acffa\"，当right走到第二个f时，left应该也更新到第二个f // 紧接着到了a时，如果left直接到最近一次出现的下标的话，left=1，所以要对比当前left的值和要更新的值 // 保证left不回退 } dir.put(c, right); // 存入最近一次出现的字符和它的位置 res = Math.max(res, right - left + 1); // 记录最长不重复字符子串的长度 } } } ",
   "wordCount" : "1054",
   "inLanguage": "zh",
   "datePublished": "2025-12-30T12:59:43+08:00",
-  "dateModified": "2025-12-30T13:31:16+08:00",
+  "dateModified": "2025-12-30T16:08:01+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/leetcode/hot100/3/"
