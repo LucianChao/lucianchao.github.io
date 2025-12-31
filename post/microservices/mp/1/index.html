@@ -273,7 +273,7 @@ MyBatisPlus官方提供了starter，其中集成了Mybatis和MybatisPlus的所�
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2025-12-30T16:21:57+08:00">
-    <meta property="article:modified_time" content="2025-12-31T02:18:48+08:00">
+    <meta property="article:modified_time" content="2026-01-01T02:52:51+08:00">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mybatis Plus">
 <meta name="twitter:description" content="介绍
@@ -505,11 +505,11 @@ MyBatisPlus通过扫描实体类，并基于反射获取实体类信息作为数
   "keywords": [
     
   ],
-  "articleBody": "介绍 MybatisPlus（简称 MP）是一个 Mybatis 的增强工具 ，在Mybatis的基础上只做增强不做改变，为简化开发、提高效率而生。 快速入门 入门案例 需求：基于资料提供的项目，实现下列功能：\n新增用户功能 根据id查询用户 根据id批量查询用户 根据id更新用户 根据id删除用户 步骤 运行src/test/java/com/itheima/mp/mapper/UserMapperTest.java下的testQueryByIds测试方法，查看环境是否正常 引入MybatisPlus的起步依赖\nMyBatisPlus官方提供了starter，其中集成了Mybatis和MybatisPlus的所有功能，并且实现了自动装配效果。\n因此我们可以用MybatisPlus的starter代替Mybatis的starter： 定义Mapper\n自定义的Mapper继承MybatisPlus提供的BaseMapper接口： 改造Mapper\n继承之后删掉Mapper中原本的代码 修改测试方法，使用Mybatis-plus的方法，查看能否进行增删改查 常见注解 MyBatisPlus通过扫描实体类，并基于反射获取实体类信息作为数据库表信息。\n类名驼峰转下划线作为表名 名为id的字段作为主键 变量名驼峰转下划线作为表的字段名 MybatisPlus中比较常用的几个注解如下： @TableName：用来指定表名 @TableId：用来指定表中的主键字段信息 IdType枚举： AUTO：数据库自增长 INPUT：通过set方法自行输入 ASSIGN_ID：分配 ID，接口IdentifierGenerator的方法nextId来生成id，默认实现类为DefaultIdentifierGenerator雪花算法 @TableField：用来指定表中的普通字段信息 使用@TableField的常见场景： 成员变量名与数据库字段名不一致 成员变量名以is开头，且是布尔值 成员变量名与数据库关键字冲突 成员变量不是数据库字段 常见配置 MyBatisPlus的配置项继承了MyBatis原生配置和一些自己特有的配置。例如： 具体可参考官方文档：使用配置 | MyBatis-Plus\n核心功能 条件构造器 MyBatisPlus支持各种复杂的where条件，可以满足日常开发的所有需求。 基于QueryWrapper的查询 需求：\n查询出名字中带o的，存款大于等于1000元的人的id、username、info、balance字段 @Test public void testQueryWrapper() { //条件构造器 QueryWrapper\u003cUser\u003e queryWrapper = new QueryWrapper\u003c\u003e(); //查询的列 queryWrapper.select(\"id\", \"username\", \"info\", \"balance\"); //查询条件： 名字带`o` queryWrapper.like(\"username\", \"o\"); //查询条件： 存款大于等于1000 queryWrapper.ge(\"balance\", 1000); //查询 List\u003cUser\u003e userList = userMapper.selectList(queryWrapper); //输出 //userList.forEach(System.out::println); for (User user : userList) { System.out.println(user); } } @Test public void testLambdaQueryWrapper() { LambdaQueryWrapper\u003cUser\u003e lambdaQueryWrapper = new LambdaQueryWrapper\u003c\u003e(); lambdaQueryWrapper.select(User::getId,User::getUsername,User::getInfo,User::getBalance); lambdaQueryWrapper.like(User::getUsername, \"o\"); lambdaQueryWrapper.ge(User::getBalance, 1000); List\u003cUser\u003e userList = userMapper.selectList(lambdaQueryWrapper); for (User user : userList) { System.out.println(user); } } 提示\n尽量使用LambdaQueryWrapper和LambdaUpdateWrapper，避免硬编码 QueryWrapper和LambdaQueryWrapper通常用来构建select、delete、update的where条件部分 UpdateWrapper和LambdaUpdateWrapper通常只有在set语句比较特殊才使用 更新用户名为jack的用户的余额为2000 @Test public void testQueryWrapperUpdate() { User user = new User(); user.setBalance(2000); QueryWrapper\u003cUser\u003e queryWrapper = new QueryWrapper\u003c\u003e(); queryWrapper.eq(\"username\", \"jack\"); int updated = userMapper.update(user, queryWrapper); } 基于UpdateWrapper的更新 需求：更新id为1,2,4的用户的余额，扣200 // update user set balance = balance - 200 where id in (1, 2, 4); @Test void testUpdateWrapper() { UpdateWrapper\u003cUser\u003e updateWrapper = new UpdateWrapper\u003c\u003e(); //自定义更新语句，设置的是set updateWrapper.setSql(\"balance = balance - 200\"); //id为1，2，4的用户 -- where id in (1,2,4) updateWrapper.in(\"id\", 1, 2, 4); userMapper.update(null, updateWrapper); } 自定义SQL 我们可以利用yBatisPlus的Wrapper来构建复杂的Where条件，然后自己定义SQL语句中剩下的部分。 基于Wrapper构建where条件 在mapper方法参数中用Param注解声明wrapper变量名称，必须是ew 自定义SQL，并使用Wrapper条件 基于Wrapper的多表关联查询 需求：查询出所有收货地址在北京的并且用户id在指定范围的用户（例如1、2、4 ）的用户 Service接口 使用流程 自定义Service接口继承IService接口 自定义Service实现类，实现自定义接口并继承ServiceImpl类 基于Restful风格实现下列接口 需求：基于Restful风格实现下面的接口： 分析：1,2,3,4是常见的基本接口，可以直接在controller中调用mybatisPlus的service接口提供的方法实现；不需要再写任何业务方法\n5这个接口有特别的业务逻辑（判断用户正常（不为2）、余额充足才能做扣减），需要在Service中新增方法来实现\n要编写具体的接口，实现web功能；需要引入spring-boot-starter-web；\n另外为了方便测试可以引入knife4j的依赖；通过访问界面来测试所写的接口。\n因此我们可以添加如下依赖： 要能够被swagger可访问测试接口的话，在处理编写时可以设置对应注解，示例如下： 新增业务方法 特殊的业务方法，mybatisPlus中没有提供的，则可以自定义编写 拓展功能 分页插件 项目实战 ",
-  "wordCount" : "2072",
+  "articleBody": "介绍 MybatisPlus（简称 MP）是一个 Mybatis 的增强工具 ，在Mybatis的基础上只做增强不做改变，为简化开发、提高效率而生。 快速入门 入门案例 需求：基于资料提供的项目，实现下列功能：\n新增用户功能 根据id查询用户 根据id批量查询用户 根据id更新用户 根据id删除用户 步骤 运行src/test/java/com/itheima/mp/mapper/UserMapperTest.java下的testQueryByIds测试方法，查看环境是否正常 引入MybatisPlus的起步依赖\nMyBatisPlus官方提供了starter，其中集成了Mybatis和MybatisPlus的所有功能，并且实现了自动装配效果。\n因此我们可以用MybatisPlus的starter代替Mybatis的starter： 定义Mapper\n自定义的Mapper继承MybatisPlus提供的BaseMapper接口： 改造Mapper\n继承之后删掉Mapper中原本的代码 修改测试方法，使用Mybatis-plus的方法，查看能否进行增删改查 常见注解 MyBatisPlus通过扫描实体类，并基于反射获取实体类信息作为数据库表信息。\n类名驼峰转下划线作为表名 名为id的字段作为主键 变量名驼峰转下划线作为表的字段名 MybatisPlus中比较常用的几个注解如下： @TableName：用来指定表名 @TableId：用来指定表中的主键字段信息 IdType枚举： AUTO：数据库自增长 INPUT：通过set方法自行输入 ASSIGN_ID：分配 ID，接口IdentifierGenerator的方法nextId来生成id，默认实现类为DefaultIdentifierGenerator雪花算法 @TableField：用来指定表中的普通字段信息 使用@TableField的常见场景： 成员变量名与数据库字段名不一致 成员变量名以is开头，且是布尔值 成员变量名与数据库关键字冲突 成员变量不是数据库字段 常见配置 MyBatisPlus的配置项继承了MyBatis原生配置和一些自己特有的配置。例如： 具体可参考官方文档：使用配置 | MyBatis-Plus\n核心功能 条件构造器 MyBatisPlus支持各种复杂的where条件，可以满足日常开发的所有需求。 基于QueryWrapper的查询 需求：\n查询出名字中带o的，存款大于等于1000元的人的id、username、info、balance字段 @Test public void testQueryWrapper() { //条件构造器 QueryWrapper\u003cUser\u003e queryWrapper = new QueryWrapper\u003c\u003e(); //查询的列 queryWrapper.select(\"id\", \"username\", \"info\", \"balance\"); //查询条件： 名字带`o` queryWrapper.like(\"username\", \"o\"); //查询条件： 存款大于等于1000 queryWrapper.ge(\"balance\", 1000); //查询 List\u003cUser\u003e userList = userMapper.selectList(queryWrapper); //输出 //userList.forEach(System.out::println); for (User user : userList) { System.out.println(user); } } @Test public void testLambdaQueryWrapper() { LambdaQueryWrapper\u003cUser\u003e lambdaQueryWrapper = new LambdaQueryWrapper\u003c\u003e(); lambdaQueryWrapper.select(User::getId,User::getUsername,User::getInfo,User::getBalance); lambdaQueryWrapper.like(User::getUsername, \"o\"); lambdaQueryWrapper.ge(User::getBalance, 1000); List\u003cUser\u003e userList = userMapper.selectList(lambdaQueryWrapper); for (User user : userList) { System.out.println(user); } } 提示\n尽量使用LambdaQueryWrapper和LambdaUpdateWrapper，避免硬编码 QueryWrapper和LambdaQueryWrapper通常用来构建select、delete、update的where条件部分 UpdateWrapper和LambdaUpdateWrapper通常只有在set语句比较特殊才使用 更新用户名为jack的用户的余额为2000 @Test public void testQueryWrapperUpdate() { User user = new User(); user.setBalance(2000); QueryWrapper\u003cUser\u003e queryWrapper = new QueryWrapper\u003c\u003e(); queryWrapper.eq(\"username\", \"jack\"); int updated = userMapper.update(user, queryWrapper); } 基于UpdateWrapper的更新 需求：更新id为1,2,4的用户的余额，扣200 // update user set balance = balance - 200 where id in (1, 2, 4); @Test void testUpdateWrapper() { UpdateWrapper\u003cUser\u003e updateWrapper = new UpdateWrapper\u003c\u003e(); //自定义更新语句，设置的是set updateWrapper.setSql(\"balance = balance - 200\"); //id为1，2，4的用户 -- where id in (1,2,4) updateWrapper.in(\"id\", 1, 2, 4); userMapper.update(null, updateWrapper); } 自定义SQL 我们可以利用yBatisPlus的Wrapper来构建复杂的Where条件，然后自己定义SQL语句中剩下的部分。 基于Wrapper构建where条件 在mapper方法参数中用Param注解声明wrapper变量名称，必须是ew 自定义SQL，并使用Wrapper条件 基于Wrapper的多表关联查询 需求：查询出所有收货地址在北京的并且用户id在指定范围的用户（例如1、2、4 ）的用户 Service接口 使用流程 自定义Service接口继承IService接口 自定义Service实现类，实现自定义接口并继承ServiceImpl类 基于Restful风格实现下列接口 需求：基于Restful风格实现下面的接口： 分析：1,2,3,4是常见的基本接口，可以直接在controller中调用mybatisPlus的service接口提供的方法实现；不需要再写任何业务方法\n5这个接口有特别的业务逻辑（判断用户正常（不为2）、余额充足才能做扣减），需要在Service中新增方法来实现\n要编写具体的接口，实现web功能；需要引入spring-boot-starter-web；\n另外为了方便测试可以引入knife4j的依赖；通过访问界面来测试所写的接口。\n因此我们可以添加如下依赖： 要能够被swagger可访问测试接口的话，在处理编写时可以设置对应注解，示例如下： 新增业务方法 特殊的业务方法，mybatisPlus中没有提供的，则可以自定义编写 IService的Lambda查询 需求：实现一个根据复杂条件查询用户的接口，查询条件如下：\nname：用户名关键字，可以为空 status：用户状态，可以为空 minBalance：最小余额，可以为空 maxBalance：最大余额，可以为空 @Operation(summary = \"根据条件查询用户列表\") @PostMapping(\"/list\") public List\u003cUserVO\u003e queryList(@RequestBody UserQuery userQuery) { String username = userQuery.getName(); Integer status = userQuery.getStatus(); Integer minBalance = userQuery.getMinBalance(); Integer maxBalance = userQuery.getMaxBalance(); QueryWrapper\u003cUser\u003e queryWrapper = new QueryWrapper\u003c\u003e(); // if (StrUtil.isNotBlank(username)){ // queryWrapper.lambda().like(User::getUsername,username); // } // v2.0 // 条件成立就把条件添加到where中 // queryWrapper.lambda().like(StrUtil.isNotBlank(username), User::getUsername, username) // .eq(status != null, User::getStatus, status) // .ge(minBalance != null, User::getBalance, minBalance) // .le(maxBalance != null, User::getBalance, maxBalance); // List list = userService.list(queryWrapper); // v3.0 List\u003cUser\u003e userList = userService.lambdaQuery() .like(StrUtil.isNotBlank(username), User::getUsername, username) .eq(status != null, User::getStatus, status) .ge(minBalance != null, User::getBalance, minBalance) .le(maxBalance != null, User::getBalance, maxBalance) .list(); //最终进行查询 return BeanUtil.copyToList(list, UserVO.class); } 信息\n这种代码并不规范，超出了Controller的职责范围，Controller应该只负责接收请求和调用接口，具体的业务逻辑应该在service层中实现\nIService的Lambda更新 需求：改造根据id修改用户余额的接口，要求如下：\n完成对用户状态校验 完成对用户余额校验 如果扣减后余额为0，则将用户status修改为冻结状态（2） @Override public void deductionBalanceById(Long id, int amount) { // 1.判断用户是否正常（账户状态） User user = getById(id); if (user == null || user.getStatus() == 2) { throw new RuntimeException(\"用户状态异常或者用户不存在\"); } // 2.判断余额是否充足，当前账户余额 - 扣减金额 \u003e 0 if (user.getBalance() \u003c amount) { throw new RuntimeException(\"余额不足\"); } // 3.扣减金额 // 获取扣减之后的余额 int remainBalance = user.getBalance() - amount; // userMapper.updateBalanceById(id, amount); // update user set balance = ? ,status = 2 where id = ? // update user set balance = ? where id = ? this.lambdaUpdate() .set(User::getBalance,remainBalance) //设置余额 .set(remainBalance == 0,User::getStatus,2) //账户余额为0，账户状态改为2 .eq(User::getId,id) //设置id .update(); } 需求：批量插入10万条用户数据，并作出对比： 普通for循环插入 耗时：609121毫秒（≈6分钟）\rIService的批量插入 耗时：25922毫秒（≈25秒）\r开启rewriteBatchedStatements=true参数，再次执行saveBatch() 耗时：9860毫秒（≈10秒\r结论：\n批处理方案： 普通for循环逐条插入速度极差，不推荐 MP的批量新增，基于预编译的批处理，性能不错 配置jdbc参数，开rewriteBatchedStatements，性能最好 拓展功能 代码生成 静态工具 需求：\n改造根据id查询用户的接口，查询用户的同时，查询出用户对应的所有地址 改造根据id批量查询用户的接口，查询用户的同时，查询出用户对应的所有地址 实现根据用户id查询收货地址功能，需要验证用户状态，冻结用户抛出异常（练习） 逻辑删除 逻辑删除就是基于代码逻辑模拟删除效果，但并不会真正删除数据。思路如下：\n在表中添加一个字段标记数据是否被删除 当删除数据时把标记置为1 查询时只查询标记为0的数据 例如逻辑删除字段为deleted： 删除操作： 查询操作： MybatisPlus提供了逻辑删除功能，无需改变方法调用的方式，而是在底层帮我们自动修改CRUD的语句。我们要做的就是在application.yaml文件中配置逻辑删除的字段名称和值即可： 枚举处理 步骤：\n在application.yml中配置全局枚举处理器 创建枚举类与修改属性类型 /enums/UserStatus.java package com.itheima.mp.enums; import com.baomidou.mybatisplus.annotation.EnumValue; import com.fasterxml.jackson.annotation.JsonValue; import lombok.Getter; @Getter public enum UserStatus { NORMAL(1, \"正常\"), FROZEN(2, \"冻结\"); // 保存到数据库中的值 @EnumValue private final Integer code; // 在序列化时候，使用的值 @JsonValue private final String message; UserStatus(Integer code, String message) { this.code = code; this.message = message; } } User属性类型修改（UserVO也要修改）\r测试：访问根据id查询用户接口 JSON处理器 步骤：\n创建UserInfo类 /domain/po/UserInfo.java package com.itheima.mp.domain.po; import lombok.Data; @Data public class UserInfo { // 简介 private String intro; // 年龄 private Integer age; // 性别 private String gender; } 修改User及UserVO User\rUser\rUserInfo\r测试：访问根据id查询用户接口 配置加密 MyBatisPlus从3.3.2版本开始提供了一个基于AES算法的加密工具，帮助我们对配置中的敏感信息做加密处理。 在application.yaml文件中使用刚刚生成的秘钥，代替明文的用户名和密码 在项目启动的时候，添加AES的秘钥，这样MyBatisPlus就可以解密数据了： 单元测试时，可以通过@SpringBootTest来指定秘钥： Idea中则可以通过Program arguments来配置： 插件功能 MyBatisPlus基于MyBatis的Interceptor实现了一个基础拦截器，并在内部保存了MyBatisPlus的内置拦截器的集合： MyBatisPlus提供的内置拦截器有下面这些：\n序号\r拦截器\r描述\r1\rTenantLineInnerInterceptor\r多租户插件\r2\rDynamicTableNameInnerInterceptor\r动态表名插件\r3\rPaginationInnerInterceptor\r分页插件\r4\rOptimisticLockerInnerInterceptor\r乐观锁插件\r5\rIllegalsQLInnerInterceptor\rSQL性能规范插件，检测并拦截垃圾SQL\r6\rBlockAttackInnerInterceptor\r防止全表更新和删除的插件\r分页插件 首先，要在配置类中注册MyBatisPlus的核心插件，同时添加分页插件.就可以在mapper或者service中带有page字段或者参数为pager的方法中使用了： 接着，就可以使用分页的API了 通用分页实体 简单分页查询案例 需求：遵循下面的接口规范，编写一个UserController接口，实现User的分页查询\n项目实战 ",
+  "wordCount" : "4069",
   "inLanguage": "zh",
   "datePublished": "2025-12-30T16:21:57+08:00",
-  "dateModified": "2025-12-31T02:18:48+08:00",
+  "dateModified": "2026-01-01T02:52:51+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/microservices/mp/1/"
@@ -622,7 +622,7 @@ MyBatisPlus通过扫描实体类，并基于反射获取实体类信息作为数
 
 
 
-<span title='2025-12-30 16:21:57 +0800 +0800'>2025-12-30</span>&nbsp;·&nbsp;<span title='2025-12-31 02:18:48 +0800 +0800'>(最后修改于 2025-12-31)</span>&nbsp;·&nbsp;<span>5 分钟</span>&nbsp;|&nbsp;<span>
+<span title='2025-12-30 16:21:57 +0800 +0800'>2025-12-30</span>&nbsp;·&nbsp;<span title='2026-01-01 02:52:51 +0800 +0800'>(最后修改于 2026-01-01)</span>&nbsp;·&nbsp;<span>9 分钟</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/LucianChao/Hugo_Blog/tree/main/content/post/microservices/mp/1/index.md" rel="noopener noreferrer edit" target="_blank">编辑此文章</a>
 </span>
 
@@ -673,13 +673,43 @@ MyBatisPlus通过扫描实体类，并基于反射获取实体类信息作为数
                 <li>
                     <a href="#%e4%bd%bf%e7%94%a8%e6%b5%81%e7%a8%8b" aria-label="使用流程">使用流程</a></li>
                 <li>
-                    <a href="#%e5%9f%ba%e4%ba%8erestful%e9%a3%8e%e6%a0%bc%e5%ae%9e%e7%8e%b0%e4%b8%8b%e5%88%97%e6%8e%a5%e5%8f%a3" aria-label="基于Restful风格实现下列接口">基于Restful风格实现下列接口</a></li></ul>
+                    <a href="#%e5%9f%ba%e4%ba%8erestful%e9%a3%8e%e6%a0%bc%e5%ae%9e%e7%8e%b0%e4%b8%8b%e5%88%97%e6%8e%a5%e5%8f%a3" aria-label="基于Restful风格实现下列接口">基于Restful风格实现下列接口</a></li>
+                <li>
+                    <a href="#iservice%e7%9a%84lambda%e6%9f%a5%e8%af%a2" aria-label="IService的Lambda查询">IService的Lambda查询</a></li>
+                <li>
+                    <a href="#iservice%e7%9a%84lambda%e6%9b%b4%e6%96%b0" aria-label="IService的Lambda更新">IService的Lambda更新</a></li>
+                <li>
+                    <a href="#%e9%9c%80%e6%b1%82%e6%89%b9%e9%87%8f%e6%8f%92%e5%85%a510%e4%b8%87%e6%9d%a1%e7%94%a8%e6%88%b7%e6%95%b0%e6%8d%ae%e5%b9%b6%e4%bd%9c%e5%87%ba%e5%af%b9%e6%af%94" aria-label="需求：批量插入10万条用户数据，并作出对比：">需求：批量插入10万条用户数据，并作出对比：</a></li></ul>
                 </li></ul>
                 </li>
                 <li>
-                    <a href="#%e6%8b%93%e5%b1%95%e5%8a%9f%e8%83%bd" aria-label="拓展功能">拓展功能</a></li>
+                    <a href="#%e6%8b%93%e5%b1%95%e5%8a%9f%e8%83%bd" aria-label="拓展功能">拓展功能</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bb%a3%e7%a0%81%e7%94%9f%e6%88%90" aria-label="代码生成">代码生成</a></li>
+                <li>
+                    <a href="#%e9%9d%99%e6%80%81%e5%b7%a5%e5%85%b7" aria-label="静态工具">静态工具</a></li>
+                <li>
+                    <a href="#%e9%80%bb%e8%be%91%e5%88%a0%e9%99%a4" aria-label="逻辑删除">逻辑删除</a></li>
+                <li>
+                    <a href="#%e6%9e%9a%e4%b8%be%e5%a4%84%e7%90%86" aria-label="枚举处理">枚举处理</a></li>
+                <li>
+                    <a href="#json%e5%a4%84%e7%90%86%e5%99%a8" aria-label="JSON处理器">JSON处理器</a></li>
+                <li>
+                    <a href="#%e9%85%8d%e7%bd%ae%e5%8a%a0%e5%af%86" aria-label="配置加密">配置加密</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%8f%92%e4%bb%b6%e5%8a%9f%e8%83%bd" aria-label="插件功能">插件功能</a><ul>
+                        
                 <li>
                     <a href="#%e5%88%86%e9%a1%b5%e6%8f%92%e4%bb%b6" aria-label="分页插件">分页插件</a></li>
+                <li>
+                    <a href="#%e9%80%9a%e7%94%a8%e5%88%86%e9%a1%b5%e5%ae%9e%e4%bd%93" aria-label="通用分页实体">通用分页实体</a><ul>
+                        
+                <li>
+                    <a href="#%e7%ae%80%e5%8d%95%e5%88%86%e9%a1%b5%e6%9f%a5%e8%af%a2%e6%a1%88%e4%be%8b" aria-label="简单分页查询案例">简单分页查询案例</a></li></ul>
+                </li></ul>
+                </li>
                 <li>
                     <a href="#%e9%a1%b9%e7%9b%ae%e5%ae%9e%e6%88%98" aria-label="项目实战">项目实战</a>
                 </li>
@@ -1924,10 +1954,1774 @@ MybatisPlus中比较常用的几个注解如下：
 
 </li>
 <li>新增业务方法
-特殊的业务方法，<code>mybatisPlus</code>中没有提供的，则可以自定义编写</li>
+特殊的业务方法，<code>mybatisPlus</code>中没有提供的，则可以自定义编写
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/29.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/29.webp"
+      srcset="/post/microservices/mp/1/29.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
 </ol>
+<h4 id="iservice的lambda查询">IService的Lambda查询<a hidden class="anchor" aria-hidden="true" href="#iservice的lambda查询">#</a></h4>
+<p>需求：实现一个根据复杂条件查询用户的接口，查询条件如下：</p>
+<ul>
+<li><code>name</code>：用户名关键字，可以为空</li>
+<li><code>status</code>：用户状态，可以为空</li>
+<li><code>minBalance</code>：最小余额，可以为空</li>
+<li><code>maxBalance</code>：最大余额，可以为空
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/30.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/30.webp"
+      srcset="/post/microservices/mp/1/30.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Operation</span><span class="p">(</span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;根据条件查询用户列表&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@PostMapping</span><span class="p">(</span><span class="s">&#34;/list&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">UserVO</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">queryList</span><span class="p">(</span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">UserQuery</span><span class="w"> </span><span class="n">userQuery</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userQuery</span><span class="p">.</span><span class="na">getName</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Integer</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userQuery</span><span class="p">.</span><span class="na">getStatus</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Integer</span><span class="w"> </span><span class="n">minBalance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userQuery</span><span class="p">.</span><span class="na">getMinBalance</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Integer</span><span class="w"> </span><span class="n">maxBalance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userQuery</span><span class="p">.</span><span class="na">getMaxBalance</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">queryWrapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QueryWrapper</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// if (StrUtil.isNotBlank(username)){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//     queryWrapper.lambda().like(User::getUsername,username);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// }</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// v2.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 条件成立就把条件添加到where中</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// queryWrapper.lambda().like(StrUtil.isNotBlank(username), User::getUsername, username)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//         .eq(status != null, User::getStatus, status)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//         .ge(minBalance != null, User::getBalance, minBalance)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//         .le(maxBalance != null, User::getBalance, maxBalance);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// List&lt;User&gt; list = userService.list(queryWrapper);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// v3.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">userList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userService</span><span class="p">.</span><span class="na">lambdaQuery</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">like</span><span class="p">(</span><span class="n">StrUtil</span><span class="p">.</span><span class="na">isNotBlank</span><span class="p">(</span><span class="n">username</span><span class="p">),</span><span class="w"> </span><span class="n">User</span><span class="p">::</span><span class="n">getUsername</span><span class="p">,</span><span class="w"> </span><span class="n">username</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">eq</span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="p">::</span><span class="n">getStatus</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">ge</span><span class="p">(</span><span class="n">minBalance</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="p">::</span><span class="n">getBalance</span><span class="p">,</span><span class="w"> </span><span class="n">minBalance</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">le</span><span class="p">(</span><span class="n">maxBalance</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="p">::</span><span class="n">getBalance</span><span class="p">,</span><span class="w"> </span><span class="n">maxBalance</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">list</span><span class="p">();</span><span class="w">    </span><span class="c1">//最终进行查询</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">BeanUtil</span><span class="p">.</span><span class="na">copyToList</span><span class="p">(</span><span class="n">list</span><span class="p">,</span><span class="w"> </span><span class="n">UserVO</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><!-- FM:Snippet:Start data:{"id":"st-notice","fields":[]} -->
+<div class="notice info" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+        </span>信息</p><p>这种代码并不规范，超出了Controller的职责范围，Controller应该只负责接收请求和调用接口，具体的业务逻辑应该在service层中实现</p></div>
+<!-- FM:Snippet:End -->
+<h4 id="iservice的lambda更新">IService的Lambda更新<a hidden class="anchor" aria-hidden="true" href="#iservice的lambda更新">#</a></h4>
+<p>需求：改造根据id修改用户余额的接口，要求如下：</p>
+<ul>
+<li>完成对用户状态校验</li>
+<li>完成对用户余额校验</li>
+<li>如果扣减后余额为0，则将用户status修改为冻结状态（2）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">deductionBalanceById</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//     1.判断用户是否正常（账户状态）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getById</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">user</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="na">getStatus</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="s">&#34;用户状态异常或者用户不存在&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//     2.判断余额是否充足，当前账户余额 - 扣减金额 &gt; 0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="na">getBalance</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="s">&#34;余额不足&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//     3.扣减金额</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 获取扣减之后的余额</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">remainBalance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="na">getBalance</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// userMapper.updateBalanceById(id, amount);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// update user set balance = ? ,status = 2 where id = ?</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// update user set balance = ? where id = ?</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">lambdaUpdate</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">User</span><span class="p">::</span><span class="n">getBalance</span><span class="p">,</span><span class="n">remainBalance</span><span class="p">)</span><span class="w">    </span><span class="c1">//设置余额</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">remainBalance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">0</span><span class="p">,</span><span class="n">User</span><span class="p">::</span><span class="n">getStatus</span><span class="p">,</span><span class="n">2</span><span class="p">)</span><span class="w">  </span><span class="c1">//账户余额为0，账户状态改为2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">eq</span><span class="p">(</span><span class="n">User</span><span class="p">::</span><span class="n">getId</span><span class="p">,</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="c1">//设置id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">update</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h4 id="需求批量插入10万条用户数据并作出对比">需求：批量插入10万条用户数据，并作出对比：<a hidden class="anchor" aria-hidden="true" href="#需求批量插入10万条用户数据并作出对比">#</a></h4>
+<ul>
+<li>
+<p>普通<code>for</code>循环插入
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/31.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/31.webp"
+      srcset="/post/microservices/mp/1/31.webp 2x"
+      alt="耗时：609121毫秒（≈6分钟）"
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+  <figcaption class="post-img-view-caption">耗时：609121毫秒（≈6分钟）</figcaption>
+  
+</div>
+
+
+</p>
+</li>
+<li>
+<p><code>IService</code>的批量插入
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/32.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/32.webp"
+      srcset="/post/microservices/mp/1/32.webp 2x"
+      alt="耗时：25922毫秒（≈25秒）"
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+  <figcaption class="post-img-view-caption">耗时：25922毫秒（≈25秒）</figcaption>
+  
+</div>
+
+
+</p>
+</li>
+<li>
+<p>开启<code>rewriteBatchedStatements=true</code>参数，再次执行<code>saveBatch()</code>
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/33.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/33.webp"
+      srcset="/post/microservices/mp/1/33.webp 2x"
+      alt="耗时：9860毫秒（≈10秒"
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+  <figcaption class="post-img-view-caption">耗时：9860毫秒（≈10秒</figcaption>
+  
+</div>
+
+
+</p>
+</li>
+<li>
+<p>结论：</p>
+<ul>
+<li>批处理方案：
+<ul>
+<li>普通for循环逐条插入速度极差，不推荐</li>
+<li>MP的批量新增，基于预编译的批处理，性能不错</li>
+<li>配置jdbc参数，开rewriteBatchedStatements，<strong>性能最好</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
 <h2 id="拓展功能">拓展功能<a hidden class="anchor" aria-hidden="true" href="#拓展功能">#</a></h2>
-<h2 id="分页插件">分页插件<a hidden class="anchor" aria-hidden="true" href="#分页插件">#</a></h2>
+<h3 id="代码生成">代码生成<a hidden class="anchor" aria-hidden="true" href="#代码生成">#</a></h3>
+<p>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/34.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/34.png"
+      srcset="/post/microservices/mp/1/34.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/35.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/35.png"
+      srcset="/post/microservices/mp/1/35.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/36.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/36.webp"
+      srcset="/post/microservices/mp/1/36.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/37.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/37.webp"
+      srcset="/post/microservices/mp/1/37.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/38.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/38.webp"
+      srcset="/post/microservices/mp/1/38.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/39.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/39.webp"
+      srcset="/post/microservices/mp/1/39.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/40.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/40.webp"
+      srcset="/post/microservices/mp/1/40.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<hr>
+<h3 id="静态工具">静态工具<a hidden class="anchor" aria-hidden="true" href="#静态工具">#</a></h3>
+<p>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/41.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/41.png"
+      srcset="/post/microservices/mp/1/41.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+需求：</p>
+<ol>
+<li>改造根据id查询用户的接口，查询用户的同时，查询出用户对应的所有地址</li>
+<li>改造根据id批量查询用户的接口，查询用户的同时，查询出用户对应的所有地址</li>
+<li>实现根据用户id查询收货地址功能，需要验证用户状态，冻结用户抛出异常（练习）</li>
+</ol>
+<hr>
+<h3 id="逻辑删除">逻辑删除<a hidden class="anchor" aria-hidden="true" href="#逻辑删除">#</a></h3>
+<p><strong>逻辑删除</strong>就是基于代码逻辑模拟删除效果，但并不会真正删除数据。思路如下：</p>
+<ul>
+<li>在表中添加一个字段标记数据是否被删除</li>
+<li>当删除数据时把标记置为1</li>
+<li>查询时只查询标记为0的数据</li>
+</ul>
+<p>例如逻辑删除字段为<code>deleted</code>：
+删除操作：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/42.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/42.png"
+      srcset="/post/microservices/mp/1/42.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+查询操作：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/43.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/43.png"
+      srcset="/post/microservices/mp/1/43.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+<strong>MybatisPlus</strong>提供了逻辑删除功能，<strong>无需改变方法调用的方式</strong>，而是在底层帮我们自动修改CRUD的语句。我们要做的就是在application.yaml文件中配置逻辑删除的字段名称和值即可：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/44.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/44.png"
+      srcset="/post/microservices/mp/1/44.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<h3 id="枚举处理">枚举处理<a hidden class="anchor" aria-hidden="true" href="#枚举处理">#</a></h3>
+<p>步骤：</p>
+<ol>
+<li>在<code>application.yml</code>中配置全局枚举处理器
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/45.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/45.png"
+      srcset="/post/microservices/mp/1/45.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>创建枚举类与修改属性类型
+<ul>
+<li><code>/enums/UserStatus.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.itheima.mp.enums</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">com.baomidou.mybatisplus.annotation.EnumValue</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">com.fasterxml.jackson.annotation.JsonValue</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.Getter</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Getter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="n">UserStatus</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">NORMAL</span><span class="p">(</span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;正常&#34;</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">FROZEN</span><span class="p">(</span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;冻结&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 保存到数据库中的值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@EnumValue</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">code</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 在序列化时候，使用的值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@JsonValue</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">UserStatus</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">code</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">code</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">message</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/46.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/46.webp"
+      srcset="/post/microservices/mp/1/46.webp 2x"
+      alt="User属性类型修改（UserVO也要修改）"
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+  <figcaption class="post-img-view-caption"><code>User</code>属性类型修改（<code>UserVO</code>也要修改）</figcaption>
+  
+</div>
+
+
+</li>
+<li>测试：访问根据id查询用户接口
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/47.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/47.webp"
+      srcset="/post/microservices/mp/1/47.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+</ol>
+<hr>
+<h3 id="json处理器">JSON处理器<a hidden class="anchor" aria-hidden="true" href="#json处理器">#</a></h3>
+<p>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/48.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/48.png"
+      srcset="/post/microservices/mp/1/48.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+步骤：</p>
+<ol>
+<li>创建UserInfo类
+<ul>
+<li><code>/domain/po/UserInfo.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.itheima.mp.domain.po</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.Data</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UserInfo</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//     简介</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">intro</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//     年龄</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//     性别</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">gender</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+<li>修改User及UserVO
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/49.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/49.webp"
+      srcset="/post/microservices/mp/1/49.webp 2x"
+      alt="User"
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+  <figcaption class="post-img-view-caption"><code>User</code></figcaption>
+  
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/50.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/50.webp"
+      srcset="/post/microservices/mp/1/50.webp 2x"
+      alt="User"
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+  <figcaption class="post-img-view-caption"><code>User</code></figcaption>
+  
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/51.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/51.webp"
+      srcset="/post/microservices/mp/1/51.webp 2x"
+      alt="UserInfo"
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+  <figcaption class="post-img-view-caption"><code>UserInfo</code></figcaption>
+  
+</div>
+
+
+</li>
+<li>测试：访问根据id查询用户接口
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/52.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/52.webp"
+      srcset="/post/microservices/mp/1/52.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+</ol>
+<hr>
+<h3 id="配置加密">配置加密<a hidden class="anchor" aria-hidden="true" href="#配置加密">#</a></h3>
+<p><code>MyBatisPlus</code>从3.3.2版本开始提供了一个基于AES算法的加密工具，帮助我们对配置中的敏感信息做加密处理。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/53.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/53.png"
+      srcset="/post/microservices/mp/1/53.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+在<code>application.yaml</code>文件中使用刚刚生成的秘钥，代替明文的用户名和密码
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/54.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/54.png"
+      srcset="/post/microservices/mp/1/54.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+在项目启动的时候，添加AES的秘钥，这样MyBatisPlus就可以解密数据了：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/55.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/55.png"
+      srcset="/post/microservices/mp/1/55.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+单元测试时，可以通过<code>@SpringBootTest</code>来指定秘钥：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/56.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/56.png"
+      srcset="/post/microservices/mp/1/56.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+Idea中则可以通过Program arguments来配置：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/57.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/57.png"
+      srcset="/post/microservices/mp/1/57.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<hr>
+<h2 id="插件功能">插件功能<a hidden class="anchor" aria-hidden="true" href="#插件功能">#</a></h2>
+<p>MyBatisPlus基于MyBatis的Interceptor实现了一个基础拦截器，并在内部保存了MyBatisPlus的内置拦截器的集合：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/58.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/58.png"
+      srcset="/post/microservices/mp/1/58.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+MyBatisPlus提供的内置拦截器有下面这些：</p>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th style="text-align: center">序号</th>
+          <th style="text-align: center">拦截器</th>
+          <th style="text-align: center">描述</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">1</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>TenantLineInnerInterceptor</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">多租户插件</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">2</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>DynamicTableNameInnerInterceptor</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">动态表名插件</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">3</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>PaginationInnerInterceptor</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">分页插件</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">4</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>OptimisticLockerInnerInterceptor</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">乐观锁插件</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">5</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>IllegalsQLInnerInterceptor</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">SQL性能规范插件，检测并拦截垃圾SQL</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">6</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>BlockAttackInnerInterceptor</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">防止全表更新和删除的插件</td>
+      </tr>
+  </tbody>
+</table><hr>
+<h3 id="分页插件">分页插件<a hidden class="anchor" aria-hidden="true" href="#分页插件">#</a></h3>
+<p>首先，要在配置类中注册MyBatisPlus的核心插件，同时添加分页插件.就可以在mapper或者service中带有page字段或者参数为pager的方法中使用了：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/59.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/59.png"
+      srcset="/post/microservices/mp/1/59.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+接着，就可以使用分页的API了
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/60.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/60.png"
+      srcset="/post/microservices/mp/1/60.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/61.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/61.png"
+      srcset="/post/microservices/mp/1/61.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/mp/1/index.md"
+    href="/post/microservices/mp/1/62.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/mp/1/62.png"
+      srcset="/post/microservices/mp/1/62.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<hr>
+<h3 id="通用分页实体">通用分页实体<a hidden class="anchor" aria-hidden="true" href="#通用分页实体">#</a></h3>
+<h4 id="简单分页查询案例">简单分页查询案例<a hidden class="anchor" aria-hidden="true" href="#简单分页查询案例">#</a></h4>
+<p>需求：遵循下面的接口规范，编写一个UserController接口，实现User的分页查询</p>
 <h2 id="项目实战">项目实战<a hidden class="anchor" aria-hidden="true" href="#项目实战">#</a></h2>
 
 

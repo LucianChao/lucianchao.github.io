@@ -4,10 +4,32 @@
     <title>首页 on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/</link>
     <description>Recent content in 首页 on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.153.5</generator>
+    <generator>Hugo -- 0.154.0</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <atom:link href="https://www.steamedfish.top/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>嗯，2025</title>
+      <link>https://www.steamedfish.top/post/bye-2025/</link>
+      <pubDate>Thu, 01 Jan 2026 00:18:41 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/bye-2025/</guid>
+      <description>&lt;p&gt;&lt;meting-js
+server=&#34;netease&#34;
+type=&#34;song&#34;
+id=&#34;340376&#34;
+fixed=&#34;false&#34;&gt;
+&lt;/meting-js&gt;
+2025就这样悄然结束，这一年太过匆忙&lt;br&gt;
+如果要用一首歌来向他告别，那就这首《夜车》吧。&lt;/p&gt;
+&lt;p&gt;于我来说，&lt;br&gt;
+这是迷茫的一年、困顿的一年、像以往每一年的一年&lt;br&gt;
+或许多年以后，&lt;br&gt;
+我会想起你，怀念你，&lt;br&gt;
+但&amp;hellip;不是现在。&lt;br&gt;
+你是我的青春吗？&lt;br&gt;
+可为何我不曾发觉你的美好？ &lt;br&gt;
+我不流泪，我只是悲哀。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Mybatis Plus</title>
       <link>https://www.steamedfish.top/post/microservices/mp/1/</link>
