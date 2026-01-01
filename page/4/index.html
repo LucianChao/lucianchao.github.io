@@ -183,6 +183,44 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Javaweb——(26)Tlias前端开发·员工管理
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>需求分析 条件分页查询 页面布局 搜索表单 如果表单封装的数据较多，建议绑定到一个对象中 src\api\model\model.ts // -----------------------------员工数据相关接口及类型----------------------------- // 员工数据接口 export interface SearchEmpModel{ name: string; // 员工名称 gender: string; // 性别 begin: string; // 入职开始时间 end: string; // 入职结束时间 date: string[]; // 时间范围 } ...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2025-12-13 02:27:43 +0800 +0800'>2025-12-13</span>&nbsp;·&nbsp;<span title='2025-12-16 04:55:00 +0800 +0800'>(最后修改于 2025-12-16)</span>&nbsp;·&nbsp;<span>20 分钟</span></footer>
+  <a class="entry-link" aria-label="post link to Javaweb——(26)Tlias前端开发·员工管理" href="https://www.steamedfish.top/post/java-web/javaweb-26-tliasweb-emp/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Javaweb——(25)Tlias前端开发·部门管理
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>准备工作 环境准备 创建Vue项目 npm init vue@latest 下载依赖 cd tlias-management npm install 为创建好的Vue项目按照ElementPlus、Axios依赖 npm install element-plus --save npm install axios 为创建好的Vue项目配置ElementPlus（参照官网） main.ts import &#39;./assets/main.css&#39; import { createApp } from &#39;vue&#39; import { createPinia } from &#39;pinia&#39; import App from &#39;./App.vue&#39; import router from &#39;./router&#39; // 导入Element Plus及其样式 import ElementPlus from &#39;element-plus&#39; import &#39;element-plus/dist/index.css&#39; import zhCn from &#34;element-plus/es/locale/lang/zh-cn&#34;; import * as ElementPlusIconsVue from &#39;@element-plus/icons-vue&#39; // 创建vue应用实例 const app = createApp(App) // 注册ElementPlus的Icon组件 for (const [key, component] of Object.entries(ElementPlusIconsVue)) { app.component(key, component) } //应用pinia、router、element plus插件 app.use(createPinia()) app.use(router) app.use(ElementPlus,{locale:zhCn}) //挂载应用 app.mount(&#39;#app&#39;) 整理脚手架生成的Vue项目中多余的vue组件；并准备对应的组件存放的目录 页面布局 整体布局 Container布局容器 ...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2025-12-12 17:18:12 +0800 +0800'>2025-12-12</span>&nbsp;·&nbsp;<span title='2025-12-16 04:55:00 +0800 +0800'>(最后修改于 2025-12-16)</span>&nbsp;·&nbsp;<span>6 分钟</span></footer>
+  <a class="entry-link" aria-label="post link to Javaweb——(25)Tlias前端开发·部门管理" href="https://www.steamedfish.top/post/java-web/javaweb-25-tlias-web/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">【建站日志|异常解决】hugo自动部署异常溯源过程及解决办法
     </h2>
   </header>
@@ -356,47 +394,6 @@ lastmod功能已经上线半个多月了，但碍于有些bug，一直没有写�
 
 <span title='2025-12-05 03:06:19 +0800 +0800'>2025-12-05</span>&nbsp;·&nbsp;<span>2 分钟</span></footer>
   <a class="entry-link" aria-label="post link to 【建站日志】hugo为文章添加最后修改日期" href="https://www.steamedfish.top/post/hugo-log/lastmod/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Javaweb——(18)SpringBoot实战·Tlias智能学习辅助系统·学员管理
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>前言 学生表student建表语句
-学生列表分页查询 实体类 Student.java package com.javaweb.entity; import lombok.Data; import java.time.LocalDate; import java.time.LocalDateTime; @Data public class Student { private Integer id;//ID,主键 private String name;//姓名 private String no;//学号 private Integer gender;//性别:1-男,2-女 private String phone;//手机 private Integer degree;//学历:1:初中,2:高中,3:大专,4:本科,5:硕士,6:博士 private String idCard;//身份证号码 private Integer isCollege;//是否为学院生:1-是,0-否 private String address;//地址 private LocalDate graduationDate;//毕业时间 private Integer violationCount;//违规次数 private Integer violationScore;//违规分数 private Integer clazzId;//关联的班级ID private String clazzName;//班级名称 private LocalDateTime createTime;//创建时间 private LocalDateTime updateTime;//修改时间 } StudentQueryParam.java package com.javaweb.entity; import lombok.Data; @Data public class StudentQueryParam { private String name;//姓名 private Integer degree;//学历 private Integer clazzId;//班级ID private Integer page = 1; private Integer pageSize = 10; } Controller StudentController.java package com.javaweb.controller; import com.javaweb.entity.PageBean; import com.javaweb.entity.Result; import com.javaweb.entity.StudentQueryParam; import com.javaweb.service.StudentService; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.web.bind.annotation.GetMapping; import org.springframework.web.bind.annotation.RequestMapping; import org.springframework.web.bind.annotation.RestController; @RestController @RequestMapping(&#34;/students&#34;) public class StudentController { @Autowired private StudentService studentService; @GetMapping public Result page(StudentQueryParam param){ PageBean pageBean = studentService.page(param); return Result.success(pageBean); } } Service &amp; Mapper StudentService.java package com.javaweb.service; import com.javaweb.entity.PageBean; import com.javaweb.entity.StudentQueryParam; public interface StudentService { PageBean page(StudentQueryParam param); } StudentServiceImpl.java package com.javaweb.service.impl; import com.github.pagehelper.Page; import com.github.pagehelper.PageHelper; import com.javaweb.entity.PageBean; import com.javaweb.entity.Student; import com.javaweb.entity.StudentQueryParam; import com.javaweb.mapper.StudentMapper; import com.javaweb.service.StudentService; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.stereotype.Service; import java.util.List; @Service public class StudentServiceImpl implements StudentService { @Autowired private StudentMapper studentMapper; @Override public PageBean page(StudentQueryParam param) { //1.分页查询 PageHelper.startPage(param.getPage(), param.getPageSize()); //2.查询数据 List&lt;Student&gt; studentList = studentMapper.page(param); Page p = (Page) studentList; //3.封装数据 return new PageBean(p.getTotal(), p.getResult()); } } StudentMapper.java package com.javaweb.mapper; import com.javaweb.entity.Student; import com.javaweb.entity.StudentQueryParam; import org.apache.ibatis.annotations.Mapper; import java.util.List; @Mapper public interface StudentMapper { List&lt;Student&gt; page(StudentQueryParam param); } StudentMapper.xml &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt; &lt;!DOCTYPE mapper PUBLIC &#34;-//mybatis.org//DTD Mapper 3.0//EN&#34; &#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34; &gt; &lt;mapper namespace=&#34;com.javaweb.mapper.StudentMapper&#34;&gt; &lt;!--列表分页查询--&gt; &lt;select id=&#34;page&#34; resultType=&#34;com.javaweb.entity.Student&#34;&gt; select * from student &lt;/select&gt; &lt;/mapper&gt; 批量删除学生 Controller StudentController.java /** * 批量删除学生 * @param ids * @return */ @DeleteMapping(&#34;/{ids}&#34;) public Result deleteBatch(@PathVariable List&lt;Integer&gt; ids) { //1.调用Service studentService.deleteBatch(ids); //2.响应结果 return Result.success(); } Service &amp; Mapper StudentServiceImpl.java /** * 批量删除学生 * * @param ids */ @Override public void deleteBatch(List&lt;Integer&gt; ids) { //1.调用mapper方法 studentMapper.deleteBatch(ids); } StudentMapper.xml &lt;!--批量删除员工--&gt; &lt;delete id=&#34;deleteBatch&#34;&gt; delete from student where id in &lt;foreach collection=&#34;ids&#34; separator=&#34;,&#34; item=&#34;id&#34; open=&#34;(&#34; close=&#34;)&#34;&gt; #{id} &lt;/foreach&gt; &lt;/delete&gt; 新增学生 Controller StudentController.java /** * 新增学生 * @param student * @return */ @PostMapping public Result save(@RequestBody Student student){ //1.调用Service studentService.save(student); //2.响应结果 return Result.success(); } Service &amp; Mapper StudentServiceImpl.java /** * 保存学生 * * @param student */ @Override public void save(Student student) { //1.1补齐缺失字段 student.setCreateTime(LocalDateTime.now()); student.setUpdateTime(LocalDateTime.now()); //1.2调用mapper方法 studentMapper.save(student); } StudentMapper.xml &lt;!--保存学生--&gt; &lt;insert id=&#34;save&#34;&gt; insert into student(id, name, no, gender, phone, id_card, is_college, address, degree, graduation_date, clazz_id, create_time, update_time) values (null, #{name}, #{no}, #{gender}, #{phone}, #{idCard}, #{isCollege}, #{address}, #{degree}, #{graduationDate}, #{clazzId}, #{createTime}, #{updateTime}) &lt;/insert&gt; 根据ID查询 Controller StudentController.java /** * 根据ID查询学生 * @param id * @return */ @GetMapping(&#34;/{id}&#34;) public Result getById(@PathVariable Integer id){ //1.调用Service Student student =studentService.getById(id); //2.响应结果 return Result.success(student); } Service &amp; Mapper StudentServiceImpl.java /** * 根据ID查询学生 * * @param id * @return */ @Override public Student getById(Integer id) { Student student = studentMapper.getById(id); return student; } StudentMapper.xml &lt;!--根据ID查询--&gt; &lt;select id=&#34;getById&#34; resultType=&#34;com.javaweb.entity.Student&#34;&gt; select * from student where id = #{id} &lt;/select&gt; 修改学生信息 Controller StudentController.java /** * 修改学生信息 * @param student * @return */ @PutMapping public Result update(@RequestBody Student student){ //1.调用Service studentService.update(student); return Result.success(); } Service &amp; Mapper StudentServiceImpl.java /** * 修改学生 * * @param student */ @Override public void update(Student student) { student.setUpdateTime(LocalDateTime.now()); studentMapper.update(student); } StudentMapper.xml &lt;!--修改学生--&gt; &lt;update id=&#34;update&#34;&gt; update student &lt;set&gt; &lt;if test=&#34;name != null&#34;&gt; name = #{name}, &lt;/if&gt; &lt;if test=&#34;no != null&#34;&gt; no = #{no}, &lt;/if&gt; &lt;if test=&#34;gender != null&#34;&gt; gender = #{gender}, &lt;/if&gt; &lt;if test=&#34;phone != null&#34;&gt; phone = #{phone}, &lt;/if&gt; &lt;if test=&#34;idCard != null&#34;&gt; id_card = #{idCard}, &lt;/if&gt; &lt;if test=&#34;isCollege != null&#34;&gt; is_college = #{isCollege}, &lt;/if&gt; &lt;if test=&#34;address != null&#34;&gt; address = #{address}, &lt;/if&gt; &lt;if test=&#34;degree != null&#34;&gt; degree = #{degree}, &lt;/if&gt; &lt;if test=&#34;graduationDate != null&#34;&gt; graduation_date = #{graduationDate}, &lt;/if&gt; &lt;if test=&#34;clazzId != null&#34;&gt; clazz_id = #{clazzId}, &lt;/if&gt; &lt;if test=&#34;violationCount != null&#34;&gt; violation_count = #{violationCount}, &lt;/if&gt; &lt;if test=&#34;violationScore != null&#34;&gt; violation_score = #{violationScore}, &lt;/if&gt; &lt;if test=&#34;updateTime != null&#34;&gt; update_time = #{updateTime}, &lt;/if&gt; &lt;/set&gt; where id = #{id} &lt;/update&gt; 学生违纪处理 Controller StudentController.java /** * 违纪处理 * @param id * @param score * @return */ @PutMapping(&#34;/violation/{id}/{score}&#34;) public Result violation(@PathVariable Integer id,@PathVariable Integer score){ studentService.violation(id,score); return Result.success(); } Service &amp; Mapper StudentServiceImpl.java /** * 扣分 * * @param id * @param score */ @Override public void violation(Integer id, Integer score) { studentMapper.violation(id, score); } StudentMapper.xml &lt;!--违纪扣分--&gt; &lt;update id=&#34;violation&#34;&gt; update student set violation_count = violation_count &#43; 1, violation_score = violation_score &#43; #{score} where id = #{id} &lt;/update&gt; </p>
-  </div>
-  <footer class="entry-footer">
-
-
-
-
-
-
-<span title='2025-12-04 23:52:08 +0800 +0800'>2025-12-04</span>&nbsp;·&nbsp;<span title='2025-12-06 01:53:29 +0800 +0800'>(最后修改于 2025-12-06)</span>&nbsp;·&nbsp;<span>3 分钟</span></footer>
-  <a class="entry-link" aria-label="post link to Javaweb——(18)SpringBoot实战·Tlias智能学习辅助系统·学员管理" href="https://www.steamedfish.top/post/java-web/javaweb-18-springboot-tlias7/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Javaweb——(17)SpringBoot实战·Tlias智能学习辅助系统·班级管理
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>前言 记录班级管理功能开发以及遇到的bug及解决过程
-无论这位读者朋友是什么时候在时候看到这篇文章，跟着我一起完成这个项目，我都很鼓励您能自己先去完成它，不一定要完全开发完成，先去做，至少先把基础功能做出来，然后再来看看我的实现思路和解决bug的过程，希望能对你有帮助。如果哪天我把评论功能上线了，也可以在评论区说说你遇到的问题，共同进步💪。
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-
-
-
-
-
-<span title='2025-12-04 16:50:12 +0800 +0800'>2025-12-04</span>&nbsp;·&nbsp;<span title='2025-12-05 02:37:33 +0800 +0800'>(最后修改于 2025-12-05)</span>&nbsp;·&nbsp;<span>7 分钟</span></footer>
-  <a class="entry-link" aria-label="post link to Javaweb——(17)SpringBoot实战·Tlias智能学习辅助系统·班级管理" href="https://www.steamedfish.top/post/java-web/javaweb-17-springboot-tlias6/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
