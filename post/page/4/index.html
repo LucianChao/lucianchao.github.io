@@ -181,6 +181,27 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Javaweb——(27)Tlias前端开发·登录·部署
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>页面布局 步骤：
+登录页面 src\views\login\index.vue &lt;script setup lang=&#34;ts&#34;&gt; import type { LoginEmp } from &#39;@/api/model/model&#39;; import { ref } from &#39;vue&#39;; let loginForm = ref&lt;LoginEmp&gt;({ username: &#39;&#39;, password: &#39;&#39; }) &lt;/script&gt; &lt;template&gt; &lt;div id=&#34;container&#34;&gt; &lt;div class=&#34;login-form&#34;&gt; &lt;el-form label-width=&#34;80px&#34;&gt; &lt;p class=&#34;title&#34;&gt;Tlias智能学习辅助系统&lt;/p&gt; &lt;el-form-item label=&#34;用户名&#34; prop=&#34;username&#34;&gt; &lt;el-input v-model=&#34;loginForm.username&#34; placeholder=&#34;请输入用户名&#34;&gt;&lt;/el-input&gt; &lt;/el-form-item&gt; &lt;el-form-item label=&#34;密码&#34; prop=&#34;password&#34;&gt; &lt;el-input type=&#34;password&#34; v-model=&#34;loginForm.password&#34; placeholder=&#34;请输入密码&#34;&gt;&lt;/el-input&gt; &lt;/el-form-item&gt; &lt;el-form-item&gt; &lt;el-button class=&#34;button&#34; type=&#34;primary&#34; @click=&#34;&#34;&gt;登录&lt;/el-button&gt; &lt;el-button class=&#34;button&#34; type=&#34;primary&#34; @click=&#34;&#34;&gt;重置&lt;/el-button&gt; &lt;/el-form-item&gt; &lt;/el-form&gt; &lt;/div&gt; &lt;/div&gt; &lt;/template&gt; &lt;style scoped&gt; #container{ padding: 10%; height: 410px; background-image: url(&#39;../../assets/bg1.jpg&#39;); background-repeat: no-repeat; background-size: cover; } .login-form{ max-width: 400px; padding: 30px; margin: 0 auto; border: 1px solid #e0e0e0; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); background-color: white; } .title{ font-size: 30px; font-family: &#39;楷体&#39;; text-align: center; margin-bottom: 30px; font-weight: bold; } .button { margin-top: 30px; width: 120px; } &lt;/style&gt; 配置路由（src/router/index.ts） src\api\login.ts import request from &#39;@/utils/request&#39; import type { LoginEmp, ResultModel } from &#39;./model/model&#39; // 登录 export const loginApi = (loginEmp: LoginEmp) =&gt; request.post&lt;any, ResultModel&gt;(`/login`, loginEmp) src\router\index.ts import { createRouter, createWebHistory } from &#39;vue-router&#39; // import HomeView from &#39;../views/HomeView.vue&#39; //路由实例--管理路由与组件的映射关系 const router = createRouter({ history: createWebHistory(import.meta.env.BASE_URL), routes: [ { path: &#39;/&#39;, name: &#39;home&#39;, component: () =&gt; import(&#39;../views/layout/index.vue&#39;), redirect: &#39;index&#39;, //重定向至index子路由 children: [ { path: &#39;index&#39;, name: &#39;index&#39;, component: () =&gt; import(&#39;../views/index/index.vue&#39;), //首页组件 }, { path: &#39;emp&#39;, name: &#39;emp&#39;, component: () =&gt; import(&#39;../views/emp/index.vue&#39;), //员工管理组件 }, { path: &#39;dept&#39;, name: &#39;dept&#39;, component: () =&gt; import(&#39;../views/dept/index.vue&#39;), //部门管理组件 }, { path: &#39;clazz&#39;, name: &#39;clazz&#39;, component: () =&gt; import(&#39;../views/clazz/index.vue&#39;), //班级管理组件 }, { path: &#39;stu&#39;, name: &#39;stu&#39;, component: () =&gt; import(&#39;../views/stu/index.vue&#39;), //学员管理组件 }, ], }, { path: &#39;/login&#39;, name: &#39;login&#39;, component: () =&gt; import(&#39;../views/login/index.vue&#39;), //登录页面 }, ], }) export default router 登录实现 步骤：
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2025-12-15 14:51:19 +0800 +0800'>2025-12-15</span>&nbsp;·&nbsp;<span title='2025-12-16 04:55:00 +0800 +0800'>(最后修改于 2025-12-16)</span>&nbsp;·&nbsp;<span>7 分钟</span></footer>
+  <a class="entry-link" aria-label="post link to Javaweb——(27)Tlias前端开发·登录·部署" href="https://www.steamedfish.top/post/java-web/javaweb-27-tliasweb-logon-nginx/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Javaweb——(26)Tlias前端开发·员工管理
     </h2>
   </header>
@@ -368,30 +389,6 @@
 
 <span title='2025-12-05 17:53:18 +0800 +0800'>2025-12-05</span>&nbsp;·&nbsp;<span title='2025-12-06 01:53:29 +0800 +0800'>(最后修改于 2025-12-06)</span>&nbsp;·&nbsp;<span>1 分钟</span></footer>
   <a class="entry-link" aria-label="post link to Javaweb——(19)SpringBoot实战·Tlias智能学习辅助系统·数据统计【未完成】" href="https://www.steamedfish.top/post/java-web/javaweb-19-springboot-tlias8/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">【建站日志】hugo为文章添加最后修改日期
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>前言 杂谈 | 待办
-lastmod功能已经上线半个多月了，但碍于有些bug，一直没有写这篇日志。
-今天终于抽出空来把bug修完，这里直接给出成品，有需要的朋友可以直接拿走 希望对你有帮助
-实现过程 修改hugo配置文件 # ...省略其他配置 enableGitInfo: true #允许访问git信息 timeZone: Asia/Shanghai # 设置时区 frontmatter: lastmod: - lastmod - &#34;:git&#34; - &#34;:fileModTime&#34; - date 这里我们的lastmod优先级：手动设置的lastmod字段 ＞ git最后修改日期 ＞ 文件最后修改日期 ＞ 文章发表日期
-并且允许hugo访问git信息来读取git提交日期，我们不必在文章元数据中手动写lastmod字段，它能根据我们的git提交日期来自动读取最后修改时间
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-
-
-
-
-
-<span title='2025-12-05 03:06:19 +0800 +0800'>2025-12-05</span>&nbsp;·&nbsp;<span>2 分钟</span></footer>
-  <a class="entry-link" aria-label="post link to 【建站日志】hugo为文章添加最后修改日期" href="https://www.steamedfish.top/post/hugo-log/lastmod/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

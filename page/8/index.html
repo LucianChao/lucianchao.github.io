@@ -2,7 +2,7 @@
 <html lang="zh" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.154.0"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.154.2"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -180,6 +180,28 @@
 
 
 </div>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Java SE从入门到跑路（十六·网络编程基础）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 在现代应用中，几乎所有程序都离不开网络通信。Java 提供了丰富的网络 API，让我们可以轻松进行客户端和服务器通信。 本章，我们将介绍 URL、HTTP 请求 以及 Socket 编程。
+网络编程基础 1.URL基础 URL（Uniform Resource Locator 表示统一资源定位符，即网络上的地址。 常见用法：
+import java.net.URL; public class TestURL { public static void main(String[] args) throws Exception { URL url = new URL(&#34;https://www.example.com/index.html&#34;); System.out.println(&#34;协议: &#34; &#43; url.getProtocol()); // https System.out.println(&#34;主机: &#34; &#43; url.getHost()); // www.example.com System.out.println(&#34;文件: &#34; &#43; url.getFile()); // /index.html System.out.println(&#34;端口: &#34; &#43; url.getPort()); // -1 表示使用默认端口 } } 注意：URL 只是表示地址，不会主动去访问网络。要访问，需要配合 URLConnection 或 HttpURLConnection。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2025-11-01 09:11:10.276 +0000 UTC'>2025-11-01</span>&nbsp;·&nbsp;<span title='2025-11-06 17:32:53 +0800 +0800'>(最后修改于 2025-11-06)</span>&nbsp;·&nbsp;<span>5 分钟</span></footer>
+  <a class="entry-link" aria-label="post link to Java SE从入门到跑路（十六·网络编程基础）" href="https://www.steamedfish.top/post/java-se/java-se-network/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
@@ -392,29 +414,6 @@ Java 为此提供了两种机制：抽象类（abstract class） 与 接口（in
 
 <span title='2025-10-30 19:00:44 +0800 +0800'>2025-10-30</span>&nbsp;·&nbsp;<span title='2025-11-22 22:47:47 +0800 +0800'>(最后修改于 2025-11-22)</span>&nbsp;·&nbsp;<span>4 分钟</span></footer>
   <a class="entry-link" aria-label="post link to Java SE从入门到跑路（七·抽象类与接口）" href="https://www.steamedfish.top/post/java-se/java-se-abstract-interface/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Java SE从入门到跑路（六·继承与多态）
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>到目前为止，我们已经能写出功能完整的程序，
-使用类、对象、方法来组织逻辑，也学会了 static 与 final 的妙用。
-但是，当项目越来越大时，你可能会发现：
-不同类之间有很多相似的代码； 某些功能需要在不同类之间共享或稍作修改； 想要让程序更灵活，却发现改一处要动全身。 于是，Java 提供了两个强大的“法宝”： 继承（Inheritance） 和 多态（Polymorphism）。
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-
-
-
-
-
-<span title='2025-10-30 15:51:12 +0800 +0800'>2025-10-30</span>&nbsp;·&nbsp;<span title='2025-11-06 17:32:53 +0800 +0800'>(最后修改于 2025-11-06)</span>&nbsp;·&nbsp;<span>4 分钟</span></footer>
-  <a class="entry-link" aria-label="post link to Java SE从入门到跑路（六·继承与多态）" href="https://www.steamedfish.top/post/java-se/java-se-inheritance-polymorphism/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

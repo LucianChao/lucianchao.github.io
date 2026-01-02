@@ -4,10 +4,10 @@
     <title>WSL on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/categories/wsl/</link>
     <description>Recent content in WSL on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.154.0</generator>
+    <generator>Hugo -- 0.154.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 01 Jan 2026 19:56:53 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 03 Jan 2026 03:49:25 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/categories/wsl/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【WSL-Ubuntu】报错Wsl/Service/CreateInstance/MountDisk/HCS/ERROR_FILE_NOT_FOUND</title>

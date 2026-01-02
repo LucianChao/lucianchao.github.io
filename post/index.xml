@@ -4,11 +4,93 @@
     <title>Posts on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/post/</link>
     <description>Recent content in Posts on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.154.0</generator>
+    <generator>Hugo -- 0.154.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 01 Jan 2026 19:56:53 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 03 Jan 2026 03:49:25 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【黑马商城-微服务】1.微服务入门</title>
+      <link>https://www.steamedfish.top/post/microservices/3-microservices/</link>
+      <pubDate>Fri, 02 Jan 2026 22:40:32 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/microservices/3-microservices/</guid>
+      <description>&lt;h2 id=&#34;技术栈&#34;&gt;技术栈&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;服务拆分&lt;/li&gt;
+&lt;li&gt;远程调用&lt;/li&gt;
+&lt;li&gt;服务治理&lt;/li&gt;
+&lt;li&gt;请求路由&lt;/li&gt;
+&lt;li&gt;身份认证&lt;/li&gt;
+&lt;li&gt;配置管理&lt;/li&gt;
+&lt;li&gt;服务保护&lt;/li&gt;
+&lt;li&gt;分布式事务&lt;/li&gt;
+&lt;li&gt;异步通信&lt;/li&gt;
+&lt;li&gt;消息可靠性&lt;/li&gt;
+&lt;li&gt;延迟消息&lt;/li&gt;
+&lt;li&gt;分布式搜索&lt;/li&gt;
+&lt;li&gt;倒排索引&lt;/li&gt;
+&lt;li&gt;数据聚合&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;认识微服务&#34;&gt;认识微服务&lt;/h2&gt;
+&lt;h3 id=&#34;单体架构&#34;&gt;单体架构&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;单体架构&lt;/strong&gt;：将业务的所有功能集中在一个项目中开发，打成一个包部署。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/microservices/3-microservices/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/microservices/3-microservices/1.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/microservices/3-microservices/1.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/microservices/3-microservices/1.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;优点：
+&lt;ul&gt;
+&lt;li&gt;架构简单&lt;/li&gt;
+&lt;li&gt;部署成本低&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;缺点：
+&lt;ul&gt;
+&lt;li&gt;团队协作成本高&lt;/li&gt;
+&lt;li&gt;系统发布效率低&lt;/li&gt;
+&lt;li&gt;系统可用性差&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;总结：&lt;br&gt;
+单体架构适合开发功能相对简单，规模较小的项目。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;微服务&#34;&gt;微服务&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;微服务&lt;/strong&gt;是&lt;strong&gt;服务化&lt;/strong&gt;思想指导下的一种软件&lt;strong&gt;架构&lt;/strong&gt;风格，服务化就是把单体架构中的功能模块拆分为多个独立项目，组合出复杂的大型应用。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>【WSL-Ubuntu】报错Wsl/Service/CreateInstance/MountDisk/HCS/ERROR_FILE_NOT_FOUND</title>
       <link>https://www.steamedfish.top/post/debug/wsl-error_file_now_found/</link>
@@ -64,229 +146,14 @@
       <pubDate>Thu, 01 Jan 2026 18:33:42 +0800</pubDate>
       <guid>https://www.steamedfish.top/post/microservices/2/</guid>
       <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
-&lt;p&gt;
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-&lt;div class=&#34;post-img-view&#34;&gt;
-  &lt;a
-    data-fancybox=&#34;post-post/microservices/2-docker/index.md&#34;
-    href=&#34;https://www.steamedfish.top/post/microservices/2/1.png&#34;
-    data-caption=&#34;&#34;
-    data-barba-prevent=&#34;all&#34;
-  &gt;
-    &lt;img
-      src=&#34;https://www.steamedfish.top/post/microservices/2/1.png&#34;
-      srcset=&#34;https://www.steamedfish.top/post/microservices/2/1.png 2x&#34;
-      alt=&#34;&#34;
-      loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto;&#34;
-    /&gt;
-  &lt;/a&gt;
-    
-  
-&lt;/div&gt;
-
-
-
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-&lt;div class=&#34;post-img-view&#34;&gt;
-  &lt;a
-    data-fancybox=&#34;post-post/microservices/2-docker/index.md&#34;
-    href=&#34;https://www.steamedfish.top/post/microservices/2/2.png&#34;
-    data-caption=&#34;&#34;
-    data-barba-prevent=&#34;all&#34;
-  &gt;
-    &lt;img
-      src=&#34;https://www.steamedfish.top/post/microservices/2/2.png&#34;
-      srcset=&#34;https://www.steamedfish.top/post/microservices/2/2.png 2x&#34;
-      alt=&#34;&#34;
-      loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto;&#34;
-    /&gt;
-  &lt;/a&gt;
-    
-  
-&lt;/div&gt;
-
-
-
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-&lt;div class=&#34;post-img-view&#34;&gt;
-  &lt;a
-    data-fancybox=&#34;post-post/microservices/2-docker/index.md&#34;
-    href=&#34;https://www.steamedfish.top/post/microservices/2/3.png&#34;
-    data-caption=&#34;&#34;
-    data-barba-prevent=&#34;all&#34;
-  &gt;
-    &lt;img
-      src=&#34;https://www.steamedfish.top/post/microservices/2/3.png&#34;
-      srcset=&#34;https://www.steamedfish.top/post/microservices/2/3.png 2x&#34;
-      alt=&#34;&#34;
-      loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto;&#34;
-    /&gt;
-  &lt;/a&gt;
-    
-  
-&lt;/div&gt;
-
-
-
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-&lt;div class=&#34;post-img-view&#34;&gt;
-  &lt;a
-    data-fancybox=&#34;post-post/microservices/2-docker/index.md&#34;
-    href=&#34;https://www.steamedfish.top/post/microservices/2/4.png&#34;
-    data-caption=&#34;&#34;
-    data-barba-prevent=&#34;all&#34;
-  &gt;
-    &lt;img
-      src=&#34;https://www.steamedfish.top/post/microservices/2/4.png&#34;
-      srcset=&#34;https://www.steamedfish.top/post/microservices/2/4.png 2x&#34;
-      alt=&#34;&#34;
-      loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto;&#34;
-    /&gt;
-  &lt;/a&gt;
-    
-  
-&lt;/div&gt;
-
-
-
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-&lt;div class=&#34;post-img-view&#34;&gt;
-  &lt;a
-    data-fancybox=&#34;post-post/microservices/2-docker/index.md&#34;
-    href=&#34;https://www.steamedfish.top/post/microservices/2/5.png&#34;
-    data-caption=&#34;&#34;
-    data-barba-prevent=&#34;all&#34;
-  &gt;
-    &lt;img
-      src=&#34;https://www.steamedfish.top/post/microservices/2/5.png&#34;
-      srcset=&#34;https://www.steamedfish.top/post/microservices/2/5.png 2x&#34;
-      alt=&#34;&#34;
-      loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto;&#34;
-    /&gt;
-  &lt;/a&gt;
-    
-  
-&lt;/div&gt;
-
-
-&lt;/p&gt;
-&lt;h2 id=&#34;快速入门&#34;&gt;快速入门&lt;/h2&gt;
-&lt;h3 id=&#34;部署mysql&#34;&gt;部署MySQL&lt;/h3&gt;
-&lt;p&gt;先停掉虚拟机中的MySQL，确保你的虚拟机已经安装Docker，且网络开通的情况下，执行下面命令即可安装MySQL：
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-&lt;div class=&#34;post-img-view&#34;&gt;
-  &lt;a
-    data-fancybox=&#34;post-post/microservices/2-docker/index.md&#34;
-    href=&#34;https://www.steamedfish.top/image.png&#34;
-    data-caption=&#34;&#34;
-    data-barba-prevent=&#34;all&#34;
-  &gt;
-    &lt;img
-      src=&#34;https://www.steamedfish.top/image.png&#34;
-      srcset=&#34;https://www.steamedfish.top/image.png 2x&#34;
-      alt=&#34;&#34;
-      loading=&#34;lazy&#34;
-      style=&#34;max-width: 100%; height: auto;&#34;
-    /&gt;
-  &lt;/a&gt;
-    
-  
-&lt;/div&gt;
-
-
-&lt;/p&gt;
-&lt;h3 id=&#34;命令解读&#34;&gt;命令解读&lt;/h3&gt;
-&lt;h2 id=&#34;docker基础&#34;&gt;Docker基础&lt;/h2&gt;
-&lt;h3 id=&#34;常见命令&#34;&gt;常见命令&lt;/h3&gt;
-&lt;h3 id=&#34;数据卷&#34;&gt;数据卷&lt;/h3&gt;
-&lt;h3 id=&#34;自定义镜像&#34;&gt;自定义镜像&lt;/h3&gt;
-&lt;h3 id=&#34;容器网络&#34;&gt;容器网络&lt;/h3&gt;
-&lt;h2 id=&#34;项目部署&#34;&gt;项目部署&lt;/h2&gt;
-&lt;h3 id=&#34;部署前端&#34;&gt;部署前端&lt;/h3&gt;
-&lt;h3 id=&#34;部署java&#34;&gt;部署Java&lt;/h3&gt;
-&lt;h3 id=&#34;dockercompase&#34;&gt;DockerCompase&lt;/h3&gt;</description>
+&lt;p&gt;在之前的项目中，我们尝试过在Linux上部署一个单体项目。&lt;br&gt;
+在这个过程中，我相信很多人会有同样的感受&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;命令太多了，记不住&lt;/li&gt;
+&lt;li&gt;软件安装包名字复杂，不知道去哪里找&lt;/li&gt;
+&lt;li&gt;安装和部署步骤复杂，容易出错&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而接下来这系列文章要学习的微服务，这种架构的项目辄就是几十台、上百台服务需要部署，有些大型项目甚至达到数万台服务。&lt;strong&gt;由于每台服务器的运行环境不同，你写好的安装流程、部署脚本并不一定在每个服务器都能正常运行&lt;/strong&gt;，经常会出错。这就给系统的部署运维带来了很多困难。&lt;/p&gt;</description>
     </item>
     <item>
       <title>嗯，2025</title>

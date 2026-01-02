@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Ubuntu on SteamedFish&#39;s Blog</title>
+    <link>https://www.steamedfish.top/categories/ubuntu/</link>
+    <description>Recent content in Ubuntu on SteamedFish&#39;s Blog</description>
+    <generator>Hugo -- 0.154.2</generator>
+    <language>zh</language>
+    <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
+    <lastBuildDate>Sat, 03 Jan 2026 03:49:25 +0800</lastBuildDate>
+    <atom:link href="https://www.steamedfish.top/categories/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker</title>
+      <link>https://www.steamedfish.top/post/microservices/2/</link>
+      <pubDate>Thu, 01 Jan 2026 18:33:42 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/microservices/2/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;在之前的项目中，我们尝试过在Linux上部署一个单体项目。&lt;br&gt;
+在这个过程中，我相信很多人会有同样的感受&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;命令太多了，记不住&lt;/li&gt;
+&lt;li&gt;软件安装包名字复杂，不知道去哪里找&lt;/li&gt;
+&lt;li&gt;安装和部署步骤复杂，容易出错&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而接下来这系列文章要学习的微服务，这种架构的项目辄就是几十台、上百台服务需要部署，有些大型项目甚至达到数万台服务。&lt;strong&gt;由于每台服务器的运行环境不同，你写好的安装流程、部署脚本并不一定在每个服务器都能正常运行&lt;/strong&gt;，经常会出错。这就给系统的部署运维带来了很多困难。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

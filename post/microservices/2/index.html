@@ -8,163 +8,14 @@
 <title>Docker | SteamedFish&#39;s Blog</title>
 <meta name="keywords" content="">
 <meta name="description" content="前言
+在之前的项目中，我们尝试过在Linux上部署一个单体项目。
+在这个过程中，我相信很多人会有同样的感受
 
+命令太多了，记不住
+软件安装包名字复杂，不知道去哪里找
+安装和部署步骤复杂，容易出错
 
-
-
-
-
-    
-
-
-       
-    
-
-
-
-
-  
-    
-  
-    
-  
-
-
-
-
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-
-  
-    
-  
-    
-  
-
-
-
-
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-
-  
-    
-  
-    
-  
-
-
-
-
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-
-  
-    
-  
-    
-  
-
-
-
-
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-
-  
-    
-  
-    
-  
-
-
-
-
-快速入门
-部署MySQL
-先停掉虚拟机中的MySQL，确保你的虚拟机已经安装Docker，且网络开通的情况下，执行下面命令即可安装MySQL：
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-
-  
-    
-  
-    
-  
-
-
-
-
-命令解读
-Docker基础
-常见命令
-数据卷
-自定义镜像
-容器网络
-项目部署
-部署前端
-部署Java
-DockerCompase">
+而接下来这系列文章要学习的微服务，这种架构的项目辄就是几十台、上百台服务需要部署，有些大型项目甚至达到数万台服务。由于每台服务器的运行环境不同，你写好的安装流程、部署脚本并不一定在每个服务器都能正常运行，经常会出错。这就给系统的部署运维带来了很多困难。">
 <meta name="author" content="">
 <link rel="canonical" href="https://www.steamedfish.top/post/microservices/2/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.c27e1246cb66d388c2c28ba2cad7d8e45b296bdd6da67c05cf15ef27e74594b2.css" integrity="sha256-wn4SRstm04jCwouiytfY5Fspa91tpnwFzxXvJ&#43;dFlLI=" rel="preload stylesheet" as="style">
@@ -224,172 +75,25 @@ DockerCompase">
 /><meta property="og:url" content="https://www.steamedfish.top/post/microservices/2/">
   <meta property="og:site_name" content="SteamedFish&#39;s Blog">
   <meta property="og:title" content="Docker">
-  <meta property="og:description" content="前言 快速入门 部署MySQL 先停掉虚拟机中的MySQL，确保你的虚拟机已经安装Docker，且网络开通的情况下，执行下面命令即可安装MySQL： 命令解读 Docker基础 常见命令 数据卷 自定义镜像 容器网络 项目部署 部署前端 部署Java DockerCompase">
+  <meta property="og:description" content="前言 在之前的项目中，我们尝试过在Linux上部署一个单体项目。
+在这个过程中，我相信很多人会有同样的感受
+命令太多了，记不住 软件安装包名字复杂，不知道去哪里找 安装和部署步骤复杂，容易出错 而接下来这系列文章要学习的微服务，这种架构的项目辄就是几十台、上百台服务需要部署，有些大型项目甚至达到数万台服务。由于每台服务器的运行环境不同，你写好的安装流程、部署脚本并不一定在每个服务器都能正常运行，经常会出错。这就给系统的部署运维带来了很多困难。">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2026-01-01T18:33:42+08:00">
-    <meta property="article:modified_time" content="2026-01-01T19:56:53+08:00">
+    <meta property="article:modified_time" content="2026-01-03T03:49:25+08:00">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker">
 <meta name="twitter:description" content="前言
+在之前的项目中，我们尝试过在Linux上部署一个单体项目。
+在这个过程中，我相信很多人会有同样的感受
 
+命令太多了，记不住
+软件安装包名字复杂，不知道去哪里找
+安装和部署步骤复杂，容易出错
 
-
-
-
-
-    
-
-
-       
-    
-
-
-
-
-  
-    
-  
-    
-  
-
-
-
-
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-
-  
-    
-  
-    
-  
-
-
-
-
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-
-  
-    
-  
-    
-  
-
-
-
-
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-
-  
-    
-  
-    
-  
-
-
-
-
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-
-  
-    
-  
-    
-  
-
-
-
-
-快速入门
-部署MySQL
-先停掉虚拟机中的MySQL，确保你的虚拟机已经安装Docker，且网络开通的情况下，执行下面命令即可安装MySQL：
-
-
-
-
-
-
-    
-
-
-       
-    
-
-
-
-
-  
-    
-  
-    
-  
-
-
-
-
-命令解读
-Docker基础
-常见命令
-数据卷
-自定义镜像
-容器网络
-项目部署
-部署前端
-部署Java
-DockerCompase">
+而接下来这系列文章要学习的微服务，这种架构的项目辄就是几十台、上百台服务需要部署，有些大型项目甚至达到数万台服务。由于每台服务器的运行环境不同，你写好的安装流程、部署脚本并不一定在每个服务器都能正常运行，经常会出错。这就给系统的部署运维带来了很多困难。">
 
 
 <script type="application/ld+json">
@@ -418,15 +122,15 @@ DockerCompase">
   "@type": "BlogPosting",
   "headline": "Docker",
   "name": "Docker",
-  "description": "前言 快速入门 部署MySQL 先停掉虚拟机中的MySQL，确保你的虚拟机已经安装Docker，且网络开通的情况下，执行下面命令即可安装MySQL： 命令解读 Docker基础 常见命令 数据卷 自定义镜像 容器网络 项目部署 部署前端 部署Java DockerCompase",
+  "description": "前言 在之前的项目中，我们尝试过在Linux上部署一个单体项目。\n在这个过程中，我相信很多人会有同样的感受\n命令太多了，记不住 软件安装包名字复杂，不知道去哪里找 安装和部署步骤复杂，容易出错 而接下来这系列文章要学习的微服务，这种架构的项目辄就是几十台、上百台服务需要部署，有些大型项目甚至达到数万台服务。由于每台服务器的运行环境不同，你写好的安装流程、部署脚本并不一定在每个服务器都能正常运行，经常会出错。这就给系统的部署运维带来了很多困难。\n",
   "keywords": [
     
   ],
-  "articleBody": "前言 快速入门 部署MySQL 先停掉虚拟机中的MySQL，确保你的虚拟机已经安装Docker，且网络开通的情况下，执行下面命令即可安装MySQL： 命令解读 Docker基础 常见命令 数据卷 自定义镜像 容器网络 项目部署 部署前端 部署Java DockerCompase ",
-  "wordCount" : "114",
+  "articleBody": "前言 在之前的项目中，我们尝试过在Linux上部署一个单体项目。\n在这个过程中，我相信很多人会有同样的感受\n命令太多了，记不住 软件安装包名字复杂，不知道去哪里找 安装和部署步骤复杂，容易出错 而接下来这系列文章要学习的微服务，这种架构的项目辄就是几十台、上百台服务需要部署，有些大型项目甚至达到数万台服务。由于每台服务器的运行环境不同，你写好的安装流程、部署脚本并不一定在每个服务器都能正常运行，经常会出错。这就给系统的部署运维带来了很多困难。\n那么，有没有一种技术能够避免部署对服务器环境的依赖，减少复杂的部署流程呢？\n答案是肯定的，这就是我们今天要学习的Docker技术。你会发现，有了Docker以后项目的部署如丝般顺滑，大大减少了运维工作量。\n即便你对Linux不熟悉，你也能轻松部署各种常见软件、Java项目。 快速入门 部署MySQL 根据环境不同，这里的方案并不一致，笔者的环境为WSL下的Ubuntu系统\n# 更新软件源,并更新升级所有已有的软件 sudo apt update sudo apt upgrade -y # 切换到`root`身份避免接下来的命令每次都要输入`sudo` sudo -i # 安装Docker所需的依赖 sudo apt install -y ca-certificates curl gnupg lsb-release # 添加 GPG key mkdir -p /etc/apt/keyrings # 把 Docker 官方的 GPG 公钥下载下来，转换成 apt 能用的格式，并保存到指定位置。 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg # 添加 Docker 仓库 echo \\ \"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \\ $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list \u003e /dev/null # 安装Docker Engine sudo apt update sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin # docker-ce 核心，提供dockerd守护进程 # docker-ce-cli 命令本体 # containerd.io 底层容器运行时，管理容器生命周期 # docker-buildx-plugin 新一代构建工具（取代老 docker build） # 支持：多架构镜像（amd64 / arm64）、更快的构建、cache / 并行 # docker-compose-plugin 新版Compose v2 --docker 的子命令 # 使用方式--docker compose up -d # 验证版本 docker --version docker buildx version docker compose version # 启动Docker服务 systemctl start docker # sudo service docker start # 停止Docker服务 systemctl stop docker # sudo service docker stop # 重启Docker服务 systemctl restart docker # sudo service docker restart # 检查服务状态 sudo service docker status # 检查Docker进程 ps aux | grep dockerd | grep -v grep # 检查Docker守护进程配置 sudo docker info | head -20 # 验证数据目录配置 echo \"Docker数据根目录:\" sudo docker info | grep \"Docker Root Dir\" # 创建docker用户组 sudo usermod -aG docker $USER newgrp docker # 配置Docker镜像源 sudo mkdir -p /etc/docker sudo nano /etc/docker/daemon.json 写入下面内容\n{ \"registry-mirrors\": [ \"https://docker.m.daocloud.io\", \"https://hub-mirror.c.163.com\" ] } 先停掉虚拟机中的MySQL，确保你的虚拟机已经安装Docker，且网络开通的情况下，执行下面命令即可安装MySQL： docker run -d \\ --name mysql \\ -p 3306:3306 \\ -e TZ=Asia/Shanghai \\ -e MYSQL_R00T_PASSWORD=123 \\ mysql 镜像和容器 当我们利用Docker安装应用时，Docker会自动搜索并下载应用镜像（image）。镜像不仅包含应用本身，还包含应用运行所需要的环境、配置、系统函数库。Docker会在运行镜像时创建一个隔离环境，称为容器（container）。\n镜像仓库：存储和管理镜像的平台，Docker官方维护了一个公共仓库：Docker Hub。 Docker：Docker可以帮助我们下载应用镜像，创建并运行镜像的容器，从而快速部署应用 镜像：将应用所需的函数库、依赖、配置等与应用一起打包得到的就是镜像 容器：为每个镜像的应用进程创建的隔离运行环境就是容器 存储和管理镜像的服务就是镜像仓库，DockerHub是目前最大的镜像仓库，其中包含各种常见的应用镜像 命令解读 docker run ：创建并运行一个容器，-d 是让容器在后台运行 --name mysql：给容器起个名字，必须唯一 -p 3306:3306：设置端口映射（宿主机端口:容器端口） -e KEY=VALUE：是设置环境变量 mysql：指定运行的镜像的名字 镜像命名规范 镜像名称一般分两部分组成：[repository]:[tag]。 其中repository就是镜像名 tag是镜像的版本 在没有指定tag时，默认是latest，代表最新版本的镜像 Docker基础 常见命令 Docker最常见的命令就是操作镜像、容器的命令，详见官方文档： https://docs.docker.com/ 案例 需求：\n在DockerHub中搜索Nginx镜像，查看镜像的名称 拉取Nginx镜像 查看本地镜像列表 创建并运行Nginx容器 查看容器 停止容器 再次启动容器 进入Nginx容器 删除容器 数据卷 数据卷（volume）是一个虚拟目录，是容器内目录与宿主机目录之间映射的桥梁。 命令\r说明\r文档地址\rdocker volume create\r创建数据卷\rdocker volume create\rdocker volume ls\r查看所有数据卷\rdocker volume ls\rdocker volume rm\r删除指定数据卷\rdocker volume rm\rdocker volume inspect\r查看某个数据卷的详情\rdocker volume inspect\rdocker volume prune\r清除数据卷\rdocker volume prune\r案例1 需求：\n创建Nginx容器，修改nginx容器内的html目录下的index.html文件内容 将静态资源部署到nginx的html目录 提示\n在执行docker run命令时，使用 -v 数据卷:容器内目录 可以完成数据卷挂载 当创建容器时，如果挂载了数据卷且数据卷不存在，会自动创建数据卷 案例2 需求：\n查看mysql容器，判断是否有数据卷挂载 基于宿主机目录实现MySQL数据目录、配置文件、初始化脚本的挂载（查阅官方镜像文档） 挂载/root/mysql/data到容器内的/var/lib/mysql目录 挂载/root/mysql/init到容器内的/docker-entrypoint-initdb.d目录，携带课前资料准备的SQL脚本 挂载/root/mysql/conf到容器内的/etc/mysql/conf.d目录，携带课前资料准备的配置文件 docker run -d \\ --name mysql \\ -p 3306:3306 \\ -e TZ=Asis/Shanghai \\ -e MYSQL_ROOT_PASSWORD=123 \\ -v /root/mysql/data:/var/lib/mysql \\ -v /root/mysql/init:/docker-entrypoint-initdb.d \\ -v /root/mysql/conf:/etc/mysql/conf.d \\ mysql 提示\n在执行docker run命令时，使用 -v 本地目录:容器内目录 可以完成本地目录挂载 本地目录必须以“/”或 “./” 开头，如果直接以名称开头，会被识别为数据卷而非本地目录 -v mysql : /var/lib/mysql 会被识别为一个数据卷叫mysql -v ./mysql : /var/lib/mysql 会被识别为当前目录下的mysql目录 自定义镜像 镜像就是包含了应用程序、程序运行的系统函数库、运行配置等文件的文件包。构建镜像的过程其实就是把上述文件打包的过程。 JRE：Java Runtime Environment（Java运行环境） JDK：Java Devlopment Kit（Java开发工具/环境） 运行Java程序只需要JRE即可 镜像结构 Dockerfile Dockerfile就是一个文本文件，其中包含一个个的指令(Instruction)，用指令来说明要执行什么操作来构建镜像。将来Docker可以根据Dockerfile帮我们构建镜像。常见指令如下：\n指令\r示例\r说明\rFROM\r指定基础镜像\rFROM centos:6\rENV\r设置环境变量，可在后面指令使用\rENV key value\rCOPY\r拷贝本地文件到镜像的指定目录\rCOPY ./jre11.tar-gz /tmp\rRUN\r执行Linux的sheLl命令，一般是安装过程的命令\rRUN tar -zxvf /tmp/jrel1.tar.gz \u0026\u0026 EXPORTS path=/tmp/jre11:$path\rEXPOSE\r指定容器运行时监听的端口，是给镜像使用者看的\rEXP0SE 8080\rENTRYPOINT\r镜像中应用的启动命令，容器运行时调用\rENTRYPOINT java -jar xx.jar\r更新详细语法说明，请参考官网文档： https://docs.docker.com/reference/cli/docker/buildx/build/\n我们可以基于Ubuntu基础镜像，利用Dockerfile描述镜像结构，也可以直接基于JDK为基础镜像，省略前面的步骤： 当编写好了Dockerfile，可以利用下面命令来构建镜像： -t：是给镜像起名，格式依然是repository:tag的格式，不指定tag时，默认为latest .：是指定Dockerfile所在目录，如果就在当前目录，则指定为\".\" 案例 需求：将 资料/docker-demo.jar 制作镜像并创建运行容器\n步骤：\n复制 资料/demo/Dockerfile和docker-dome.jar到/root/demo目录下 复制 资料/images/jdk.tar 到 /root目录下 加载jdk: cd /root \u0026\u0026 docker load -i jdk.tar 构建镜像：cd /root/demo \u0026\u0026 docker build -t docker-demo 创建容器：docker run -d --name dd -p 8080:8080 docker-demo 访问：http://localhost:8080/hello/count 容器网络 默认情况下，所有容器都是以bridge方式连接到Docker的一个虚拟网桥上： 加入自定义网络的容器才可以通过容器名互相访问，Docker的网络操作命令如下：\n命令\r说明\r文档地址\rdocker network create\r创建一个网络\rdocker network create\rdocker network ls\r查看所有网络\rdocker network ls\rdocker network rm\r删除指定网络\rdocker network rm\rdocker network prune\r清除未使用的网络\rdocker network prune\rdocker network connect\r使指定容器连接加入某网络\rdocker network connect\rdocker network disconnect\r使指定容器连接离开某网络\rdocker network disconnect\rdocker network inspect\r查看网络详细信息\rdocker network inspect\r设置容器网络 需求：\n创建网络hmall 将docker-demo创建的容器dd 加入到hamll网络 将mysql对应的容器加入到hmall网络并起别名db 进入docker-demo创建的容器然后ping db查看网络连接情况 项目部署 部署Java 需求：将课前资料提供的hmall项目打包为镜像并部署，镜像名hmall 步骤：\nIDEA导入hmall;打包hm-service.jar 复制hm-service.jar、Dockerfile 到/root 构建镜像；dockerbuild -t hmall . 创建容器；dockerrun-d--namehmall--network hmall-p 8080:8080 hmall 测试；浏览器访问 http://localhost:8080/search/list 部署前端 需求：创建一个新的nginx容器，将课前资料提供的nginx.conf、html目录与容器挂载 步骤：\n复制资料/nginx文件夹到/root目录下 创建nginx容器 docker run -d \\ --name nginx \\ -p 18080:18080 \\ -p 18081:18081 \\ -v /root/nginx/html:/usr/share/nginx/html \\ -v /root/nginx/nginx.conf:/etc/nginx/nginx.conf \\ --network hmall \\ nginx 测试：浏览器访问 http://localhost:18080 http://localhost:18081 DockerCompase Docker Compose通过一个单独的docker-compose.yml 模板文件（YAML 格式）来定义一组相关联的应用容器，帮助我们实现多个相互关联的Docker容器的快速部署。 docker compose的命令格式如下： 类型\r参数或指令\r说明\rOptions\r-f\r指定compose文件的路径和名称\r-p\r指定project名称\rCommands\rup\r创建并启动所有service容器\rdown\r停止并移除所有容器、网络\rps\r列出所有启动的容器\rlogs\r查看指定容器的日志\rstop\r停止容器\rstart\r启动容器\rrestart\r重启容器\rtop\r查看运行的进程\rexec\r在指定的运行中容器中执行命令\r案例 需求：实现先启动mysql容器：然后在dockerfile制作hmall应用镜像并启动应用容器，最后启动nginx部署前端。这三个容器共用一个hmall网络\n复制资料/docker-compose.yml到/root 删除旧容器:docker rm -f $(docker ps -qa) 清空mysql数据: rm -rf mysql/data 删除原有hmall网络: docker network rm hmall 启动: docker compose up -d 测试: http://localhost:18080 ",
+  "wordCount" : "4043",
   "inLanguage": "zh",
   "datePublished": "2026-01-01T18:33:42+08:00",
-  "dateModified": "2026-01-01T19:56:53+08:00",
+  "dateModified": "2026-01-03T03:49:25+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/microservices/2/"
@@ -539,7 +243,7 @@ DockerCompase">
 
 
 
-<span title='2026-01-01 18:33:42 +0800 +0800'>2026-01-01</span>&nbsp;·&nbsp;<span>1 分钟</span>&nbsp;|&nbsp;<span>
+<span title='2026-01-01 18:33:42 +0800 +0800'>2026-01-01</span>&nbsp;·&nbsp;<span title='2026-01-03 03:49:25 +0800 +0800'>(最后修改于 2026-01-03)</span>&nbsp;·&nbsp;<span>9 分钟</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/LucianChao/Hugo_Blog/tree/main/content/post/microservices/2-docker/index.md" rel="noopener noreferrer edit" target="_blank">编辑此文章</a>
 </span>
 
@@ -559,30 +263,59 @@ DockerCompase">
                 <li>
                     <a href="#%e9%83%a8%e7%bd%b2mysql" aria-label="部署MySQL">部署MySQL</a></li>
                 <li>
+                    <a href="#%e9%95%9c%e5%83%8f%e5%92%8c%e5%ae%b9%e5%99%a8" aria-label="镜像和容器">镜像和容器</a></li>
+                <li>
                     <a href="#%e5%91%bd%e4%bb%a4%e8%a7%a3%e8%af%bb" aria-label="命令解读">命令解读</a></li></ul>
                 </li>
                 <li>
                     <a href="#docker%e5%9f%ba%e7%a1%80" aria-label="Docker基础">Docker基础</a><ul>
                         
                 <li>
-                    <a href="#%e5%b8%b8%e8%a7%81%e5%91%bd%e4%bb%a4" aria-label="常见命令">常见命令</a></li>
+                    <a href="#%e5%b8%b8%e8%a7%81%e5%91%bd%e4%bb%a4" aria-label="常见命令">常见命令</a><ul>
+                        
                 <li>
-                    <a href="#%e6%95%b0%e6%8d%ae%e5%8d%b7" aria-label="数据卷">数据卷</a></li>
+                    <a href="#%e6%a1%88%e4%be%8b" aria-label="案例">案例</a></li></ul>
+                </li>
                 <li>
-                    <a href="#%e8%87%aa%e5%ae%9a%e4%b9%89%e9%95%9c%e5%83%8f" aria-label="自定义镜像">自定义镜像</a></li>
+                    <a href="#%e6%95%b0%e6%8d%ae%e5%8d%b7" aria-label="数据卷">数据卷</a><ul>
+                        
                 <li>
-                    <a href="#%e5%ae%b9%e5%99%a8%e7%bd%91%e7%bb%9c" aria-label="容器网络">容器网络</a></li></ul>
+                    <a href="#%e6%a1%88%e4%be%8b1" aria-label="案例1">案例1</a></li>
+                <li>
+                    <a href="#%e6%a1%88%e4%be%8b2" aria-label="案例2">案例2</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e8%87%aa%e5%ae%9a%e4%b9%89%e9%95%9c%e5%83%8f" aria-label="自定义镜像">自定义镜像</a><ul>
+                        
+                <li>
+                    <a href="#%e9%95%9c%e5%83%8f%e7%bb%93%e6%9e%84" aria-label="镜像结构">镜像结构</a></li>
+                <li>
+                    <a href="#dockerfile" aria-label="Dockerfile">Dockerfile</a></li>
+                <li>
+                    <a href="#%e6%a1%88%e4%be%8b-1" aria-label="案例">案例</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%ae%b9%e5%99%a8%e7%bd%91%e7%bb%9c" aria-label="容器网络">容器网络</a><ul>
+                        
+                <li>
+                    <a href="#%e8%ae%be%e7%bd%ae%e5%ae%b9%e5%99%a8%e7%bd%91%e7%bb%9c" aria-label="设置容器网络">设置容器网络</a></li></ul>
+                </li></ul>
                 </li>
                 <li>
                     <a href="#%e9%a1%b9%e7%9b%ae%e9%83%a8%e7%bd%b2" aria-label="项目部署">项目部署</a><ul>
                         
                 <li>
-                    <a href="#%e9%83%a8%e7%bd%b2%e5%89%8d%e7%ab%af" aria-label="部署前端">部署前端</a></li>
-                <li>
                     <a href="#%e9%83%a8%e7%bd%b2java" aria-label="部署Java">部署Java</a></li>
                 <li>
-                    <a href="#dockercompase" aria-label="DockerCompase">DockerCompase</a>
+                    <a href="#%e9%83%a8%e7%bd%b2%e5%89%8d%e7%ab%af" aria-label="部署前端">部署前端</a></li>
+                <li>
+                    <a href="#dockercompase" aria-label="DockerCompase">DockerCompase</a><ul>
+                        
+                <li>
+                    <a href="#%e6%a1%88%e4%be%8b-2" aria-label="案例">案例</a>
                 </li>
+            </ul>
+            </li>
             </ul>
             </li>
             </ul>
@@ -591,7 +324,18 @@ DockerCompase">
 </div>
 
   <div class="post-content"><h2 id="前言">前言<a hidden class="anchor" aria-hidden="true" href="#前言">#</a></h2>
-<p>
+<p>在之前的项目中，我们尝试过在Linux上部署一个单体项目。<br>
+在这个过程中，我相信很多人会有同样的感受</p>
+<ul>
+<li>命令太多了，记不住</li>
+<li>软件安装包名字复杂，不知道去哪里找</li>
+<li>安装和部署步骤复杂，容易出错</li>
+</ul>
+<p>而接下来这系列文章要学习的微服务，这种架构的项目辄就是几十台、上百台服务需要部署，有些大型项目甚至达到数万台服务。<strong>由于每台服务器的运行环境不同，你写好的安装流程、部署脚本并不一定在每个服务器都能正常运行</strong>，经常会出错。这就给系统的部署运维带来了很多困难。</p>
+<p>那么，有没有一种技术能够避免部署对服务器环境的依赖，减少复杂的部署流程呢？<br>
+答案是肯定的，这就是我们今天要学习的<strong>Docker技术</strong>。你会发现，有了Docker以后项目的部署如丝般顺滑，大大减少了运维工作量。<br>
+即便你对Linux不熟悉，你也能轻松部署各种常见软件、Java项目。
+
 
 
 
@@ -768,7 +512,80 @@ DockerCompase">
 </p>
 <h2 id="快速入门">快速入门<a hidden class="anchor" aria-hidden="true" href="#快速入门">#</a></h2>
 <h3 id="部署mysql">部署MySQL<a hidden class="anchor" aria-hidden="true" href="#部署mysql">#</a></h3>
-<p>先停掉虚拟机中的MySQL，确保你的虚拟机已经安装Docker，且网络开通的情况下，执行下面命令即可安装MySQL：
+<p>根据环境不同，这里的方案并不一致，笔者的环境为WSL下的Ubuntu系统</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 更新软件源,并更新升级所有已有的软件</span>
+</span></span><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt upgrade -y
+</span></span><span class="line"><span class="cl"><span class="c1"># 切换到`root`身份避免接下来的命令每次都要输入`sudo`</span>
+</span></span><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装Docker所需的依赖</span>
+</span></span><span class="line"><span class="cl">sudo apt install -y ca-certificates curl gnupg lsb-release
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加 GPG key</span>
+</span></span><span class="line"><span class="cl">mkdir -p /etc/apt/keyrings
+</span></span><span class="line"><span class="cl"><span class="c1"># 把 Docker 官方的 GPG 公钥下载下来，转换成 apt 能用的格式，并保存到指定位置。</span>
+</span></span><span class="line"><span class="cl">curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class="p">|</span> sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加 Docker 仓库</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  <span class="s2">&#34;deb [arch=</span><span class="k">$(</span>dpkg --print-architecture<span class="k">)</span><span class="s2"> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  </span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> stable&#34;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装Docker Engine</span>
+</span></span><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</span></span><span class="line"><span class="cl"><span class="c1"># docker-ce 核心，提供dockerd守护进程</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># docker-ce-cli 命令本体</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># containerd.io 底层容器运行时，管理容器生命周期</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># docker-buildx-plugin  新一代构建工具（取代老 docker build）</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#           支持：多架构镜像（amd64 / arm64）、更快的构建、cache / 并行</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># docker-compose-plugin 新版Compose v2 --docker 的子命令</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用方式--docker compose up -d</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 验证版本</span>
+</span></span><span class="line"><span class="cl">docker --version
+</span></span><span class="line"><span class="cl">docker buildx version
+</span></span><span class="line"><span class="cl">docker compose version
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动Docker服务</span>
+</span></span><span class="line"><span class="cl">systemctl start docker
+</span></span><span class="line"><span class="cl"><span class="c1"># sudo service docker start</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 停止Docker服务</span>
+</span></span><span class="line"><span class="cl">systemctl stop docker
+</span></span><span class="line"><span class="cl"><span class="c1"># sudo service docker stop</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 重启Docker服务</span>
+</span></span><span class="line"><span class="cl">systemctl restart docker
+</span></span><span class="line"><span class="cl"><span class="c1"># sudo service docker restart</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 检查服务状态</span>
+</span></span><span class="line"><span class="cl">sudo service docker status
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 检查Docker进程</span>
+</span></span><span class="line"><span class="cl">ps aux <span class="p">|</span> grep dockerd <span class="p">|</span> grep -v grep
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 检查Docker守护进程配置</span>
+</span></span><span class="line"><span class="cl">sudo docker info <span class="p">|</span> head -20
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 验证数据目录配置</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Docker数据根目录:&#34;</span>
+</span></span><span class="line"><span class="cl">sudo docker info <span class="p">|</span> grep <span class="s2">&#34;Docker Root Dir&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建docker用户组</span>
+</span></span><span class="line"><span class="cl">sudo usermod -aG docker <span class="nv">$USER</span>
+</span></span><span class="line"><span class="cl">newgrp docker
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 配置Docker镜像源</span>
+</span></span><span class="line"><span class="cl">sudo mkdir -p /etc/docker
+</span></span><span class="line"><span class="cl">sudo nano /etc/docker/daemon.json
+</span></span></code></pre></div><p>写入下面内容</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;registry-mirrors&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;https://docker.m.daocloud.io&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;https://hub-mirror.c.163.com&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>先停掉虚拟机中的MySQL，确保你的虚拟机已经安装Docker，且网络开通的情况下，执行下面命令即可安装MySQL：
 
 
 
@@ -786,13 +603,13 @@ DockerCompase">
 <div class="post-img-view">
   <a
     data-fancybox="post-post/microservices/2-docker/index.md"
-    href="https://www.steamedfish.top/image.png"
+    href="/post/microservices/2/6.png"
     data-caption=""
     data-barba-prevent="all"
   >
     <img
-      src="https://www.steamedfish.top/image.png"
-      srcset="https://www.steamedfish.top/image.png 2x"
+      src="/post/microservices/2/6.png"
+      srcset="/post/microservices/2/6.png 2x"
       alt=""
       loading="lazy"
       style="max-width: 100%; height: auto;"
@@ -804,16 +621,3165 @@ DockerCompase">
 
 
 </p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --name mysql <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -p 3306:3306 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">TZ</span><span class="o">=</span>Asia/Shanghai <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">MYSQL_R00T_PASSWORD</span><span class="o">=</span><span class="m">123</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  mysql
+</span></span></code></pre></div><p>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/7.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/7.webp"
+      srcset="/post/microservices/2/7.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<h3 id="镜像和容器">镜像和容器<a hidden class="anchor" aria-hidden="true" href="#镜像和容器">#</a></h3>
+<p>当我们利用Docker安装应用时，Docker会自动搜索并下载应用<strong>镜像（image）</strong>。镜像不仅包含应用本身，还包含应用运行所需要的环境、配置、系统函数库。Docker会在运行镜像时创建一个隔离环境，称为<strong>容器（container）</strong>。<br>
+<strong>镜像仓库</strong>：存储和管理镜像的平台，Docker官方维护了一个公共仓库：<a href="https://hub.docker.com/">Docker Hub</a>。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/8.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/8.png"
+      srcset="/post/microservices/2/8.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<ul>
+<li>Docker：Docker可以帮助我们下载应用镜像，创建并运行镜像的容器，从而<strong>快速部署应用</strong></li>
+<li>镜像：将应用所需的函数库、依赖、配置等与应用一起打包得到的就是镜像</li>
+<li>容器：为每个镜像的应用进程创建的<strong>隔离运行环境</strong>就是容器</li>
+<li>存储和管理镜像的服务就是镜像仓库，DockerHub是目前最大的镜像仓库，其中包含各种常见的应用镜像</li>
+</ul>
+<hr>
 <h3 id="命令解读">命令解读<a hidden class="anchor" aria-hidden="true" href="#命令解读">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"></code></pre></div><p>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/9.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/9.png"
+      srcset="/post/microservices/2/9.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<ul>
+<li><code>docker run</code> ：创建并运行一个容器，-d 是让容器在后台运行</li>
+<li><code>--name mysql</code>：给容器起个名字，必须唯一</li>
+<li><code>-p 3306:3306</code>：设置端口映射（宿主机端口:容器端口）
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/10.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/10.png"
+      srcset="/post/microservices/2/10.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li><code>-e KEY=VALUE</code>：是设置环境变量</li>
+<li><code>mysql</code>：指定运行的镜像的名字
+<ul>
+<li>镜像命名规范
+<ul>
+<li>镜像名称一般分两部分组成：<code>[repository]:[tag]</code>。
+<ul>
+<li>其中<code>repository</code>就是镜像名</li>
+<li><code>tag</code>是镜像的版本</li>
+</ul>
+</li>
+<li>在没有指定tag时，默认是<code>latest</code>，代表最新版本的镜像
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/11.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/11.png"
+      srcset="/post/microservices/2/11.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
 <h2 id="docker基础">Docker基础<a hidden class="anchor" aria-hidden="true" href="#docker基础">#</a></h2>
 <h3 id="常见命令">常见命令<a hidden class="anchor" aria-hidden="true" href="#常见命令">#</a></h3>
+<p>Docker最常见的命令就是操作镜像、容器的命令，详见官方文档： <a href="https://docs.docker.com/">https://docs.docker.com/</a>
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/12.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/12.png"
+      srcset="/post/microservices/2/12.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<hr>
+<h4 id="案例">案例<a hidden class="anchor" aria-hidden="true" href="#案例">#</a></h4>
+<p>需求：</p>
+<ul>
+<li>在DockerHub中搜索Nginx镜像，查看镜像的名称</li>
+<li>拉取Nginx镜像
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/13.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/13.webp"
+      srcset="/post/microservices/2/13.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>查看本地镜像列表
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/14.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/14.webp"
+      srcset="/post/microservices/2/14.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>创建并运行Nginx容器
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/15.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/15.webp"
+      srcset="/post/microservices/2/15.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>查看容器
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/16.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/16.webp"
+      srcset="/post/microservices/2/16.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>停止容器
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/17.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/17.webp"
+      srcset="/post/microservices/2/17.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>再次启动容器
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/18.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/18.webp"
+      srcset="/post/microservices/2/18.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>进入Nginx容器
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/19.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/19.webp"
+      srcset="/post/microservices/2/19.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>删除容器</li>
+</ul>
+<hr>
 <h3 id="数据卷">数据卷<a hidden class="anchor" aria-hidden="true" href="#数据卷">#</a></h3>
+<p><strong>数据卷（volume）<strong>是一个虚拟目录，是</strong>容器内目录</strong>与<strong>宿主机目录</strong>之间映射的桥梁。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/20.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/20.png"
+      srcset="/post/microservices/2/20.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th style="text-align: center">命令</th>
+          <th style="text-align: center">说明</th>
+          <th style="text-align: center">文档地址</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">docker volume create</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">创建数据卷</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><a href="https://docs.docker.com/reference/cli/docker/volume/create/">docker volume create</a></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">docker volume ls</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">查看所有数据卷</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><a href="https://docs.docker.com/reference/cli/docker/volume/ls/">docker volume ls</a></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">docker volume rm</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">删除指定数据卷</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><a href="https://docs.docker.com/reference/cli/docker/volume/rm/">docker volume rm</a></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">docker volume inspect</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">查看某个数据卷的详情</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><a href="https://docs.docker.com/reference/cli/docker/volume/inspect/">docker volume inspect</a></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">docker volume prune</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">清除数据卷</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><a href="https://docs.docker.com/reference/cli/docker/volume/prune/">docker volume prune</a></td>
+      </tr>
+  </tbody>
+</table><hr>
+<h4 id="案例1">案例1<a hidden class="anchor" aria-hidden="true" href="#案例1">#</a></h4>
+<p>需求：</p>
+<ul>
+<li>创建Nginx容器，修改nginx容器内的html目录下的index.html文件内容</li>
+<li>将静态资源部署到nginx的html目录</li>
+</ul>
+<!-- FM:Snippet:Start data:{"id":"st-notice","fields":[]} -->
+<style type="text/css">
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+</style><div class="notice tip" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+        </span>提示</p><ul>
+<li>在执行docker run命令时，使用 -v 数据卷:容器内目录 可以完成数据卷挂载</li>
+<li>当创建容器时，如果挂载了数据卷且数据卷不存在，会自动创建数据卷</li>
+</ul></div>
+<!-- FM:Snippet:End -->
+<p>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/22.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/22.webp"
+      srcset="/post/microservices/2/22.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="https://www.steamedfish.top/21.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="https://www.steamedfish.top/21.png"
+      srcset="https://www.steamedfish.top/21.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<hr>
+<h4 id="案例2">案例2<a hidden class="anchor" aria-hidden="true" href="#案例2">#</a></h4>
+<p>需求：</p>
+<ul>
+<li>查看mysql容器，判断是否有数据卷挂载</li>
+<li>基于宿主机目录实现MySQL数据目录、配置文件、初始化脚本的挂载（查阅官方镜像文档）
+<ol>
+<li>挂载/root/mysql/data到容器内的/var/lib/mysql目录</li>
+<li>挂载/root/mysql/init到容器内的/docker-entrypoint-initdb.d目录，携带课前资料准备的SQL脚本</li>
+<li>挂载/root/mysql/conf到容器内的/etc/mysql/conf.d目录，携带课前资料准备的配置文件</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl">--name mysql <span class="se">\
+</span></span></span><span class="line"><span class="cl">-p 3306:3306 <span class="se">\
+</span></span></span><span class="line"><span class="cl">-e <span class="nv">TZ</span><span class="o">=</span>Asis/Shanghai <span class="se">\
+</span></span></span><span class="line"><span class="cl">-e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span><span class="m">123</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">-v /root/mysql/data:/var/lib/mysql <span class="se">\
+</span></span></span><span class="line"><span class="cl">-v /root/mysql/init:/docker-entrypoint-initdb.d <span class="se">\
+</span></span></span><span class="line"><span class="cl">-v /root/mysql/conf:/etc/mysql/conf.d <span class="se">\
+</span></span></span><span class="line"><span class="cl">mysql
+</span></span></code></pre></div></li>
+</ul>
+<p>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/23.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/23.webp"
+      srcset="/post/microservices/2/23.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<!-- FM:Snippet:Start data:{"id":"st-notice","fields":[]} -->
+<div class="notice tip" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+        </span>提示</p><ul>
+<li>在执行docker run命令时，使用 -v 本地目录:容器内目录 可以完成本地目录挂载</li>
+<li>本地目录必须以“<code>/</code>”或 &ldquo;<code>./</code>&rdquo; 开头，如果直接以名称开头，会被识别为数据卷而非本地目录
+<ul>
+<li><code>-v mysql : /var/lib/mysql</code> 会被识别为一个数据卷叫mysql</li>
+<li><code>-v ./mysql : /var/lib/mysql</code> 会被识别为当前目录下的mysql目录</li>
+</ul>
+</li>
+</ul></div>
+<!-- FM:Snippet:End -->
+<hr>
 <h3 id="自定义镜像">自定义镜像<a hidden class="anchor" aria-hidden="true" href="#自定义镜像">#</a></h3>
+<p>镜像就是包含了应用程序、程序运行的系统函数库、运行配置等文件的文件包。构建镜像的过程其实就是把上述文件打包的过程。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/24.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/24.png"
+      srcset="/post/microservices/2/24.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<ul>
+<li>JRE：Java Runtime Environment（Java运行环境）
+<ul>
+<li>JDK：Java Devlopment Kit（Java开发工具/环境）</li>
+<li>运行Java程序只需要JRE即可</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="镜像结构">镜像结构<a hidden class="anchor" aria-hidden="true" href="#镜像结构">#</a></h4>
+<p>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/25.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/25.png"
+      srcset="/post/microservices/2/25.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<hr>
+<h4 id="dockerfile">Dockerfile<a hidden class="anchor" aria-hidden="true" href="#dockerfile">#</a></h4>
+<p>Dockerfile就是一个文本文件，其中包含一个个的<strong>指令(Instruction)</strong>，用指令来说明要执行什么操作来构建镜像。将来Docker可以根据Dockerfile帮我们构建镜像。常见指令如下：</p>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th style="text-align: center">指令</th>
+          <th style="text-align: center">示例</th>
+          <th style="text-align: center">说明</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">FROM</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">指定基础镜像</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>FROM centos:6</code></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">ENV</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">设置环境变量，可在后面指令使用</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>ENV key value</code></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">COPY</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">拷贝本地文件到镜像的指定目录</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>COPY ./jre11.tar-gz /tmp</code></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">RUN</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">执行Linux的sheLl命令，一般是安装过程的命令</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>RUN tar -zxvf /tmp/jrel1.tar.gz &amp;&amp; EXPORTS path=/tmp/jre11:$path</code></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">EXPOSE</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">指定容器运行时监听的端口，是给镜像使用者看的</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>EXP0SE 8080</code></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">ENTRYPOINT</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">镜像中应用的启动命令，容器运行时调用</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>ENTRYPOINT java -jar xx.jar</code></td>
+      </tr>
+  </tbody>
+</table><p>更新详细语法说明，请参考官网文档： <a href="https://docs.docker.com/reference/cli/docker/buildx/build/">https://docs.docker.com/reference/cli/docker/buildx/build/</a></p>
+<p>我们可以基于Ubuntu基础镜像，利用Dockerfile描述镜像结构，也可以直接基于JDK为基础镜像，省略前面的步骤：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/26.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/26.png"
+      srcset="/post/microservices/2/26.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+当编写好了Dockerfile，可以利用下面命令来构建镜像：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/27.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/27.png"
+      srcset="/post/microservices/2/27.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<ul>
+<li><code>-t</code>：是给镜像起名，格式依然是repository:tag的格式，不指定tag时，默认为latest</li>
+<li><code>.</code>：是指定Dockerfile所在目录，如果就在当前目录，则指定为&quot;.&quot;</li>
+</ul>
+<hr>
+<h4 id="案例-1">案例<a hidden class="anchor" aria-hidden="true" href="#案例-1">#</a></h4>
+<p>需求：将 <code>资料/docker-demo.jar</code> 制作镜像并创建运行容器</p>
+<p>步骤：</p>
+<ol>
+<li>复制 <code>资料/demo/Dockerfile</code>和<code>docker-dome.jar</code>到<code>/root/demo</code>目录下</li>
+<li>复制 <code>资料/images/jdk.tar</code> 到 <code>/root</code>目录下</li>
+<li>加载jdk: <code>cd /root &amp;&amp; docker load -i jdk.tar</code></li>
+<li>构建镜像：<code>cd /root/demo &amp;&amp; docker build -t docker-demo</code></li>
+<li>创建容器：<code>docker run -d --name dd -p 8080:8080 docker-demo</code></li>
+<li>访问：<code>http://localhost:8080/hello/count</code></li>
+</ol>
+<hr>
 <h3 id="容器网络">容器网络<a hidden class="anchor" aria-hidden="true" href="#容器网络">#</a></h3>
+<p>默认情况下，所有容器都是以bridge方式连接到Docker的一个虚拟网桥上：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/28.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/28.png"
+      srcset="/post/microservices/2/28.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+加入自定义网络的容器才可以通过容器名互相访问，Docker的网络操作命令如下：</p>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th style="text-align: center">命令</th>
+          <th style="text-align: center">说明</th>
+          <th style="text-align: center">文档地址</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>docker network create</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">创建一个网络</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><a href="https://docs.docker.com/reference/cli/docker/network/create/">docker network create</a></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>docker network ls</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">查看所有网络</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><a href="https://docs.docker.com/reference/cli/docker/network/ls/">docker network ls</a></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>docker network rm</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">删除指定网络</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><a href="https://docs.docker.com/reference/cli/docker/network/rm/">docker network rm</a></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>docker network prune</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">清除未使用的网络</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><a href="https://docs.docker.com/reference/cli/docker/network/prune/">docker network prune</a></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>docker network connect</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">使指定容器连接加入某网络</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><a href="https://docs.docker.com/reference/cli/docker/network/connect/">docker network connect</a></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>docker network disconnect</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">使指定容器连接离开某网络</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><a href="https://docs.docker.com/reference/cli/docker/network/disconnect/">docker network disconnect</a></td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>docker network inspect</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">查看网络详细信息</td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><a href="https://docs.docker.com/reference/cli/docker/network/inspect/">docker network inspect</a></td>
+      </tr>
+  </tbody>
+</table><hr>
+<h4 id="设置容器网络">设置容器网络<a hidden class="anchor" aria-hidden="true" href="#设置容器网络">#</a></h4>
+<p>需求：</p>
+<ul>
+<li>创建网络<code>hmall</code>
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/29.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/29.webp"
+      srcset="/post/microservices/2/29.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>将<code>docker-demo</code>创建的容器<code>dd</code> 加入到<code>hamll</code>网络
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/30.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/30.webp"
+      srcset="/post/microservices/2/30.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>将<code>mysql</code>对应的容器加入到<code>hmall</code>网络并起别名<code>db</code>
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/31.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/31.webp"
+      srcset="/post/microservices/2/31.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>进入<code>docker-demo</code>创建的容器然后<code>ping db</code>查看网络连接情况</li>
+</ul>
 <h2 id="项目部署">项目部署<a hidden class="anchor" aria-hidden="true" href="#项目部署">#</a></h2>
-<h3 id="部署前端">部署前端<a hidden class="anchor" aria-hidden="true" href="#部署前端">#</a></h3>
 <h3 id="部署java">部署Java<a hidden class="anchor" aria-hidden="true" href="#部署java">#</a></h3>
+<p>需求：将课前资料提供的hmall项目打包为镜像并部署，镜像名hmall
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/32.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/32.png"
+      srcset="/post/microservices/2/32.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+步骤：</p>
+<ol>
+<li><code>IDEA</code>导入<code>hmall</code>;打包<code>hm-service.jar</code>
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/33.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/33.webp"
+      srcset="/post/microservices/2/33.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>复制<code>hm-service.jar</code>、<code>Dockerfil</code>e 到<code>/root</code>
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/34.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/34.webp"
+      srcset="/post/microservices/2/34.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>构建镜像；<code>dockerbuild -t hmall .</code>
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/35.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/35.webp"
+      srcset="/post/microservices/2/35.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>创建容器；<code>dockerrun-d--namehmall--network hmall-p 8080:8080 hmall</code>
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/36.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/36.webp"
+      srcset="/post/microservices/2/36.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>测试；浏览器访问 http://localhost:8080/search/list</li>
+</ol>
+<h3 id="部署前端">部署前端<a hidden class="anchor" aria-hidden="true" href="#部署前端">#</a></h3>
+<p>需求：创建一个新的nginx容器，将课前资料提供的nginx.conf、html目录与容器挂载
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/37.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/37.png"
+      srcset="/post/microservices/2/37.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+步骤：</p>
+<ol>
+<li>复制<code>资料/nginx</code>文件夹到<code>/root</code>目录下</li>
+<li>创建<code>nginx</code>容器
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl">   --name nginx <span class="se">\
+</span></span></span><span class="line"><span class="cl">   -p 18080:18080 <span class="se">\
+</span></span></span><span class="line"><span class="cl">   -p 18081:18081 <span class="se">\
+</span></span></span><span class="line"><span class="cl">   -v /root/nginx/html:/usr/share/nginx/html <span class="se">\
+</span></span></span><span class="line"><span class="cl">   -v /root/nginx/nginx.conf:/etc/nginx/nginx.conf <span class="se">\
+</span></span></span><span class="line"><span class="cl">   --network hmall <span class="se">\
+</span></span></span><span class="line"><span class="cl">   nginx
+</span></span></code></pre></div></li>
+<li>测试：浏览器访问 http://localhost:18080 http://localhost:18081</li>
+</ol>
 <h3 id="dockercompase">DockerCompase<a hidden class="anchor" aria-hidden="true" href="#dockercompase">#</a></h3>
+<p>Docker Compose通过一个单独的<strong>docker-compose.yml</strong> 模板文件（YAML 格式）来定义一组相关联的应用容器，帮助我们实现<strong>多个相互关联的Docker容器的快速部署</strong>。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/38.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/38.png"
+      srcset="/post/microservices/2/38.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/39.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/39.png"
+      srcset="/post/microservices/2/39.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/40.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/40.png"
+      srcset="/post/microservices/2/40.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<p>docker compose的命令格式如下：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/2-docker/index.md"
+    href="/post/microservices/2/41.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/2/41.png"
+      srcset="/post/microservices/2/41.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+
+
+
+
+<table>
+
+    <thead>
+      <tr>
+          <th style="text-align: center">类型</th>
+          <th style="text-align: center">参数或指令</th>
+          <th style="text-align: center">说明</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                        
+                    
+                        
+                    
+                
+                
+                
+                
+                
+                <td rowspan="4" colspan="1" style="text-align: center"><code>Options</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>-f</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">指定compose文件的路径和名称</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>-p</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">指定project名称</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                
+                
+                
+                
+                
+                <td rowspan="6" colspan="1" style="text-align: center"><code>Commands</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>up</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">创建并启动所有service容器</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>down</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">停止并移除所有容器、网络</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>ps</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">列出所有启动的容器</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>logs</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">查看指定容器的日志</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>stop</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">停止容器</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>start</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">启动容器</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>restart</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">重启容器</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>top</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">查看运行的进程</td>
+      </tr>
+        
+        
+        
+      <tr>
+        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center"><code>exec</code></td>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <td rowspan="1" colspan="1" style="text-align: center">在指定的运行中容器中执行命令</td>
+      </tr>
+  </tbody>
+</table><hr>
+<h4 id="案例-2">案例<a hidden class="anchor" aria-hidden="true" href="#案例-2">#</a></h4>
+<p>需求：实现先启动<code>mysql</code>容器：然后在<code>dockerfile</code>制作<code>hmall</code>应用镜像并启动应用容器，最后启动<code>nginx</code>部署前端。这三个容器共用一个<code>hmall</code>网络</p>
+<ol>
+<li>复制<code>资料/docker-compose.yml</code>到<code>/root</code></li>
+<li>删除旧容器:<code>docker rm -f $(docker ps -qa)</code></li>
+<li>清空<code>mysql</code>数据: <code>rm -rf mysql/data</code></li>
+<li>删除原有<code>hmall</code>网络: <code>docker network rm hmall</code></li>
+<li>启动: <code>docker compose up -d</code></li>
+<li>测试: http://localhost:18080</li>
+</ol>
 
 
   </div>
