@@ -9,6 +9,237 @@
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <atom:link href="https://www.steamedfish.top/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>【微服务】网关及配置管理</title>
+      <link>https://www.steamedfish.top/post/microservices/gateway/</link>
+      <pubDate>Sat, 03 Jan 2026 22:03:45 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/microservices/gateway/</guid>
+      <description>&lt;p&gt;##网关
+网关：就是网络的关口，负责请求的路由、转发、身份校验。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/microservices/4-gateway/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/microservices/gateway/5.webp&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/microservices/gateway/5.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/microservices/gateway/5.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+
+在SpringCloud中网关的实现包括两种：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/microservices/4-gateway/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/microservices/gateway/6.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/microservices/gateway/6.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/microservices/gateway/6.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;网关路由&#34;&gt;网关路由&lt;/h2&gt;
+&lt;h3 id=&#34;快速入门&#34;&gt;快速入门&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/microservices/4-gateway/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/microservices/gateway/1.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/microservices/gateway/1.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/microservices/gateway/1.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;创建新模块&lt;/li&gt;
+&lt;li&gt;引入网关依赖
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/microservices/4-gateway/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/microservices/gateway/4.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/microservices/gateway/4.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/microservices/gateway/4.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;编写启动类&lt;/li&gt;
+&lt;li&gt;配置路由器
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/microservices/4-gateway/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/microservices/gateway/2.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/microservices/gateway/2.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/microservices/gateway/2.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/microservices/4-gateway/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/microservices/gateway/3.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/microservices/gateway/3.png&#34;
+      srcset=&#34;https://www.steamedfish.top/post/microservices/gateway/3.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;路由属性&#34;&gt;路由属性&lt;/h3&gt;
+&lt;p&gt;网关路由对应的Java类型是&lt;code&gt;RouteDefinition&lt;/code&gt;，其中常见的属性有：&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>【黑马商城-微服务】1.微服务入门</title>
       <link>https://www.steamedfish.top/post/microservices/3-microservices/</link>
       <pubDate>Fri, 02 Jan 2026 22:40:32 +0800</pubDate>
