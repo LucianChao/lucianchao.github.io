@@ -230,7 +230,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2026-01-03T22:03:45+08:00">
-    <meta property="article:modified_time" content="2026-01-04T19:20:21+08:00">
+    <meta property="article:modified_time" content="2026-01-05T03:23:05+08:00">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【微服务】网关及配置管理">
 <meta name="twitter:description" content="##网关
@@ -424,11 +424,11 @@
   "keywords": [
     
   ],
-  "articleBody": "##网关 网关：就是网络的关口，负责请求的路由、转发、身份校验。 在SpringCloud中网关的实现包括两种： 网关路由 快速入门 创建新模块 引入网关依赖 编写启动类 配置路由器 路由属性 网关路由对应的Java类型是RouteDefinition，其中常见的属性有：\nid：路由唯一标示 uri：路由目标地址 predicates：路由断言，判断请求是否符合当前路由。 filters：路由过滤器，对请求或响应做特殊处理。 Spring提供了12种基本的RoutePredicateFactory实现：\n名称\r说明\r示例\rAfter\r是某个时间点后的请求\r- After=2037-01-20T17:42:47.789-07:00[America/Denver]\rBefore\r是某个时间点之前的请求\r- Before=2031-04-13T15:14:47.433+08:00[Asia/Shanghai]\rBetween\r是某两个时间点之前的请求\r- Between=2037-01-20T17:42:47.789-07:00[America/Denver], 2037-01-21T17:42:47.789-07:00[America/Denver]\rCookie\r请求必须包含某些cookie\r- Cookie=chocolate, chip\rHeader\r请求必须包含某些header\r- Header=X-Request-ld, \\d+\rHost\r请求必须是访问某个host (域名)\r- Host=** somehost.org,**.anotherhost.org\rMethod\r请求方式必须是指定方式\r- Method=GET,POST\rPath\r请求路径必须符合指定规则\r- Path=/red/(segment),/blue/**\rQuery\r请求参数必须包含指定参数\r-Query=name,Jack或者-Query=name\rRemoteAddr\r请求者的ip必须是指定范围\r- RemoteAddr=192.168.1.1/24\rWeight\r权重处理\r- Weight=group1, 2\rXForwarded Remote Addr\r基于请求的来源IP做判断- XForwardedRemoteAddr=192.168.1.1/24\r路由过滤器 网关中提供了33种路由过滤器，每种过滤器都有独特的作用。\n名称\r说明\r示例\rAddRequestHeader\r给当前请求添加一个请求头\rAddrequestHeader=headerName,headerValue\rRemoveRequestHeader\r移除请求中的一个请求头\rRemoveRequestHeader=headerName\rAddResponseHeader\r给响应结果中添加一个响应头\rAddResponseHeader=headerName,headerValue\rRemoveResponseHeader\r从响应结果中移除有一个响应头\rRemoveResponseHeader=headerName\rRewritePath\r请求路径重写\rRewritePath=/red/?(?.*)， /$\\{segment}\rStripPrefix\r去除请求路径中的N段前缀\rStripPrefix=1，则路径/a/b转发时只保留/b\r身份校验 网关请求处理流程 自定义过滤器 网关过滤器有两种，分别是：\nGatewayFilter：路由过滤器，作用于任意指定的路由；默认不生效，要配置到路由后生效。 GlobalFilter：全局过滤器，作用范围是所有路由；声明后自动生效。 两种过滤器的过滤方法签名完全一致： 自定义过滤器GlobalFilter 自定义GlobalFilter比较简单，直接实现GlobalFilter接口即可： 自定义过滤器GatewayFilter 自定义GatewayFilter不是直接实现GatewayFilter，而是实现AbstractGatewayFilterFactory，示例如下： 实现登录校验 需求：在网关中基于过滤器实现登录校验功能\n提示：黑马商城是基于JWT实现的登录校验，目前相关功能在hm-service模块。我们可以将其中的JWT工具拷贝到gateway模块，然后基于GlobalFilter来实现登录校验。\n步骤：\n复制代码\n从hm-service复制4个登录相关的类到hm-gateway中 复制配置项\n从hm-service的配置文件中复制相关的jwt的配置项到hm-gateway中 编写登录校验过滤器AuthGlobalFilter\n过滤器中判断是否要拦截、获取并校验请求头的Authorization中的token 测试\n启动hm-gateway和item-service，查看访问如下两个地址时的状态\n未登录访问 http://localhost:8080/items/page\n未登录访问 http://localhost:8080/carts/list 网关传递用户 1.在网关的登录校验过滤器中，把获取到的用户写入请求头 需求：修改gateway模块中的登录校验拦截器，在校验成功后保存用户到下游请求的请求头中。\n提示：要修改转发到微服务的请求，需要用到ServerWebExchange类提供的API，示例如下： 2.在hm-common中编写SpringMVC拦截器，获取登录用户 需求：由于每个微服务都可能有获取登录用户的需求，因此我们直接在hm-common模块定义拦截器，这样微服务只需要引入依赖即可生效，无需重复编写。 步骤：\n编写hm-common中的UserInfoInterceptor拦截器 编写MvcConfig配置类加载拦截器 修改spring.factorties添加配置类 恢复购物车代码：\n将查询我的购物车代码中的用户信息获取信息恢复 测试：访问我的购物车能否获取当前登录用户的购物车数据 OpenFeign传递用户 微服务项目中的很多业务要多个微服务共同合作完成，而这个过程中也需要传递登录用户信息，例如： OpenFeign中提供了一个拦截器接口，所有由OpenFeign发起的请求都会先调用拦截器处理请求： 其中的RequestTemplate类中提供了一些方法可以让我们修改请求头： 步骤：\nhm-api项目中添加hm-common依赖 因为在拦截器中需要使用到UserContext，所以需要添加hm-common依赖 在com.hmall.api.config.DefaultFeignConfig添加拦截器 测试 加入购物车 --\u003e 结算 --\u003e 提交订单 --\u003e 再次查看我的购物车 微服务登录解决方案 配置管理 配置共享 配置热更新 动态路由 ",
-  "wordCount" : "1930",
+  "articleBody": "##网关 网关：就是网络的关口，负责请求的路由、转发、身份校验。 在SpringCloud中网关的实现包括两种： 网关路由 快速入门 创建新模块 引入网关依赖 编写启动类 配置路由器 路由属性 网关路由对应的Java类型是RouteDefinition，其中常见的属性有：\nid：路由唯一标示 uri：路由目标地址 predicates：路由断言，判断请求是否符合当前路由。 filters：路由过滤器，对请求或响应做特殊处理。 Spring提供了12种基本的RoutePredicateFactory实现：\n名称\r说明\r示例\rAfter\r是某个时间点后的请求\r- After=2037-01-20T17:42:47.789-07:00[America/Denver]\rBefore\r是某个时间点之前的请求\r- Before=2031-04-13T15:14:47.433+08:00[Asia/Shanghai]\rBetween\r是某两个时间点之前的请求\r- Between=2037-01-20T17:42:47.789-07:00[America/Denver], 2037-01-21T17:42:47.789-07:00[America/Denver]\rCookie\r请求必须包含某些cookie\r- Cookie=chocolate, chip\rHeader\r请求必须包含某些header\r- Header=X-Request-ld, \\d+\rHost\r请求必须是访问某个host (域名)\r- Host=** somehost.org,**.anotherhost.org\rMethod\r请求方式必须是指定方式\r- Method=GET,POST\rPath\r请求路径必须符合指定规则\r- Path=/red/(segment),/blue/**\rQuery\r请求参数必须包含指定参数\r-Query=name,Jack或者-Query=name\rRemoteAddr\r请求者的ip必须是指定范围\r- RemoteAddr=192.168.1.1/24\rWeight\r权重处理\r- Weight=group1, 2\rXForwarded Remote Addr\r基于请求的来源IP做判断- XForwardedRemoteAddr=192.168.1.1/24\r路由过滤器 网关中提供了33种路由过滤器，每种过滤器都有独特的作用。\n名称\r说明\r示例\rAddRequestHeader\r给当前请求添加一个请求头\rAddrequestHeader=headerName,headerValue\rRemoveRequestHeader\r移除请求中的一个请求头\rRemoveRequestHeader=headerName\rAddResponseHeader\r给响应结果中添加一个响应头\rAddResponseHeader=headerName,headerValue\rRemoveResponseHeader\r从响应结果中移除有一个响应头\rRemoveResponseHeader=headerName\rRewritePath\r请求路径重写\rRewritePath=/red/?(?.*)， /$\\{segment}\rStripPrefix\r去除请求路径中的N段前缀\rStripPrefix=1，则路径/a/b转发时只保留/b\r身份校验 网关请求处理流程 自定义过滤器 网关过滤器有两种，分别是：\nGatewayFilter：路由过滤器，作用于任意指定的路由；默认不生效，要配置到路由后生效。 GlobalFilter：全局过滤器，作用范围是所有路由；声明后自动生效。 两种过滤器的过滤方法签名完全一致： 自定义过滤器GlobalFilter 自定义GlobalFilter比较简单，直接实现GlobalFilter接口即可： 自定义过滤器GatewayFilter 自定义GatewayFilter不是直接实现GatewayFilter，而是实现AbstractGatewayFilterFactory，示例如下： 实现登录校验 需求：在网关中基于过滤器实现登录校验功能\n提示：黑马商城是基于JWT实现的登录校验，目前相关功能在hm-service模块。我们可以将其中的JWT工具拷贝到gateway模块，然后基于GlobalFilter来实现登录校验。\n步骤：\n复制代码\n从hm-service复制4个登录相关的类到hm-gateway中 复制配置项\n从hm-service的配置文件中复制相关的jwt的配置项到hm-gateway中 编写登录校验过滤器AuthGlobalFilter\n过滤器中判断是否要拦截、获取并校验请求头的Authorization中的token 测试\n启动hm-gateway和item-service，查看访问如下两个地址时的状态\n未登录访问 http://localhost:8080/items/page\n未登录访问 http://localhost:8080/carts/list 网关传递用户 1.在网关的登录校验过滤器中，把获取到的用户写入请求头 需求：修改gateway模块中的登录校验拦截器，在校验成功后保存用户到下游请求的请求头中。\n提示：要修改转发到微服务的请求，需要用到ServerWebExchange类提供的API，示例如下： 2.在hm-common中编写SpringMVC拦截器，获取登录用户 需求：由于每个微服务都可能有获取登录用户的需求，因此我们直接在hm-common模块定义拦截器，这样微服务只需要引入依赖即可生效，无需重复编写。 步骤：\n编写hm-common中的UserInfoInterceptor拦截器 编写MvcConfig配置类加载拦截器 修改spring.factorties添加配置类 恢复购物车代码：\n将查询我的购物车代码中的用户信息获取信息恢复 测试：访问我的购物车能否获取当前登录用户的购物车数据 OpenFeign传递用户 微服务项目中的很多业务要多个微服务共同合作完成，而这个过程中也需要传递登录用户信息，例如： OpenFeign中提供了一个拦截器接口，所有由OpenFeign发起的请求都会先调用拦截器处理请求： 其中的RequestTemplate类中提供了一些方法可以让我们修改请求头： 步骤：\nhm-api项目中添加hm-common依赖 因为在拦截器中需要使用到UserContext，所以需要添加hm-common依赖 在com.hmall.api.config.DefaultFeignConfig添加拦截器 测试 加入购物车 --\u003e 结算 --\u003e 提交订单 --\u003e 再次查看我的购物车 微服务登录解决方案 配置管理 微服务重复配置过多，维护成本高 业务配置经常变动，每次修改都要重启服务 网关路由配置写死，如果变更要重启网关 配置中心的前身 --\u003e SpringCloud Config --\u003e nacos/consul/apollp 配置共享 步骤：\n添加一些共享配置到Nacos中，包括：Jdbc、MybatisPlus、日志、Swagger、OpenFeign等配置 拉取共享配置\n基于NacosConfig拉取共享配置代替微服务的本地配置。 引入依赖 新建bootstrap.yaml 配置热更新 除了Spring的配置以外，业务中自定义的基于@ConfigurationProperties的自定义配置属性也都可以从Nacos读取。而且当Nacos中这些业务配置变更时，Nacos会推送变更信息到微服务，无需重启即可生效，实现配置热更新\n前提条件：\nnacos中要有一个与微服务名有关的配置文件。 服务名：例如购物车服务，就是cart-service spring.active.profile：用于区分不同的环境，例如local、dev、test，可以省略 后缀名：比如yaml、json 微服务中要以特定方式读取需要热更新的配置属性 案例：实现购物车添加商品上限的配置热更新 需求：购物车的限定数量目前是写死在业务中的，将其改为读取配置文件属性，并将配置交给Nacos管理，实现热更新。 在nacos控制台，添加cart-service.yaml 编写配置类CartProperties com/hmall/cart/config/CartProperties.java package com.hmall.cart.config; import lombok.Data; import org.springframework.boot.context.properties.ConfigurationProperties; import org.springframework.stereotype.Component; @Component @ConfigurationProperties(prefix = \"hm.cart\") @Data public class CartProperties { private Integer maxAmount; } 修改加入购物车代码 测试\n搜索商品，点击加入购物车，测试效果 动态路由 要实现动态路由首先要将路由配置保存到Nacos，当Nacos中的路由配置变更时，推送最新配置到网关，实时更新网关中的路由信息。 我们需要完成两件事情：\n监听Nacos配置变更的消息\n监听Nacos配置变更可以参考官方文档： https://nacos.io/zh-cn/docs/sdk.html 当配置变更时，将最新的路由信息更新到网关路由表\n监听到路由信息后，可以利用RouteDefinitionWriter来更新路由表： 为了方便解析从Nacos读取到的路由配置，推荐使用json格式的路由配置，模板如下： com/hmall/gateway/routers/DynamicRouterLoader.java package com.hmall.gateway.routers; import cn.hutool.json.JSONUtil; import com.alibaba.cloud.nacos.NacosConfigManager; import com.alibaba.nacos.api.config.listener.Listener; import com.alibaba.nacos.api.exception.NacosException; import lombok.RequiredArgsConstructor; import lombok.extern.slf4j.Slf4j; import org.springframework.cloud.gateway.route.RouteDefinition; import org.springframework.cloud.gateway.route.RouteDefinitionWriter; import org.springframework.stereotype.Component; import reactor.core.publisher.Mono; import javax.annotation.PostConstruct; import java.util.HashSet; import java.util.List; import java.util.Set; import java.util.concurrent.Executor; @Slf4j @Component @RequiredArgsConstructor // 自动注入 public class DynamicRouterLoader { private final NacosConfigManager nacosConfigManager; private final RouteDefinitionWriter routeDefinitionWriter; private final String dataId = \"gateway-routes.json\"; private final String group = \"DEFAULT_GROUP\"; private final Set\u003cString\u003e routeIds = new HashSet\u003c\u003e(); @PostConstruct // 启动时执行 public void initRouteeConfigListener() throws NacosException { // 项目启动时，拉取配置并添加监听器 String configInfo = nacosConfigManager.getConfigService() .getConfigAndSignListener(dataId, group, 5000, new Listener() { @Override public Executor getExecutor() { return null; } @Override public void receiveConfigInfo(String s) { // 2.监听到配置变更，更新配置路由表 updateConfigInfo(s); } }); // 3.第一次读取到配置也需要添加到路由表 updateConfigInfo(configInfo); } public void updateConfigInfo(String configInfo) { log.debug(\"监听到路由配置信息：{}\", configInfo); List\u003cRouteDefinition\u003e routeDefinitions = JSONUtil.toList(configInfo, RouteDefinition.class); // 删除旧的路由表 for (String routeId : routeIds) { routeDefinitionWriter.delete(Mono.just(routeId)).subscribe(); } routeIds.clear(); // 3.更新路由表 for (RouteDefinition routeDefinition : routeDefinitions) { // 3.1 更新路由表 routeDefinitionWriter.save(Mono.just(routeDefinition)).subscribe(); // 3.2 记录路由id，便于下一次更新时删除 routeIds.add(routeDefinition.getId()); } } } ",
+  "wordCount" : "3039",
   "inLanguage": "zh",
   "datePublished": "2026-01-03T22:03:45+08:00",
-  "dateModified": "2026-01-04T19:20:21+08:00",
+  "dateModified": "2026-01-05T03:23:05+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/microservices/gateway/"
@@ -541,7 +541,7 @@
 
 
 
-<span title='2026-01-03 22:03:45 +0800 +0800'>2026-01-03</span>&nbsp;·&nbsp;<span title='2026-01-04 19:20:21 +0800 +0800'>(最后修改于 2026-01-04)</span>&nbsp;·&nbsp;<span>4 分钟</span>&nbsp;|&nbsp;<span>
+<span title='2026-01-03 22:03:45 +0800 +0800'>2026-01-03</span>&nbsp;·&nbsp;<span title='2026-01-05 03:23:05 +0800 +0800'>(最后修改于 2026-01-05)</span>&nbsp;·&nbsp;<span>7 分钟</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/LucianChao/Hugo_Blog/tree/main/content/post/microservices/4-gateway/index.md" rel="noopener noreferrer edit" target="_blank">编辑此文章</a>
 </span>
 
@@ -593,7 +593,11 @@
                 <li>
                     <a href="#%e9%85%8d%e7%bd%ae%e5%85%b1%e4%ba%ab" aria-label="配置共享">配置共享</a></li>
                 <li>
-                    <a href="#%e9%85%8d%e7%bd%ae%e7%83%ad%e6%9b%b4%e6%96%b0" aria-label="配置热更新">配置热更新</a></li>
+                    <a href="#%e9%85%8d%e7%bd%ae%e7%83%ad%e6%9b%b4%e6%96%b0" aria-label="配置热更新">配置热更新</a><ul>
+                        
+                <li>
+                    <a href="#%e6%a1%88%e4%be%8b%e5%ae%9e%e7%8e%b0%e8%b4%ad%e7%89%a9%e8%bd%a6%e6%b7%bb%e5%8a%a0%e5%95%86%e5%93%81%e4%b8%8a%e9%99%90%e7%9a%84%e9%85%8d%e7%bd%ae%e7%83%ad%e6%9b%b4%e6%96%b0" aria-label="案例：实现购物车添加商品上限的配置热更新">案例：实现购物车添加商品上限的配置热更新</a></li></ul>
+                </li>
                 <li>
                     <a href="#%e5%8a%a8%e6%80%81%e8%b7%af%e7%94%b1" aria-label="动态路由">动态路由</a>
                 </li>
@@ -2180,6 +2184,7 @@
 
 
 </p>
+<hr>
 <h4 id="1在网关的登录校验过滤器中把获取到的用户写入请求头">1.在网关的登录校验过滤器中，把获取到的用户写入请求头<a hidden class="anchor" aria-hidden="true" href="#1在网关的登录校验过滤器中把获取到的用户写入请求头">#</a></h4>
 <p><strong>需求</strong>：修改gateway模块中的登录校验拦截器，在校验成功后保存用户到下游请求的请求头中。<br>
 <strong>提示</strong>：要修改转发到微服务的请求，需要用到ServerWebExchange类提供的API，示例如下：
@@ -2218,6 +2223,7 @@
 
 
 </p>
+<hr>
 <h4 id="2在hm-common中编写springmvc拦截器获取登录用户">2.在hm-common中编写SpringMVC拦截器，获取登录用户<a hidden class="anchor" aria-hidden="true" href="#2在hm-common中编写springmvc拦截器获取登录用户">#</a></h4>
 <p>需求：由于每个微服务都可能有获取登录用户的需求，因此我们直接在hm-common模块定义拦截器，这样微服务只需要引入依赖即可生效，无需重复编写。
 步骤：</p>
@@ -2383,10 +2389,744 @@ OpenFeign中提供了一个拦截器接口，所有由OpenFeign发起的请求�
 
 
 </p>
+<hr>
 <h2 id="配置管理">配置管理<a hidden class="anchor" aria-hidden="true" href="#配置管理">#</a></h2>
+<ul>
+<li>微服务重复配置过多，维护成本高</li>
+<li>业务配置经常变动，每次修改都要重启服务</li>
+<li>网关路由配置写死，如果变更要重启网关</li>
+</ul>
+<p>配置中心的前身 <code>--&gt;</code> SpringCloud Config <code>--&gt;</code> nacos/consul/apollp
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/19.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/19.webp"
+      srcset="/post/microservices/gateway/19.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<hr>
 <h3 id="配置共享">配置共享<a hidden class="anchor" aria-hidden="true" href="#配置共享">#</a></h3>
+<p>步骤：</p>
+<ol>
+<li>添加一些共享配置到Nacos中，包括：<code>Jdbc</code>、<code>MybatisPlus</code>、日志、<code>Swagger</code>、<code>OpenFeign</code>等配置
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/20.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/20.png"
+      srcset="/post/microservices/gateway/20.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/21.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/21.png"
+      srcset="/post/microservices/gateway/21.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>拉取共享配置<br>
+基于NacosConfig拉取共享配置代替微服务的本地配置。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/22.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/22.png"
+      srcset="/post/microservices/gateway/22.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+<ol>
+<li>引入依赖
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/23.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/23.png"
+      srcset="/post/microservices/gateway/23.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>新建<code>bootstrap.yaml</code>
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/24.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/24.png"
+      srcset="/post/microservices/gateway/24.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+</ol>
+</li>
+</ol>
+<hr>
 <h3 id="配置热更新">配置热更新<a hidden class="anchor" aria-hidden="true" href="#配置热更新">#</a></h3>
+<p>除了<code>Spring</code>的配置以外，业务中自定义的基于<code>@ConfigurationProperties</code>的自定义配置属性也都可以从<code>Nacos</code>读取。而且当<code>Nacos</code>中这些业务配置变更时，<code>Nacos</code>会推送变更信息到微服务，<strong>无需重启</strong>即可生效，实现<strong>配置热更新</strong></p>
+<p>前提条件：</p>
+<ol>
+<li><code>nacos</code>中要有一个与微服务名有关的配置文件。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/25.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/25.png"
+      srcset="/post/microservices/gateway/25.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+<ul>
+<li>服务名：例如购物车服务，就是<code>cart-service</code></li>
+<li><code>spring.active.profile</code>：用于区分不同的环境，例如<code>local</code>、<code>dev</code>、<code>test</code>，可以省略</li>
+<li>后缀名：比如<code>yaml</code>、<code>json</code></li>
+</ul>
+</li>
+<li>微服务中要以特定方式读取需要热更新的配置属性
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/26.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/26.png"
+      srcset="/post/microservices/gateway/26.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+</ol>
+<hr>
+<h4 id="案例实现购物车添加商品上限的配置热更新">案例：实现购物车添加商品上限的配置热更新<a hidden class="anchor" aria-hidden="true" href="#案例实现购物车添加商品上限的配置热更新">#</a></h4>
+<p>需求：购物车的限定数量目前是写死在业务中的，将其改为读取配置文件属性，并将配置交给Nacos管理，实现热更新。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/27.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/27.png"
+      srcset="/post/microservices/gateway/27.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<ol>
+<li>在<code>nacos</code>控制台，添加<code>cart-service.yaml</code>
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/28.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/28.webp"
+      srcset="/post/microservices/gateway/28.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>编写配置类<code>CartProperties</code>
+<ul>
+<li><code>com/hmall/cart/config/CartProperties.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.hmall.cart.config</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.Data</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.boot.context.properties.ConfigurationProperties</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.stereotype.Component</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Component</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@ConfigurationProperties</span><span class="p">(</span><span class="n">prefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;hm.cart&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CartProperties</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">maxAmount</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+<li>修改加入购物车代码
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/29.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/29.webp"
+      srcset="/post/microservices/gateway/29.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/30.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/30.webp"
+      srcset="/post/microservices/gateway/30.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>测试<br>
+搜索商品，点击加入购物车，测试效果
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/31.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/31.webp"
+      srcset="/post/microservices/gateway/31.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/32.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/32.webp"
+      srcset="/post/microservices/gateway/32.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+</ol>
+<hr>
 <h3 id="动态路由">动态路由<a hidden class="anchor" aria-hidden="true" href="#动态路由">#</a></h3>
+<p>要实现<strong>动态路由</strong>首先要将路由配置保存到Nacos，当Nacos中的路由配置变更时，推送最新配置到网关，实时更新网关中的路由信息。
+我们需要完成两件事情：</p>
+<ol>
+<li>监听<code>Nacos</code>配置变更的消息<br>
+监听<code>Nacos</code>配置变更可以参考官方文档： <a href="https://nacos.io/zh-cn/docs/sdk.html">https://nacos.io/zh-cn/docs/sdk.html</a>
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/33.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/33.png"
+      srcset="/post/microservices/gateway/33.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>当配置变更时，将最新的路由信息更新到网关路由表<br>
+监听到路由信息后，可以利用RouteDefinitionWriter来更新路由表：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/34.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/34.png"
+      srcset="/post/microservices/gateway/34.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+为了方便解析从Nacos读取到的路由配置，推荐使用json格式的路由配置，模板如下：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/4-gateway/index.md"
+    href="/post/microservices/gateway/35.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/gateway/35.png"
+      srcset="/post/microservices/gateway/35.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+</ol>
+<ul>
+<li><code>com/hmall/gateway/routers/DynamicRouterLoader.java</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.hmall.gateway.routers</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">cn.hutool.json.JSONUtil</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">com.alibaba.cloud.nacos.NacosConfigManager</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">com.alibaba.nacos.api.config.listener.Listener</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">com.alibaba.nacos.api.exception.NacosException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.RequiredArgsConstructor</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.extern.slf4j.Slf4j</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.cloud.gateway.route.RouteDefinition</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.cloud.gateway.route.RouteDefinitionWriter</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.stereotype.Component</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">reactor.core.publisher.Mono</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">javax.annotation.PostConstruct</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.HashSet</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.List</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.Set</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.concurrent.Executor</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Component</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@RequiredArgsConstructor</span><span class="w">    </span><span class="c1">//  自动注入</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DynamicRouterLoader</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">NacosConfigManager</span><span class="w"> </span><span class="n">nacosConfigManager</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">RouteDefinitionWriter</span><span class="w"> </span><span class="n">routeDefinitionWriter</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">dataId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;gateway-routes.json&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;DEFAULT_GROUP&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">routeIds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HashSet</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@PostConstruct</span><span class="w">  </span><span class="c1">//  启动时执行</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">initRouteeConfigListener</span><span class="p">()</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">NacosException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 项目启动时，拉取配置并添加监听器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">configInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nacosConfigManager</span><span class="p">.</span><span class="na">getConfigService</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">getConfigAndSignListener</span><span class="p">(</span><span class="n">dataId</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="n">5000</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Listener</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="kd">public</span><span class="w"> </span><span class="n">Executor</span><span class="w"> </span><span class="nf">getExecutor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                        </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">receiveConfigInfo</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                        </span><span class="c1">//     2.监听到配置变更，更新配置路由表</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                        </span><span class="n">updateConfigInfo</span><span class="p">(</span><span class="n">s</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//     3.第一次读取到配置也需要添加到路由表</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">updateConfigInfo</span><span class="p">(</span><span class="n">configInfo</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">updateConfigInfo</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">configInfo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">log</span><span class="p">.</span><span class="na">debug</span><span class="p">(</span><span class="s">&#34;监听到路由配置信息：{}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">configInfo</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">List</span><span class="o">&lt;</span><span class="n">RouteDefinition</span><span class="o">&gt;</span><span class="w"> </span><span class="n">routeDefinitions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSONUtil</span><span class="p">.</span><span class="na">toList</span><span class="p">(</span><span class="n">configInfo</span><span class="p">,</span><span class="w"> </span><span class="n">RouteDefinition</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//     删除旧的路由表</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">routeId</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">routeIds</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">routeDefinitionWriter</span><span class="p">.</span><span class="na">delete</span><span class="p">(</span><span class="n">Mono</span><span class="p">.</span><span class="na">just</span><span class="p">(</span><span class="n">routeId</span><span class="p">)).</span><span class="na">subscribe</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">routeIds</span><span class="p">.</span><span class="na">clear</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//     3.更新路由表</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">RouteDefinition</span><span class="w"> </span><span class="n">routeDefinition</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">routeDefinitions</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 3.1 更新路由表</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">routeDefinitionWriter</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">Mono</span><span class="p">.</span><span class="na">just</span><span class="p">(</span><span class="n">routeDefinition</span><span class="p">)).</span><span class="na">subscribe</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//  3.2 记录路由id，便于下一次更新时删除</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">routeIds</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">routeDefinition</span><span class="p">.</span><span class="na">getId</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+</ul>
 
 
   </div>
