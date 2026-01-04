@@ -181,6 +181,27 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Javaweb——(20)SpringBoot实战·Tlias智能学习辅助系统·登录认证
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>登录功能 分析 阅读接口文档——登录
+了解需求之后分析三层架构各自的任务 实体类 EmpLoginInfo.java package com.javaweb.entity; import lombok.AllArgsConstructor; import lombok.Data; import lombok.NoArgsConstructor; @Data @AllArgsConstructor @NoArgsConstructor public class EmpLoginInfo { private Integer id; private String username; private String name; private String token; } Controller LoginController.java package com.javaweb.controller; import com.javaweb.entity.Emp; import com.javaweb.entity.EmpLoginInfo; import com.javaweb.entity.Result; import com.javaweb.service.EmpService; import lombok.extern.slf4j.Slf4j; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.web.bind.annotation.PostMapping; import org.springframework.web.bind.annotation.RequestBody; import org.springframework.web.bind.annotation.RequestMapping; import org.springframework.web.bind.annotation.RestController; @Slf4j @RestController @RequestMapping(&#34;/login&#34;) public class LoginController { @Autowired private EmpService empService; /** * 员工登录 * * @param emp * @return */ @PostMapping public Result login(@RequestBody Emp emp) { log.info(&#34;员工登录：{}&#34;, emp); EmpLoginInfo loginInfo = empService.login(emp); if (loginInfo == null) { return Result.error(&#34;用户名或密码错误！！&#34;); } return Result.success(loginInfo); } } Service &amp; Mapper EmpServiceImpl.java /** * 员工登录 * * @param emp * @return */ @Override public EmpLoginInfo login(Emp emp) { //1.调用mapper方法查询 Emp empDB = empMapper.selectByUsernameAndPassword(emp); //2.判断登录数据是否正确 if (empDB != null) { //3.查到数据构造EmpLoginInfo对象并返回 //TODO return new EmpLoginInfo(empDB.getId(), empDB.getUsername(), empDB.getName(), null); } //3.如果数据为空，代表登录失败，返回null return null; } EmpMapper.xml &lt;!-- 登录--&gt; &lt;select id=&#34;selectByUsernameAndPassword&#34; resultType=&#34;com.javaweb.entity.Emp&#34;&gt; select * from emp where username = #{username} and password = #{password} &lt;/select&gt; 联调测试 问题：在未登录时，也能访问系统页面进行操作 解决方案：进行登录校验 登录校验 注释
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2025-12-05 21:46:13 +0800 +0800'>2025-12-05</span>&nbsp;·&nbsp;<span title='2025-12-10 02:45:12 +0800 +0800'>(最后修改于 2025-12-10)</span>&nbsp;·&nbsp;<span>9 分钟</span></footer>
+  <a class="entry-link" aria-label="post link to Javaweb——(20)SpringBoot实战·Tlias智能学习辅助系统·登录认证" href="https://www.steamedfish.top/post/java-web/javaweb-20-springboot-tlias9/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Javaweb——(19)SpringBoot实战·Tlias智能学习辅助系统·数据统计【未完成】
     </h2>
   </header>
@@ -369,26 +390,6 @@ DELETE /emps?ids=1,2,3 方式一：在Controller方法中通过数组来接收 �
 
 <span title='2025-11-27 16:37:44 +0800 +0800'>2025-11-27</span>&nbsp;·&nbsp;<span title='2025-11-28 02:49:16 +0800 +0800'>(最后修改于 2025-11-28)</span>&nbsp;·&nbsp;<span>8 分钟</span></footer>
   <a class="entry-link" aria-label="post link to Javaweb——(13)SpringBoot实战·Tlias智能学习辅助系统·部门管理开发" href="https://www.steamedfish.top/post/java-web/javaweb-13-springboot-tlias2/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">【建站日志】添加 Github 卡片 
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>功能实现 这个简码的功能是插入 GitHub 仓库。有时候我们会在文中分享某个 GitHub 仓库，但如果只是放一个超链接，样式有些单一，不能吸引读者的注意力。所以我模仿 GitHub 仓库的形式写了这个简码。
-首先创建 github.html 文件，内容如下所示： layouts\_shortcodes\github.html &lt;div class=&#34;github&#34;&gt; &lt;div class=&#34;logo&#34;&gt; {{ replace $.Site.Data.SVG.repository &#34;icon&#34; &#34;icon github-icon&#34; | safeHTML }} &lt;a class=&#34;name&#34; href={{ .Get &#34;link&#34; }} target=&#34;_blank&#34;&gt;{{ .Get &#34;name&#34; }}&lt;/a&gt; &lt;/div&gt; {{/* 关键：把 JSON 字符串转成可 range 的结构 */}} {{ $languages := .Get &#34;languages&#34; | transform.Unmarshal }} &lt;div class=&#34;language&#34;&gt; {{ range $languages }} &lt;span class=&#34;language-item&#34;&gt; &lt;span class=&#34;language-color&#34; style=&#34;background-color: {{ .color }}&#34;&gt; &lt;/span&gt; &lt;span class=&#34;language-name&#34;&gt;{{ .name }}&lt;/span&gt; &lt;/span&gt; {{ end }} &lt;/div&gt; &lt;/div&gt; 然后添加自定义 CSS 样式。 assets\css\extended\custom.css /* GitHub 卡片容器 */ .github { border: 1px solid var(--color-contrast-medium); /* 亮色边框 */ border-radius: 8px; margin: 0 auto 1em auto; padding: 1em; background-color: var(--body-bg); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; transform: translateZ(0); /* 避免子像素渲染线 */ } /* hover 效果 */ .github:hover { box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); border-color: var(--primary); } /* 暗色模式 */ @media (prefers-color-scheme: dark) { .github { border: 1px solid var(--pm-contrast-low); /* 暗色边框 */ background-color: var(--pm-body-bg); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); } .github .name { color: var(--pm-primary); } .github .description, .github .language-name { color: var(--pm-foreground); } } /* logo 顶部 flex 对齐 */ .github .logo { display: flex; align-items: center; gap: 0.5em; line-height: 1; } /* GitHub 图标 */ .github-icon { width: 1.2em; height: 1.2em; flex-shrink: 0; fill: var(--color-contrast-high); display: block; vertical-align: middle; transition: all 0.3s ease; } /* 仓库名 */ .github .name { font-weight: bold; color: var(--primary); text-decoration: none; } /* 描述 */ .github .description { margin: 0.5em 0 1em 0; color: var(--color-contrast-high); text-align: justify; font-size: 90%; } /* 编程语言 */ .github .language-color { display: inline-block; width: 0.75em; height: 0.75em; border-radius: 50%; } .github .language-name { font-size: 90%; margin-left: 0.5em; } 最后引入 svg 图标 data\SVG.toml repository = &#39;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; class=&#34;icon&#34; viewBox=&#34;0 0 16 16&#34;&gt;&lt;path fill-rule=&#34;evenodd&#34; clip-rule=&#34;evenodd&#34; d=&#34;M2 2.5C2 1.83696 2.26339 1.20107 2.73223 0.732233C3.20108 0.263392 3.83696 0 4.5 0L13.25 0C13.4489 0 13.6397 0.0790176 13.7803 0.21967C13.921 0.360322 14 0.551088 14 0.75V13.25C14 13.4489 13.921 13.6397 13.7803 13.7803C13.6397 13.921 13.4489 14 13.25 14H10.75C10.5511 14 10.3603 13.921 10.2197 13.7803C10.079 13.6397 10 13.4489 10 13.25C10 13.0511 10.079 12.8603 10.2197 12.7197C10.3603 12.579 10.5511 12.5 10.75 12.5H12.5V10.5H4.5C4.30308 10.5 4.11056 10.5582 3.94657 10.6672C3.78257 10.7762 3.65442 10.9312 3.57816 11.1128C3.50191 11.2943 3.48096 11.4943 3.51793 11.6878C3.5549 11.8812 3.64816 12.0594 3.786 12.2C3.92524 12.3422 4.0023 12.5338 4.00024 12.7328C3.99818 12.9318 3.91716 13.1218 3.775 13.261C3.63285 13.4002 3.4412 13.4773 3.24222 13.4752C3.04325 13.4732 2.85324 13.3922 2.714 13.25C2.25571 12.7829 1.99929 12.1544 2 11.5V2.5ZM12.5 1.5V9H4.5C4.144 9 3.806 9.074 3.5 9.208V2.5C3.5 2.23478 3.60536 1.98043 3.79289 1.79289C3.98043 1.60536 4.23478 1.5 4.5 1.5H12.5ZM5 12.25V15.5C5 15.5464 5.01293 15.5919 5.03734 15.6314C5.06175 15.6709 5.09667 15.7028 5.1382 15.7236C5.17972 15.7444 5.22621 15.7532 5.27245 15.749C5.31869 15.7448 5.36286 15.7279 5.4 15.7L6.85 14.613C6.89328 14.5805 6.94591 14.563 7 14.563C7.05409 14.563 7.10673 14.5805 7.15 14.613L8.6 15.7C8.63714 15.7279 8.68131 15.7448 8.72755 15.749C8.77379 15.7532 8.82028 15.7444 8.8618 15.7236C8.90333 15.7028 8.93826 15.6709 8.96266 15.6314C8.98707 15.5919 9 15.5464 9 15.5V12.25C9 12.1837 8.97366 12.1201 8.92678 12.0732C8.87989 12.0263 8.81631 12 8.75 12H5.25C5.1837 12 5.12011 12.0263 5.07322 12.0732C5.02634 12.1201 5 12.1837 5 12.25Z&#34;/&gt;&lt;/svg&gt;&#39; 效果展示 hugoHugo is a static site generator written in Go, optimized for speed and designed for flexibility. With its advanced templating system and fast asset pipelines, Hugo renders a complete site in seconds, often less.Go</p>
-  </div>
-  <footer class="entry-footer">
-
-
-
-
-
-
-<span title='2025-11-27 00:17:36 +0800 +0800'>2025-11-27</span>&nbsp;·&nbsp;<span title='2025-12-23 03:59:54 +0800 +0800'>(最后修改于 2025-12-23)</span>&nbsp;·&nbsp;<span>2 分钟</span></footer>
-  <a class="entry-link" aria-label="post link to 【建站日志】添加 Github 卡片 " href="https://www.steamedfish.top/post/hugo-log/hugo-shortcodes-github/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>WSL2 on SteamedFish&#39;s Blog</title>
-    <link>https://www.steamedfish.top/categories/wsl2/</link>
+    <link>https://www.steamedfish.top/tags/wsl2/</link>
     <description>Recent content in WSL2 on SteamedFish&#39;s Blog</description>
     <generator>Hugo -- 0.154.2</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sat, 03 Jan 2026 03:49:25 +0800</lastBuildDate>
-    <atom:link href="https://www.steamedfish.top/categories/wsl2/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Jan 2026 18:54:33 +0800</lastBuildDate>
+    <atom:link href="https://www.steamedfish.top/tags/wsl2/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>【WSL-Ubuntu】报错Wsl/Service/CreateInstance/MountDisk/HCS/ERROR_FILE_NOT_FOUND</title>
-      <link>https://www.steamedfish.top/post/debug/wsl-error_file_now_found/</link>
+      <title>【debug日记-WSL-Ubuntu】报错Wsl/Service/CreateInstance/MountDisk/HCS/ERROR_FILE_NOT_FOUND</title>
+      <link>https://www.steamedfish.top/post/debug-note/wsl-error_file_now_found/</link>
       <pubDate>Thu, 01 Jan 2026 18:54:33 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/debug/wsl-error_file_now_found/</guid>
+      <guid>https://www.steamedfish.top/post/debug-note/wsl-error_file_now_found/</guid>
       <description>&lt;h2 id=&#34;错误代码&#34;&gt;错误代码&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;无法将磁盘“C:&lt;span class=&#34;se&#34;&gt;\U&lt;/span&gt;sers&lt;span class=&#34;se&#34;&gt;\Q&lt;/span&gt;iaoZ&lt;span class=&#34;se&#34;&gt;\A&lt;/span&gt;ppData&lt;span class=&#34;se&#34;&gt;\L&lt;/span&gt;ocal&lt;span class=&#34;se&#34;&gt;\P&lt;/span&gt;ackages&lt;span class=&#34;se&#34;&gt;\C&lt;/span&gt;anonicalGroupLimited.Ubuntu_79rhkp1fndgsc&lt;span class=&#34;se&#34;&gt;\L&lt;/span&gt;ocalState&lt;span class=&#34;se&#34;&gt;\e&lt;/span&gt;xt4.vhdx”附加到 WSL2: 系统找不到指定的文件。
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;错误代码: Wsl/Service/CreateInstance/MountDisk/HCS/ERROR_FILE_NOT_FOUND
@@ -33,14 +33,14 @@
 
 &lt;div class=&#34;post-img-view&#34;&gt;
   &lt;a
-    data-fancybox=&#34;post-post/debug/wsl-ERROR_FILE_NOW_FOUND/index.md&#34;
-    href=&#34;https://www.steamedfish.top/post/debug/wsl-error_file_now_found/1.webp&#34;
+    data-fancybox=&#34;post-post/debug-note/wsl-ERROR_FILE_NOW_FOUND/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/debug-note/wsl-error_file_now_found/1.webp&#34;
     data-caption=&#34;&#34;
     data-barba-prevent=&#34;all&#34;
   &gt;
     &lt;img
-      src=&#34;https://www.steamedfish.top/post/debug/wsl-error_file_now_found/1.webp&#34;
-      srcset=&#34;https://www.steamedfish.top/post/debug/wsl-error_file_now_found/1.webp 2x&#34;
+      src=&#34;https://www.steamedfish.top/post/debug-note/wsl-error_file_now_found/1.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/debug-note/wsl-error_file_now_found/1.webp 2x&#34;
       alt=&#34;&#34;
       loading=&#34;lazy&#34;
       style=&#34;max-width: 100%; height: auto;&#34;

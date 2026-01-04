@@ -10,31 +10,10 @@
     <lastBuildDate>Sat, 03 Jan 2026 03:49:25 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Linux</title>
-      <link>https://www.steamedfish.top/categories/linux/</link>
+      <title>Debug日记</title>
+      <link>https://www.steamedfish.top/categories/debug%E6%97%A5%E8%AE%B0/</link>
       <pubDate>Thu, 01 Jan 2026 18:54:33 +0800</pubDate>
-      <guid>https://www.steamedfish.top/categories/linux/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Windows</title>
-      <link>https://www.steamedfish.top/categories/windows/</link>
-      <pubDate>Thu, 01 Jan 2026 18:54:33 +0800</pubDate>
-      <guid>https://www.steamedfish.top/categories/windows/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>WSL</title>
-      <link>https://www.steamedfish.top/categories/wsl/</link>
-      <pubDate>Thu, 01 Jan 2026 18:54:33 +0800</pubDate>
-      <guid>https://www.steamedfish.top/categories/wsl/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>WSL2</title>
-      <link>https://www.steamedfish.top/categories/wsl2/</link>
-      <pubDate>Thu, 01 Jan 2026 18:54:33 +0800</pubDate>
-      <guid>https://www.steamedfish.top/categories/wsl2/</guid>
+      <guid>https://www.steamedfish.top/categories/debug%E6%97%A5%E8%AE%B0/</guid>
       <description></description>
     </item>
     <item>
@@ -42,6 +21,13 @@
       <link>https://www.steamedfish.top/categories/docker/</link>
       <pubDate>Thu, 01 Jan 2026 18:33:42 +0800</pubDate>
       <guid>https://www.steamedfish.top/categories/docker/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux</title>
+      <link>https://www.steamedfish.top/categories/linux/</link>
+      <pubDate>Thu, 01 Jan 2026 18:33:42 +0800</pubDate>
+      <guid>https://www.steamedfish.top/categories/linux/</guid>
       <description></description>
     </item>
     <item>
