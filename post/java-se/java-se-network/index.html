@@ -29,7 +29,7 @@ public class TestURL {
 注意：URL 只是表示地址，不会主动去访问网络。要访问，需要配合 URLConnection 或 HttpURLConnection。">
 <meta name="author" content="">
 <link rel="canonical" href="https://www.steamedfish.top/post/java-se/java-se-network/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.c27e1246cb66d388c2c28ba2cad7d8e45b296bdd6da67c05cf15ef27e74594b2.css" integrity="sha256-wn4SRstm04jCwouiytfY5Fspa91tpnwFzxXvJ&#43;dFlLI=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.48569ef1d09dace3351ba549c3a7d634e59d1a68544f48e0de83f555e5c3e16e.css" integrity="sha256-SFae8dCdrOM1G6VJw6fWNOWdGmhUT0jg3oP1VeXD4W4=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
@@ -176,8 +176,6 @@ public class TestURL {
 </head>
 
 <body data-barba="wrapper" class="" id="top">
-
-<div id="aplayer"></div>
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -494,181 +492,48 @@ Java 中主要有两类：</p>
 </blockquote>
 <hr>
 <h2 id="4常见socket异常">4.常见Socket异常<a hidden class="anchor" aria-hidden="true" href="#4常见socket异常">#</a></h2>
+<table class="table table-striped table-bordered table-hover">
 
-
-
-
-<table>
-
-    <thead>
+  <thead>
       <tr>
           <th>异常类型</th>
           <th>说明</th>
       </tr>
-    </thead>
-    <tbody>
-    
-    
+  </thead>
+
+  <tbody>
+    <tr>
+
         
+<td><code>IOException</code></td>
+
         
+<td>读写流错误或连接断开</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><code>BindException</code></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>IOException</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">读写流错误或连接断开</td>
-      </tr>
+<td>端口被占用，服务器启动失败</td>
+    </tr>
+    <tr>
+
         
+<td><code>ConnectException</code></td>
+
         
+<td>客户端连接失败，服务器未启动或端口错误</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><code>SocketTimeoutException</code></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>BindException</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">端口被占用，服务器启动失败</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>ConnectException</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">客户端连接失败，服务器未启动或端口错误</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>SocketTimeoutException</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">设置超时时间后，连接或读取超时</td>
-      </tr>
+<td>设置超时时间后，连接或读取超时</td>
+    </tr>
   </tbody>
 </table><p>提示：</p>
 <ul>
@@ -814,46 +679,52 @@ UDP 不会重发，丢包情况需应用层处理。</li>
 
 
 <script>
-  window.PaperMod = window.PaperMod || {};
-  PaperMod.state = { once: false };
+window.PaperMod = window.PaperMod || {};
+PaperMod.state = { once: false };
 
-  PaperMod.initOnce = function () {
-    if (PaperMod.state.once) return;
-    PaperMod.state.once = true;
-
-    console.log("PaperMod initOnce");
-
-    if (PaperMod.initAPlayer) {
-      PaperMod.initAPlayer();
-    }
-  };
-
-  PaperMod.initPage = function (container = document) {
-    console.log("PaperMod initPage");
-
-    PaperMod.initFancybox && PaperMod.initFancybox(container);
-    PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
-  };
-
-  barba.init({
-    transitions: [
-      {
-        name: "default",
-        leave() {
-          return Promise.resolve();
-        },
-        enter(data) {
-          PaperMod.initOnce();
-          PaperMod.initPage(data.next.container);
-        },
-      },
-    ],
-  });
+PaperMod.initOnce = function () {
   
-  document.addEventListener("DOMContentLoaded", () => {
-    PaperMod.initOnce();
-    PaperMod.initPage(document);
-  });
+  if (PaperMod.state.once) return;
+  PaperMod.state.once = true;
+  console.log("PaperMod initOnce");
+
+  
+  if (PaperMod.initAPlayer && !window.__aplayer_inited__) {
+    PaperMod.initAPlayer();
+  }
+};
+
+PaperMod.initPage = function (container = document) {
+  console.log("PaperMod initPage");
+
+  PaperMod.initFancybox && PaperMod.initFancybox(container);
+  PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
+};
+
+
+barba.init({
+  transitions: [
+    {
+      name: "default",
+      leave() {
+        return Promise.resolve();
+      },
+      enter(data) {
+        
+        PaperMod.initOnce();
+        PaperMod.initPage(data.next.container);
+      },
+    },
+  ],
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  PaperMod.initOnce();
+  PaperMod.initPage(document);
+});
+
 </script>
 
 
@@ -868,67 +739,103 @@ UDP 不会重发，丢包情况需应用层处理。</li>
 />
 <script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.2/Meting.min.js"></script>
+
+<meting-js
+  server="netease"
+  fixed="true"
+  lrc-type="1"
+  type="playlist"
+  id="2245453903"
+  api="https://api.qijieya.cn/meting/?type=:type&id=:id"
+  >
+  
+  
+         
+  
+  
+  
+</meting-js>
 <script>
-  window.PaperMod = window.PaperMod || {};
-  console.log("player.js loaded");
-  PaperMod.initAPlayer = async function () {
-    if (window.__aplayer_inited__) {
-      console.log("APlayer already exists, skip");
-      return;
-    }
-
-    const container = document.getElementById("aplayer");
-    if (!container) {
-      console.warn("APlayer container not found");
-      return;
-    }
-
-    console.log("Init APlayer");
-    
-
-    const localAudio = [
-      
-      
-      
-      
-      
-      
-      
-      
-    ];
-
-    
-
-    let metingAudio = [];
-    try {
-      const res = await fetch(
-        
-        
-        "https://api.qijieya.cn/meting/?type=playlist&id=2245453903"
-        
-        
-      );
-      metingAudio = await res.json();
-    } catch (e) {
-      console.warn("Meting load failed, fallback to local only");
-    }
-
-    
-
-    const audioList = [...localAudio, ...metingAudio];
-
-    window.aplayer = new APlayer({
-      container,
-      fixed: true,
-      autoplay: false,
-      preload: "auto",
-      lrcType: 1,
-      
-      audio: metingAudio,
+  if (window.Barba) {
+    Barba.hooks.afterEnter(function () {
+      const metingPlayer = document.querySelector('meting-js');
+      if (metingPlayer) {
+        metingPlayer.load();  
+      }
     });
-    console.log("APlayer created with", audioList.length, "tracks");
-  };
+  }
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
 </script>
+
 
 
 

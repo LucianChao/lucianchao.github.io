@@ -19,7 +19,7 @@
 多线程可以提升程序效率，但也可能带来同步问题（比如两个线程同时修改同一个变量）。">
 <meta name="author" content="">
 <link rel="canonical" href="https://www.steamedfish.top/post/java-se/java-se-thread-and-concurrency/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.c27e1246cb66d388c2c28ba2cad7d8e45b296bdd6da67c05cf15ef27e74594b2.css" integrity="sha256-wn4SRstm04jCwouiytfY5Fspa91tpnwFzxXvJ&#43;dFlLI=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.48569ef1d09dace3351ba549c3a7d634e59d1a68544f48e0de83f555e5c3e16e.css" integrity="sha256-SFae8dCdrOM1G6VJw6fWNOWdGmhUT0jg3oP1VeXD4W4=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
@@ -155,8 +155,6 @@
 </head>
 
 <body data-barba="wrapper" class="" id="top">
-
-<div id="aplayer"></div>
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -384,301 +382,72 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>Thread类的常用方法</p>
+<table class="table table-striped table-bordered table-hover">
 
-
-
-
-<table>
-
-    <thead>
+  <thead>
       <tr>
           <th>方法</th>
           <th>说明</th>
       </tr>
-    </thead>
-    <tbody>
-    
-    
+  </thead>
+
+  <tbody>
+    <tr>
+
         
+<td><code>start()</code></td>
+
         
+<td>启动新线程</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><code>run()</code></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>start()</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">启动新线程</td>
-      </tr>
+<td>线程执行体（不要手动调用）</td>
+    </tr>
+    <tr>
+
         
+<td><code>sleep(ms)</code></td>
+
         
+<td>暂停线程指定毫秒</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><code>join()</code></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>run()</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">线程执行体（不要手动调用）</td>
-      </tr>
+<td>等待该线程执行结束</td>
+    </tr>
+    <tr>
+
         
+<td><code>isAlive()</code></td>
+
         
+<td>判断线程是否还在运行</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><code>setPriority(int)</code></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>sleep(ms)</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">暂停线程指定毫秒</td>
-      </tr>
+<td>设置线程优先级（1~10）</td>
+    </tr>
+    <tr>
+
         
+<td><code>setName(String)</code></td>
+
         
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>join()</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">等待该线程执行结束</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>isAlive()</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">判断线程是否还在运行</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>setPriority(int)</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">设置线程优先级（1~10）</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>setName(String)</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">修改线程名字</td>
-      </tr>
+<td>修改线程名字</td>
+    </tr>
   </tbody>
 </table><p>示例：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Demo</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -754,136 +523,39 @@
 </ul>
 </blockquote>
 <h2 id="sleep与join的区别">sleep()与join()的区别<a hidden class="anchor" aria-hidden="true" href="#sleep与join的区别">#</a></h2>
+<table class="table table-striped table-bordered table-hover">
 
-
-
-
-<table>
-
-    <thead>
+  <thead>
       <tr>
           <th>方法</th>
           <th>作用</th>
           <th>状态</th>
       </tr>
-    </thead>
-    <tbody>
-    
-    
+  </thead>
+
+  <tbody>
+    <tr>
+
         
+<td><code>sleep(ms)</code></td>
+
         
+<td>暂停当前线程，不释放锁</td>
+
         
-      <tr>
+<td>就绪/运行切换</td>
+    </tr>
+    <tr>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>sleep(ms)</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">暂停当前线程，不释放锁</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">就绪/运行切换</td>
-      </tr>
+<td><code>join()</code></td>
+
         
+<td>等待另一个线程结束</td>
+
         
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>join()</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">等待另一个线程结束</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">阻塞/等待</td>
-      </tr>
+<td>阻塞/等待</td>
+    </tr>
   </tbody>
 </table><p>示例：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Thread</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Thread</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1083,181 +755,48 @@
 <hr>
 <h3 id="2-executor-框架结构">2. Executor 框架结构<a hidden class="anchor" aria-hidden="true" href="#2-executor-框架结构">#</a></h3>
 <p>Java 的线程池主要由以下几个核心接口组成：</p>
+<table class="table table-striped table-bordered table-hover">
 
-
-
-
-<table>
-
-    <thead>
+  <thead>
       <tr>
           <th>接口 / 类</th>
           <th>说明</th>
       </tr>
-    </thead>
-    <tbody>
-    
-    
+  </thead>
+
+  <tbody>
+    <tr>
+
         
+<td><code>Executor</code></td>
+
         
+<td>最顶层接口，定义了执行任务的基本方法 <code>execute()</code></td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><code>ExecutorService</code></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>Executor</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">最顶层接口，定义了执行任务的基本方法 <code>execute()</code></td>
-      </tr>
+<td>扩展接口，支持提交任务、关闭线程池、获取返回值</td>
+    </tr>
+    <tr>
+
         
+<td><code>ThreadPoolExecutor</code></td>
+
         
+<td>真正的线程池实现类</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><code>Executors</code></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>ExecutorService</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">扩展接口，支持提交任务、关闭线程池、获取返回值</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>ThreadPoolExecutor</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">真正的线程池实现类</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>Executors</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">工具类，用于创建各种常用线程池</td>
-      </tr>
+<td>工具类，用于创建各种常用线程池</td>
+    </tr>
   </tbody>
 </table><h3 id="3创建线程池executors-工具类">3.创建线程池（Executors 工具类）<a hidden class="anchor" aria-hidden="true" href="#3创建线程池executors-工具类">#</a></h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.concurrent.*</span><span class="p">;</span><span class="w">
@@ -1278,181 +817,48 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>常见线程池类型：</p>
+<table class="table table-striped table-bordered table-hover">
 
-
-
-
-<table>
-
-    <thead>
+  <thead>
       <tr>
           <th>创建方法</th>
           <th>功能</th>
       </tr>
-    </thead>
-    <tbody>
-    
-    
+  </thead>
+
+  <tbody>
+    <tr>
+
         
+<td><code>newFixedThreadPool(n)</code></td>
+
         
+<td>固定数量线程池</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><code>newCachedThreadPool()</code></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>newFixedThreadPool(n)</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">固定数量线程池</td>
-      </tr>
+<td>按需创建线程，可重用空闲线程</td>
+    </tr>
+    <tr>
+
         
+<td><code>newSingleThreadExecutor()</code></td>
+
         
+<td>单线程池，顺序执行任务</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><code>newScheduledThreadPool(n)</code></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>newCachedThreadPool()</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">按需创建线程，可重用空闲线程</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>newSingleThreadExecutor()</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">单线程池，顺序执行任务</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>newScheduledThreadPool(n)</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">定时/周期性执行任务</td>
-      </tr>
+<td>定时/周期性执行任务</td>
+    </tr>
   </tbody>
 </table><hr>
 <h3 id="4带返回值的任务callable--future">4.带返回值的任务（Callable + Future）<a hidden class="anchor" aria-hidden="true" href="#4带返回值的任务callable--future">#</a></h3>
@@ -1498,221 +904,56 @@
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><hr>
 <h3 id="6并发工具简介javautilconcurrent">6.并发工具简介（java.util.concurrent）<a hidden class="anchor" aria-hidden="true" href="#6并发工具简介javautilconcurrent">#</a></h3>
+<table class="table table-striped table-bordered table-hover">
 
-
-
-
-<table>
-
-    <thead>
+  <thead>
       <tr>
           <th>工具类</th>
           <th>功能</th>
       </tr>
-    </thead>
-    <tbody>
-    
-    
+  </thead>
+
+  <tbody>
+    <tr>
+
         
+<td><code>CountDownLatch</code></td>
+
         
+<td>等待多个线程完成后再继续</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><code>CyclicBarrier</code></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>CountDownLatch</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">等待多个线程完成后再继续</td>
-      </tr>
+<td>一组线程互相等待直到全部到达某个点</td>
+    </tr>
+    <tr>
+
         
+<td><code>Semaphore</code></td>
+
         
+<td>控制同时访问资源的线程数量</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><code>ConcurrentHashMap</code></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>CyclicBarrier</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">一组线程互相等待直到全部到达某个点</td>
-      </tr>
+<td>线程安全的哈希表</td>
+    </tr>
+    <tr>
+
         
+<td><code>BlockingQueue</code></td>
+
         
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>Semaphore</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">控制同时访问资源的线程数量</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>ConcurrentHashMap</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">线程安全的哈希表</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><code>BlockingQueue</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">支持阻塞操作的队列，常用于生产者-消费者模型</td>
-      </tr>
+<td>支持阻塞操作的队列，常用于生产者-消费者模型</td>
+    </tr>
   </tbody>
 </table><hr>
 <p>CountDownLatch 示例：</p>
@@ -1779,46 +1020,52 @@
 
 
 <script>
-  window.PaperMod = window.PaperMod || {};
-  PaperMod.state = { once: false };
+window.PaperMod = window.PaperMod || {};
+PaperMod.state = { once: false };
 
-  PaperMod.initOnce = function () {
-    if (PaperMod.state.once) return;
-    PaperMod.state.once = true;
-
-    console.log("PaperMod initOnce");
-
-    if (PaperMod.initAPlayer) {
-      PaperMod.initAPlayer();
-    }
-  };
-
-  PaperMod.initPage = function (container = document) {
-    console.log("PaperMod initPage");
-
-    PaperMod.initFancybox && PaperMod.initFancybox(container);
-    PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
-  };
-
-  barba.init({
-    transitions: [
-      {
-        name: "default",
-        leave() {
-          return Promise.resolve();
-        },
-        enter(data) {
-          PaperMod.initOnce();
-          PaperMod.initPage(data.next.container);
-        },
-      },
-    ],
-  });
+PaperMod.initOnce = function () {
   
-  document.addEventListener("DOMContentLoaded", () => {
-    PaperMod.initOnce();
-    PaperMod.initPage(document);
-  });
+  if (PaperMod.state.once) return;
+  PaperMod.state.once = true;
+  console.log("PaperMod initOnce");
+
+  
+  if (PaperMod.initAPlayer && !window.__aplayer_inited__) {
+    PaperMod.initAPlayer();
+  }
+};
+
+PaperMod.initPage = function (container = document) {
+  console.log("PaperMod initPage");
+
+  PaperMod.initFancybox && PaperMod.initFancybox(container);
+  PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
+};
+
+
+barba.init({
+  transitions: [
+    {
+      name: "default",
+      leave() {
+        return Promise.resolve();
+      },
+      enter(data) {
+        
+        PaperMod.initOnce();
+        PaperMod.initPage(data.next.container);
+      },
+    },
+  ],
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  PaperMod.initOnce();
+  PaperMod.initPage(document);
+});
+
 </script>
 
 
@@ -1833,67 +1080,103 @@
 />
 <script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.2/Meting.min.js"></script>
+
+<meting-js
+  server="netease"
+  fixed="true"
+  lrc-type="1"
+  type="playlist"
+  id="2245453903"
+  api="https://api.qijieya.cn/meting/?type=:type&id=:id"
+  >
+  
+  
+         
+  
+  
+  
+</meting-js>
 <script>
-  window.PaperMod = window.PaperMod || {};
-  console.log("player.js loaded");
-  PaperMod.initAPlayer = async function () {
-    if (window.__aplayer_inited__) {
-      console.log("APlayer already exists, skip");
-      return;
-    }
-
-    const container = document.getElementById("aplayer");
-    if (!container) {
-      console.warn("APlayer container not found");
-      return;
-    }
-
-    console.log("Init APlayer");
-    
-
-    const localAudio = [
-      
-      
-      
-      
-      
-      
-      
-      
-    ];
-
-    
-
-    let metingAudio = [];
-    try {
-      const res = await fetch(
-        
-        
-        "https://api.qijieya.cn/meting/?type=playlist&id=2245453903"
-        
-        
-      );
-      metingAudio = await res.json();
-    } catch (e) {
-      console.warn("Meting load failed, fallback to local only");
-    }
-
-    
-
-    const audioList = [...localAudio, ...metingAudio];
-
-    window.aplayer = new APlayer({
-      container,
-      fixed: true,
-      autoplay: false,
-      preload: "auto",
-      lrcType: 1,
-      
-      audio: metingAudio,
+  if (window.Barba) {
+    Barba.hooks.afterEnter(function () {
+      const metingPlayer = document.querySelector('meting-js');
+      if (metingPlayer) {
+        metingPlayer.load();  
+      }
     });
-    console.log("APlayer created with", audioList.length, "tracks");
-  };
+  }
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
 </script>
+
 
 
 

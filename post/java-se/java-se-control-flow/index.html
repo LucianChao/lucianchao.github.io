@@ -15,7 +15,7 @@ Think of it as building a house
 你可以买很贵的材料，但没有合理的框架，房子也盖不稳。">
 <meta name="author" content="">
 <link rel="canonical" href="https://www.steamedfish.top/post/java-se/java-se-control-flow/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.c27e1246cb66d388c2c28ba2cad7d8e45b296bdd6da67c05cf15ef27e74594b2.css" integrity="sha256-wn4SRstm04jCwouiytfY5Fspa91tpnwFzxXvJ&#43;dFlLI=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.48569ef1d09dace3351ba549c3a7d634e59d1a68544f48e0de83f555e5c3e16e.css" integrity="sha256-SFae8dCdrOM1G6VJw6fWNOWdGmhUT0jg3oP1VeXD4W4=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
@@ -144,8 +144,6 @@ Think of it as building a house
 </head>
 
 <body data-barba="wrapper" class="" id="top">
-
-<div id="aplayer"></div>
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -741,341 +739,91 @@ Scanner 则用来接收用户输入。</p>
 </span></span></span><span class="line"><span class="cl"><span class="n">5</span><span class="w">
 </span></span></span></code></pre></div></blockquote>
 <h3 id="break和continue的区别">break和continue的区别<a hidden class="anchor" aria-hidden="true" href="#break和continue的区别">#</a></h3>
+<table class="table table-striped table-bordered table-hover">
 
-
-
-
-<table>
-
-    <thead>
+  <thead>
       <tr>
           <th style="text-align: left">关键字</th>
           <th style="text-align: left">作用</th>
           <th style="text-align: left">是否结束循环</th>
           <th style="text-align: left">典型用途</th>
       </tr>
-    </thead>
-    <tbody>
-    
-    
+  </thead>
+
+  <tbody>
+    <tr>
+
         
+<td style="text-align: left"><code>break</code></td>
+
         
+<td style="text-align: left">直接跳出循环</td>
+
         
-      <tr>
+<td style="text-align: left">✅ 是</td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: left"><code>break</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: left">直接跳出循环</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: left">✅ 是</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: left">提前退出循环</td>
-      </tr>
+<td style="text-align: left">提前退出循环</td>
+    </tr>
+    <tr>
+
         
+<td style="text-align: left"><code>continue</code></td>
+
         
+<td style="text-align: left">跳过当前循环</td>
+
         
-      <tr>
+<td style="text-align: left">❌ 否</td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: left"><code>continue</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: left">跳过当前循环</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: left">❌ 否</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: left">跳过不需要处理的情况</td>
-      </tr>
+<td style="text-align: left">跳过不需要处理的情况</td>
+    </tr>
   </tbody>
 </table><hr>
 <h2 id="作用域scope">作用域(Scope)<a hidden class="anchor" aria-hidden="true" href="#作用域scope">#</a></h2>
 <p>作用域是指变量能够被访问到的范围。</p>
 <p>理解它非常重要，因为变量只在它被定义的代码块 <code>{ }</code> 内有效。</p>
+<table class="table table-striped table-bordered table-hover">
 
-
-
-
-<table>
-
-    <thead>
+  <thead>
       <tr>
           <th style="text-align: left">类型</th>
           <th style="text-align: left">定义位置</th>
           <th style="text-align: left">作用范围</th>
           <th style="text-align: left">生命周期</th>
       </tr>
-    </thead>
-    <tbody>
-    
-    
+  </thead>
+
+  <tbody>
+    <tr>
+
         
+<td style="text-align: left">成员变量</td>
+
         
+<td style="text-align: left">类中</td>
+
         
-      <tr>
+<td style="text-align: left">整个类</td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: left">成员变量</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: left">类中</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: left">整个类</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: left">对象存在时</td>
-      </tr>
+<td style="text-align: left">对象存在时</td>
+    </tr>
+    <tr>
+
         
+<td style="text-align: left">局部变量</td>
+
         
+<td style="text-align: left">方法/语句块中</td>
+
         
-      <tr>
+<td style="text-align: left">当前 <code>{}</code> 内</td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: left">局部变量</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: left">方法/语句块中</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: left">当前 <code>{}</code> 内</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: left">执行完代码块后销毁</td>
-      </tr>
+<td style="text-align: left">执行完代码块后销毁</td>
+    </tr>
   </tbody>
 </table><h3 id="局部变量的作用域">局部变量的作用域<a hidden class="anchor" aria-hidden="true" href="#局部变量的作用域">#</a></h3>
 <ul>
@@ -1149,46 +897,52 @@ Scanner 则用来接收用户输入。</p>
 
 
 <script>
-  window.PaperMod = window.PaperMod || {};
-  PaperMod.state = { once: false };
+window.PaperMod = window.PaperMod || {};
+PaperMod.state = { once: false };
 
-  PaperMod.initOnce = function () {
-    if (PaperMod.state.once) return;
-    PaperMod.state.once = true;
-
-    console.log("PaperMod initOnce");
-
-    if (PaperMod.initAPlayer) {
-      PaperMod.initAPlayer();
-    }
-  };
-
-  PaperMod.initPage = function (container = document) {
-    console.log("PaperMod initPage");
-
-    PaperMod.initFancybox && PaperMod.initFancybox(container);
-    PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
-  };
-
-  barba.init({
-    transitions: [
-      {
-        name: "default",
-        leave() {
-          return Promise.resolve();
-        },
-        enter(data) {
-          PaperMod.initOnce();
-          PaperMod.initPage(data.next.container);
-        },
-      },
-    ],
-  });
+PaperMod.initOnce = function () {
   
-  document.addEventListener("DOMContentLoaded", () => {
-    PaperMod.initOnce();
-    PaperMod.initPage(document);
-  });
+  if (PaperMod.state.once) return;
+  PaperMod.state.once = true;
+  console.log("PaperMod initOnce");
+
+  
+  if (PaperMod.initAPlayer && !window.__aplayer_inited__) {
+    PaperMod.initAPlayer();
+  }
+};
+
+PaperMod.initPage = function (container = document) {
+  console.log("PaperMod initPage");
+
+  PaperMod.initFancybox && PaperMod.initFancybox(container);
+  PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
+};
+
+
+barba.init({
+  transitions: [
+    {
+      name: "default",
+      leave() {
+        return Promise.resolve();
+      },
+      enter(data) {
+        
+        PaperMod.initOnce();
+        PaperMod.initPage(data.next.container);
+      },
+    },
+  ],
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  PaperMod.initOnce();
+  PaperMod.initPage(document);
+});
+
 </script>
 
 
@@ -1203,67 +957,103 @@ Scanner 则用来接收用户输入。</p>
 />
 <script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.2/Meting.min.js"></script>
+
+<meting-js
+  server="netease"
+  fixed="true"
+  lrc-type="1"
+  type="playlist"
+  id="2245453903"
+  api="https://api.qijieya.cn/meting/?type=:type&id=:id"
+  >
+  
+  
+         
+  
+  
+  
+</meting-js>
 <script>
-  window.PaperMod = window.PaperMod || {};
-  console.log("player.js loaded");
-  PaperMod.initAPlayer = async function () {
-    if (window.__aplayer_inited__) {
-      console.log("APlayer already exists, skip");
-      return;
-    }
-
-    const container = document.getElementById("aplayer");
-    if (!container) {
-      console.warn("APlayer container not found");
-      return;
-    }
-
-    console.log("Init APlayer");
-    
-
-    const localAudio = [
-      
-      
-      
-      
-      
-      
-      
-      
-    ];
-
-    
-
-    let metingAudio = [];
-    try {
-      const res = await fetch(
-        
-        
-        "https://api.qijieya.cn/meting/?type=playlist&id=2245453903"
-        
-        
-      );
-      metingAudio = await res.json();
-    } catch (e) {
-      console.warn("Meting load failed, fallback to local only");
-    }
-
-    
-
-    const audioList = [...localAudio, ...metingAudio];
-
-    window.aplayer = new APlayer({
-      container,
-      fixed: true,
-      autoplay: false,
-      preload: "auto",
-      lrcType: 1,
-      
-      audio: metingAudio,
+  if (window.Barba) {
+    Barba.hooks.afterEnter(function () {
+      const metingPlayer = document.querySelector('meting-js');
+      if (metingPlayer) {
+        metingPlayer.load();  
+      }
     });
-    console.log("APlayer created with", audioList.length, "tracks");
-  };
+  }
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
 </script>
+
 
 
 

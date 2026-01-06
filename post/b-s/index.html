@@ -14,7 +14,7 @@ B/S架构 ，全称Browser/Server 架构
 常见示例：网页端系统，如校园外卖系统、教务系统、网上银行、微信网页版等。">
 <meta name="author" content="">
 <link rel="canonical" href="https://www.steamedfish.top/post/b-s/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.c27e1246cb66d388c2c28ba2cad7d8e45b296bdd6da67c05cf15ef27e74594b2.css" integrity="sha256-wn4SRstm04jCwouiytfY5Fspa91tpnwFzxXvJ&#43;dFlLI=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.48569ef1d09dace3351ba549c3a7d634e59d1a68544f48e0de83f555e5c3e16e.css" integrity="sha256-SFae8dCdrOM1G6VJw6fWNOWdGmhUT0jg3oP1VeXD4W4=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
@@ -141,8 +141,6 @@ B/S架构 ，全称Browser/Server 架构
 </head>
 
 <body data-barba="wrapper" class="" id="top">
-
-<div id="aplayer"></div>
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -315,193 +313,50 @@ B/S架构 ，全称Browser/Server 架构
 <hr>
 <h2 id="结构常见设计方式">结构（常见设计方式）<a hidden class="anchor" aria-hidden="true" href="#结构常见设计方式">#</a></h2>
 <p>B/S架构通常分为三层：</p>
+<table class="table table-striped table-bordered table-hover">
 
-
-
-
-<table>
-
-    <thead>
+  <thead>
       <tr>
           <th>层次</th>
           <th>说明</th>
           <th>举例</th>
       </tr>
-    </thead>
-    <tbody>
-    
-    
+  </thead>
+
+  <tbody>
+    <tr>
+
         
+<td>表示层（前端）</td>
+
         
+<td>用户界面，用于与用户交互</td>
+
         
-      <tr>
+<td>HTML、CSS、JavaScript</td>
+    </tr>
+    <tr>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">表示层（前端）</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">用户界面，用于与用户交互</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">HTML、CSS、JavaScript</td>
-      </tr>
+<td>业务逻辑层（中间层）</td>
+
         
+<td>实现系统功能逻辑</td>
+
         
+<td>Flask、Spring Boot、Django 等</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td>数据层（后端数据库）</td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">业务逻辑层（中间层）</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">实现系统功能逻辑</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">Flask、Spring Boot、Django 等</td>
-      </tr>
+<td>负责数据存储与管理</td>
+
         
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">数据层（后端数据库）</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">负责数据存储与管理</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">MySQL、Oracle、SQLite 等</td>
-      </tr>
+<td>MySQL、Oracle、SQLite 等</td>
+    </tr>
   </tbody>
 </table><hr>
 <h2 id="工作原理">工作原理<a hidden class="anchor" aria-hidden="true" href="#工作原理">#</a></h2>
@@ -575,261 +430,64 @@ Content-Type: text/html
 </code></pre><p>实例：</p>
 <pre tabindex="0"><code>GET /login HTTP/1.1
 </code></pre><h4 id="常见的请求方法">常见的请求方法<a hidden class="anchor" aria-hidden="true" href="#常见的请求方法">#</a></h4>
+<table class="table table-striped table-bordered table-hover">
 
-
-
-
-<table>
-
-    <thead>
+  <thead>
       <tr>
           <th>方法</th>
           <th>说明</th>
       </tr>
-    </thead>
-    <tbody>
-    
-    
+  </thead>
+
+  <tbody>
+    <tr>
+
         
+<td><strong>GET</strong></td>
+
         
+<td>获取资源（最常用）</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><strong>POST</strong></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>GET</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">获取资源（最常用）</td>
-      </tr>
+<td>提交数据（如登录表单）</td>
+    </tr>
+    <tr>
+
         
+<td><strong>PUT</strong></td>
+
         
+<td>更新数据</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><strong>DELETE</strong></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>POST</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">提交数据（如登录表单）</td>
-      </tr>
+<td>删除资源</td>
+    </tr>
+    <tr>
+
         
+<td><strong>HEAD</strong></td>
+
         
+<td>获取报文头信息</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><strong>OPTIONS</strong></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>PUT</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">更新数据</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>DELETE</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">删除资源</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>HEAD</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">获取报文头信息</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>OPTIONS</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">获取服务器支持的HTTP方法</td>
-      </tr>
+<td>获取服务器支持的HTTP方法</td>
+    </tr>
   </tbody>
 </table><ul>
 <li>请求方式-GET： <br>
@@ -847,301 +505,72 @@ Content-Type: text/html
 </span></span><span class="line"><span class="cl">Content-Type: application/x-www-form-urlencoded
 </span></span></code></pre></div><hr>
 <h4 id="http-请求头数据格式">HTTP-请求头数据格式<a hidden class="anchor" aria-hidden="true" href="#http-请求头数据格式">#</a></h4>
+<table class="table table-striped table-bordered table-hover">
 
-
-
-
-<table>
-
-    <thead>
+  <thead>
       <tr>
           <th style="text-align: center">Key</th>
           <th style="text-align: center">Value</th>
       </tr>
-    </thead>
-    <tbody>
-    
-    
+  </thead>
+
+  <tbody>
+    <tr>
+
         
+<td style="text-align: center">Host</td>
+
         
+<td style="text-align: center">请求的主机名</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td style="text-align: center">User-Agent</td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">Host</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">请求的主机名</td>
-      </tr>
+<td style="text-align: center">浏览器版本，例如Chrome浏览器的标识类似<code>Mozilla/5.0...Chrome/79</code>，IE浏览器的标识类似<code>Mozilla/5.0（Windows NT...）like Gecko</code></td>
+    </tr>
+    <tr>
+
         
+<td style="text-align: center">Accept</td>
+
         
+<td style="text-align: center">表示浏览器能接收的资源类型，如<code>text/*</code>，<code>image/*</code>或者<code>*/*</code>表示所有；</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td style="text-align: center">Accept-Language</td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">User-Agent</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">浏览器版本，例如Chrome浏览器的标识类似<code>Mozilla/5.0...Chrome/79</code>，IE浏览器的标识类似<code>Mozilla/5.0（Windows NT...）like Gecko</code></td>
-      </tr>
+<td style="text-align: center">表示浏览器偏好的语言，服务器可以据此返回不同语言的网页；</td>
+    </tr>
+    <tr>
+
         
+<td style="text-align: center">Accept-Encoding</td>
+
         
+<td style="text-align: center">表示浏览器可以支持的压缩类型，例如gzip，deflate等。</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td style="text-align: center">Content-Type</td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">Accept</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">表示浏览器能接收的资源类型，如<code>text/*</code>，<code>image/*</code>或者<code>*/*</code>表示所有；</td>
-      </tr>
+<td style="text-align: center">请求主体的数据类型。</td>
+    </tr>
+    <tr>
+
         
+<td style="text-align: center">Content-Length</td>
+
         
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">Accept-Language</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">表示浏览器偏好的语言，服务器可以据此返回不同语言的网页；</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">Accept-Encoding</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">表示浏览器可以支持的压缩类型，例如gzip，deflate等。</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">Content-Type</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">请求主体的数据类型。</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">Content-Length</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">请求主体的大小（单位：字节）。</td>
-      </tr>
+<td style="text-align: center">请求主体的大小（单位：字节）。</td>
+    </tr>
   </tbody>
 </table><hr>
 <h3 id="3-请求体body">3. 请求体（Body）<a hidden class="anchor" aria-hidden="true" href="#3-请求体body">#</a></h3>
@@ -1160,307 +589,72 @@ Content-Type: text/html
 </code></pre><p>示例：</p>
 <pre tabindex="0"><code>HTTP/1.1 200 OK
 </code></pre><p>常见状态码分类：</p>
+<table class="table table-striped table-bordered table-hover">
 
-
-
-
-<table>
-
-    <thead>
+  <thead>
       <tr>
           <th>状态码</th>
           <th>类型</th>
           <th>说明</th>
       </tr>
-    </thead>
-    <tbody>
-    
-    
+  </thead>
+
+  <tbody>
+    <tr>
+
         
+<td><strong>1xx</strong></td>
+
         
+<td>信息</td>
+
         
-      <tr>
+<td>请求已接收，继续处理</td>
+    </tr>
+    <tr>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>1xx</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">信息</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">请求已接收，继续处理</td>
-      </tr>
+<td><strong>2xx</strong></td>
+
         
+<td>成功</td>
+
         
+<td>请求成功（200 OK）</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><strong>3xx</strong></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>2xx</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">成功</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">请求成功（200 OK）</td>
-      </tr>
+<td>重定向</td>
+
         
+<td>需要进一步操作（302）</td>
+    </tr>
+    <tr>
+
         
+<td><strong>4xx</strong></td>
+
         
-      <tr>
+<td>客户端错误</td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>3xx</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">重定向</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">需要进一步操作（302）</td>
-      </tr>
+<td>请求错误（404 Not Found）</td>
+    </tr>
+    <tr>
+
         
+<td><strong>5xx</strong></td>
+
         
+<td>服务器错误</td>
+
         
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>4xx</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">客户端错误</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">请求错误（404 Not Found）</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>5xx</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">服务器错误</td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">服务器故障（500 Internal Server Error）</td>
-      </tr>
+<td>服务器故障（500 Internal Server Error）</td>
+    </tr>
   </tbody>
 </table><hr>
 <h3 id="2-响应头">2. 响应头<a hidden class="anchor" aria-hidden="true" href="#2-响应头">#</a></h3>
@@ -1477,181 +671,48 @@ Server: nginx/1.24
   &lt;body&gt;&lt;h1&gt;欢迎访问&lt;/h1&gt;&lt;/body&gt;
 &lt;/html&gt;
 </code></pre><h2 id="http版本的演变">HTTP版本的演变<a hidden class="anchor" aria-hidden="true" href="#http版本的演变">#</a></h2>
+<table class="table table-striped table-bordered table-hover">
 
-
-
-
-<table>
-
-    <thead>
+  <thead>
       <tr>
           <th>版本</th>
           <th>特点</th>
       </tr>
-    </thead>
-    <tbody>
-    
-    
+  </thead>
+
+  <tbody>
+    <tr>
+
         
+<td><strong>HTTP/1.0</strong></td>
+
         
+<td>短连接，每次请求都需建立新连接</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><strong>HTTP/1.1</strong></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>HTTP/1.0</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">短连接，每次请求都需建立新连接</td>
-      </tr>
+<td>默认持久连接（Keep-Alive），支持管线化</td>
+    </tr>
+    <tr>
+
         
+<td><strong>HTTP/2</strong></td>
+
         
+<td>多路复用、二进制传输、头部压缩</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><strong>HTTP/3</strong></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>HTTP/1.1</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">默认持久连接（Keep-Alive），支持管线化</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>HTTP/2</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">多路复用、二进制传输、头部压缩</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>HTTP/3</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">基于 QUIC 协议，更快更安全（UDP）</td>
-      </tr>
+<td>基于 QUIC 协议，更快更安全（UDP）</td>
+    </tr>
   </tbody>
 </table><h2 id="基于bs架构与http协议的简单应用">基于B/S架构与HTTP协议的简单应用<a hidden class="anchor" aria-hidden="true" href="#基于bs架构与http协议的简单应用">#</a></h2>
 <p>创建ServerDemo模拟服务端分配任务给子线程</p>
@@ -1765,221 +826,56 @@ Server: nginx/1.24
 在之前的程序中，每次收到web端的HTTP请求时，程序都会创建一个线程来响应。<br>
 当我们遇到大量请求时，就需要<strong>频繁的创建、销毁线程</strong> <br>
 我们可以用<strong>线程池</strong>来解决这个问题</p>
+<table class="table table-striped table-bordered table-hover">
 
-
-
-
-<table>
-
-    <thead>
+  <thead>
       <tr>
           <th>优点</th>
           <th>说明</th>
       </tr>
-    </thead>
-    <tbody>
-    
-    
+  </thead>
+
+  <tbody>
+    <tr>
+
         
+<td><strong>1. 提高性能</strong></td>
+
         
+<td>避免频繁创建和销毁线程，减少系统开销。</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><strong>2. 控制并发量</strong></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>1. 提高性能</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">避免频繁创建和销毁线程，减少系统开销。</td>
-      </tr>
+<td>限制最大线程数，防止服务器被大量请求压垮。</td>
+    </tr>
+    <tr>
+
         
+<td><strong>3. 提升响应速度</strong></td>
+
         
+<td>请求到来时可立即分配空闲线程，响应更快。</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td><strong>4. 资源利用率高</strong></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>2. 控制并发量</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">限制最大线程数，防止服务器被大量请求压垮。</td>
-      </tr>
+<td>空闲线程可被重复利用，不浪费系统资源。</td>
+    </tr>
+    <tr>
+
         
+<td><strong>5. 便于管理</strong></td>
+
         
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>3. 提升响应速度</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">请求到来时可立即分配空闲线程，响应更快。</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>4. 资源利用率高</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">空闲线程可被重复利用，不浪费系统资源。</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: "><strong>5. 便于管理</strong></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: ">可根据系统负载动态调整线程数（如Java的ThreadPoolExecutor）。</td>
-      </tr>
+<td>可根据系统负载动态调整线程数（如Java的ThreadPoolExecutor）。</td>
+    </tr>
   </tbody>
 </table><p>ServerReader.java:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.itheima.d7_tcp4</span><span class="p">;</span><span class="w">
@@ -2084,46 +980,52 @@ Server: nginx/1.24
 
 
 <script>
-  window.PaperMod = window.PaperMod || {};
-  PaperMod.state = { once: false };
+window.PaperMod = window.PaperMod || {};
+PaperMod.state = { once: false };
 
-  PaperMod.initOnce = function () {
-    if (PaperMod.state.once) return;
-    PaperMod.state.once = true;
-
-    console.log("PaperMod initOnce");
-
-    if (PaperMod.initAPlayer) {
-      PaperMod.initAPlayer();
-    }
-  };
-
-  PaperMod.initPage = function (container = document) {
-    console.log("PaperMod initPage");
-
-    PaperMod.initFancybox && PaperMod.initFancybox(container);
-    PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
-  };
-
-  barba.init({
-    transitions: [
-      {
-        name: "default",
-        leave() {
-          return Promise.resolve();
-        },
-        enter(data) {
-          PaperMod.initOnce();
-          PaperMod.initPage(data.next.container);
-        },
-      },
-    ],
-  });
+PaperMod.initOnce = function () {
   
-  document.addEventListener("DOMContentLoaded", () => {
-    PaperMod.initOnce();
-    PaperMod.initPage(document);
-  });
+  if (PaperMod.state.once) return;
+  PaperMod.state.once = true;
+  console.log("PaperMod initOnce");
+
+  
+  if (PaperMod.initAPlayer && !window.__aplayer_inited__) {
+    PaperMod.initAPlayer();
+  }
+};
+
+PaperMod.initPage = function (container = document) {
+  console.log("PaperMod initPage");
+
+  PaperMod.initFancybox && PaperMod.initFancybox(container);
+  PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
+};
+
+
+barba.init({
+  transitions: [
+    {
+      name: "default",
+      leave() {
+        return Promise.resolve();
+      },
+      enter(data) {
+        
+        PaperMod.initOnce();
+        PaperMod.initPage(data.next.container);
+      },
+    },
+  ],
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  PaperMod.initOnce();
+  PaperMod.initPage(document);
+});
+
 </script>
 
 
@@ -2138,67 +1040,103 @@ Server: nginx/1.24
 />
 <script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.2/Meting.min.js"></script>
+
+<meting-js
+  server="netease"
+  fixed="true"
+  lrc-type="1"
+  type="playlist"
+  id="2245453903"
+  api="https://api.qijieya.cn/meting/?type=:type&id=:id"
+  >
+  
+  
+         
+  
+  
+  
+</meting-js>
 <script>
-  window.PaperMod = window.PaperMod || {};
-  console.log("player.js loaded");
-  PaperMod.initAPlayer = async function () {
-    if (window.__aplayer_inited__) {
-      console.log("APlayer already exists, skip");
-      return;
-    }
-
-    const container = document.getElementById("aplayer");
-    if (!container) {
-      console.warn("APlayer container not found");
-      return;
-    }
-
-    console.log("Init APlayer");
-    
-
-    const localAudio = [
-      
-      
-      
-      
-      
-      
-      
-      
-    ];
-
-    
-
-    let metingAudio = [];
-    try {
-      const res = await fetch(
-        
-        
-        "https://api.qijieya.cn/meting/?type=playlist&id=2245453903"
-        
-        
-      );
-      metingAudio = await res.json();
-    } catch (e) {
-      console.warn("Meting load failed, fallback to local only");
-    }
-
-    
-
-    const audioList = [...localAudio, ...metingAudio];
-
-    window.aplayer = new APlayer({
-      container,
-      fixed: true,
-      autoplay: false,
-      preload: "auto",
-      lrcType: 1,
-      
-      audio: metingAudio,
+  if (window.Barba) {
+    Barba.hooks.afterEnter(function () {
+      const metingPlayer = document.querySelector('meting-js');
+      if (metingPlayer) {
+        metingPlayer.load();  
+      }
     });
-    console.log("APlayer created with", audioList.length, "tracks");
-  };
+  }
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
 </script>
+
 
 
 

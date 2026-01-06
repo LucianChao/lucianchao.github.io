@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="canonical" href="https://www.steamedfish.top/tags/bing-webmasster-tools/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.c27e1246cb66d388c2c28ba2cad7d8e45b296bdd6da67c05cf15ef27e74594b2.css" integrity="sha256-wn4SRstm04jCwouiytfY5Fspa91tpnwFzxXvJ&#43;dFlLI=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.48569ef1d09dace3351ba549c3a7d634e59d1a68544f48e0de83f555e5c3e16e.css" integrity="sha256-SFae8dCdrOM1G6VJw6fWNOWdGmhUT0jg3oP1VeXD4W4=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
@@ -77,8 +77,6 @@
 </head>
 
 <body data-barba="wrapper" class="list" id="top">
-
-<div id="aplayer"></div>
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -204,46 +202,52 @@
 
 
 <script>
-  window.PaperMod = window.PaperMod || {};
-  PaperMod.state = { once: false };
+window.PaperMod = window.PaperMod || {};
+PaperMod.state = { once: false };
 
-  PaperMod.initOnce = function () {
-    if (PaperMod.state.once) return;
-    PaperMod.state.once = true;
-
-    console.log("PaperMod initOnce");
-
-    if (PaperMod.initAPlayer) {
-      PaperMod.initAPlayer();
-    }
-  };
-
-  PaperMod.initPage = function (container = document) {
-    console.log("PaperMod initPage");
-
-    PaperMod.initFancybox && PaperMod.initFancybox(container);
-    PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
-  };
-
-  barba.init({
-    transitions: [
-      {
-        name: "default",
-        leave() {
-          return Promise.resolve();
-        },
-        enter(data) {
-          PaperMod.initOnce();
-          PaperMod.initPage(data.next.container);
-        },
-      },
-    ],
-  });
+PaperMod.initOnce = function () {
   
-  document.addEventListener("DOMContentLoaded", () => {
-    PaperMod.initOnce();
-    PaperMod.initPage(document);
-  });
+  if (PaperMod.state.once) return;
+  PaperMod.state.once = true;
+  console.log("PaperMod initOnce");
+
+  
+  if (PaperMod.initAPlayer && !window.__aplayer_inited__) {
+    PaperMod.initAPlayer();
+  }
+};
+
+PaperMod.initPage = function (container = document) {
+  console.log("PaperMod initPage");
+
+  PaperMod.initFancybox && PaperMod.initFancybox(container);
+  PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
+};
+
+
+barba.init({
+  transitions: [
+    {
+      name: "default",
+      leave() {
+        return Promise.resolve();
+      },
+      enter(data) {
+        
+        PaperMod.initOnce();
+        PaperMod.initPage(data.next.container);
+      },
+    },
+  ],
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  PaperMod.initOnce();
+  PaperMod.initPage(document);
+});
+
 </script>
 
 
@@ -258,67 +262,103 @@
 />
 <script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.2/Meting.min.js"></script>
+
+<meting-js
+  server="netease"
+  fixed="true"
+  lrc-type="1"
+  type="playlist"
+  id="2245453903"
+  api="https://api.qijieya.cn/meting/?type=:type&id=:id"
+  >
+  
+  
+         
+  
+  
+  
+</meting-js>
 <script>
-  window.PaperMod = window.PaperMod || {};
-  console.log("player.js loaded");
-  PaperMod.initAPlayer = async function () {
-    if (window.__aplayer_inited__) {
-      console.log("APlayer already exists, skip");
-      return;
-    }
-
-    const container = document.getElementById("aplayer");
-    if (!container) {
-      console.warn("APlayer container not found");
-      return;
-    }
-
-    console.log("Init APlayer");
-    
-
-    const localAudio = [
-      
-      
-      
-      
-      
-      
-      
-      
-    ];
-
-    
-
-    let metingAudio = [];
-    try {
-      const res = await fetch(
-        
-        
-        "https://api.qijieya.cn/meting/?type=playlist&id=2245453903"
-        
-        
-      );
-      metingAudio = await res.json();
-    } catch (e) {
-      console.warn("Meting load failed, fallback to local only");
-    }
-
-    
-
-    const audioList = [...localAudio, ...metingAudio];
-
-    window.aplayer = new APlayer({
-      container,
-      fixed: true,
-      autoplay: false,
-      preload: "auto",
-      lrcType: 1,
-      
-      audio: metingAudio,
+  if (window.Barba) {
+    Barba.hooks.afterEnter(function () {
+      const metingPlayer = document.querySelector('meting-js');
+      if (metingPlayer) {
+        metingPlayer.load();  
+      }
     });
-    console.log("APlayer created with", audioList.length, "tracks");
-  };
+  }
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
 </script>
+
 
 
 

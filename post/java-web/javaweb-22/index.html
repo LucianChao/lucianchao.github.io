@@ -41,7 +41,7 @@ SpringBoot中支持三种格式的配置文件：
         信息">
 <meta name="author" content="">
 <link rel="canonical" href="https://www.steamedfish.top/post/java-web/javaweb-22/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.c27e1246cb66d388c2c28ba2cad7d8e45b296bdd6da67c05cf15ef27e74594b2.css" integrity="sha256-wn4SRstm04jCwouiytfY5Fspa91tpnwFzxXvJ&#43;dFlLI=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.48569ef1d09dace3351ba549c3a7d634e59d1a68544f48e0de83f555e5c3e16e.css" integrity="sha256-SFae8dCdrOM1G6VJw6fWNOWdGmhUT0jg3oP1VeXD4W4=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
@@ -195,8 +195,6 @@ SpringBoot中支持三种格式的配置文件：
 </head>
 
 <body data-barba="wrapper" class="" id="top">
-
-<div id="aplayer"></div>
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -587,221 +585,56 @@ SpringBoot中支持三种格式的配置文件：
 
 
 Spring支持五种作用域，后三种在web环境才生效：</p>
+<table class="table table-striped table-bordered table-hover">
 
-
-
-
-<table>
-
-    <thead>
+  <thead>
       <tr>
           <th style="text-align: center">作用域</th>
           <th style="text-align: center">说明</th>
       </tr>
-    </thead>
-    <tbody>
-    
-    
+  </thead>
+
+  <tbody>
+    <tr>
+
         
+<td style="text-align: center"><code>singleton</code></td>
+
         
+<td style="text-align: center">容器内同名称的bean只有一个实例（单例）（默认）</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td style="text-align: center"><code>prototype</code></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center"><code>singleton</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">容器内同名称的bean只有一个实例（单例）（默认）</td>
-      </tr>
+<td style="text-align: center">每次使用该bean时会创建新的实例（非单例）</td>
+    </tr>
+    <tr>
+
         
+<td style="text-align: center"><code>request</code></td>
+
         
+<td style="text-align: center">每个请求范围内会创建新的实例（web环境中，了解）</td>
+    </tr>
+    <tr>
+
         
-      <tr>
+<td style="text-align: center"><code>session</code></td>
+
         
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center"><code>prototype</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">每次使用该bean时会创建新的实例（非单例）</td>
-      </tr>
+<td style="text-align: center">每个会话范围内会创建新的实例（web环境中，了解）</td>
+    </tr>
+    <tr>
+
         
+<td style="text-align: center"><code>application</code></td>
+
         
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center"><code>request</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">每个请求范围内会创建新的实例（web环境中，了解）</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center"><code>session</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">每个会话范围内会创建新的实例（web环境中，了解）</td>
-      </tr>
-        
-        
-        
-      <tr>
-        
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center"><code>application</code></td>
-            
-            
-            
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <td rowspan="1" colspan="1" style="text-align: center">每个应用范围内会创建新的实例（web环境中，了解）</td>
-      </tr>
+<td style="text-align: center">每个应用范围内会创建新的实例（web环境中，了解）</td>
+    </tr>
   </tbody>
 </table><!-- FM:Snippet:Start data:{"id":"st-notice","fields":[]} -->
 <div class="notice info" >
@@ -1276,46 +1109,52 @@ Spring支持五种作用域，后三种在web环境才生效：</p>
 
 
 <script>
-  window.PaperMod = window.PaperMod || {};
-  PaperMod.state = { once: false };
+window.PaperMod = window.PaperMod || {};
+PaperMod.state = { once: false };
 
-  PaperMod.initOnce = function () {
-    if (PaperMod.state.once) return;
-    PaperMod.state.once = true;
-
-    console.log("PaperMod initOnce");
-
-    if (PaperMod.initAPlayer) {
-      PaperMod.initAPlayer();
-    }
-  };
-
-  PaperMod.initPage = function (container = document) {
-    console.log("PaperMod initPage");
-
-    PaperMod.initFancybox && PaperMod.initFancybox(container);
-    PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
-  };
-
-  barba.init({
-    transitions: [
-      {
-        name: "default",
-        leave() {
-          return Promise.resolve();
-        },
-        enter(data) {
-          PaperMod.initOnce();
-          PaperMod.initPage(data.next.container);
-        },
-      },
-    ],
-  });
+PaperMod.initOnce = function () {
   
-  document.addEventListener("DOMContentLoaded", () => {
-    PaperMod.initOnce();
-    PaperMod.initPage(document);
-  });
+  if (PaperMod.state.once) return;
+  PaperMod.state.once = true;
+  console.log("PaperMod initOnce");
+
+  
+  if (PaperMod.initAPlayer && !window.__aplayer_inited__) {
+    PaperMod.initAPlayer();
+  }
+};
+
+PaperMod.initPage = function (container = document) {
+  console.log("PaperMod initPage");
+
+  PaperMod.initFancybox && PaperMod.initFancybox(container);
+  PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
+};
+
+
+barba.init({
+  transitions: [
+    {
+      name: "default",
+      leave() {
+        return Promise.resolve();
+      },
+      enter(data) {
+        
+        PaperMod.initOnce();
+        PaperMod.initPage(data.next.container);
+      },
+    },
+  ],
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  PaperMod.initOnce();
+  PaperMod.initPage(document);
+});
+
 </script>
 
 
@@ -1330,67 +1169,103 @@ Spring支持五种作用域，后三种在web环境才生效：</p>
 />
 <script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.2/Meting.min.js"></script>
+
+<meting-js
+  server="netease"
+  fixed="true"
+  lrc-type="1"
+  type="playlist"
+  id="2245453903"
+  api="https://api.qijieya.cn/meting/?type=:type&id=:id"
+  >
+  
+  
+         
+  
+  
+  
+</meting-js>
 <script>
-  window.PaperMod = window.PaperMod || {};
-  console.log("player.js loaded");
-  PaperMod.initAPlayer = async function () {
-    if (window.__aplayer_inited__) {
-      console.log("APlayer already exists, skip");
-      return;
-    }
-
-    const container = document.getElementById("aplayer");
-    if (!container) {
-      console.warn("APlayer container not found");
-      return;
-    }
-
-    console.log("Init APlayer");
-    
-
-    const localAudio = [
-      
-      
-      
-      
-      
-      
-      
-      
-    ];
-
-    
-
-    let metingAudio = [];
-    try {
-      const res = await fetch(
-        
-        
-        "https://api.qijieya.cn/meting/?type=playlist&id=2245453903"
-        
-        
-      );
-      metingAudio = await res.json();
-    } catch (e) {
-      console.warn("Meting load failed, fallback to local only");
-    }
-
-    
-
-    const audioList = [...localAudio, ...metingAudio];
-
-    window.aplayer = new APlayer({
-      container,
-      fixed: true,
-      autoplay: false,
-      preload: "auto",
-      lrcType: 1,
-      
-      audio: metingAudio,
+  if (window.Barba) {
+    Barba.hooks.afterEnter(function () {
+      const metingPlayer = document.querySelector('meting-js');
+      if (metingPlayer) {
+        metingPlayer.load();  
+      }
     });
-    console.log("APlayer created with", audioList.length, "tracks");
-  };
+  }
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
 </script>
+
 
 
 
