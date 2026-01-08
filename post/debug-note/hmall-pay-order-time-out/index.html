@@ -104,7 +104,7 @@ WSL时区与主机不同步导致的mysql容器时间与主机不同步，进而
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2026-01-04T18:56:16+08:00">
-    <meta property="article:modified_time" content="2026-01-04T19:20:21+08:00">
+    <meta property="article:modified_time" content="2026-01-04T18:56:16+08:00">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【debug日记-黑马商城】订单支付超时">
 <meta name="twitter:description" content="问题描述
@@ -170,11 +170,11 @@ WSL时区与主机不同步导致的mysql容器时间与主机不同步，进而
   "keywords": [
     
   ],
-  "articleBody": "问题描述 在使用OpenFeign传递用户信息时（使用OpenFeign的拦截器在请求头中加入\"user-info“记录userid）报错支付超时\n超时页面\r原因与解决办法 WSL时区与主机不同步导致的mysql容器时间与主机不同步，进而导致订单生成时create_time与update_time的时间与本地时间不同，导致一旦读取出订单信息，就会认为订单超时。\n需要把WSL与Mysql容器的时区设置成与主机一样的(UTC+8:00)\n排错过程 先查看页面请求，发现/pay/orders请求，进入代码进行追踪，发现trade-service微服务远程调用了pay-service微服务 由于这里查询了pay_order表，所以合理怀疑是表中数据有异常 【无效】重建pay_order表（排除在之前调试过程中对数据进行污染的可能性） 发现报错页面的时间显示异常，查看表中create_time与update_time字段。与本机时间不符。合理怀疑WSL与主机时区不同 设置Ubuntu时区与主机同步 依然支付失败 进入Ubuntu中mysql容器查看时间，设置mysql时区与主机同步 订单正常生成（时间正常显示且未超时） ",
-  "wordCount" : "509",
+  "articleBody": "问题描述 在使用OpenFeign传递用户信息时（使用OpenFeign的拦截器在请求头中加入\"user-info“记录userid）报错支付超时\n超时页面\r原因与解决办法 WSL时区与主机不同步导致的mysql容器时间与主机不同步，进而导致订单生成时create_time与update_time的时间与本地时间不同，导致一旦读取出订单信息，就会认为订单超时。\n需要把WSL与Mysql容器的时区设置成与主机一样的(UTC+8:00)\n排错过程 先查看页面请求，发现/pay/orders请求，进入代码进行追踪，发现trade-service微服务远程调用了pay-service微服务 由于这里查询了pay_order表，所以合理怀疑是表中数据有异常 【无效】重建pay_order表（排除在之前调试过程中对数据进行污染的可能性） 发现报错页面的时间显示异常，查看表中create_time与update_time字段。与本机时间不符。合理怀疑WSL与主机时区不同 设置Ubuntu时区与主机同步 依然支付失败 进入Ubuntu中mysql容器查看时间，设置mysql时区与主机同步 docker exec -it mysql /bin/bash mysql -uroot -p123 SELECT NOW(),@@system_time_zone,@@global.time_zone,@@session.time_zone; SET GLOBAL time_zone = '+08:00'; SET time_zone = '+08:00'; SELECT NOW(),@@system_time_zone,@@global.time_zone,@@session.time_zone; exit; 订单正常生成（时间正常显示且未超时） ",
+  "wordCount" : "531",
   "inLanguage": "zh",
   "datePublished": "2026-01-04T18:56:16+08:00",
-  "dateModified": "2026-01-04T19:20:21+08:00",
+  "dateModified": "2026-01-04T18:56:16+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/debug-note/hmall-pay-order-time-out/"
@@ -465,7 +465,14 @@ WSL时区与主机不同步导致的mysql容器时间与主机不同步，进而
 </li>
 <li>依然支付失败</li>
 <li>进入<code>Ubuntu</code>中<code>mysql</code>容器查看时间，设置<code>mysql</code>时区与主机同步
-
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker <span class="nb">exec</span> -it mysql /bin/bash
+</span></span><span class="line"><span class="cl">mysql -uroot -p123
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">NOW</span><span class="p">(),</span><span class="o">@@</span><span class="n">system_time_zone</span><span class="p">,</span><span class="o">@@</span><span class="k">global</span><span class="p">.</span><span class="n">time_zone</span><span class="p">,</span><span class="o">@@</span><span class="k">session</span><span class="p">.</span><span class="n">time_zone</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">time_zone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;+08:00&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">SET</span><span class="w"> </span><span class="n">time_zone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;+08:00&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">NOW</span><span class="p">(),</span><span class="o">@@</span><span class="n">system_time_zone</span><span class="p">,</span><span class="o">@@</span><span class="k">global</span><span class="p">.</span><span class="n">time_zone</span><span class="p">,</span><span class="o">@@</span><span class="k">session</span><span class="p">.</span><span class="n">time_zone</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">exit</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div>
 
 
 

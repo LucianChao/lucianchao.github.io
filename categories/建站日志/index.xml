@@ -7,8 +7,23 @@
     <generator>Hugo -- 0.154.3</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Tue, 23 Dec 2025 03:59:54 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 25 Dec 2025 16:00:00 +0000</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/categories/%E5%BB%BA%E7%AB%99%E6%97%A5%E5%BF%97/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【建站日志】关于通过 Aplayer &#43; MetingJS &#43; PJAX / barba 引入音乐播放器带来的灾难性异常的修复过程</title>
+      <link>https://www.steamedfish.top/post/hugo-log/barba-fix/</link>
+      <pubDate>Thu, 25 Dec 2025 17:39:54 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/hugo-log/barba-fix/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;前几天给博客上线了音乐播放器功能，技术选型是 APlayer + MetingJS，并尝试配合 PJAX / Barba.js 实现无刷新页面切换。
+一开始在本地测试时一切正常：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;播放器能正常加载&lt;/li&gt;
+&lt;li&gt;音乐可以播放&lt;/li&gt;
+&lt;li&gt;打开新页面之后播放器后能保持播放&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但上线并实际使用后，问题开始集中爆发，而且&lt;strong&gt;问题之间相互叠加&lt;/strong&gt;，&lt;strong&gt;极难定位&lt;/strong&gt;，包括但不限于：&lt;/p&gt;</description>
+    </item>
     <item>
       <title>【建站日志|异常解决】hugo自动部署异常溯源过程及解决办法</title>
       <link>https://www.steamedfish.top/post/hugo-log/deploy-error/</link>
