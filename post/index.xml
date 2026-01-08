@@ -4,10 +4,10 @@
     <title>Posts on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/post/</link>
     <description>Recent content in Posts on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.154.2</generator>
+    <generator>Hugo -- 0.154.3</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Wed, 07 Jan 2026 00:53:51 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 08 Jan 2026 16:07:54 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【微服务】服务保护和分布式事务</title>

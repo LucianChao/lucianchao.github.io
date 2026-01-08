@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>【微服务】服务保护和分布式事务 | SteamedFish&#39;s Blog</title>
-<meta name="keywords" content="">
+<meta name="keywords" content="分布式事务">
 <meta name="description" content="雪崩问题
 雪崩问题
 微服务调用链路中的某个服务故障，引起整个链路中的所有微服务都不可用，这就是雪崩问题（又称“级联失败”。
@@ -146,7 +146,13 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2026-01-06T15:59:06+08:00">
-    <meta property="article:modified_time" content="2026-01-07T00:53:51+08:00">
+    <meta property="article:modified_time" content="2026-01-08T16:07:54+08:00">
+    <meta property="article:tag" content="Mysql">
+    <meta property="article:tag" content="Sentinel">
+    <meta property="article:tag" content="分布式事务">
+    <meta property="article:tag" content="微服务">
+    <meta property="article:tag" content="服务保护">
+    <meta property="article:tag" content="XA模式">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【微服务】服务保护和分布式事务">
 <meta name="twitter:description" content="雪崩问题
@@ -254,13 +260,13 @@
   "name": "【微服务】服务保护和分布式事务",
   "description": "雪崩问题 雪崩问题 微服务调用链路中的某个服务故障，引起整个链路中的所有微服务都不可用，这就是雪崩问题（又称“级联失败”。 产生原因： 微服务相互调用，服务提供者出现故障或阻塞。 服务调用者没有做好异常处理，导致自身故障。 调用链中的所有服务级联失败，导致整个集群故障 解决思路: 尽量避免服务出现故障或阻塞。 保证代码的健壮性； 保证网络畅通； 能应对较高的并发请求； 服务调用者做好远程调用异常的后备方案，避免故障扩散 解决方案-请求限流 请求限流：限制访问微服务的请求的并发量，避免服务因流量激增出现故障。 ",
   "keywords": [
-    
+    "分布式事务"
   ],
-  "articleBody": "雪崩问题 雪崩问题 微服务调用链路中的某个服务故障，引起整个链路中的所有微服务都不可用，这就是雪崩问题（又称“级联失败”。 产生原因： 微服务相互调用，服务提供者出现故障或阻塞。 服务调用者没有做好异常处理，导致自身故障。 调用链中的所有服务级联失败，导致整个集群故障 解决思路: 尽量避免服务出现故障或阻塞。 保证代码的健壮性； 保证网络畅通； 能应对较高的并发请求； 服务调用者做好远程调用异常的后备方案，避免故障扩散 解决方案-请求限流 请求限流：限制访问微服务的请求的并发量，避免服务因流量激增出现故障。 解决方案-线程隔离 线程隔离：也叫做舱壁模式，模拟船舱隔板的防水原理。通过限定每个业务能使用的线程数量而将故障业务隔离，避免故障扩散。 解决方案-服务熔断 服务熔断：由断路器统计请求的异常比例或慢调用比例，如果超出阈值则会熔断该业务，则拦截该接口的请求。\n熔断期间，所有请求快速失败，全都走fallback逻辑。 解决方案-失败处理 快速失败：给业务编写一个调用失败时的处理的逻辑，称为fallback。当调用出现故障（比如无线程可用）时，按照失败处理逻辑执行业务并返回，而不是直接抛出异常。 服务保护技术 Sentinel\rHystrix\r线程熔断\r信号量隔离\r线程池隔离/信号量隔离\r熔断策略\r基于慢调用比例或异常比例\r基于异常比率\r限流\r基于QPS，支持流量整形\r有限的支持\rFallback\r支持\r支持\r控制台\r开箱即用，可配置规则、查看秒级监控、机器发现等\r不完善\r配置方式\r基于控制台，重启后失效\r基于注解或配置文件，永久生效\rSentinel 介绍与安装 Sentinel是阿里巴巴开源的一款微服务流量控制组件。官网地址： https://sentinelguard.io/zh-cn/index.html 下载安装包： https://github.com/alibaba/Sentinel/releases 启动： java -Dserver.port=8090 -Dcsp.sentinel.dashboard.server=localhost:8090 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard.jar 访问： http://localhost:8090 默认用户和密码为:sentinel 案例-cart-service整合Sentinel 引入Sentinel依赖 com.alibaba.cloud spring-cloud-starter-alibaba-sentinel 配置cart-service中application.yaml中sentinel的控制台信息 spring: cloud: sentinel: transport: dashboard: localhost:8090 http-method-specify: true # 开启资源方法前缀 访问 http://localhost:180180 采集信息后再访问 http://localhost:8090 簇点链路 簇点链路，就是单机调用链路。是一次请求进入服务后经过的每一个被Sentinel监控的资源链。默认Sentinel会监控SpringMVC的每一个Endpoint（http接口）。限流、熔断等都是针对簇点链路中的资源设置的。而资源名默认就是接口的请求路径： Restful风格的API请求路径一般都相同，这会导致簇点资源名称重复。因此我们要修改配置，把请求方式+请求路径作为簇点资源名称： 请求限流 在簇点链路后面点击流控按钮，即可对其做限流配置： QPS(Queries Per Second)：每秒的请求数量\nQPS = 线程数 / 平均响应时间 线程隔离 当商品服务出现阻塞或故障时，调用商品服务的购物车服务可能因此而被拖慢，甚至资源耗尽。所以必须限制购物车服务中查询商品这个业务的可用线程数，实现线程隔离。 首先要让OpenFeign整合Sentinel： feign: sentinel: enabled: true # 开启feign对sentinel的整合 在sentinel控制台中，会出现Feign接口的簇点资源，点击后面的流控按钮，即可配置线程隔离： 一个请求slepp(500)，一个线程1s就只能处理2个请求，五个并发线程1s就能处理10个请求 Fallback FeignClient的Fallback有两种配置方式：\n方式一：FallbackClass，无法对远程调用的异常做处理 方式二：FallbackFactory，可以对远程调用的异常做处理，通常都会选择这种 案例-编写Fallback逻辑 假如我们有一个FeignClient如下：\n@FeignClient(value = \"item-service\", configuration = DefaultFeignConfig.class) public interface ItemClient { @GetMapping(\"/items\") public List\u003cItemDTO\u003e queryItemByIds(@RequestParam(\"ids\") Collection\u003cLong\u003e ids); } 为其编写Fallback逻辑\n自定义类，实现FallbackFactory，编写对某个FeignClient的fallback逻辑： @Slf4j public class ItemClientFallback implements FallbackFactory\u003cItemClient\u003e { @Override public ItemClient create(Throwable throwable) { //创建ItemClient接口实现类，实现其中的方法，编写失败降级的处理逻辑 return new ItemClient() { @Override public List\u003cItemDTO\u003e queryItemByIds(Collection\u003cLong\u003e ids) { log.error(\"远程调用ItemClient#queryItemByIds方法出现异常，参数：{}\", ids, throwable); // 查询购物车允许失败，查询失败，返回空集合或抛出异常 return CollUtils.emptyList(); } @Override public void deductStock(List\u003cOrderDetailDTO\u003e items) { // 库存扣减业务需要触发事务回滚，查询失败，抛出异常 throw new BizIllegalException(throwable); } }; } } 将刚刚定义的ItemClientFallbackFactory注册为一个Bean： 在ItemClient接口中使用ItemClientFallbackFactory： 服务熔断 熔断是解决雪崩问题的重要手段。思路是由断路器统计服务调用的异常比例、慢请求比例，如果超出阈值则会熔断该服务。即拦截访问该服务的一切请求；而当服务恢复时，断路器会放行访问该服务的请求。 点击控制台中簇点资源后的熔断按钮，即可配置熔断策略： 分布式事务 下单业务，前端请求首先进入订单服务，创建订单并写入数据库。然后订单服务调用购物车服务和库存服务：\n购物车服务负责清理购物车信息 库存服务负责扣减商品库存 在分布式系统中，如果一个业务需要多个服务合作完成，而且每一个服务都有事务，多个事务必须同时成功或失败，这样的事务就是分布式事务。其中的每个服务的事务就是一个分支事务。整个业务称为全局事务。 Seata Seata是 2019 年 1 月份蚂蚁金服和阿里巴巴共同开源的分布式事务解决方案。致力于提供高性能和简单易用的分布式事务服务，为用户打造一站式的分布式解决方案。 官网地址： http://seata.io/ ，其中的文档、播客中提供了大量的使用说明、源码分析。 分布式事务解决思路 解决分布式事务，各个子事务之间必须能感知到彼此的事务状态，才能保证状态一致。\nSeata架构 Seata事务管理中有三个重要的角色：\nTC (Transaction Coordinator) - 事务协调者：维护全局和分支事务的状态，协调全局事务提交或回滚。 TM (Transaction Manager) - 事务管理器：定义全局事务的范围、开始全局事务、提交或回滚全局事务。 RM (Resource Manager) - 资源管理器：管理分支事务，与TC交谈以注册分支事务和报告分支事务的状态 部署TC服务 微服务集成Seata XA模式 AT模式 ",
-  "wordCount" : "2391",
+  "articleBody": "雪崩问题 雪崩问题 微服务调用链路中的某个服务故障，引起整个链路中的所有微服务都不可用，这就是雪崩问题（又称“级联失败”。 产生原因： 微服务相互调用，服务提供者出现故障或阻塞。 服务调用者没有做好异常处理，导致自身故障。 调用链中的所有服务级联失败，导致整个集群故障 解决思路: 尽量避免服务出现故障或阻塞。 保证代码的健壮性； 保证网络畅通； 能应对较高的并发请求； 服务调用者做好远程调用异常的后备方案，避免故障扩散 解决方案-请求限流 请求限流：限制访问微服务的请求的并发量，避免服务因流量激增出现故障。 解决方案-线程隔离 线程隔离：也叫做舱壁模式，模拟船舱隔板的防水原理。通过限定每个业务能使用的线程数量而将故障业务隔离，避免故障扩散。 解决方案-服务熔断 服务熔断：由断路器统计请求的异常比例或慢调用比例，如果超出阈值则会熔断该业务，则拦截该接口的请求。\n熔断期间，所有请求快速失败，全都走fallback逻辑。 解决方案-失败处理 快速失败：给业务编写一个调用失败时的处理的逻辑，称为fallback。当调用出现故障（比如无线程可用）时，按照失败处理逻辑执行业务并返回，而不是直接抛出异常。 服务保护技术 Sentinel\rHystrix\r线程熔断\r信号量隔离\r线程池隔离/信号量隔离\r熔断策略\r基于慢调用比例或异常比例\r基于异常比率\r限流\r基于QPS，支持流量整形\r有限的支持\rFallback\r支持\r支持\r控制台\r开箱即用，可配置规则、查看秒级监控、机器发现等\r不完善\r配置方式\r基于控制台，重启后失效\r基于注解或配置文件，永久生效\rSentinel 介绍与安装 Sentinel是阿里巴巴开源的一款微服务流量控制组件。官网地址： https://sentinelguard.io/zh-cn/index.html 下载安装包： https://github.com/alibaba/Sentinel/releases 启动： java -Dserver.port=8090 -Dcsp.sentinel.dashboard.server=localhost:8090 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard.jar 访问： http://localhost:8090 默认用户和密码为:sentinel 案例-cart-service整合Sentinel 引入Sentinel依赖 com.alibaba.cloud spring-cloud-starter-alibaba-sentinel 配置cart-service中application.yaml中sentinel的控制台信息 spring: cloud: sentinel: transport: dashboard: localhost:8090 http-method-specify: true # 开启资源方法前缀 访问 http://localhost:180180 采集信息后再访问 http://localhost:8090 簇点链路 簇点链路，就是单机调用链路。是一次请求进入服务后经过的每一个被Sentinel监控的资源链。默认Sentinel会监控SpringMVC的每一个Endpoint（http接口）。限流、熔断等都是针对簇点链路中的资源设置的。而资源名默认就是接口的请求路径： Restful风格的API请求路径一般都相同，这会导致簇点资源名称重复。因此我们要修改配置，把请求方式+请求路径作为簇点资源名称： 请求限流 在簇点链路后面点击流控按钮，即可对其做限流配置： QPS(Queries Per Second)：每秒的请求数量\nQPS = 线程数 / 平均响应时间 线程隔离 当商品服务出现阻塞或故障时，调用商品服务的购物车服务可能因此而被拖慢，甚至资源耗尽。所以必须限制购物车服务中查询商品这个业务的可用线程数，实现线程隔离。 首先要让OpenFeign整合Sentinel： feign: sentinel: enabled: true # 开启feign对sentinel的整合 在sentinel控制台中，会出现Feign接口的簇点资源，点击后面的流控按钮，即可配置线程隔离： 一个请求slepp(500)，一个线程1s就只能处理2个请求，五个并发线程1s就能处理10个请求 Fallback FeignClient的Fallback有两种配置方式：\n方式一：FallbackClass，无法对远程调用的异常做处理 方式二：FallbackFactory，可以对远程调用的异常做处理，通常都会选择这种 案例-编写Fallback逻辑 假如我们有一个FeignClient如下：\n@FeignClient(value = \"item-service\", configuration = DefaultFeignConfig.class) public interface ItemClient { @GetMapping(\"/items\") public List\u003cItemDTO\u003e queryItemByIds(@RequestParam(\"ids\") Collection\u003cLong\u003e ids); } 为其编写Fallback逻辑\n自定义类，实现FallbackFactory，编写对某个FeignClient的fallback逻辑： @Slf4j public class ItemClientFallback implements FallbackFactory\u003cItemClient\u003e { @Override public ItemClient create(Throwable throwable) { //创建ItemClient接口实现类，实现其中的方法，编写失败降级的处理逻辑 return new ItemClient() { @Override public List\u003cItemDTO\u003e queryItemByIds(Collection\u003cLong\u003e ids) { log.error(\"远程调用ItemClient#queryItemByIds方法出现异常，参数：{}\", ids, throwable); // 查询购物车允许失败，查询失败，返回空集合或抛出异常 return CollUtils.emptyList(); } @Override public void deductStock(List\u003cOrderDetailDTO\u003e items) { // 库存扣减业务需要触发事务回滚，查询失败，抛出异常 throw new BizIllegalException(throwable); } }; } } 将刚刚定义的ItemClientFallbackFactory注册为一个Bean： 在ItemClient接口中使用ItemClientFallbackFactory： 服务熔断 熔断是解决雪崩问题的重要手段。思路是由断路器统计服务调用的异常比例、慢请求比例，如果超出阈值则会熔断该服务。即拦截访问该服务的一切请求；而当服务恢复时，断路器会放行访问该服务的请求。 点击控制台中簇点资源后的熔断按钮，即可配置熔断策略： 分布式事务 下单业务，前端请求首先进入订单服务，创建订单并写入数据库。然后订单服务调用购物车服务和库存服务：\n购物车服务负责清理购物车信息 库存服务负责扣减商品库存 在分布式系统中，如果一个业务需要多个服务合作完成，而且每一个服务都有事务，多个事务必须同时成功或失败，这样的事务就是分布式事务。其中的每个服务的事务就是一个分支事务。整个业务称为全局事务。 Seata Seata是 2019 年 1 月份蚂蚁金服和阿里巴巴共同开源的分布式事务解决方案。致力于提供高性能和简单易用的分布式事务服务，为用户打造一站式的分布式解决方案。 官网地址： http://seata.io/ ，其中的文档、播客中提供了大量的使用说明、源码分析。 分布式事务解决思路 解决分布式事务，各个子事务之间必须能感知到彼此的事务状态，才能保证状态一致。\nSeata架构 Seata事务管理中有三个重要的角色：\nTC (Transaction Coordinator) - 事务协调者：维护全局和分支事务的状态，协调全局事务提交或回滚。 TM (Transaction Manager) - 事务管理器：定义全局事务的范围、开始全局事务、提交或回滚全局事务。 RM (Resource Manager) - 资源管理器：管理分支事务，与TC交谈以注册分支事务和报告分支事务的状态 Seata支持多种存储模式，但考虑到持久化的需要，我们一般选择基于数据库存储，执行资料中的seata-tc.sql 将seata目录复制到WSL中 在WSL的/root目录执行下面的命令 docker run --name seata \\ -p 8099:8099 \\ -p 7099:7099 \\ -e SEATA_IP=127.0.0.1 \\ -v ./seata:/seata-server/resources \\ --privileged=true \\ --network hm-net \\ -d \\ seataio/seata-server:1.5.2 微服务集成Seata 首先，要在项目中引入Seata依赖 com.alibaba.cloud spring-cloud-starter-alibaba-nacos-config org.springframework.cloud spring-cloud-starter-bootstrap com.alibaba.cloud spring-cloud-starter-alibaba-seata 在nacos上添加一个共享的seata配置，命名为shared-seata.yaml seata: registry: # TC服务注册中心的配置，微服务根据这些信息去注册中心获取tc服务地址 type: nacos # 注册中心类型 nacos nacos: server-addr: 192.168.150.101:8848 # nacos地址 namespace: \"\" # namespace，默认为空 group: DEFAULT_GROUP # 分组，默认是DEFAULT_GROUP application: seata-server # seata服务名称 username: nacos password: nacos tx-service-group: hmall # 事务组名称 service: vgroup-mapping: # 事务组与tc集群的映射关系 hmall: \"default\" 添加bootstrap.yaml spring: application: name: trade-service # 服务名称 profiles: active: dev cloud: nacos: server-addr: 192.168.150.101 # nacos地址 config: file-extension: yaml # 文件后缀名 shared-configs: # 共享配置 - dataId: shared-jdbc.yaml # 共享mybatis配置 - dataId: shared-log.yaml # 共享日志配置 - dataId: shared-swagger.yaml # 共享日志配置 - dataId: shared-seata.yaml # 共享seata配置 改造applicatiion.yaml文件 server: port: 8085 feign: okhttp: enabled: true # 开启OKHttp连接池支持 sentinel: enabled: true # 开启Feign对Sentinel的整合 hm: swagger: title: 交易服务接口文档 package: com.hmall.trade.controller db: database: hm-trade 再将资料中的seata-at.sql导入到数据库中，创建seata存储回滚信息的undo_log表 Seata支持四种不同的分布式事务解决方案\nXA TCC AT（默认） SAGA XA模式 XA 规范 是 X/Open 组织定义的分布式事务处理（DTP，Distributed Transaction Processing）标准，XA 规范 描述了全局的TM与局部的RM之间的接口，几乎所有主流的关系型数据库都对 XA 规范 提供了支持。Seata的XA模式如下： 一阶段的工作：\nRM注册分支事务到TC RM执行分支业务sql但不提交 RM报告执行状态到TC 二阶段的工作：\nTC检测各分支事务执行状态 如果都成功，通知所有RM提交事务 如果有失败，通知所有RM回滚事务 RM接收TC指令，提交或回滚事务 XA模式优缺点 优点 事务的强一致性，满足ACID原则。 常用数据库都支持，实现简单，并且没有代码侵入 缺点 因为一阶段需要锁定数据库资源，等待二阶段结束才释放，性能较差 依赖关系型数据库实现事务 实现XA模式 Seata的starter已经完成了XA模式的自动装配，实现非常简单，步骤如下：\n修改application.yml文件（每个参与事务的微服务），开启XA模式： seata: data-source-proxy-mode: XA # 开启数据源代理的XA模式 给发起全局事务的入口方法添加@GlobalTransactional注解，本例中是OrderServiceImpl中的create方法： @Override @GlobalTransactional public Long createOrder(OrderFormDTO order) { // 创建订单 ... 略 // 清理购物车 ...略 // 扣减库存 ...略 return order.getId(); } 重启服务并测试 AT模式 Seata主推的是AT模式，AT模式同样是分阶段提交的事务模型，不过缺弥补了XA模型中资源锁定周期过长的缺陷。 阶段一RM的工作：\n注册分支事务 记录undo-log（数据快照） 执行业务sql并提交 报告事务状态 阶段二提交时RM的工作：\n删除undo-log即可 阶段二回滚时RM的工作： 根据undo-log恢复数据到更新前 AT模式原理 一个分支业务的SQL是这样的：\nupdate tb_account set money = money - 10 where id = 1; ",
+  "wordCount" : "3734",
   "inLanguage": "zh",
   "datePublished": "2026-01-06T15:59:06+08:00",
-  "dateModified": "2026-01-07T00:53:51+08:00",
+  "dateModified": "2026-01-08T16:07:54+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.steamedfish.top/post/microservices/5-service-prodect/"
@@ -371,7 +377,7 @@
 
 
 
-<span title='2026-01-06 15:59:06 +0800 +0800'>2026-01-06</span>&nbsp;·&nbsp;<span title='2026-01-07 00:53:51 +0800 +0800'>(最后修改于 2026-01-07)</span>&nbsp;·&nbsp;<span>5 分钟</span>&nbsp;|&nbsp;<span>
+<span title='2026-01-06 15:59:06 +0800 +0800'>2026-01-06</span>&nbsp;·&nbsp;<span title='2026-01-08 16:07:54 +0800 +0800'>(最后修改于 2026-01-08)</span>&nbsp;·&nbsp;<span>8 分钟</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/LucianChao/Hugo_Blog/tree/main/content/post/microservices/5-service-prodect/index.md" rel="noopener noreferrer edit" target="_blank">编辑此文章</a>
 </span>
 
@@ -435,14 +441,23 @@
                     <a href="#seata%e6%9e%b6%e6%9e%84" aria-label="Seata架构">Seata架构</a></li></ul>
                 </li>
                 <li>
-                    <a href="#%e9%83%a8%e7%bd%b2tc%e6%9c%8d%e5%8a%a1" aria-label="部署TC服务">部署TC服务</a></li>
-                <li>
                     <a href="#%e5%be%ae%e6%9c%8d%e5%8a%a1%e9%9b%86%e6%88%90seata" aria-label="微服务集成Seata">微服务集成Seata</a></li>
                 <li>
-                    <a href="#xa%e6%a8%a1%e5%bc%8f" aria-label="XA模式">XA模式</a></li>
+                    <a href="#xa%e6%a8%a1%e5%bc%8f" aria-label="XA模式">XA模式</a><ul>
+                        
                 <li>
-                    <a href="#at%e6%a8%a1%e5%bc%8f" aria-label="AT模式">AT模式</a>
+                    <a href="#xa%e6%a8%a1%e5%bc%8f%e4%bc%98%e7%bc%ba%e7%82%b9" aria-label="XA模式优缺点">XA模式优缺点</a></li>
+                <li>
+                    <a href="#%e5%ae%9e%e7%8e%b0xa%e6%a8%a1%e5%bc%8f" aria-label="实现XA模式">实现XA模式</a></li></ul>
                 </li>
+                <li>
+                    <a href="#at%e6%a8%a1%e5%bc%8f" aria-label="AT模式">AT模式</a><ul>
+                        
+                <li>
+                    <a href="#at%e6%a8%a1%e5%bc%8f%e5%8e%9f%e7%90%86" aria-label="AT模式原理">AT模式原理</a>
+                </li>
+            </ul>
+            </li>
             </ul>
             </li>
             </ul>
@@ -1466,16 +1481,307 @@ Seata事务管理中有三个重要的角色：</p>
 <li><strong>RM (Resource Manager) - 资源管理器</strong>：管理分支事务，与TC交谈以注册分支事务和报告分支事务的状态</li>
 </ul>
 <hr>
-<h3 id="部署tc服务">部署TC服务<a hidden class="anchor" aria-hidden="true" href="#部署tc服务">#</a></h3>
+<h3></h3>
+<ol>
+<li>Seata支持多种存储模式，但考虑到持久化的需要，我们一般选择基于数据库存储，执行资料中的<code>seata-tc.sql</code></li>
+<li>将<code>seata</code>目录复制到<code>WSL</code>中</li>
+<li>在<code>WSL</code>的<code>/root</code>目录执行下面的命令
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run --name seata <span class="se">\
+</span></span></span><span class="line"><span class="cl">-p 8099:8099 <span class="se">\
+</span></span></span><span class="line"><span class="cl">-p 7099:7099 <span class="se">\
+</span></span></span><span class="line"><span class="cl">-e <span class="nv">SEATA_IP</span><span class="o">=</span>127.0.0.1 <span class="se">\
+</span></span></span><span class="line"><span class="cl">-v ./seata:/seata-server/resources <span class="se">\
+</span></span></span><span class="line"><span class="cl">--privileged<span class="o">=</span><span class="nb">true</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">--network hm-net <span class="se">\
+</span></span></span><span class="line"><span class="cl">-d <span class="se">\
+</span></span></span><span class="line"><span class="cl">seataio/seata-server:1.5.2
+</span></span></code></pre></div></li>
+</ol>
+<hr>
 <h3 id="微服务集成seata">微服务集成Seata<a hidden class="anchor" aria-hidden="true" href="#微服务集成seata">#</a></h3>
+<ol>
+<li>首先，要在项目中引入<code>Seata</code>依赖
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--统一配置管理--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;groupId&gt;</span>com.alibaba.cloud<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-nacos-config<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!--读取bootstrap文件--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-bootstrap<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!--seata--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;groupId&gt;</span>com.alibaba.cloud<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-seata<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></div></li>
+<li>在<code>nacos</code>上添加一个共享的seata配置，命名为<code>shared-seata.yaml</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">seata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">registry</span><span class="p">:</span><span class="w"> </span><span class="c"># TC服务注册中心的配置，微服务根据这些信息去注册中心获取tc服务地址</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">nacos</span><span class="w"> </span><span class="c"># 注册中心类型 nacos</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">nacos</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">server-addr</span><span class="p">:</span><span class="w"> </span><span class="m">192.168.150.101</span><span class="p">:</span><span class="m">8848</span><span class="w"> </span><span class="c"># nacos地址</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w"> </span><span class="c"># namespace，默认为空</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">DEFAULT_GROUP</span><span class="w"> </span><span class="c"># 分组，默认是DEFAULT_GROUP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">application</span><span class="p">:</span><span class="w"> </span><span class="l">seata-server</span><span class="w"> </span><span class="c"># seata服务名称</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l">nacos</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l">nacos</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tx-service-group</span><span class="p">:</span><span class="w"> </span><span class="l">hmall</span><span class="w"> </span><span class="c"># 事务组名称</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">vgroup-mapping</span><span class="p">:</span><span class="w"> </span><span class="c"># 事务组与tc集群的映射关系</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">hmall</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;default&#34;</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>添加<code>bootstrap.yaml</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">application</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">trade-service</span><span class="w"> </span><span class="c"># 服务名称</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">profiles</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l">dev</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">nacos</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">server-addr</span><span class="p">:</span><span class="w"> </span><span class="m">192.168.150.101</span><span class="w"> </span><span class="c"># nacos地址</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">file-extension</span><span class="p">:</span><span class="w"> </span><span class="l">yaml</span><span class="w"> </span><span class="c"># 文件后缀名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">shared-configs</span><span class="p">:</span><span class="w"> </span><span class="c"># 共享配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">dataId</span><span class="p">:</span><span class="w"> </span><span class="l">shared-jdbc.yaml</span><span class="w"> </span><span class="c"># 共享mybatis配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">dataId</span><span class="p">:</span><span class="w"> </span><span class="l">shared-log.yaml</span><span class="w"> </span><span class="c"># 共享日志配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">dataId</span><span class="p">:</span><span class="w"> </span><span class="l">shared-swagger.yaml</span><span class="w"> </span><span class="c"># 共享日志配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">dataId</span><span class="p">:</span><span class="w"> </span><span class="l">shared-seata.yaml</span><span class="w"> </span><span class="c"># 共享seata配置</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>改造<code>applicatiion.yaml</code>文件
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">server</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">8085</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">feign</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">okhttp</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c"># 开启OKHttp连接池支持</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">sentinel</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c"># 开启Feign对Sentinel的整合</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">hm</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">swagger</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">交易服务接口文档</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">package</span><span class="p">:</span><span class="w"> </span><span class="l">com.hmall.trade.controller</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">db</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="l">hm-trade</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>再将资料中的<code>seata-at.sql</code>导入到数据库中，创建<code>seata</code>存储回滚信息的<code>undo_log</code>表</li>
+</ol>
+<hr>
+<!-- FM:Snippet:Start data:{"id":"居中","fields":[]} -->
+
+
+
+
+
+  
+
+
+<div dir="ltr" style="text-align: center;">
+  
+    <p>Seata支持四种不同的分布式事务解决方案</p>
+<ul>
+<li>XA</li>
+<li>TCC</li>
+<li>AT（默认）</li>
+<li>SAGA</li>
+</ul>
+  
+</div>
+
+<!-- FM:Snippet:End -->
+<hr>
 <h3 id="xa模式">XA模式<a hidden class="anchor" aria-hidden="true" href="#xa模式">#</a></h3>
+<p>XA 规范 是 X/Open 组织定义的分布式事务处理（DTP，Distributed Transaction Processing）标准，XA 规范 描述了全局的TM与局部的RM之间的接口，几乎所有主流的关系型数据库都对 XA 规范 提供了支持。Seata的XA模式如下：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/5-service-prodect/index.md"
+    href="/post/microservices/5-service-prodect/23.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/5-service-prodect/23.png"
+      srcset="/post/microservices/5-service-prodect/23.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+一阶段的工作：</p>
+<ol>
+<li><code>RM</code>注册分支事务到<code>TC</code></li>
+<li><code>RM</code>执行分支业务<code>sql</code>但不提交</li>
+<li><code>RM</code>报告执行状态到<code>TC</code></li>
+</ol>
+<p>二阶段的工作：</p>
+<ul>
+<li><code>TC</code>检测各分支事务执行状态
+<ol>
+<li>如果都成功，通知所有<code>RM</code>提交事务</li>
+<li>如果有失败，通知所有<code>RM</code>回滚事务</li>
+</ol>
+</li>
+<li><code>RM</code>接收<code>TC</code>指令，<strong>提交</strong>或回滚事务</li>
+</ul>
+<hr>
+<h4 id="xa模式优缺点">XA模式优缺点<a hidden class="anchor" aria-hidden="true" href="#xa模式优缺点">#</a></h4>
+<ul>
+<li>优点
+<ul>
+<li>事务的强一致性，满足ACID原则。</li>
+<li>常用数据库都支持，实现简单，并且没有代码侵入</li>
+</ul>
+</li>
+<li>缺点
+<ul>
+<li>因为一阶段需要锁定数据库资源，等待二阶段结束才释放，性能较差</li>
+<li>依赖关系型数据库实现事务</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="实现xa模式">实现XA模式<a hidden class="anchor" aria-hidden="true" href="#实现xa模式">#</a></h4>
+<p>Seata的starter已经完成了XA模式的自动装配，实现非常简单，步骤如下：</p>
+<ol>
+<li>修改<code>application.yml</code>文件（每个参与事务的微服务），开启XA模式：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">seata</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">data-source-proxy-mode</span><span class="p">:</span><span class="w"> </span><span class="l">XA</span><span class="w"> </span><span class="c"># 开启数据源代理的XA模式</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>给发起全局事务的入口方法添加<code>@GlobalTransactional</code>注解，本例中是<code>OrderServiceImpl</code>中的<code>create</code>方法：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@GlobalTransactional</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="nf">createOrder</span><span class="p">(</span><span class="n">OrderFormDTO</span><span class="w"> </span><span class="n">order</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 创建订单 ... 略</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 清理购物车 ...略 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 扣减库存 ...略</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">order</span><span class="p">.</span><span class="na">getId</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>重启服务并测试</li>
+</ol>
+<hr>
 <h3 id="at模式">AT模式<a hidden class="anchor" aria-hidden="true" href="#at模式">#</a></h3>
+<p>Seata主推的是AT模式，AT模式同样是分阶段提交的事务模型，不过缺弥补了XA模型中资源锁定周期过长的缺陷。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/5-service-prodect/index.md"
+    href="/post/microservices/5-service-prodect/24.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/5-service-prodect/24.png"
+      srcset="/post/microservices/5-service-prodect/24.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+阶段一RM的工作：</p>
+<ul>
+<li>注册分支事务</li>
+<li><strong>记录<code>undo-log</code>（数据快照）</strong></li>
+<li>执行业务sql并<strong>提交</strong></li>
+<li>报告事务状态</li>
+</ul>
+<p>阶段二提交时RM的工作：</p>
+<ul>
+<li>删除<code>undo-log</code>即可
+阶段二回滚时RM的工作：</li>
+<li>根据<code>undo-log</code>恢复数据到更新前</li>
+</ul>
+<hr>
+<h4 id="at模式原理">AT模式原理<a hidden class="anchor" aria-hidden="true" href="#at模式原理">#</a></h4>
+<p>一个分支业务的SQL是这样的：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">update</span><span class="w"> </span><span class="n">tb_account</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">money</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">money</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/microservices/5-service-prodect/index.md"
+    href="/post/microservices/5-service-prodect/25.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/microservices/5-service-prodect/25.webp"
+      srcset="/post/microservices/5-service-prodect/25.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
 
 
   </div>
 
   <footer class="post-footer">
     <ul class="post-tags">
+      <li><a href="https://www.steamedfish.top/tags/mysql/">Mysql</a></li>
+      <li><a href="https://www.steamedfish.top/tags/sentinel/">Sentinel</a></li>
+      <li><a href="https://www.steamedfish.top/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">分布式事务</a></li>
+      <li><a href="https://www.steamedfish.top/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a></li>
+      <li><a href="https://www.steamedfish.top/tags/%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4/">服务保护</a></li>
+      <li><a href="https://www.steamedfish.top/tags/xa%E6%A8%A1%E5%BC%8F/">XA模式</a></li>
     </ul>
   </footer>
 </article>
