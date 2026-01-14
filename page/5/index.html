@@ -181,6 +181,53 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">【建站日志|异常解决】hugo自动部署异常溯源过程及解决办法
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>起因 昨天写完文章推送至远程仓库之后，今天发现网页没有更新，将问题溯源过程以及解决办法进行总结
+溯源过程 先重新推送一遍文章到远程仓库
+网页端一开始并没有更新，这在以往是很正常的，因为我的站点用到了edgeone的cdn加速，需要等待cdn缓存刷新。
+过了半小时左右，我再次打开网站，依旧没有更新，此时我意识到事情有些不对。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2025-12-11 15:27:28 +0800 +0800'>2025-12-11</span>&nbsp;·&nbsp;<span title='2025-12-13 03:53:05 +0800 +0800'>(最后修改于 2025-12-13)</span>&nbsp;·&nbsp;<span>2 分钟</span></footer>
+  <a class="entry-link" aria-label="post link to 【建站日志|异常解决】hugo自动部署异常溯源过程及解决办法" href="https://www.steamedfish.top/post/hugo-log/deploy-error/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Javaweb——(24)Web前端开发
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Vue Vue工程化 工程化： 模块化：
+项目划分若干模块单独维护，单独开发维护，提高效率 组件化：
+将页面的各个组成部分封装为一个一个的组件，提高复用性 规范化：
+提供统一的目录结构、编码规范、开发流程 自动化：
+项目的构建、开发、测试、打包、部署 环境准备 介绍：create-vue是Vue官方提供的最新的脚手架工具，用于快速生成一个工程化的Vue项目。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2025-12-10 17:43:11 +0800 +0800'>2025-12-10</span>&nbsp;·&nbsp;<span title='2025-12-13 03:53:05 +0800 +0800'>(最后修改于 2025-12-13)</span>&nbsp;·&nbsp;<span>9 分钟</span></footer>
+  <a class="entry-link" aria-label="post link to Javaweb——(24)Web前端开发" href="https://www.steamedfish.top/post/java-web/javaweb-24-web/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Javaweb——(23)Maven高级技术
     </h2>
   </header>
@@ -348,50 +395,6 @@ lastmod功能已经上线半个多月了，但碍于有些bug，一直没有写�
 
 <span title='2025-12-04 16:50:12 +0800 +0800'>2025-12-04</span>&nbsp;·&nbsp;<span title='2025-12-05 02:37:33 +0800 +0800'>(最后修改于 2025-12-05)</span>&nbsp;·&nbsp;<span>7 分钟</span></footer>
   <a class="entry-link" aria-label="post link to Javaweb——(17)SpringBoot实战·Tlias智能学习辅助系统·班级管理" href="https://www.steamedfish.top/post/java-web/javaweb-17-springboot-tlias6/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工系统开发
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>删除员工 分析 阅读文档——删除员工
-Controller接收请求参数 接收请求参数：
-DELETE /emps?ids=1,2,3 方式一：在Controller方法中通过数组来接收 方式二：在Controller方法中通过集合来接收 src/main/java/com/javaweb/controller/EmpController.java // public Result delete(Integer[] ids) // 通过数组即可接收前端传递的数组值 @DeleteMapping(&#34;/emps&#34;) // 通过集合类型接收前端传递的数组值，需要加注解 @RequestParam public Result delete(@RequestParam List&lt;Integer&gt; ids) { log.info(&#34;ids = {}&#34;, ids); empService.delete(ids); return Result.success(); } } Service &amp; Mapper EmpService.java
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-
-
-
-
-
-<span title='2025-12-03 18:42:34 +0800 +0800'>2025-12-03</span>&nbsp;·&nbsp;<span title='2025-12-05 02:37:33 +0800 +0800'>(最后修改于 2025-12-05)</span>&nbsp;·&nbsp;<span>4 分钟</span></footer>
-  <a class="entry-link" aria-label="post link to Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工系统开发" href="https://www.steamedfish.top/post/java-web/javaweb-16-springboot-tlias5/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Javaweb——(15)SpringBoot实战·Tlias智能学习辅助系统·新增员工
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>新增员工 分析 阅读接口文档
-接口文档——添加员工
-分析三层架构 步骤： 完成完成准备工作，引入实体类EmpExpr及对应的Mapper接口、XML映射文件，及接收请求参数的实体类 保存员工的基本信息 注释
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-
-
-
-
-
-<span title='2025-12-01 16:46:01 +0800 +0800'>2025-12-01</span>&nbsp;·&nbsp;<span title='2025-12-04 00:06:30 +0800 +0800'>(最后修改于 2025-12-04)</span>&nbsp;·&nbsp;<span>8 分钟</span></footer>
-  <a class="entry-link" aria-label="post link to Javaweb——(15)SpringBoot实战·Tlias智能学习辅助系统·新增员工" href="https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

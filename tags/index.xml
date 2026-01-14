@@ -7,7 +7,7 @@
     <generator>Hugo -- 0.154.5</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Wed, 14 Jan 2026 14:47:06 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 15 Jan 2026 02:03:45 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MQ消息可靠性</title>
@@ -38,7 +38,7 @@
       <description></description>
     </item>
     <item>
-      <title>Mysql</title>
+      <title>MySQL</title>
       <link>https://www.steamedfish.top/tags/mysql/</link>
       <pubDate>Tue, 06 Jan 2026 15:59:06 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/mysql/</guid>
