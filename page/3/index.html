@@ -2,7 +2,7 @@
 <html lang="zh" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.154.3"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.154.5"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -178,6 +178,29 @@
 
 
 </div>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">【苍穹外卖】（9）模拟微信支付成功
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>原代码 前端 前端：
+查看小程序源码pages\pay\index.js第225行起 将这里的代码注释掉，收到后端返回数据后直接进行支付成功进行跳转 后端 后端的支付逻辑也要进行相应修改，查看 OrderController 进入 service 层梳理逻辑（直接进入 OrderService 的实现方法） OrderServiceImpl.java package com.sky.service.impl; //省略导入类 @Service public class OrderServiceImpl implements OrderService { @Autowired private OrderMapper orderMapper; @Autowired private AddressBookMapper addressBookMapper; @Autowired private UserMapper userMapper; @Autowired private ShoppingCartMapper shoppingCartMapper; @Autowired private OrderDetailMapper orderDetailMapper; @Autowired private WeChatPayUtil weChatPayUtil; /** * 用户下单 * * @param dto * @return */ @Override @Transactional public OrderSubmitVO submit(OrdersSubmitDTO dto) { // 省略下单代码 } /** * 订单支付 * * @param ordersPaymentDTO * @return */ public OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exception { // 当前登录用户id Long userId = BaseContext.getCurrentId(); User user = userMapper.getById(userId); //调用微信支付接口，生成预支付交易单 JSONObject jsonObject = weChatPayUtil.pay( ordersPaymentDTO.getOrderNumber(), //商户订单号 new BigDecimal(0.01), //支付金额，单位 元 &#34;苍穹外卖订单&#34;, //商品描述 user.getOpenid() //微信用户的openid ); if (jsonObject.getString(&#34;code&#34;) != null &amp;&amp; jsonObject.getString(&#34;code&#34;).equals(&#34;ORDERPAID&#34;)) { throw new OrderBusinessException(&#34;该订单已支付&#34;); } OrderPaymentVO vo = jsonObject.toJavaObject(OrderPaymentVO.class); vo.setPackageStr(jsonObject.getString(&#34;package&#34;)); return vo; } /** * 支付成功，修改订单状态 * * @param outTradeNo */ public void paySuccess(String outTradeNo) { // 根据订单号查询订单 Orders ordersDB = orderMapper.getByNumber(outTradeNo); // 根据订单id更新订单的状态、支付方式、支付状态、结账时间 Orders orders = Orders.builder() .id(ordersDB.getId()) .status(Orders.TO_BE_CONFIRMED) .payStatus(Orders.PAID) .checkoutTime(LocalDateTime.now()) .build(); orderMapper.update(orders); } } Controller调用了 payment()方法，可以注意到 service 层还有一个 paySuccess 方法是支付成功的回调函数。
+分析代码可知，这次调用 paument() 方法只是返回预支付交易单，剩下的交易是小程序直接调用微信支付完成的。
+支付成功后： 流程图如下： 所以我们需要修改 payment() 方法，在service层调用 paysuccess()方法，跳过之前向微信接口发请求的过程 OrderServiceImpl.java /** * 订单支付 * * @param ordersPaymentDTO * @return */ public OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exception { // // 当前登录用户id // Long userId = BaseContext.getCurrentId(); // User user = userMapper.getById(userId); // // //调用微信支付接口，生成预支付交易单 // JSONObject jsonObject = weChatPayUtil.pay( // ordersPaymentDTO.getOrderNumber(), //商户订单号 // new BigDecimal(0.01), //支付金额，单位 元 // &#34;苍穹外卖订单&#34;, //商品描述 // user.getOpenid() //微信用户的openid // ); // // if (jsonObject.getString(&#34;code&#34;) != null &amp;&amp; jsonObject.getString(&#34;code&#34;).equals(&#34;ORDERPAID&#34;)) { // throw new OrderBusinessException(&#34;该订单已支付&#34;); // } // // OrderPaymentVO vo = jsonObject.toJavaObject(OrderPaymentVO.class); // vo.setPackageStr(jsonObject.getString(&#34;package&#34;)); // // return vo; // -----------------------------模拟支付成功----------------------------------- // 调用paySuccess方法 paySuccess(ordersPaymentDTO.getOrderNumber()); // 直接返回一个空对象，因为前端只需要成功接收到数据（code=1）就会跳转到支付成功 return new OrderPaymentVO(); } 功能测试 查看数据库，支付成功后状态更新成功。（订单明细表也成功插入数据，这里不再展示）
+</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2025-12-27 02:40:01 +0800 +0800'>2025-12-27</span>&nbsp;·&nbsp;<span title='2025-12-29 00:38:42 +0800 +0800'>(最后修改于 2025-12-29)</span>&nbsp;·&nbsp;<span>2 分钟</span></footer>
+  <a class="entry-link" aria-label="post link to 【苍穹外卖】（9）模拟微信支付成功" href="https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-10/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
@@ -375,29 +398,8 @@ https://api.map.baidu.com/geocoding/v3/?address=北京市海淀区上地十街10
 
 
 
-<span title='2025-12-22 22:00:21 +0800 +0800'>2025-12-22</span>&nbsp;·&nbsp;<span title='2025-12-29 00:38:42 +0800 +0800'>(最后修改于 2025-12-29)</span>&nbsp;·&nbsp;<span>5 分钟</span></footer>
+<span title='2025-12-22 22:00:21 +0800 +0800'>2025-12-22</span>&nbsp;·&nbsp;<span title='2025-12-23 18:06:27 +0800 +0800'>(最后修改于 2025-12-23)</span>&nbsp;·&nbsp;<span>5 分钟</span></footer>
   <a class="entry-link" aria-label="post link to 【苍穹外卖】（ 4 ）套餐管理 " href="https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-4/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">【苍穹外卖】（ 3 ）菜品管理 
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>公共字段自动填充 问题分析 业务表中的公共字段：
-序号字段名含义数据类型1create_time创建时间datetime2create_user创建人 idbigint3update_time修改时间datetime4update_user修改人 idbigint问题：代码冗余、不便于后期维护
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-
-
-
-
-
-<span title='2025-12-21 16:14:27 +0800 +0800'>2025-12-21</span>&nbsp;·&nbsp;<span title='2025-12-23 00:29:00 +0800 +0800'>(最后修改于 2025-12-23)</span>&nbsp;·&nbsp;<span>3 分钟</span></footer>
-  <a class="entry-link" aria-label="post link to 【苍穹外卖】（ 3 ）菜品管理 " href="https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-3/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

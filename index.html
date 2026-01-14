@@ -2,7 +2,7 @@
 <html lang="zh" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.154.3"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.154.5"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -194,6 +194,27 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">【微服务】RabbitMQ进阶
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>生产者的可靠性 生产者重连 有的时候由于网络波动，可能会出现发送者连接MQ失败的情况。通过配置我们可以开启连接失败后的重连机制：
+spring: rabbitmq: connection-timeout: 1s template: retry: enabled: true # 开启重试 initial-interval: 1000ms # 初始等待时长 multiplier: 1 # 每次增加的间隔倍数 ：最终等待时长 = initial-interval * multiplier max-attempts: 1 # 最大重试次数 信息
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2026-01-11 23:35:35 +0800 +0800'>2026-01-11</span>&nbsp;·&nbsp;<span title='2026-01-14 14:47:06 +0800 +0800'>(最后修改于 2026-01-14)</span>&nbsp;·&nbsp;<span>12 分钟</span></footer>
+  <a class="entry-link" aria-label="post link to 【微服务】RabbitMQ进阶" href="https://www.steamedfish.top/post/microservices/7-mq/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">【微服务】RabbitMQ入门
     </h2>
   </header>
@@ -207,7 +228,7 @@
 
 
 
-<span title='2026-01-08 16:08:34 +0800 +0800'>2026-01-08</span>&nbsp;·&nbsp;<span title='2026-01-09 01:39:55 +0800 +0800'>(最后修改于 2026-01-09)</span>&nbsp;·&nbsp;<span>7 分钟</span></footer>
+<span title='2026-01-08 16:08:34 +0800 +0800'>2026-01-08</span>&nbsp;·&nbsp;<span title='2026-01-14 14:47:06 +0800 +0800'>(最后修改于 2026-01-14)</span>&nbsp;·&nbsp;<span>13 分钟</span></footer>
   <a class="entry-link" aria-label="post link to 【微服务】RabbitMQ入门" href="https://www.steamedfish.top/post/microservices/6-mq/"></a>
 </article>
 
@@ -226,7 +247,7 @@
 
 
 
-<span title='2026-01-06 15:59:06 +0800 +0800'>2026-01-06</span>&nbsp;·&nbsp;<span title='2026-01-09 01:39:55 +0800 +0800'>(最后修改于 2026-01-09)</span>&nbsp;·&nbsp;<span>8 分钟</span></footer>
+<span title='2026-01-06 15:59:06 +0800 +0800'>2026-01-06</span>&nbsp;·&nbsp;<span title='2026-01-14 14:47:06 +0800 +0800'>(最后修改于 2026-01-14)</span>&nbsp;·&nbsp;<span>8 分钟</span></footer>
   <a class="entry-link" aria-label="post link to 【微服务】服务保护和分布式事务" href="https://www.steamedfish.top/post/microservices/5-service-prodect/"></a>
 </article>
 
@@ -388,35 +409,6 @@ MyBatisPlus官方提供了starter，其中集成了Mybatis和MybatisPlus的所�
 
 <span title='2025-12-30 16:21:57 +0800 +0800'>2025-12-30</span>&nbsp;·&nbsp;<span title='2026-01-01 19:56:53 +0800 +0800'>(最后修改于 2026-01-01)</span>&nbsp;·&nbsp;<span>12 分钟</span></footer>
   <a class="entry-link" aria-label="post link to Mybatis Plus" href="https://www.steamedfish.top/post/microservices/1/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">【HOT100-hard】4.寻找两个正序数组的中位数
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>题目 给定两个大小分别为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出并返回这两个正序数组的 中位数 。
-算法的时间复杂度应该为 O(log (m&#43;n)) 。
-示例 1：
-输入：nums1 = [1,3], nums2 = [2]
-输出：2.00000
-解释：合并数组 = [1,2,3] ，中位数 2
-示例 2：
-输入：nums1 = [1,2], nums2 = [3,4]
-输出：2.50000
-解释：合并数组 = [1,2,3,4] ，中位数 (2 &#43; 3) / 2 = 2.5
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-
-
-
-
-
-<span title='2025-12-30 13:40:19 +0800 +0800'>2025-12-30</span>&nbsp;·&nbsp;<span>3 分钟</span></footer>
-  <a class="entry-link" aria-label="post link to 【HOT100-hard】4.寻找两个正序数组的中位数" href="https://www.steamedfish.top/post/leetcode/hot100/4/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

@@ -4,10 +4,10 @@
     <title>分布式事务 on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/</link>
     <description>Recent content in 分布式事务 on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.154.3</generator>
+    <generator>Hugo -- 0.154.5</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Fri, 09 Jan 2026 01:39:55 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 14 Jan 2026 14:47:06 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【微服务】服务保护和分布式事务</title>

@@ -4,15 +4,22 @@
     <title>Tags on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/</link>
     <description>Recent content in Tags on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.154.3</generator>
+    <generator>Hugo -- 0.154.5</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Fri, 09 Jan 2026 01:39:55 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 14 Jan 2026 14:47:06 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MQ消息可靠性</title>
+      <link>https://www.steamedfish.top/tags/mq%E6%B6%88%E6%81%AF%E5%8F%AF%E9%9D%A0%E6%80%A7/</link>
+      <pubDate>Sun, 11 Jan 2026 23:35:35 +0800</pubDate>
+      <guid>https://www.steamedfish.top/tags/mq%E6%B6%88%E6%81%AF%E5%8F%AF%E9%9D%A0%E6%80%A7/</guid>
+      <description></description>
+    </item>
     <item>
       <title>RabbitMQ</title>
       <link>https://www.steamedfish.top/tags/rabbitmq/</link>
-      <pubDate>Thu, 08 Jan 2026 16:08:34 +0800</pubDate>
+      <pubDate>Sun, 11 Jan 2026 23:35:35 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/rabbitmq/</guid>
       <description></description>
     </item>
@@ -252,13 +259,6 @@
       <link>https://www.steamedfish.top/tags/httpclient/</link>
       <pubDate>Tue, 23 Dec 2025 21:49:59 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/httpclient/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title> 苍穹外卖 </title>
-      <link>https://www.steamedfish.top/tags/-%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96-/</link>
-      <pubDate>Mon, 22 Dec 2025 22:00:21 +0800</pubDate>
-      <guid>https://www.steamedfish.top/tags/-%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96-/</guid>
       <description></description>
     </item>
     <item>
