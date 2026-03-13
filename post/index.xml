@@ -7,8 +7,27 @@
     <generator>Hugo -- 0.157.0</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Fri, 13 Mar 2026 16:48:35 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 13 Mar 2026 23:14:12 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【面试八股】MySQL</title>
+      <link>https://www.steamedfish.top/post/interview/mysql/</link>
+      <pubDate>Fri, 13 Mar 2026 17:08:22 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/interview/mysql/</guid>
+      <description>&lt;h2 id=&#34;面试题汇总&#34;&gt;面试题汇总&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;MySQL的常见存储引擎有哪些？
+&lt;ul&gt;
+&lt;li&gt;InnoDB&lt;/li&gt;
+&lt;li&gt;MyISAM&lt;/li&gt;
+&lt;li&gt;MySQL 常见的存储引擎主要有 InnoDB、MyISAM、Memory、Archive、CSV、NDB 等。其中最常用的是 InnoDB，它支持事务、行锁和外键，是 MySQL 5.5 之后的默认存储引擎；MyISAM 不支持事务，使用表锁，适合读多写少的场景；Memory 引擎数据存储在内存中，查询速度很快，但重启会丢失数据；Archive 主要用于历史数据归档。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;mysql怎么存数据&#34;&gt;MySQL怎么存数据？&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;MySQL&lt;/code&gt;数据保存在&lt;strong&gt;磁盘&lt;/strong&gt;上，数据处理发生在内存中，&lt;strong&gt;数据页&lt;/strong&gt;是磁盘与内存之间交互的基本单位，也是&lt;code&gt;MySQL&lt;/code&gt;管理存储空间的基本单位，大小默认为&lt;code&gt;16KB&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>【面试八股】Redis</title>
       <link>https://www.steamedfish.top/post/interview/redis/</link>
