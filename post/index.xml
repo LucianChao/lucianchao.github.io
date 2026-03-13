@@ -7,7 +7,7 @@
     <generator>Hugo -- 0.157.0</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Fri, 13 Mar 2026 00:06:38 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 13 Mar 2026 14:14:24 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【面试八股】Redis</title>
@@ -17,25 +17,15 @@
       <description>&lt;h2 id=&#34;面试题汇总&#34;&gt;面试题汇总&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;描述一下redis的雪崩问题，如何解决？&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;描述一下redis的穿透问题，如何解决？&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;描述一下redis的击穿问题，如何解决&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Redis常见的数据类型有哪些？&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Redis分布式锁是如何实现的？&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Redis分片集群与主从集群的区别&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Reids的主从集群、哨兵集群模式分别解决什么问题？&lt;/p&gt;</description>
+&lt;p&gt;如何保证缓存的双写一致性？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;缓存的双写一致性很难保证强一致，只能尽可能降低不一致的概率，确保最终一致。我们项目中采用的是&lt;code&gt;Cache Aside&lt;/code&gt;模式。简单来说就是在&lt;strong&gt;更新数据库之后删除缓存&lt;/strong&gt;；在查询时先查询缓存，如果未命中则查询数据库并写入缓存。同时我们会给缓存设置过期时间作为兜底方案。如果真的出现了不一致的情况，也可以通过缓存过期来保证最终一致。&lt;/li&gt;
+&lt;li&gt;为什么不采用延迟双删机制？
+&lt;ul&gt;
+&lt;li&gt;延迟双删的第一次删除并没有实际意义，第二次采用删除删除主要是解决数据库主从同步的延迟问题，我认为这是数据库主从的一致性问题，与缓存同步无关。既然主节点数据已经更新，Redis的缓存也应该更新。而且延迟双删会增加缓存业务的复杂度，也没能完全避免缓存一致性问题（延时时间的不确定性）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;延迟双删：&lt;/p&gt;</description>
     </item>
     <item>
       <title>【OpenClaw】小龙虾的成神之路——更换模型、安装skills</title>
