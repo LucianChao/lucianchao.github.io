@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh" dir="auto">
 
-<head><meta charset="utf-8">
+<head>
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -377,6 +378,12 @@ public OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exceptio
 <meta name="author" content="Lucian Chao">
 <link rel="canonical" href="https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-10/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.48569ef1d09dace3351ba549c3a7d634e59d1a68544f48e0de83f555e5c3e16e.css" integrity="sha256-SFae8dCdrOM1G6VJw6fWNOWdGmhUT0jg3oP1VeXD4W4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" rel="preload" as="fetch" href="/index.json">
+
+<script>
+window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"includematches\":true,\"iscasesensitive\":false,\"keys\":[\"title\",\"permalink\",\"summary\",\"content\"],\"minmatchcharlength\":1,\"shouldsort\":true,\"threshold\":0.4}";
+</script>
+<script defer crossorigin="anonymous" src="/assets/js/search.aa96b9ed792bef70ea680e2e0f4d593dbf24e70f57adc89aa9312336ed219778.js" integrity=""></script>
 <link rel="icon" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
@@ -948,7 +955,8 @@ public OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exceptio
         </ul>
     </nav>
 </header>
-<main class="main" data-barba="container" data-barba-namespace="main">
+
+    <main class="main" data-barba="container" data-barba-namespace="main">
 
 <article class="post-single">
   <header class="post-header">
@@ -1508,6 +1516,13 @@ PaperMod.initPage = function (container = document) {
 
   PaperMod.initFancybox && PaperMod.initFancybox(container);
   PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
+  
+  
+  
+  if (window.initSearch && document.getElementById('searchInput')) {
+    console.log("Initializing search from Barba");
+    window.initSearch(document);
+  }
 };
 
 
@@ -1515,14 +1530,24 @@ barba.init({
   transitions: [
     {
       name: "default",
-      leave() {
+      leave(data) {
+        
         return Promise.resolve();
       },
       enter(data) {
         
         PaperMod.initOnce();
+        
         PaperMod.initPage(data.next.container);
       },
+      afterEnter(data) {
+        
+        
+        if (window.initSearch && document.getElementById('searchInput')) {
+          console.log("AfterEnter: Re-initializing search");
+          window.initSearch(document);
+        }
+      }
     },
   ],
 });
