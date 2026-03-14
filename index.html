@@ -202,31 +202,6 @@ window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"include
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">【面试八股】MySQL
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>面试题汇总 数据库优化经验或慢SQL优化经验 表结构上的设计优化
-当看到SQL数据连接的表超过5张的时候，基本上可以考虑从库表结构上思考优化，一般情况是：
-业务的不必要拆分 例如：新闻表（新闻id，标题，作者）；新闻详情表（新闻id，图片，发布时间，来源，内容）
-如果再App端需要展示新闻列表需要：（新闻id，标题，图片），这时需要从两个海量数据表中进行关联查询才能获得图片，因为新闻表中不存在图片的字段只能关联查询。
-上述的业务是否可以不拆分？或者拆分更合理一些。
-解决方案：表设计不合理，将图片字段放到新闻表，或者两张表合二为一。
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-
-
-
-
-
-<span title='2026-03-13 17:08:22 +0800 +0800'>2026-03-13</span>&nbsp;·&nbsp;<span title='2026-03-14 19:27:15 +0800 +0800'>(最后修改于 2026-03-14)</span>&nbsp;·&nbsp;<span>11 分钟</span>&nbsp;·&nbsp;<span>Lucian Chao</span></footer>
-  <a class="entry-link" aria-label="post link to 【面试八股】MySQL" href="https://www.steamedfish.top/post/interview/mysql/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
     <h2 class="entry-hint-parent">【面试八股】Redis
     </h2>
   </header>
@@ -414,6 +389,26 @@ spring: rabbitmq: connection-timeout: 1s template: retry: enabled: true # 开启
 
 <span title='2026-01-04 18:56:16 +0800 +0800'>2026-01-04</span>&nbsp;·&nbsp;<span>2 分钟</span>&nbsp;·&nbsp;<span>Lucian Chao</span></footer>
   <a class="entry-link" aria-label="post link to 【debug日记-黑马商城】订单支付超时" href="https://www.steamedfish.top/post/debug-note/hmall-pay-order-time-out/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">【微服务】网关及配置管理
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>##网关 网关：就是网络的关口，负责请求的路由、转发、身份校验。 在SpringCloud中网关的实现包括两种： 网关路由 快速入门 创建新模块 引入网关依赖 编写启动类 配置路由器 路由属性 网关路由对应的Java类型是RouteDefinition，其中常见的属性有：
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2026-01-03 22:03:45 +0800 +0800'>2026-01-03</span>&nbsp;·&nbsp;<span title='2026-01-05 03:23:05 +0800 +0800'>(最后修改于 2026-01-05)</span>&nbsp;·&nbsp;<span>7 分钟</span>&nbsp;·&nbsp;<span>Lucian Chao</span></footer>
+  <a class="entry-link" aria-label="post link to 【微服务】网关及配置管理" href="https://www.steamedfish.top/post/microservices/gateway/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
