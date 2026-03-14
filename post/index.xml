@@ -7,76 +7,8 @@
     <generator>Hugo -- 0.157.0</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sat, 14 Mar 2026 19:27:15 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 15 Mar 2026 03:17:36 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/post/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>【面试八股】JVM</title>
-      <link>https://www.steamedfish.top/post/interview/jvm/</link>
-      <pubDate>Sat, 14 Mar 2026 18:14:18 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/interview/jvm/</guid>
-      <description>&lt;h2 id=&#34;java基础&#34;&gt;Java基础&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;重载与重写的区别
-&lt;ul&gt;
-&lt;li&gt;重载是对象的方法之间，它们方法名相同，但方法的参数列表不同&lt;/li&gt;
-&lt;li&gt;重写是父子类（包括接口与实现类）中两个同名方法，它们方法名相同，且方法的参数列表相同&lt;/li&gt;
-&lt;li&gt;重载在&lt;strong&gt;编译阶段&lt;/strong&gt;，由&lt;strong&gt;编译器&lt;/strong&gt;根据传递给方法的参数来区分方法，例如&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;MyObject&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;obj&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;obj&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;123&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 应该是调用 test(int x) 这个方法&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;obj&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;abc&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 应该是调用 test(String x) 这个方法&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
-&lt;li&gt;而重写是在&lt;strong&gt;运行阶段&lt;/strong&gt;，由虚拟机&lt;strong&gt;解释器&lt;/strong&gt;去获取引用对象的实际类型，根据类型才能确定该调用哪个方法，例如&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Super&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;obj&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;obj&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;     &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 到底是调用父类，还是子类的 test 方法，必须检查引用对象的实际类型才能确定&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
-&lt;li&gt;有没有发生重写，可以使用 @Override 来检查&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;括号内的说明是为了严谨，了解就行，回答时不必说出，这样比较简洁&lt;br&gt;
-在回答方法重载时，不必细说什么参数的类型、个数、顺序，直接说&lt;strong&gt;参数列表不同&lt;/strong&gt;就行&lt;br&gt;
-问题的重点说出：重载是&lt;strong&gt;编译器&lt;/strong&gt;来区分方法，而重写是运行时由&lt;strong&gt;解释器&lt;/strong&gt;来区分方法&lt;br&gt;
-语法细节（问了再说，没问不必说）&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>【面试八股】MySQL</title>
-      <link>https://www.steamedfish.top/post/interview/mysql/</link>
-      <pubDate>Fri, 13 Mar 2026 17:08:22 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/interview/mysql/</guid>
-      <description>&lt;h2 id=&#34;面试题汇总&#34;&gt;面试题汇总&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;数据库优化经验或慢SQL优化经验
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;表结构上的设计优化&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;当看到SQL数据连接的表超过5张的时候，基本上可以考虑从库表结构上思考优化，一般情况是：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;业务的不必要拆分&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;例如：新闻表（新闻id，标题，作者）；新闻详情表（新闻id，图片，发布时间，来源，内容）&lt;br&gt;
-如果再App端需要展示新闻列表需要：（新闻id，标题，图片），这时需要从两个海量数据表中进行关联查询才能获得图片，因为新闻表中不存在图片的字段只能关联查询。&lt;br&gt;
-上述的业务是否可以不拆分？或者拆分更合理一些。&lt;br&gt;
-解决方案：表设计不合理，将图片字段放到新闻表，或者两张表合二为一。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>【面试八股】Redis</title>
-      <link>https://www.steamedfish.top/post/interview/redis/</link>
-      <pubDate>Wed, 11 Mar 2026 18:41:39 +0800</pubDate>
-      <guid>https://www.steamedfish.top/post/interview/redis/</guid>
-      <description>&lt;h2 id=&#34;面试题汇总&#34;&gt;面试题汇总&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;如何保证缓存的双写一致性？&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;缓存的双写一致性很难保证强一致，只能尽可能降低不一致的概率，确保最终一致。我们项目中采用的是&lt;code&gt;Cache Aside&lt;/code&gt;模式。简单来说就是在&lt;strong&gt;更新数据库之后删除缓存&lt;/strong&gt;；在查询时先查询缓存，如果未命中则查询数据库并写入缓存。同时我们会给缓存设置过期时间作为兜底方案。如果真的出现了不一致的情况，也可以通过缓存过期来保证最终一致。&lt;/li&gt;
-&lt;li&gt;为什么不采用延迟双删机制？
-&lt;ul&gt;
-&lt;li&gt;延迟双删的第一次删除并没有实际意义，第二次采用删除删除主要是解决数据库主从同步的延迟问题，我认为这是数据库主从的一致性问题，与缓存同步无关。既然主节点数据已经更新，Redis的缓存也应该更新。而且延迟双删会增加缓存业务的复杂度，也没能完全避免缓存一致性问题（延时时间的不确定性）。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;延迟双删：&lt;/p&gt;</description>
-    </item>
     <item>
       <title>【OpenClaw】小龙虾的成神之路——更换模型、安装skills</title>
       <link>https://www.steamedfish.top/post/openclaw/update-model/</link>
@@ -8782,6 +8714,13 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
 
 &lt;/p&gt;
 &lt;p&gt;Markdown 是一种轻量级标记语言，由 John Gruber 在 2004 年创建。它使用纯文本格式编写文档，通过简单的符号标记实现格式化，例如标题、列表、加粗、斜体等。Markdown 可以方便地转换为 HTML、PDF、Word等格式，广泛应用于博客、文档和笔记工具。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://www.steamedfish.top/post/interview/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://www.steamedfish.top/post/interview/</guid>
+      <description>&lt;p&gt;java/jvm/mysql/redis&lt;/p&gt;</description>
     </item>
     <item>
       <title>1.md</title>
