@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>【面试八股】Java | SteamedFish&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="Java基础
+
+重载与重写的区别
+
+重载是对象的方法之间，它们方法名相同，但方法的参数列表不同
+重写是父子类（包括接口与实现类）中两个同名方法，它们方法名相同，且方法的参数列表相同
+重载在编译阶段，由编译器根据传递给方法的参数来区分方法，例如
+
+MyObject obj = ...
+obj.test(123);   // 应该是调用 test(int x) 这个方法
+obj.test(&#34;abc&#34;); // 应该是调用 test(String x) 这个方法
+
+而重写是在运行阶段，由虚拟机解释器去获取引用对象的实际类型，根据类型才能确定该调用哪个方法，例如
+
+Super obj = ...
+obj.test();     // 到底是调用父类，还是子类的 test 方法，必须检查引用对象的实际类型才能确定
+
+有没有发生重写，可以使用 @Override 来检查
+
+
+括号内的说明是为了严谨，了解就行，回答时不必说出，这样比较简洁
+在回答方法重载时，不必细说什么参数的类型、个数、顺序，直接说参数列表不同就行
+问题的重点说出：重载是编译器来区分方法，而重写是运行时由解释器来区分方法
+语法细节（问了再说，没问不必说）">
+<meta name="author" content="Lucian Chao">
+<link rel="canonical" href="https://www.steamedfish.top/post/interview/java/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.48569ef1d09dace3351ba549c3a7d634e59d1a68544f48e0de83f555e5c3e16e.css" integrity="sha256-SFae8dCdrOM1G6VJw6fWNOWdGmhUT0jg3oP1VeXD4W4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" rel="preload" as="fetch" href="/index.json">
+
+<script>
+window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"includematches\":true,\"iscasesensitive\":false,\"keys\":[\"title\",\"permalink\",\"summary\",\"content\"],\"minmatchcharlength\":1,\"shouldsort\":true,\"threshold\":0.4}";
+</script>
+<script defer crossorigin="anonymous" src="/assets/js/search.aa96b9ed792bef70ea680e2e0f4d593dbf24e70f57adc89aa9312336ed219778.js" integrity=""></script>
+<link rel="icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
+<link rel="apple-touch-icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="mask-icon" href="https://www.steamedfish.top/favicon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://www.steamedfish.top/post/interview/java/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+
+
+
+
+<link
+  href="/fonts/lxgw/style.css"
+  rel="stylesheet"
+/><meta property="og:url" content="https://www.steamedfish.top/post/interview/java/">
+  <meta property="og:site_name" content="SteamedFish&#39;s Blog">
+  <meta property="og:title" content="【面试八股】Java">
+  <meta property="og:description" content="Java基础 重载与重写的区别 重载是对象的方法之间，它们方法名相同，但方法的参数列表不同 重写是父子类（包括接口与实现类）中两个同名方法，它们方法名相同，且方法的参数列表相同 重载在编译阶段，由编译器根据传递给方法的参数来区分方法，例如 MyObject obj = ... obj.test(123); // 应该是调用 test(int x) 这个方法 obj.test(&#34;abc&#34;); // 应该是调用 test(String x) 这个方法 而重写是在运行阶段，由虚拟机解释器去获取引用对象的实际类型，根据类型才能确定该调用哪个方法，例如 Super obj = ... obj.test(); // 到底是调用父类，还是子类的 test 方法，必须检查引用对象的实际类型才能确定 有没有发生重写，可以使用 @Override 来检查 括号内的说明是为了严谨，了解就行，回答时不必说出，这样比较简洁
+在回答方法重载时，不必细说什么参数的类型、个数、顺序，直接说参数列表不同就行
+问题的重点说出：重载是编译器来区分方法，而重写是运行时由解释器来区分方法
+语法细节（问了再说，没问不必说）">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2026-03-14T18:14:18+08:00">
+    <meta property="article:modified_time" content="2026-03-15T03:17:36+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【面试八股】Java">
+<meta name="twitter:description" content="Java基础
+
+重载与重写的区别
+
+重载是对象的方法之间，它们方法名相同，但方法的参数列表不同
+重写是父子类（包括接口与实现类）中两个同名方法，它们方法名相同，且方法的参数列表相同
+重载在编译阶段，由编译器根据传递给方法的参数来区分方法，例如
+
+MyObject obj = ...
+obj.test(123);   // 应该是调用 test(int x) 这个方法
+obj.test(&#34;abc&#34;); // 应该是调用 test(String x) 这个方法
+
+而重写是在运行阶段，由虚拟机解释器去获取引用对象的实际类型，根据类型才能确定该调用哪个方法，例如
+
+Super obj = ...
+obj.test();     // 到底是调用父类，还是子类的 test 方法，必须检查引用对象的实际类型才能确定
+
+有没有发生重写，可以使用 @Override 来检查
+
+
+括号内的说明是为了严谨，了解就行，回答时不必说出，这样比较简洁
+在回答方法重载时，不必细说什么参数的类型、个数、顺序，直接说参数列表不同就行
+问题的重点说出：重载是编译器来区分方法，而重写是运行时由解释器来区分方法
+语法细节（问了再说，没问不必说）">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.steamedfish.top/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "",
+      "item": "https://www.steamedfish.top/post/interview/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "【面试八股】Java",
+      "item": "https://www.steamedfish.top/post/interview/java/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【面试八股】Java",
+  "name": "【面试八股】Java",
+  "description": "Java基础 重载与重写的区别 重载是对象的方法之间，它们方法名相同，但方法的参数列表不同 重写是父子类（包括接口与实现类）中两个同名方法，它们方法名相同，且方法的参数列表相同 重载在编译阶段，由编译器根据传递给方法的参数来区分方法，例如 MyObject obj = ... obj.test(123); // 应该是调用 test(int x) 这个方法 obj.test(\u0026#34;abc\u0026#34;); // 应该是调用 test(String x) 这个方法 而重写是在运行阶段，由虚拟机解释器去获取引用对象的实际类型，根据类型才能确定该调用哪个方法，例如 Super obj = ... obj.test(); // 到底是调用父类，还是子类的 test 方法，必须检查引用对象的实际类型才能确定 有没有发生重写，可以使用 @Override 来检查 括号内的说明是为了严谨，了解就行，回答时不必说出，这样比较简洁\n在回答方法重载时，不必细说什么参数的类型、个数、顺序，直接说参数列表不同就行\n问题的重点说出：重载是编译器来区分方法，而重写是运行时由解释器来区分方法\n语法细节（问了再说，没问不必说）\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "Java基础 重载与重写的区别 重载是对象的方法之间，它们方法名相同，但方法的参数列表不同 重写是父子类（包括接口与实现类）中两个同名方法，它们方法名相同，且方法的参数列表相同 重载在编译阶段，由编译器根据传递给方法的参数来区分方法，例如 MyObject obj = ... obj.test(123); // 应该是调用 test(int x) 这个方法 obj.test(\"abc\"); // 应该是调用 test(String x) 这个方法 而重写是在运行阶段，由虚拟机解释器去获取引用对象的实际类型，根据类型才能确定该调用哪个方法，例如 Super obj = ... obj.test(); // 到底是调用父类，还是子类的 test 方法，必须检查引用对象的实际类型才能确定 有没有发生重写，可以使用 @Override 来检查 括号内的说明是为了严谨，了解就行，回答时不必说出，这样比较简洁\n在回答方法重载时，不必细说什么参数的类型、个数、顺序，直接说参数列表不同就行\n问题的重点说出：重载是编译器来区分方法，而重写是运行时由解释器来区分方法\n语法细节（问了再说，没问不必说）\n重写时，子类方法的访问修饰符要 \u003e= 父类方法的访问修饰符 重写时，子类方法抛出的检查异常类型要 \u003c= 父类方法抛出的检查异常类型，或者子类不抛异常 重写时，父子类的方法返回值类型要一样，或子类方法返回值是父类方法返回值的子类 ==与equals的区别 对于基本类型（int、char、double），==比较两边值是否相同 对于引用类型（对象），==是比较两边的引用（内存）地址是否相同，用来判断是否引用同一对象 equals要看实现 Object.equals(Object other)的内部实现就是==，即判断当前对象和other是否引用同一对象 比如String，它的内部实现就是比较两个字符串中每个字符是否相同，比较的是内容。 比如ArrayList，它的内部实现就是比较两个集合中每个元素是否相同，比较的是内容。 Integer String, StringBuilder和StringBuffer的区别\n它们都可以用来表示字符串对象 String表示的字符串是不可变的，而后两者表示的字符串是内容可变的（可以增、删、改字符串里的内容） StringBuilder不适线程安全的，StringBuffer是线程安全的，而String也算是线程安全的 适用场景：\n大部分场景下，String足够。 如果有大量字符串拼接的需求，建议后两者 此字符串对象需要被多线程同时访问，用StringBuffer保证安全 此字符串对象只在线程内被使用，用StringBuilder足够。 另外针对String类是final修饰会提一些问题，要点如下：\n本质是因为String要设计成不可变的，final只是条件之一。 不可变的好处有很多：线程安全、可以缓存。 说一说Java中的异常 异常的重要继承关系如图所示，其中 Throwable是其他异常的顶层父类 Error表示无法恢复的错误，例如OutOfMemoryError内存溢出、StackOverflowError栈溢出等。 这类异常即使捕捉住，通常也无法让程序恢复正常运行。 Exception表示可恢复的错误，处理方式有两种 一是自己处理，用catch语句捕捉后，可以进行一些补救（如记录日志、恢复初始状态等） 二是用throws语句将异常继续抛给上一层调用者，由调用者去处理 Exception有特殊的子类异常RuntimeException，它与Exception的不同之处在于 Exception被称之为检查异常，意思是必须在语法层面对异常进行处理，要么try-catch，要么throws RuntimeException和它的子类被称为非检查异常（也可以翻译为字面意思：运行时异常），在语法层面对这类异常并不要求强制处理，不加try-catch和 throws编译时也不会提示错误 常见的非检查异常有 空指针异常 算术异常（例如整数除零） 数组索引越界异常 类型转换异常 … 你知道的数据结构有哪些？ 线性结构 动态数组：对于普通数组可以扩容 Java中ArrayList就是动态数组 数组的特点就是其中的元素是连续存储的 链表：由多个节点链在一起 java中的LinkedList就属于链表 链表的特点是其中元素是不连续存储的，每次需要根据当前节点，才能找到相邻节点 栈：符合First In Last Out先进后出）规则 java 中的 LinkedList 可以充当栈 它的 push 方法向栈顶添加元素 它的 pop 方法从栈顶移除元素 它的 peek 方法从栈顶获取元素（不移除） 队列：符合 First In First Out（先进先出）规则 java 中 LinkedList 也可以充当队列 它的 offer 方法用来向队列尾部添加元素（入队） 它的 poll 方法用来从队列头部移除元素（出队） 非线性结构 优先级队列：在队列基础上增加了优先级，队列会根据优先级调整元素顺序，保证优先级高的元素先出队 java 中 PriorityQueue 可以作为优先级队列 它底层用大顶堆或小顶堆来实现 它适用于实现排行榜、任务调度等编码 它特别适合于流式数据的处理，利用它能够大大节省内存 Hash 表（哈希表，也叫散列表）：由多对 key - value 组成，会根据 key 的 hash 码把它们分散存储在数组当中，其中 key 的 hash 码与数组索引相对应 java 中的 HashMap，Hashtable 都属于哈希表 它特别适用于实现数据的快速查找 红黑树：可以自平衡的二叉查找树，相对于线性结构来说，拥有更好的性能 java 中的 TreeMap 属于红黑树 跳表：多级链表结构，也能达到与红黑树同级的性能，且实现更为简单 java 中的 ConcurrentSkipListMap 用跳表结构实现 redis 中的 SortedSet 也是用跳表实现 B+ 树：可以自平衡的 N 叉查找树 关系型数据库的索引常用 B+ 树实现 以上数据结构不必全部掌握，根据自己实际情况，捡熟悉的回答即可\n说一声java中常见的集合类 重要的集合接口以及实现类参考下图 接口四个：Collection、List、Set、Map Collection是父接口，List和Set是它的子接口 Map和其他接口的关系 Map调用entrySet()、keySet()方法时，会创建Set的实现 Map调用values()方法时，会用到Collection的实现 List 实现（常见三个） ArrayList 基于数组实现 随机访问（即根据索引访问）性能高 增、删由于要移动数组元素，性能会受影响 【进阶】但如果增、删操作的是数组尾部不牵涉移动元素 LinkedList 基于链表实现 随机访问性能低，因为需要顺着链表一个个才能访问到某索引位置 增、删性能高 【进阶】说它随机访问性能低是相对的，如果是头尾节点，无论增删改查都快 【进阶】说它增删性能高也是有前提的，并没有包含定位到该节点的时间，把这个算上，增删性能并不高 Vector 基于数组实现 相对于前两种 List 实现是线程安全的 【进阶】一些说法说 Vector 已经被舍弃，这是不正确的 Set 实现 HashSet 内部组合了 HashMap，利用 Map key 唯一的特点来实现 Set 集合中元素唯一，注意需要为元素实现 hashCode 和 equals 方法 【进阶】Set 的特性只有元素唯一，有些人说 Set 无序，这得看实现，例如 HashSet 无序，但TreeSet 有序 Map 实现（常见五个） HashMap 底层是 Hash 表，即数组 + 链表，链表过长时会优化为红黑树 集合中 Key 要唯一，并且它需要实现 hashCode 和 equals 方法 LinkedHashMap 基于 HashMap，只是在它基础上增加了一个链表来记录元素的插入顺序 【进阶】这个链表，默认会记录元素插入顺序，这样可以以插入顺序遍历元素 【进阶】这个链表，还可以按元素最近访问来调整顺序，这样可以用来做 LRU Cache 的数据结构 TreeMap 底层是红黑树 Hashtable 底层是 Hash 表，相对前面三个实现来说，线程安全 【进阶】它的线程安全实现方式是在 put，get 等方法上都加了 synchronized，锁住整个对象 ConcurrentHashMap 底层也是 Hash 表，也是线程安全的 【进阶】它的 put 方法执行时仅锁住一个链表，并发度比 Hashtable 高 【进阶】它的 get 方法执行不加锁，是通过 volatile 保证数据的可见性 未标注的是必须记住的部分 标注【进阶】的条目是该集合比较有特色的地方，回答出来就是加分项，不过也根据自己情况来记忆 HashMap 原理（数据结构） 底层数据结构：数组+链表+红黑树\n接下来的回答中要点出数组的作用，为啥会有冲突，如何解决冲突\n数组：存取元素时，利用 key 的 hashCode 来计算它在数组中的索引，这样在没有冲突的情况下，能让存取时间复杂度达到 O(1) 冲突：数组大小毕竟有限，就算元素的 hashCode 唯一，数组大小是 n 的情况下要放入 n+1 个元素，根据鸽巢原理，肯定会发生冲突 解决冲突：一种办法就是利用链表，将这些冲突的元素链起来，当然在在此链表中存取元素，时间复杂度会提高为 O(n) 接下来要能说出为什么在在链表的基础上还要有红黑树\n树化目的是避免链表过长引起的整个 HashMap 性能下降，红黑树的时间复杂度是O(logn) 有一些细节问题可以继续回答，比如树化的时机【进阶】 时机：在数组容量达到 \u003e= 64 且链表长度 \u003e= 8 时，链表会转换成红黑树 如果树中节点做了删除，节点少到已经没必要维护树，那么红黑树也会退化为链表 HashMap 原理（扩容） 扩容因子：0.75 也就是 3/4 初始容量 16，当放入第 13 个元素时（超过 3/4）时会进行扩容 每次扩容，容量翻倍 扩容后，会重新计算 key 对应的桶下标（即数组索引）这样，一部分 key 会移动到其它桶中 HashMap 原理（方法执行流程） 以 put 方法为例进行说明 产生 hash 码。 先调用 key.hashCode() 方法 为了让哈希分布更均匀，还要对它返回结果进行二次哈希，这个结果称为 hash 二次哈希就是把 hashCode 的高 16 位与低 16 位做了个异或运算 搞定数组。 如果数组还不存在，会创建默认容量为 16 的数组，容量称为 n 否则使用已有数组 计算桶下标。 利用 (n - 1) \u0026 hash 得到 key 对应的桶下标（即数组索引） 也可以用 hash % n 来计算，但效率比前面的方法低，且有负数问题 用 (n - 1) \u0026 hash 有前提，就是容量 n 必须是 2 的幂（如 16，32，64 …） 计算好桶下标后，分三种情况 如果该桶位置还空着，直接根据键值创建新的 Node 对象放入该位置即可 如果该桶是一条链表，沿着链表找，看看是否有值相同的 key，有走更新，没有走新增 走新增逻辑的话，是把节点链到尾部（尾插法） 新增后还要检查链表是否需要树化，如果是，转成红黑树 新增的最后要检查元素个数 size，如果超过阈值，要走扩容逻辑 如果该桶是一棵红黑树，走红黑树新增和更新逻辑，同样新增的最后要看是否需要扩容 以上为jdk1.8 及以上版本的HashMap实现\nThreadLocal的原理 ThreadLocal 的主要目的是用来实现多线程环境下的变量隔离\n【解释】即每个线程自己用自己的资源，这样就不会出现共享，既然没有共享，就不会有多线程竞争的问题 原理\n每个线程对象内部有一个 ThreadLocalMap，它用来存储这些需要线程隔离的资源 资源的种类有很多，比如说数据库连接对象、比如说用来判断身份的用户对象 … 怎么区分它们呢，就是通过 ThreadLocal，它作为 ThreadLocalMap 的 key，而真正要线程隔离的资源作为 ThreadLocalMap 的 value ThreadLocal.set 就是把 ThreadLocal 自己作为 key，隔离资源作为值，存入当前线程的 ThreadLocalMap ThreadLocal.get 就是把 ThreadLocal 自己作为 key，到当前线程的 ThreadLocalMap 中去查找隔离资源 ThreadLocal 一定要记得用完之后调用 remove() 清空资源，避免内存泄漏 对比 synchronized 和 volatile 并发编程需要从三个方面考虑线程安全，分别是：原子性、可见性、有序性 volatile 修饰共享变量，可以保证它的可见性和有序性，但不能保证原子性 synchronized 代码块，不仅能保证共享变量的可见性、有序性，同时也能保证原子性 实际上用 volatile 去保证可见性和有序性，并不像上面那一句话描述的那么简单\n1.12 对比 synchronized 和 Lock synchronized 是关键字，Lock 是 Java 接口 前者底层是 C++ 代码实现锁，后者是 Java 自己的代码来实现锁 Lock 功能更多，比如可以选择是公平锁还是非公平锁、可以设置加锁超时时间、可打断等 Lock 的提供多种扩展实现（例如读写锁），可以根据场景选择更合适的实现 Lock 释放锁需要调用 unlock 方法，而 synchronzied 在代码块结束无需显式调用就可以释放锁 线程池的核心参数 核心线程数 核心线程会常驻线程池 最大线程数 如果同时执行的任务数超过了核心线程数，且队列已满，会创建新的线程来救急 总线程数（新线程+原有的核心线程）不超这个最大线程数 存活时间 超过核心线程数的线程一旦闲下来，会存活一段时间，然后被销毁 存活时间单位 工作队列 如果同时执行的任务数超过了核心线程数，会把暂时无法处理的任务放入此队列 线程工厂 可以控制池中线程的命名规则，是否是守护线程等（不太重要的参数） 拒绝策略，队列放满任务，且所有线程都被占用，再来新任务，就会有问题，此时有四种拒绝策略： AbortPolicy 报错策略，直接抛异常 CallerRunsPolicy 推脱策略，线程池不执行任务，推脱给任务提交线程 DiscardOldestPolicy 抛弃最老任务策略，把队列中最早的任务抛弃，新任务加入队列等待 DiscardPolicy 抛弃策略，直接把新任务抛弃不执行 VM 堆内存结构 堆内存的布局与垃圾回收器有关。\n传统的垃圾回收器会把堆内存划分为：老年代和年轻代，年轻代又分为 伊甸园 Eden 幸存区 S0，S1 如果是 G1 垃圾回收器，会把内存划分为一个个的 Region，每个 Region 都可以充当\n伊甸园 幸存区 老年代 巨型对象区 垃圾回收算法 记忆三种： 标记-清除算法。优点是回收速度快，但会产生内存碎片 标记-整理算法。相对清除算法，不会有内存碎片，当然速度会慢一些 标记-复制算法。将内存划分为大小相等的两个区域 S0 和 S1 1. S0 的职责用来存储对象，S1 始终保持空闲 2. 垃圾回收时，只需要扫描 S0 的存活对象，把它们复制到 S1 区域，然后把 S0 整个清空，最后二者互换职责即可 3. 不会有内存碎片，特别适合存活对象很少时（因为此时复制工作少） 【追问】伊甸园、幸存区、老年代细节 对象最初都诞生在伊甸园，这些对象通常寿命都很短，在伊甸园空间不足，会触发年轻代回收，还活着的对象进入幸存区 S0，年轻代回收适合采用标记-复制算法 接下来再触发年轻代回收时，会将伊甸园和 S0 仍活着的对象复制到 S1，清空 S0，交换 S0 和 S1 职责 经过多次回收仍不死的对象，会晋升至老年代，老年代适合放那些长时间存活的对象 老年代回收如果满了，会触发老年代垃圾回收，会采用标记-整理或标记-清除算法。老年代回收时的暂停时间通常比年轻代回收更长 还会常问\n晋升条件\n注意不同垃圾回收器，晋升条件不一样 在 parallel 里，经历 15 次（默认值）新生代回收不死的对象，会晋升 可以通过 -XX:MaxTenuringThreshold 来调整 例外：如果幸存区中的某个年龄对象空间占比已经超过 50%，那么大于等于这个年龄的对象会提前晋升 大对象的处理\n首先大对象不适合存储在年轻代，因为年轻代是复制算法，对象移动成本高 注意不同垃圾回收器，大对象处理方式也不一样 在 serial 和 cms 里，如果对象大小超过阈值，会直接把大对象晋升到老年代 这个阈值通过 -XX:PretenureSizeThreshold 来设置 在 g1 里，如果对象被认定为巨型对象（对象大小超过了 region 的一半），会存储在巨型对象区 Region 大小是堆内存总大小 / 2048（必须取整为2的幂），或者通过 -XX:G1HeapRegionSize 来设置 著名教材《深入理解Java虚拟机》一书关于这些论述，很多观点陈旧过时，需要带批判眼光来学习。例如在它的《内存分配与回收策略》这一章节，提到了这些：\n对象优先在Eden分配（OK） 大对象直接进入老年代（没有提到 g1 情况） 长期存活的对象将进入老年代（即我上面讲的晋升条件，但没强调要区分垃圾回收器） 动态对象年龄判定（即提前晋升） 空间分配担保（已过时）文中提到的 -XX:+HandlePromotionFailure 参数在 jdk8 之后已经没了 web 什么是HTTP协议？ 必答内容： HTTP协议就是 “超文本传输协议”，规定了客户端与服务器端数据通信的规则。 而HTTP协议，它的底层，是基于TCP协议的，而TCP协议呢，是面向连接、安全且无状态的协议。\n那在现在的Web开发中，基本上所有的请求都是基于HTTP协议 或 HTTPS协议的。\n可能追问的问题： 那HTTP协议与HTTPS协议的区别是什么 ? HTTP协议与HTTPS协议最大的区别，当然是数据传输的安全性了。 HTTP协议的信息是以明文传输，如果敏感信息被截取了，是可以直接获取传递的信息的。 相对之下，HTTPS协议是基于SSL加密传输的信息，可以确保数据的安全传输。 还有呢，就是端口不同。 HTTP协议默认端口 80，而HTTPS协议默认的端口 443。 所以说，HTTP协议的安全性没有HTTPS高，但是HTTPS协议会比HTTP耗费更多的服务器资源。\nHTTP协议中请求方式GET 与 POST 什么区别 ? 必答内容： 那两种请求方式，使我们进行项目开发，最为常见的两种请求方式。 两者的区别主要有以下几点：\n传递参数的大小限制不同。GET请求参数在URL中传递，所以参数的大小会收到URL长度的限制。 而POST请求，是在请求体中传递参数，只受到服务器端的配置限制。\n安全性不同。 GET请求的参数暴露在URL中，安全性较低，不适合传递敏感信息。 而POST请求参数在HTTP消息体中传递，安全性相对较高。\n应用场景不同。 GET请求一般用于获取数据，而POST请求则用于提交数据。\n进阶回答：\n在项目开发中，现在的url风格，基本都是restful风格。所以呢，项目开发中，请求方式除了GET、POST之外，还有像PUT、POST也是非常常用的。\n可能会继续追问的问题：\n你刚才提到Restful，什么是Restful，谈谈你的理解？\nRestful其实就是一种软件架构风格，那既然是一种风格，就说明是可以被打破的，项目开发可以不按这套风格来。 但是我之前接触的项目，都是Restful风格的。 按照我的理解，Restful风格的两大特点： 通过请求url地址，来定位要操作的资源。（如：http://localhost:8080/users/1，通过这个url，我就知道对1号用户资源进行操作） 通过请求方式，来决定对资源进行什么样的操作。比如，GET 方式，就是用来查询的；POST方式，就是用来新增的；PUT方式，就是用来修改数据的；而DELETE方式就是用来删除数据的。 HTTP协议中常见的状态码 ? HTTP协议的状态码，大的方面来说，分为5类， 分别是1xx，2xx，3xx，4xx，5xx。而在项目开发中，最为常见的状态码有这么几个：\n101：这个状态码，表示临时状态码，表示请求已经接受，服务器正在处理 （之前项目中，使用websocket时见到这个状态码） 200：这个状态码，是最常见的，表示请求成功。 302：表示重定向。 401：表示此次请求需要用户身份认证，未认证就响应401。 404：表示服务器无法找到对应的资源（请求路径找不到）。 500：服务器内部错误。 转发 与 重定向的区别？ 这个在现在的前后端分离开发中，基本上就不存在对应的转发操作 和 重定向操作了。\n转发是指服务器收到用户请求后，在服务器端将请求转发给另一个资源进行处理，然后将处理结果返回给用户，用户并不知道这个过程，是服务器内部完成的，整个过程只有一次请求。 重定向是指当用户访问某个URL时，服务器返回一个特殊的响应码（3xx），并通过响应头（Location）告诉浏览器需要跳转到另一个URL。浏览器收到重定向响应后，会向新的URL发起新的请求，然后显示新页面的内容。整个过程对于浏览器来说是两次请求。 总的来说，重定向是在客户端发生的，浏览器需要重新发送请求；而转发是在服务器端发生的，对于客户端来说是透明的。\nCookie会话跟踪的原理？ 会话跟踪的方案有很多，比如像 Cookie、Session、以及令牌技术，都可以进行会话跟踪。 Cookie是属于客户端会话跟踪方案，是存储在客户端浏览器的。 当我们第一次访问服务器的时候，服务器会创建Cookie，并在响应头 set-Cookie 中将Cookie响应给浏览器，浏览器接收到响应头之后，会自动将Cookie的值存储在浏览器中。\n然后在后续的每一次请求中，浏览器都会自动的获取浏览器存储的Cookie值，并在请求头 Cookie 中将其携带到服务器，服务器就可以获取到Cookie中的数据了，从而完成会话跟踪.\n所以，总的来说，Cookie会话跟踪的原理，其实就是HTTP协议中规定的两个头信息：一个是响应头 Set-Cookie，一个是请求头 Cookie。 但是由于Cookie存储在客户端浏览器，所以这种会话跟踪方案其实并不安全，因为用户是可以操作Cookie的（比如用户可以自己删除、禁用Cookie）。 Session会话跟踪的原理？ Session是服务端会话跟踪方案，具体的机制是这样的： 首先，当用户首次访问网站的时候，服务器会为该用户创建一个会话对象Session，而每一个Session对象都有一个唯一标识ID，同一次会话中需要共享的数据，就可以存储在Session中。然后在服务器给客户端浏览器响应的时候，会将会话对象Session的ID在响应头 Set-Cookie 中响应给浏览器。（Cookie的名字为JSESSIONID，Cookie的值为服务端会话对象Session的ID值） 浏览器接收到Cookie之后，就会自动将Cookie的值（JSESSIONID）存储起来，然后在后续访问服务器的时候，再将Cookie的值（JSESSIONID）携带到服务器。 在服务器中，就可以根据 JSESSIONID的值，找到对应的会话对象Session，从而操作会话对象Session中的数据了。 所以，总的来说，Sesssion会话跟踪的底层，其实还是基于Cookie实现的。 在Session会话跟踪的过程中，基于Cookie传递的其实就是Session会话对象的ID。 那这种方案，虽然Session存储在服务器端，用户无法操作，比较安全。 但是，在集群环境下Session的共享却是一个问题。 MySQL数据库中的 char 与 varchar的区别是什么? MySQL中的 char 和 varchar 都是用于存储字符串的数据类型，但它们在存储方式和性能上有所不同。以下是它们的主要区别： 第一点呢，就是存储方式不同：\nchar：定长字符串，长度是固定的，不管实际存储的字符串长度如何，都会占用固定长度的存储空间。如：char(10) 会始终占用10个字符的空间。 varchar：变长字符串，长度不固定。占用的空间与实际存储的字段长度有关。 如：varchar(10) 表示最多可以存储10个字符，如果存储的字符串长度不足10，假设为5，只会占用5个字符空间。 第二点呢，就是性能不同：\n对于char，由于其固定长度，操作会快些，但是会存储浪费磁盘空间的问题。 对于varchar，由于长度可变，操作时会相对慢一点，但是可以节省磁盘空间，尤其是存储的数据长度不固定时。 所以呢，我们在设计表结构的时候，需要根据具体的场景来选择具体的数据类型。 就比如啊，如果是手机号、身份证号这样的字段，由于长度固定，我们就直接选择char类型即可，并指定长度，如：char(11)、char(18)。再比如，像用户名、备注信息这类长度不固定的，我们直接选择varchar类型，长度根据页面原型和需求文档确定。\n什么是事务以及事务的四大特性？ 必答内容： 事务是数据库中的基本概念，是指一组操作的集合，而这一组操作要么同时成功，要么同时失败，从而保证数据库中数据的正确性和完整性。 那事务呢，具有四大特性，也就是我们常说的ACID，分别是：原子性、一致性、隔离性、持久性。 那接下来，我就分别来聊聊这四大特性。\n原子性指的是事务中的这一组操作，是不可分割的最小操作单元了，操作要么全部成功，要么全部失败。 一致性是指在事务操作的前后，必须使数据处于一致的状态。 隔离性指的是数据库中提供了隔离机制，保证事务在不受外部并发操作的影响的独立环境中运行。 持久性就比较简单了，就是事务一旦提交或回滚了，它对数据库的改变就是永久的。 可能继续发问的问题： 你刚才提到了并发事务，那并发事务回引发哪些问题?\n并发事务引发的问题，主要有这么几个： 脏读：就是一个事务，读取到了另一个事务还没有提交的数据。 不可重复读：指的是在同一个事务中，先后读取同一条记录，但两次读取的数据不同。 幻读：指的是一个事务按照条件查询数据时，没有对应的行，但是插入时，又发现这行数据已经存在了好像出现了幻觉。 如何解决这些问题呢?\n那这些问题，在数据库系统中都已经解决了。在数据库中提供了不同的隔离级别来解决这些问题， 分别有以下几种： READ UNCOMMITED ：读未提交。 这种隔离级别下，会出现脏读、不可重复读、幻读问题。 READ COMMITED：读已提交。 这种隔离级别，解决了脏读问题，但是会出现不可重复读、幻读问题。 REPEATABLE READ：可重复读。这种隔离级别，解决了脏读、不可重复读问题，但是会出现幻读问题。 SERIALIZABLE：串行化。解决了上述所有的并发事务问题。 而在MySQL数据库中，默认的隔离级别是 REPEATABLE READ（可重复读）。 那为什么没有用SERIALIZABLE(串行化) 这种隔离级别呢?\n其实，隔离级别，也不是越高越好。因为隔离级别高了，确实可以解决并发事务引发的问题，但是隔离级别越高，性能也越低。 maven 用来做什么？\nMaven 是一个流行的项目管理工具，主要用于 Java 项目的构建、依赖管理和项目信息管理。以下是 Maven 的主要用途： 项目构建： Maven 可以帮助开发者对 Java 项目进行自动化构建。通过 Maven 的约定优于配置的原则，开发者只需定义项目的基本结构和依赖关系，Maven 就可以自动完成项目的编译、测试、打包等构建工作。 依赖管理： Maven 通过中央仓库和本地仓库来管理项目的依赖库。开发者可以在项目的配置文件中声明所需的依赖，Maven 将自动下载并管理这些依赖库。 项目信息管理： 通过 Maven，开发者可以方便地管理项目的元数据信息，如项目名称、版本号、作者、许可证等。这些信息可以被用于生成项目文档、发布到中央仓库等操作。 maven的规约说一下 /src/main/java/：Java 源码。 /src/main/resource：Java 配置文件，资源文件。 /src/test/java/：Java 测试代码。 /src/test/resource：Java 测试配置文件，资源文件。 /target：文件编译过程中生成的 .class 文件、jar、war 等等。 pom.xml：配置文件 Maven的生命周期\nMaven 生命周期按照构建过程分为三个部分，即 清理(clean)、构建(default) 和 站点生成(site)。每个部分包含不同的阶段(phase)，执行的顺序是固定的，也就是说 Maven 在执行构建时会依次运行每个阶段。 以下是 Maven 的生命周期和各个阶段的简要说明：\nclean：清理上一次构建生成的文件 compile：编译项目的源代码 test：测试编译后的代码 package：将编译后的代码打包成可发布的格式，如 JAR、WAR 等 install：将打包好的代码安装到本地仓库，方便其他项目进行依赖管理 deploy：将打包好的代码部署到远程仓库，方便其他人使用 谈谈你对Spring IOC 与 DI的理解 ？ Spring的IOC，翻译过来，叫控制反转。 指的是在Spring中使用工厂模式，为我们创建了对象，并且将这些对象放在了一个容器中，我们在使用的时候，就不用每次都去new对象了，直接让容器为我们提供这些对象就可以了。 这就是控制反转的思想。 而DI，翻译过来，叫依赖注入。 那刚才提到，现在对象已经交给容器管理了，那程序运行时，需要用到某个对象，此时就需要让容器给我们提供，这个过程呢，称之为依赖注入。 可能继续追问的问题：\n那如何将一个对象，交给IOC容器管理呢？\n那现在项目开发，都是基于Springboot构建的项目，所以呢，声明bean对象，我们只需要在对应的类上加上注解就可以了。 比如：\n如果是controller层，直接在类上加上 @Controller 或 @RestController 注解。 如果是service层，直接在类上加上 @Service 注解。 如果是dao层，直接在类上加上 @Repository 注解。当然现在基本都是Mybatis 或 MybatisPlus，所以这个注解很少用了，都用的是 @Mapper 注解。 如果是一些其他的工具类、配置类啊，我们可以通过 @Component 、@Configuration 来声明。 那如何完成依赖注入操作呢？\n依赖注入的方式比较多，我们可以使用构造函数注入 或 成员变量输入，也是使用对应的注解就可以了。常用的注解有两个：\n@Autowired 和 @Resource 注解。那@Autowired默认是根据类型注入，而@Resource注解默认是根据名称注入。 Spring容器中的bean是线程安全的吗? 不是线程安全的。\n针对于这个问题呢，首先我们知道spring容器的bean默认是单例的。 当多用户同时请求一个服务时，容器会给每一个请求分配一个线程，这时多个线程会并发执行该请求对应的业务逻辑，也就是bean对象的业务方法，那如果在业务方法中操作了共享的成员变量，那可能就会存在线程安全问题。 而在Spring框架中并没有对单例bean进行任何多线程的封装处理，关于单例bean的线程安全和并发问题需要我们自行去搞定。但实际上，大部分情况下Spring 的bean并没有可变的状态(比如Controller、Service、Dao)，所以在某种程度上说Spring的单例bean是线程安全的。\n如果说存在这种情况，那就需要开发人员自行保证线程安全。要么，通过编码保证线程安全，要么，设置bean的作用域为 prototype。\nSpring Bean的作用域如何设置，常见的取值有哪些？ Spring Bean的作用域可以通过 @Scope 注解来设置。常见的取值如下：\nsingleton ：这种bean范围是默认的，这种范围确保不管接受到多少个请求，每个容器中同一个名称的bean只有一个实例，也就是单例的 。 prototype ：这种范围，表示非单例的。也就是说每一次用到的bean都是一个新的 。 request ：同一个请求，使用的是同一个bean。会为每一个来自客户端的请求都创建一个实例，在请求完成以后， bean会失效并被垃圾回收器回收 。 session：与request 请求范围类似，确保每个session会话范围内，是同一个实例，在session过期后， bean会随之失效。 虽然，bean作用域可以设置这些值，但是在项目开发中，绝大部分的bean都不会添加这个 @Scope 注解，也就是说默认都是用的是单例的bean。\nSpring容器的bean什么时候初始化的? 如果是单例的bean，默认是Spring容器启动的时候，就完成bean的初始化操作，那这是默认情况，我们可以通过 @Lazy 注解来延迟bean的初始化，延迟到第一次使用的时候。 而如果是非单例的bean（也就是prototype），则是在每次使用这个bean的时候，都会重新实例化一个新的bean。 聊一聊Bean的生命周期 ？ 首先会通过一个非常重要的类，叫做BeanDefinition获取bean的定义信息，这里面就封装了bean的所有信息，比如，类的全路径，是否是延迟加载，是否是单例等这些信息。 第一步在创建bean的时候，就是调用构造函数实例化bean。 第二步是bean的依赖注入，比如一些set方法注入，像平时开发用的@Autowired都是这一步完成。 第三步是处理Aware接口，如果某一个bean实现了Aware接口（包括BeanNameAware、BeanFactoryAware、ApplicationContextAware）就会重写方法执行。 第四步是bean的后置处理器BeanPostProcessor的postProcessBeforeInitialization方法运行，这个是前置增强。 第五步是初始化方法执行，比如实现了接口InitializingBean或者自定义了方法init-method标签或@PostContruct。 第六步是执行了bean的后置处理器BeanPostProcessor的postProcessAfterInitialization方法运行，这个是前置增强主要是对bean进行增强，有可能在这里产生代理对象。 到此，spring容器的bean已经创建完毕了，业务逻辑运行。 最后一步是销毁bean，比如自定义的方法destroy-method或@PreDestroy执行。 聊一聊Spring中bean的循环依赖问题？\n循环依赖其实就是循环引用,也就是两个或两个以上的bean互相持有对方，最终形成闭环，比如A依赖于B，B依赖于A。 循环依赖在spring中是允许存在，spring框架通过内部的三级缓存来解决了大部分的循环依赖问题。三级缓存，每一级缓存的作用如下：\n一级缓存：singletonObjects 单例池，缓存已经经历了完整的生命周期，已经初始化完成的bean对象 二级缓存：earlySingletonObjects 缓存早期的bean对象（生命周期还没走完，半成品的bean） 三级缓存：singletonFactories 缓存的是ObjectFactory，表示对象工厂，用来创建某个对象的（比如创建代理对象） 具体的流程大概是这个样子的 ：\n先实例A对象，同时会创建ObjectFactory对象存入三级缓存singletonFactories A在初始化的时候需要B对象，这个走B的创建的逻辑 B实例化完成，也会创建ObjectFactory对象存入三级缓存singletonFactories B需要注入A，通过三级缓存中获取ObjectFactory来生成一个A的对象同时存入二级缓存，这个是有两种情况，一个是可能是A的普通对象，另外一个是A的代理对象，都可以让ObjectFactory来生产对应的对象，这也是三级缓存的关键 B通过从通过二级缓存earlySingletonObjects 获得到A的对象后可以正常注入，B创建成功，存入一级缓存singletonObjects 回到A对象初始化，因为B对象已经创建完成，则可以直接注入B，A创建成功存入一次缓存singletonObjects 二级缓存中的临时对象A清除 @Component public class A { @Autowired private B b; } @Component public class B { @Autowired private A a; } 就比如A类中，需要依赖注入一个属性B; 而B类中，也需要依赖注入一个A属性。 那么当在实例化bean的时候就会出现如下现象： 假设先获取到A的构造函数，然后通过构建函数创建A对象。 然后A对象创建后，根据A的生命周期，还需要为其注入依赖的bean对象，A中依赖了B对象，所以此时会到一级缓存singletonObjects 单例池中查找B类对象的bean对象，拿来赋值给A对象的b属性。如果一级缓存(单例池)中，没有这个对象，紧接着就会去创建B对象。 那么在创建B类的Bean的过程中，首先调用B类的构造函数，来创建B对象，然后接下来就要进行依赖注入，注入属性A，此时发现，一级缓存singletonObjects 单例池中并没有A类对应的B，那么此时，又会去创建类A这个bean。 此时，就出现了循环依赖。 那如何解决循环依赖呢? 要想打破上述的缓存，就需要一个中间人的参与，这个中间人就是二级缓存。 A类的Bean在创建过程中，在进行依赖注入之前，先把A的原始对象放入二级缓存（提早暴露，只要放到缓存了，其他Bean需要时就可以从缓存中拿了）。\n放入缓存后，再进行依赖注入，此时A类的Bean依赖了B类的Bean，如果B类的Bean不存在，则需要创建B类的Bean，而创建B类的Bean的过程和A类一样，也是先创建一个B类的原始对象，然后把B类的原始对象提早暴露出来放入缓存中，然后在对B类的原始对象进行依赖注入A，此时能从二级缓存中拿到A类的原始对象（虽然是A类的原始对象，还不是最终的Bean），B类的原始对象依赖注入完了之后，B类的生命周期结束，那么A类的生命周期也能结束。\n因为整个过程中，都只有一个A原始对象，所以对于B而言，就算在属性注入时，注入的是A原始对象，也没有关系，因为A原始对象在后续的生命周期中在堆中没有发生变化。\n这样，就解决了循环依赖的问题。\n如果我们在项目中使用了AOP，基于AOP为类生成了代理对象，此时，靠上述的两级缓存就解决不了循环依赖问题了，那这个时候就需要借助于第三级缓存 singletonFactories 来解决了。 singletonObjects : 一级缓存，缓存经过了完整生命周期的bean earlySingletonObjects : 二级缓存，缓存原始对象，也就是半成品的bean singletonFactories : 三级缓存，缓存的是一个ObjectFactory，主要用来去生成原始对象进行了AOP之后得到的代理对象，在每个Bean的生成过程中，都会提前暴露一个工厂，这个工厂可能用到，也可能用不到，如果没有出现循环依赖依赖本bean，那么这个工厂无用，本bean按照自己的生命周期执行，执行完后直接把本bean放入singletonObjects中即可，如果出现了循环依赖依赖了本bean，则另外那个bean执行ObjectFactory提交得到一个AOP之后的代理对象(如果有AOP的话，如果无需AOP，则直接得到一个原始对象)。 构造函数的循环依赖，三级缓存可以解决吗？ 构造函数的循环依赖，三级缓存是解决不了的。\n这是因为，由于bean的生命周期中，构造函数是第一个执行的，如果在执行构造函数的时候，发现依赖了另外一个bean，并且是循环依赖，spring框架是解决不了的，此时就需要我们手动解决，当然解决方案，也很简单，通过一个注解就搞定了， 就是 @Lazy 注解，通过这个注解实现延迟加载，什么时候需要对象，再进行bean对象的创建。 @Component public class A { private B b; public A(@Lazy B b){ System.out.println(\"A的构造函数执行了...\") this.b = b; } } @Component public class B { private A a; public B(A a){ System.out.println(\"B的构造函数执行了...\") this.a = a; } } 什么是AOP？\naop是面向切面编程，在spring中用于将那些与业务无关，但却对多个对象产生影响的公共行为和逻辑，抽取公共模块复用，降低耦合，一般像系统的公共日志记录，事务处理，权限的控制等都可以通过AOP来实现。 可能继续追问的问题：\n你们项目中有没有使用到AOP？\n这个很多地方都用到了，比如我们当时在后台管理系统中，就是使用aop来记录了系统的操作日志、以及权限控制。那就来说一下，记录日志的操作思路吧。\n主要思路是这样的，使用aop中的环绕通知 加上 基于注解@annotation 的切点表达式来实现的。 首先，自定义了一个注解，比如叫 @Log，然后哪些操作需要记录日志，我们就在哪些方法上加上这个注解。 然后再定义一个切面类，通过环绕通知，来获取原始方法在运行的各项信息，比如：类信息、方法信息、注解、请求方式、请求参数、当前操作人、操作时间、返回值等信息，全部记录下来，保存在数据库中。\n当时，我们主要记录的是一些核心业务模块的增删改的操作日志，主要便于数据追踪。 AOP的底层是如何实现的？\nSpringAOP的底层主要是通过动态代理技术实现的，主要是两种代理技术。一种是JDK的动态代理，而JDK的动态代理呢，有限制，只能针对于实现了接口的类做代理，所以，在spring中还有一种是Cglib动态代理，那Cglib动态代理呢，就没有这个限制。 JDK动态代理 与 Cglib动态代理有什么区别呢？ 限制不同。 JDK动态代理，要求被代理对象必须实现了接口才可以。 而Cglib动态代理，无论是否实现接口都可以（只要类不是final修饰即可）。 代理对象不同。 JDK动态代理生成的代理对象，与被代理对象其实是实现了相同的接口，可以说是兄弟关系。 而Cglib动态代理生成的代理对象，其实是继承了被代理类，是基于继承体系的，所以是父子关系。 也正是因为此，所以Cglib不能为被final修饰的类做代理。 Spring中的事务是如何实现的？\nspring实现的事务本质就是aop完成，对方法前后进行拦截，在执行方法之前开启事务，在执行完目标方法之后根据执行情况提交或者回滚事务。 而如果我们进行项目开发，不存在分布式事务问题，我们就可以直接使用Spring提供的@Transactional注解来控制事务即可。 可能继续发问的问题:\n在开发中，有没有遇到事务失效的场景？\n在刚开始上班做项目时，遇到过，但是现在在做项目，写代码时，都会规避这些坑。 事务失效比较典型的场景呢就是： 第一个，如果业务方法上try、catch处理，自己处理了异常，没有抛出，就会导致事务失效，所以一般处理了异常以后，别忘了抛出去就行。 第二个，如果方法抛出检查异常，如果报错也会导致事务失效，因为默认spring事务管理只会针对于RuntimeException进行回滚。那这个呢，就可以在spring事务的注解上，就是@Transactional上配置rollbackFor属性为Exception.class，这样别管是什么异常，都会回滚事务。 第三个，是我早期开发中遇到的一个，如果业务方法上不是public修饰的，也会导致事务失效。 什么是事务的传播行为？\nSpring的事务传播行为，指的是两个被事务控制的方法，相互调用的过程中，到底是加入到已存在的事务，还是创建一个新的事务，控制的是这个事儿。 我们设置事务的传播行为，可以通过 @Transactional 注解的propagation属性来设置，可取值有很多啊，但是常见的就只有两个： REQUIRED：也是默认值，表示如果没有事务，就新建一个事务，如果有事务，就加入到已存在的事务中。 REQIRES_NEW：表示需要一个新的事务，无论当前环境是否存在事务，都会开启一个新的事务。 @Service public OrderServiceImpl implements OrderService { @Autowired private OrderMapper orderMapper; @Autowired private OrderLogService orderLogService; @Transactional public void submitOrder(Order order){ try { //.... 订单数据处理 //.... orderMapper.insert(order); //保存订单数据 } finally { //.... 构造订单日志数据OrderLog orderLogService.insertLog(orderLog); //记录订单日志, 无论是否下单成功, 都需要记录 } } } @Service public OrderLogServiceImpl implements OrderLogService{ @Autowired private OrderLogMapper orderLogMapper; @Transactional(propagation=Propagation.REQUIRES_NEW) public void insertLog(OrderLogorderLog){ orderLogMapper.insert(orderLog) } } 聊聊Spring框架中的常用注解？\n额，这个就很多很多了。 我就分为这么几类，说一下吧。\n第一类是：声明bean，有@Component、@Service、@Repository、@Controller\n第二类是：依赖注入相关的，有@Autowired、@Qualifier、@Resourse\n第三类是：设置作用域 @Scope\n第四类是：spring配置相关的，比如@Configuration，@ComponentScan 和 @Bean\n第五类是：跟aop相关做增强的注解 @Aspect，@Before，@After，@Around，@AfterReturning，@AfterThrowing，@Pointcut SpringMVC的拦截器用过没有？ 必答内容：\n拦截器的应用场景还是很多的，比如在项目中，我们基于拦截器实现登录校验的功能、参数统一转换处理、数据的脱敏、统一编码处理等功能。 在SpringBoot项目拦截器的使用分为两步进行：\n第一步呢，需要定义一个类实现HandlerInterceptor接口，然后再实现接口中的方法，比如：preHandle、postHandle、afterCompletion。\n第二步呢，就是需要定义一个配置类，然后实现WebMvcConfigure，然后在这个配置类中配置拦截器，指定拦截器的拦截路径、排除哪些路径等信息。\n可能继续追问的问题：\n你说的这些个功能，过滤器好像也能干，那拦截器Interceptor 与 过滤器Filter有什么区别?\n接口规范不同：过滤器需要实现Filter接口，而拦截器需要实现HandlerInterceptor接口。 拦截范围不同：过滤器Filter会拦截web服务器中的所有资源，而Interceptor只会拦截Spring环境的资源，主要就是Controller。 实现机制不同：过滤器在实现上是基于函数回调的，拦截器是基于java的反射机制的，属于面向切面编程的一种运用。 那其实在开发中，很多的功能，我们既可以通过过滤器Filter来实现，也可以通过拦截器Interceptor来实现。\nSpringMVC怎么处理异常？\nSpringMVC的异常处理，就比较简单了，可以直接使用Spring MVC中的全局异常处理器对异常进行统一处理，此时在我们的三层架构中，都不需要处理异常了，如果运行过程中出现异常，最终会被全局异常处理器捕获，然后返回统一的错误信息。\n开发一个全局异常处理器需要使用到两个注解：@RestControllerAdvice 、@ExceptionHandler，@RestControllerAdvice加在全局异常处理器的这个类上，而@ExceptionHandler加在异常处理的方法上，来指定这个方法捕获什么样的异常。\n那在定义异常处理方法的时候，可以也定义多个，根据业务的需求，可以针对不同类型的异常，进行不同的处理。 聊聊SpringMVC中的常用注解? SpringMVC中的注解就比较多了，平时项目开发中比较常用的注解有以下几个： @RequestMapping：用于映射请求路径，可以定义在类上和方法上。用于类上，则表示类中的所有的方法都是以该地址作为父路径 。我们也可以基于该注解中的method属性，来限定请求方式，由此也衍生了几个注解，如：@GetMapping、@PostMapping、@PutMapping、@DeleteMapping。 @RequestBody：该注解实现接收请求的json数据，将json转换为java对象。 @RequestParam：指定请求参数的名称 ，如果请求参数名与方法形参不一致，可以使用此注解映射绑定。也可以使用该注解来设置参数的默认值。 @PathViriable：从请求路径中获取请求参数(/user/{id})，传递给方法的形式参数。 @ResponseBody：注解实现将controller方法返回值直接作为请求体响应，如果返回值是对象/集合，会转化为json对象响应给客户端 。 @RequestHeader：获取指定的请求头数据。 聊聊你对SpringBoot框架的理解？ SpringBoot是现在Spring家族最为流行的子项目，因为采用原始的SpringFramework框架开发项目，配置起来非常的繁琐，所以在Spring的4.0版本之后，Spring家族推出了SpringBoot框架，而Springboot就是来解决Spring框架开发繁琐的问题的，是用来简化spring框架开发的。\n主要提供了这么三大块功能： starter起步依赖。springboot提供了各种各样的starter，在starter起步依赖中，就封装了常用的依赖配置，大大简化了项目引入依赖坐标的复杂度。 自动配置。 这也是springboot中最核心的功能，springboot可以根据特定的条件（当前环境是否引入对应的依赖、配置文件中是否有某个配置项、当前环境是否已经有了某个bean）来创建对象的bean，从而完成bean的自动配置。 jar包方式运行。 springboot中内嵌了web服务器，所以我们开发的web项目，也可以直接打成一个jar包，直接基于java -jar 执行运行，非常的方便。 当然，这些呢，只是Springboot中提供的核心功能，还有其他的一些小功能，都是非常实用的 。\nSpringBoot框架常见的starter你都用过哪些 ？ spring-boot-starter-web (嵌入tomcat和web开发需要servlet与jsp支持) spring-boot-starter-aop (aop开发支持) spring-boot-starter-data-redis (redis支持) spring-boot-starter-data-elasticsearch (es支持) spring-boot-starter-amqp(消息队列支持) spring-boot-starter-data-mongodb (mongodb的支持) mybatis-plus-boot-starter(mybatis plus的支持) mybatis-spring-boot-starter(mybatis的支持) 那这些个starter，其实分为两类，一类是springboot官方提供的，命名都是：spring-boot-starter-xxxx；另一类是第三方框架提供的，命名都是：xxxx-spring-boot-starter。\nSpring Boot配置的优先级？\nSpringBoot项目中，可以在很多地方来配置项目中的配置项，那这里我主要说两个方面：一个是配置文件，一个是外部配置。 在springboot项目中，支持三类配置文件，分别是：application.properties、application.yml、application.yaml。 而这三类配置文件的优先级最高的是 application.properties，其次是 application.yml，最后是 application.yaml。 而外部配置呢，常用的有两种配置形式，一种是java系统属性，比如：-Dserver.port=9001；另一种是命令行参数，比如：–server.port=10010。而命令行参数的优先级要高于java系统属性。 而整体上，外部配置的优先级要高于项目内部的配置文件中的配置，所以整体来说配置文件的优先级由高到低的顺序为： 命令行参数 \u003e java系统属性 \u003e application.properties \u003e application.yml \u003e application.yaml SpringBoot自动配置的原理是什么？\n其实SpringBoot自动配置的核心，是引导类上加的注解@SpringBootApplication 底层封装的一个注解，叫@EnableAutoConfiguration，这个注解才是实现自动化配置的核心注解。\n该注解通过@Import注解导入对应的配置选择器，导入了一个ImportSelector接口的实现类。 而在这个类的内部呢，读取了该项目和该项目引用的Jar包中的classpath路径下META-INF/spring.factories文件中的所配置的类的全类名。\n在这些配置类中所定义的Bean，会根据条件注解@Condition系列注解所指定的条件来决定是否需要将其导入到Spring容器中。\n一般条件判断会有像@ConditionalOnClass这样的注解，判断是否有对应的class文件，如果有则加载该类，把这个配置类的所有的Bean放入spring容器中使用。 但是这里要说明一点哈，就是刚才提到的系统配置类声明的配置文件 META-INF/spring.factories， 在springboot3.0版本之后，就已经废除了，不会在这个文件中配置自动配置类了，替换成了一份新的配置文件，配置文件名比较长，记不住，后缀名为：XXxxxSpringAutoConfiguration.imports。\nSpringBoot中如何自定义starter？ 嗯，这个我知道，之前在项目中，我们封装过的，像阿里云OSS操作的starter。 首先，先说模块哈，自定义starter，我们通常会定义两个maven模块。 一个是：xxx-spring-boot-starter ，这个模块主要负责管理依赖，最后项目中引入的就是这个模块。 另一个是：xxx-spring-boot-autoconfigure，这个模块负责自动配置功能，所有的自动配置的核心代码，都定义在这个模块中。并在在starter模块中，还要引入autoconfigure这个模块的依赖。 然后再来说核心的autoconfigure模块的实现。 第一步呢，就是要根据具体的需求，编写自动配置类。 基于@Configuration注解定义配置类，然后使用@Bean注解来声明bean，可以通过@Conditional系列的注解，根据条件决定是否声明这个bean。 第二步，就是需要在META-INF/spring.factories配置文件中，根据规则配置自动配置类的全类名。 如果是SpringBoot3.x版本，则需要在新的配置文件，META-INF/spring/xxxx.SpringAutoConfiguration.imports文件中配置自动配置类的全类名。 基本上，就这么两块儿。定义好了之后，在各个项目中，就可以引入对应的starter直接使用了。\n",
+  "wordCount" : "20399",
+  "inLanguage": "zh",
+  "datePublished": "2026-03-14T18:14:18+08:00",
+  "dateModified": "2026-03-15T03:17:36+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Lucian Chao"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.steamedfish.top/post/interview/java/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SteamedFish's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.steamedfish.top/favicon.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body data-barba="wrapper" class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://www.steamedfish.top/" accesskey="h" title="SteamedFish&#39;s Blog (Alt + H)">SteamedFish&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                    <ul class="lang-switch"><li>|</li>
+                        <li>
+                            <a href="https://www.steamedfish.top/en/" title="English"
+                                aria-label="English">En</a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://www.steamedfish.top/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    <main class="main" data-barba="container" data-barba-namespace="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      【面试八股】Java
+    </h1>
+    <div class="post-meta">
+
+
+
+
+
+
+<span title='2026-03-14 18:14:18 +0800 +0800'>2026-03-14</span>&nbsp;·&nbsp;<span title='2026-03-15 03:17:36 +0800 +0800'>(最后修改于 2026-03-15)</span>&nbsp;·&nbsp;<span>41 分钟</span>&nbsp;·&nbsp;<span>Lucian Chao</span>&nbsp;|&nbsp;<span>
+    <a href="https://github.com/LucianChao/Hugo_Blog/tree/main/content/post/interview/java/index.md" rel="noopener noreferrer edit" target="_blank">编辑此文章</a>
+</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#java%e5%9f%ba%e7%a1%80" aria-label="Java基础">Java基础</a></li>
+                <li>
+                    <a href="#web" aria-label="web">web</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="java基础">Java基础<a hidden class="anchor" aria-hidden="true" href="#java基础">#</a></h2>
+<ol>
+<li>重载与重写的区别
+<ul>
+<li>重载是对象的方法之间，它们方法名相同，但方法的参数列表不同</li>
+<li>重写是父子类（包括接口与实现类）中两个同名方法，它们方法名相同，且方法的参数列表相同</li>
+<li>重载在<strong>编译阶段</strong>，由<strong>编译器</strong>根据传递给方法的参数来区分方法，例如</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">MyObject</span><span class="w"> </span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">obj</span><span class="p">.</span><span class="na">test</span><span class="p">(</span><span class="n">123</span><span class="p">);</span><span class="w">   </span><span class="c1">// 应该是调用 test(int x) 这个方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">obj</span><span class="p">.</span><span class="na">test</span><span class="p">(</span><span class="s">&#34;abc&#34;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 应该是调用 test(String x) 这个方法</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>而重写是在<strong>运行阶段</strong>，由虚拟机<strong>解释器</strong>去获取引用对象的实际类型，根据类型才能确定该调用哪个方法，例如</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Super</span><span class="w"> </span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">obj</span><span class="p">.</span><span class="na">test</span><span class="p">();</span><span class="w">     </span><span class="c1">// 到底是调用父类，还是子类的 test 方法，必须检查引用对象的实际类型才能确定</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>有没有发生重写，可以使用 @Override 来检查</li>
+</ul>
+<blockquote>
+<p>括号内的说明是为了严谨，了解就行，回答时不必说出，这样比较简洁<br>
+在回答方法重载时，不必细说什么参数的类型、个数、顺序，直接说<strong>参数列表不同</strong>就行<br>
+问题的重点说出：重载是<strong>编译器</strong>来区分方法，而重写是运行时由<strong>解释器</strong>来区分方法<br>
+语法细节（问了再说，没问不必说）</p>
+<ul>
+<li>重写时，子类方法的访问修饰符要 &gt;= 父类方法的访问修饰符</li>
+<li>重写时，子类方法抛出的检查异常类型要 &lt;= 父类方法抛出的检查异常类型，或者子类不抛异常</li>
+<li>重写时，父子类的方法返回值类型要一样，或子类方法返回值是父类方法返回值的子类</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<hr>
+<ol start="2">
+<li><code>==</code>与<code>equals</code>的区别
+<ul>
+<li>对于基本类型（int、char、double），<code>==</code>比较两边值是否相同</li>
+<li>对于引用类型（对象），<code>==</code>是比较两边的引用（内存）地址是否相同，用来判断是否引用同一对象</li>
+<li><code>equals</code>要看实现
+<ul>
+<li><code>Object.equals(Object other)</code>的内部实现就是<code>==</code>，即判断当前对象和<code>other</code>是否引用同一对象</li>
+<li>比如<code>String</code>，它的内部实现就是比较两个字符串中每个字符是否相同，比较的是内容。</li>
+<li>比如<code>ArrayList</code>，它的内部实现就是比较两个集合中每个元素是否相同，比较的是内容。</li>
+<li><code>Integer</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol start="3">
+<li>
+<p>String, StringBuilder和StringBuffer的区别</p>
+<ul>
+<li>它们都可以用来表示字符串对象</li>
+<li>String表示的字符串是不可变的，而后两者表示的字符串是内容可变的（可以增、删、改字符串里的内容）</li>
+<li>StringBuilder不适线程安全的，StringBuffer是线程安全的，而String也算是线程安全的</li>
+</ul>
+<p>适用场景：</p>
+<ul>
+<li>大部分场景下，String足够。</li>
+<li>如果有大量字符串拼接的需求，建议后两者
+<ul>
+<li>此字符串对象需要被多线程同时访问，用StringBuffer保证安全</li>
+<li>此字符串对象只在线程内被使用，用StringBuilder足够。</li>
+</ul>
+</li>
+</ul>
+<p>另外针对String类是final修饰会提一些问题，要点如下：</p>
+<ul>
+<li>本质是因为String要设计成不可变的，final只是条件之一。</li>
+<li>不可变的好处有很多：线程安全、可以缓存。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol start="4">
+<li>说一说Java中的异常
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/java/index.md"
+    href="/post/interview/java/1.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/java/1.webp"
+      srcset="/post/interview/java/1.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+异常的重要继承关系如图所示，其中
+<ul>
+<li><code>Throwable</code>是其他异常的顶层父类</li>
+<li><code>Error</code>表示无法恢复的错误，例如<code>OutOfMemoryError</code>内存溢出、<code>StackOverflowError</code>栈溢出等。
+<ul>
+<li>这类异常即使捕捉住，通常也无法让程序恢复正常运行。</li>
+</ul>
+</li>
+<li><code>Exception</code>表示可恢复的错误，处理方式有两种
+<ul>
+<li>一是自己处理，用catch语句捕捉后，可以进行一些补救（如记录日志、恢复初始状态等）</li>
+<li>二是用<code>throws</code>语句将异常继续抛给上一层调用者，由调用者去处理</li>
+</ul>
+</li>
+<li><code>Exception</code>有特殊的子类异常<code>RuntimeException</code>，它与<code>Exception</code>的不同之处在于
+<ul>
+<li><code>Exception</code>被称之为检查异常，意思是必须在语法层面对异常进行处理，要么<code>try-catch</code>，要么<code>throws</code></li>
+<li><code>RuntimeException</code>和它的子类被称为非检查异常（也可以翻译为字面意思：运行时异常），在语法层面对这类异常并不要求强制处理，不加<code>try-catch</code>和 <code>throws</code>编译时也不会提示错误</li>
+<li>常见的非检查异常有
+<ul>
+<li>空指针异常</li>
+<li>算术异常（例如整数除零）</li>
+<li>数组索引越界异常</li>
+<li>类型转换异常</li>
+<li>&hellip;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol start="5">
+<li>你知道的数据结构有哪些？
+<ul>
+<li>线性结构
+<ul>
+<li>动态数组：对于普通数组可以扩容
+<ul>
+<li>Java中ArrayList就是动态数组</li>
+<li>数组的特点就是其中的元素是连续存储的</li>
+</ul>
+</li>
+<li>链表：由多个节点链在一起
+<ul>
+<li>java中的LinkedList就属于链表</li>
+<li>链表的特点是其中元素是不连续存储的，每次需要根据当前节点，才能找到相邻节点</li>
+</ul>
+</li>
+<li>栈：符合<code>First In Last Out</code>先进后出）规则
+<ul>
+<li>java 中的 LinkedList 可以充当栈</li>
+<li>它的 push 方法向栈顶添加元素</li>
+<li>它的 pop 方法从栈顶移除元素</li>
+<li>它的 peek 方法从栈顶获取元素（不移除）</li>
+</ul>
+</li>
+<li>队列：符合 First In First Out（先进先出）规则
+<ul>
+<li>java 中 LinkedList 也可以充当队列</li>
+<li>它的 offer 方法用来向队列尾部添加元素（入队）</li>
+<li>它的 poll 方法用来从队列头部移除元素（出队）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>非线性结构
+<ul>
+<li>优先级队列：在队列基础上增加了优先级，队列会根据优先级调整元素顺序，保证优先级高的元素先出队
+<ul>
+<li>java 中 PriorityQueue 可以作为优先级队列</li>
+<li>它底层用大顶堆或小顶堆来实现</li>
+<li>它适用于实现排行榜、任务调度等编码</li>
+<li>它特别适合于流式数据的处理，利用它能够大大节省内存</li>
+</ul>
+</li>
+<li>Hash 表（哈希表，也叫散列表）：由多对 key - value 组成，会根据 key 的 hash 码把它们分散存储在数组当中，其中 key 的 hash 码与数组索引相对应
+<ul>
+<li>java 中的 HashMap，Hashtable 都属于哈希表</li>
+<li>它特别适用于实现数据的快速查找</li>
+</ul>
+</li>
+<li>红黑树：可以自平衡的二叉查找树，相对于线性结构来说，拥有更好的性能
+<ul>
+<li>java 中的 TreeMap 属于红黑树</li>
+</ul>
+</li>
+<li>跳表：多级链表结构，也能达到与红黑树同级的性能，且实现更为简单
+<ul>
+<li>java 中的 ConcurrentSkipListMap 用跳表结构实现</li>
+<li>redis 中的 SortedSet 也是用跳表实现</li>
+</ul>
+</li>
+<li>B+ 树：可以自平衡的 N 叉查找树
+<ul>
+<li>关系型数据库的索引常用 B+ 树实现</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>以上数据结构不必全部掌握，根据自己实际情况，捡熟悉的回答即可</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol start="6">
+<li>说一声java中常见的集合类
+重要的集合接口以及实现类参考下图
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/java/index.md"
+    href="/post/interview/java/2.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/java/2.webp"
+      srcset="/post/interview/java/2.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+<ul>
+<li>接口四个：<code>Collection</code>、<code>List</code>、<code>Set</code>、<code>Map</code>
+<ul>
+<li><code>Collection</code>是父接口，<code>List</code>和<code>Set</code>是它的子接口</li>
+</ul>
+</li>
+<li><code>Map</code>和其他接口的关系
+<ul>
+<li><code>Map</code>调用<code>entrySet()</code>、<code>keySet()</code>方法时，会创建<code>Set</code>的实现</li>
+<li><code>Map</code>调用<code>values()</code>方法时，会用到<code>Collection</code>的实现</li>
+</ul>
+</li>
+<li>List 实现（常见三个）
+<ul>
+<li>ArrayList 基于数组实现
+<ul>
+<li>随机访问（即根据索引访问）性能高</li>
+<li>增、删由于要移动数组元素，性能会受影响</li>
+<li>【进阶】但如果增、删操作的是数组尾部不牵涉移动元素</li>
+</ul>
+</li>
+<li>LinkedList 基于链表实现
+<ul>
+<li>随机访问性能低，因为需要顺着链表一个个才能访问到某索引位置</li>
+<li>增、删性能高</li>
+<li>【进阶】说它随机访问性能低是相对的，如果是头尾节点，无论增删改查都快</li>
+<li>【进阶】说它增删性能高也是有前提的，并没有包含定位到该节点的时间，把这个算上，增删性能并不高</li>
+</ul>
+</li>
+<li>Vector 基于数组实现
+<ul>
+<li>相对于前两种 List 实现是线程安全的</li>
+<li>【进阶】一些说法说 Vector 已经被舍弃，这是不正确的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Set 实现
+<ul>
+<li>HashSet 内部组合了 HashMap，利用 Map key 唯一的特点来实现 Set
+<ul>
+<li>集合中元素唯一，注意需要为元素实现 hashCode 和 equals 方法</li>
+<li>【进阶】Set 的特性只有元素唯一，有些人说 Set 无序，这得看实现，例如 HashSet 无序，但TreeSet 有序</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Map 实现（常见五个）
+<ul>
+<li>HashMap 底层是 Hash 表，即数组 + 链表，链表过长时会优化为红黑树
+<ul>
+<li>集合中 Key 要唯一，并且它需要实现 hashCode 和 equals 方法</li>
+</ul>
+</li>
+<li>LinkedHashMap 基于 HashMap，只是在它基础上增加了一个链表来记录元素的插入顺序
+<ul>
+<li>【进阶】这个链表，默认会记录元素插入顺序，这样可以以插入顺序遍历元素</li>
+<li>【进阶】这个链表，还可以按元素最近访问来调整顺序，这样可以用来做 LRU Cache 的数据结构</li>
+</ul>
+</li>
+<li>TreeMap 底层是红黑树</li>
+<li>Hashtable 底层是 Hash 表，相对前面三个实现来说，线程安全
+<ul>
+<li>【进阶】它的线程安全实现方式是在 put，get 等方法上都加了 synchronized，锁住整个对象</li>
+</ul>
+</li>
+<li>ConcurrentHashMap 底层也是 Hash 表，也是线程安全的
+<ul>
+<li>【进阶】它的 put 方法执行时仅锁住一个链表，并发度比 Hashtable 高</li>
+<li>【进阶】它的 get 方法执行不加锁，是通过 volatile 保证数据的可见性</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>未标注的是必须记住的部分</li>
+<li>标注【进阶】的条目是该集合比较有特色的地方，回答出来就是加分项，不过也根据自己情况来记忆</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<hr>
+<ol start="7">
+<li>HashMap 原理（数据结构）</li>
+</ol>
+<ul>
+<li>
+<p>底层数据结构：数组+链表+红黑树<br>
+接下来的回答中要点出<strong>数组的作用</strong>，<strong>为啥会有冲突</strong>，<strong>如何解决冲突</strong></p>
+<ul>
+<li>数组：存取元素时，利用 key 的 hashCode 来计算它在数组中的索引，这样在没有冲突的情况下，能让存取时间复杂度达到 <em>O</em>(1)</li>
+<li>冲突：数组大小毕竟有限，就算元素的 hashCode 唯一，数组大小是 n 的情况下要放入 n+1 个元素，根据鸽巢原理，肯定会发生冲突</li>
+<li>解决冲突：一种办法就是利用链表，将这些冲突的元素链起来，当然在在此链表中存取元素，时间复杂度会提高为 <em>O</em>(<em>n</em>)</li>
+</ul>
+</li>
+<li>
+<p>接下来要能说出为什么在在链表的基础上还要有红黑树</p>
+<ul>
+<li>树化目的是避免链表过长引起的整个 HashMap 性能下降，红黑树的时间复杂度是<em>O</em>(<em>log</em>n)
+有一些细节问题可以继续回答，比如树化的时机【进阶】</li>
+<li>时机：在数组容量达到 &gt;= 64 且链表长度 &gt;= 8 时，链表会转换成红黑树</li>
+<li>如果树中节点做了删除，节点少到已经没必要维护树，那么红黑树也会退化为链表</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ol start="8">
+<li>HashMap 原理（扩容）</li>
+</ol>
+<ul>
+<li>扩容因子：0.75 也就是 3/4
+<ul>
+<li>初始容量 16，当放入第 13 个元素时（超过 3/4）时会进行扩容</li>
+<li>每次扩容，容量翻倍</li>
+<li>扩容后，会重新计算 key 对应的桶下标（即数组索引）这样，一部分 key 会移动到其它桶中</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ol start="9">
+<li>HashMap 原理（方法执行流程）</li>
+</ol>
+<ul>
+<li>以 put 方法为例进行说明
+<ol>
+<li>产生 hash 码。
+<ul>
+<li>先调用 key.hashCode() 方法</li>
+<li>为了让哈希分布更均匀，还要对它返回结果进行二次哈希，这个结果称为 hash</li>
+<li>二次哈希就是把 hashCode 的高 16 位与低 16 位做了个异或运算</li>
+</ul>
+</li>
+<li>搞定数组。
+<ul>
+<li>如果数组还不存在，会创建默认容量为 16 的数组，容量称为 n</li>
+<li>否则使用已有数组</li>
+</ul>
+</li>
+<li>计算桶下标。
+<ul>
+<li>利用 (n - 1) &amp; hash 得到 key 对应的桶下标（即数组索引）</li>
+<li>也可以用 hash % n 来计算，但效率比前面的方法低，且有负数问题</li>
+<li>用 (n - 1) &amp; hash 有前提，就是容量 n 必须是 2 的幂（如 16，32，64 &hellip;）</li>
+</ul>
+</li>
+<li>计算好桶下标后，分三种情况
+<ul>
+<li>如果该桶位置还空着，直接根据键值创建新的 Node 对象放入该位置即可</li>
+<li>如果该桶是一条链表，沿着链表找，看看是否有值相同的 key，有走更新，没有走新增
+<ul>
+<li>走新增逻辑的话，是把节点链到尾部（尾插法）</li>
+<li>新增后还要检查链表是否需要树化，如果是，转成红黑树</li>
+<li>新增的最后要检查元素个数 size，如果超过阈值，要走扩容逻辑</li>
+</ul>
+</li>
+<li>如果该桶是一棵红黑树，走红黑树新增和更新逻辑，同样新增的最后要看是否需要扩容</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>以上为jdk1.8 及以上版本的<code>HashMap</code>实现</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<ol start="10">
+<li>ThreadLocal的原理</li>
+</ol>
+<ul>
+<li>
+<p>ThreadLocal 的主要目的是用来实现多线程环境下的变量隔离</p>
+<ul>
+<li>【解释】即每个线程自己用自己的资源，这样就不会出现共享，既然没有共享，就不会有多线程竞争的问题</li>
+</ul>
+</li>
+<li>
+<p>原理</p>
+<ul>
+<li>每个线程对象内部有一个 ThreadLocalMap，它用来存储这些需要线程隔离的资源</li>
+<li>资源的种类有很多，比如说数据库连接对象、比如说用来判断身份的用户对象 &hellip;</li>
+<li>怎么区分它们呢，就是通过 ThreadLocal，它作为 ThreadLocalMap 的 key，而真正要线程隔离的资源作为 ThreadLocalMap 的 value
+<ul>
+<li>ThreadLocal.set 就是把 ThreadLocal 自己作为 key，隔离资源作为值，存入当前线程的 ThreadLocalMap</li>
+<li>ThreadLocal.get 就是把 ThreadLocal 自己作为 key，到当前线程的 ThreadLocalMap 中去查找隔离资源</li>
+</ul>
+</li>
+<li>ThreadLocal 一定要记得用完之后调用 remove() 清空资源，避免内存泄漏</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ol start="11">
+<li>对比 synchronized 和 volatile</li>
+</ol>
+<ul>
+<li>并发编程需要从三个方面考虑线程安全，分别是：原子性、可见性、有序性
+<ul>
+<li>volatile 修饰共享变量，可以保证它的可见性和有序性，但不能保证原子性</li>
+<li>synchronized 代码块，不仅能保证共享变量的可见性、有序性，同时也能保证原子性</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>实际上用 volatile 去保证可见性和有序性，并不像上面那一句话描述的那么简单</p>
+</blockquote>
+<hr>
+<ol start="12">
+<li>1.12 对比 synchronized 和 Lock</li>
+</ol>
+<ul>
+<li>synchronized 是关键字，Lock 是 Java 接口</li>
+<li>前者底层是 C++ 代码实现锁，后者是 Java 自己的代码来实现锁</li>
+<li>Lock 功能更多，比如可以选择是公平锁还是非公平锁、可以设置加锁超时时间、可打断等</li>
+<li>Lock 的提供多种扩展实现（例如读写锁），可以根据场景选择更合适的实现</li>
+<li>Lock 释放锁需要调用 unlock 方法，而 synchronzied 在代码块结束无需显式调用就可以释放锁</li>
+</ul>
+<hr>
+<ol start="13">
+<li>线程池的核心参数
+<ol>
+<li>核心线程数</li>
+<li>核心线程会常驻线程池</li>
+<li>最大线程数</li>
+<li>如果同时执行的任务数超过了核心线程数，且队列已满，会创建新的线程来救急</li>
+<li>总线程数（新线程+原有的核心线程）不超这个最大线程数</li>
+<li>存活时间</li>
+<li>超过核心线程数的线程一旦闲下来，会存活一段时间，然后被销毁</li>
+<li>存活时间单位</li>
+<li>工作队列</li>
+<li>如果同时执行的任务数超过了核心线程数，会把暂时无法处理的任务放入此队列</li>
+<li>线程工厂</li>
+<li>可以控制池中线程的命名规则，是否是守护线程等（不太重要的参数）</li>
+<li>拒绝策略，队列放满任务，且所有线程都被占用，再来新任务，就会有问题，此时有四种拒绝策略：</li>
+<li>AbortPolicy 报错策略，直接抛异常</li>
+<li>CallerRunsPolicy 推脱策略，线程池不执行任务，推脱给任务提交线程</li>
+<li>DiscardOldestPolicy 抛弃最老任务策略，把队列中最早的任务抛弃，新任务加入队列等待</li>
+<li>DiscardPolicy 抛弃策略，直接把新任务抛弃不执行</li>
+</ol>
+</li>
+</ol>
+<hr>
+<ol start="14">
+<li>VM 堆内存结构
+堆内存的布局与垃圾回收器有关。<br>
+传统的垃圾回收器会把堆内存划分为：老年代和年轻代，年轻代又分为</li>
+</ol>
+<ul>
+<li>伊甸园 Eden</li>
+<li>幸存区 S0，S1</li>
+</ul>
+<p>如果是 G1 垃圾回收器，会把内存划分为一个个的 Region，每个 Region 都可以充当</p>
+<ul>
+<li>伊甸园</li>
+<li>幸存区</li>
+<li>老年代</li>
+<li>巨型对象区</li>
+</ul>
+<hr>
+<ol start="15">
+<li>垃圾回收算法</li>
+</ol>
+<ul>
+<li>记忆三种：
+<ol>
+<li>标记-清除算法。优点是回收速度快，但会产生内存碎片</li>
+<li>标记-整理算法。相对清除算法，不会有内存碎片，当然速度会慢一些</li>
+<li>标记-复制算法。将内存划分为大小相等的两个区域 S0 和 S1
+1. S0 的职责用来存储对象，S1 始终保持空闲
+2. 垃圾回收时，只需要扫描 S0 的存活对象，把它们复制到 S1 区域，然后把 S0 整个清空，最后二者互换职责即可
+3. 不会有内存碎片，特别适合存活对象很少时（因为此时复制工作少）</li>
+</ol>
+</li>
+</ul>
+<hr>
+<ol start="16">
+<li>【追问】伊甸园、幸存区、老年代细节</li>
+</ol>
+<ul>
+<li>对象最初都诞生在伊甸园，这些对象通常寿命都很短，在伊甸园空间不足，会触发年轻代回收，还活着的对象进入幸存区 S0，年轻代回收适合采用标记-复制算法</li>
+<li>接下来再触发年轻代回收时，会将伊甸园和 S0 仍活着的对象复制到 S1，清空 S0，交换 S0 和 S1 职责</li>
+<li>经过多次回收仍不死的对象，会晋升至老年代，老年代适合放那些长时间存活的对象</li>
+<li>老年代回收如果满了，会触发老年代垃圾回收，会采用标记-整理或标记-清除算法。老年代回收时的暂停时间通常比年轻代回收更长</li>
+</ul>
+<p>还会常问<br>
+晋升条件</p>
+<ul>
+<li>注意不同垃圾回收器，晋升条件不一样</li>
+<li>在 parallel 里，经历 15 次（默认值）新生代回收不死的对象，会晋升
+<ul>
+<li>可以通过 -XX:MaxTenuringThreshold 来调整</li>
+<li>例外：如果幸存区中的某个年龄对象空间占比已经超过 50%，那么大于等于这个年龄的对象会提前晋升</li>
+</ul>
+</li>
+</ul>
+<p>大对象的处理</p>
+<ul>
+<li>首先大对象不适合存储在年轻代，因为年轻代是复制算法，对象移动成本高</li>
+<li>注意不同垃圾回收器，大对象处理方式也不一样</li>
+<li>在 serial 和 cms 里，如果对象大小超过阈值，会直接把大对象晋升到老年代
+<ul>
+<li>这个阈值通过 -XX:PretenureSizeThreshold 来设置</li>
+</ul>
+</li>
+<li>在 g1 里，如果对象被认定为巨型对象（对象大小超过了 region 的一半），会存储在巨型对象区
+<ul>
+<li>Region 大小是堆内存总大小 / 2048（必须取整为2的幂），或者通过 -XX:G1HeapRegionSize 来设置</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>著名教材《深入理解Java虚拟机》一书关于这些论述，很多观点陈旧过时，需要带批判眼光来学习。例如在它的《内存分配与回收策略》这一章节，提到了这些：</p>
+<ul>
+<li>对象优先在Eden分配（OK）</li>
+<li>大对象直接进入老年代（没有提到 g1 情况）</li>
+<li>长期存活的对象将进入老年代（即我上面讲的晋升条件，但没强调要区分垃圾回收器）</li>
+<li>动态对象年龄判定（即提前晋升）</li>
+<li>空间分配担保（已过时）文中提到的 -XX:+HandlePromotionFailure 参数在 jdk8 之后已经没了</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="web">web<a hidden class="anchor" aria-hidden="true" href="#web">#</a></h2>
+<ol>
+<li>什么是HTTP协议？</li>
+</ol>
+<ul>
+<li>必答内容：</li>
+</ul>
+<p>HTTP协议就是 &ldquo;超文本传输协议&rdquo;，规定了客户端与服务器端数据通信的规则。 而HTTP协议，它的底层，是基于TCP协议的，而TCP协议呢，是面向连接、安全且无状态的协议。</p>
+<p>那在现在的Web开发中，基本上所有的请求都是基于HTTP协议 或 HTTPS协议的。</p>
+<ul>
+<li>可能追问的问题：</li>
+<li>那HTTP协议与HTTPS协议的区别是什么 ?
+<ul>
+<li>HTTP协议与HTTPS协议最大的区别，当然是数据传输的安全性了。 HTTP协议的信息是以明文传输，如果敏感信息被截取了，是可以直接获取传递的信息的。 相对之下，HTTPS协议是基于SSL加密传输的信息，可以确保数据的安全传输。</li>
+<li>还有呢，就是端口不同。 HTTP协议默认端口 80，而HTTPS协议默认的端口 443。</li>
+</ul>
+</li>
+</ul>
+<p>所以说，HTTP协议的安全性没有HTTPS高，但是HTTPS协议会比HTTP耗费更多的服务器资源。</p>
+<hr>
+<ol start="2">
+<li>HTTP协议中请求方式GET 与 POST 什么区别 ?</li>
+</ol>
+<ul>
+<li>必答内容：</li>
+</ul>
+<p>那两种请求方式，使我们进行项目开发，最为常见的两种请求方式。 两者的区别主要有以下几点：</p>
+<ul>
+<li>
+<p>传递参数的大小限制不同。GET请求参数在URL中传递，所以参数的大小会收到URL长度的限制。 而POST请求，是在请求体中传递参数，只受到服务器端的配置限制。</p>
+</li>
+<li>
+<p>安全性不同。 GET请求的参数暴露在URL中，安全性较低，不适合传递敏感信息。 而POST请求参数在HTTP消息体中传递，安全性相对较高。</p>
+</li>
+<li>
+<p>应用场景不同。 GET请求一般用于获取数据，而POST请求则用于提交数据。</p>
+</li>
+<li>
+<p>进阶回答：</p>
+</li>
+<li>
+<p>在项目开发中，现在的url风格，基本都是restful风格。所以呢，项目开发中，请求方式除了GET、POST之外，还有像PUT、POST也是非常常用的。</p>
+</li>
+<li>
+<p>可能会继续追问的问题：</p>
+</li>
+<li>
+<p>你刚才提到Restful，什么是Restful，谈谈你的理解？</p>
+<ul>
+<li>Restful其实就是一种软件架构风格，那既然是一种风格，就说明是可以被打破的，项目开发可以不按这套风格来。 但是我之前接触的项目，都是Restful风格的。 按照我的理解，Restful风格的两大特点：
+<ul>
+<li>通过请求url地址，来定位要操作的资源。（如：http://localhost:8080/users/1，通过这个url，我就知道对1号用户资源进行操作）</li>
+<li>通过请求方式，来决定对资源进行什么样的操作。比如，GET 方式，就是用来查询的；POST方式，就是用来新增的；PUT方式，就是用来修改数据的；而DELETE方式就是用来删除数据的。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ol start="3">
+<li>HTTP协议中常见的状态码 ?</li>
+</ol>
+<p>HTTP协议的状态码，大的方面来说，分为5类， 分别是1xx，2xx，3xx，4xx，5xx。而在项目开发中，最为常见的状态码有这么几个：</p>
+<ul>
+<li>101：这个状态码，表示临时状态码，表示请求已经接受，服务器正在处理 （之前项目中，使用websocket时见到这个状态码）</li>
+<li>200：这个状态码，是最常见的，表示请求成功。</li>
+<li>302：表示重定向。</li>
+<li>401：表示此次请求需要用户身份认证，未认证就响应401。</li>
+<li>404：表示服务器无法找到对应的资源（请求路径找不到）。</li>
+<li>500：服务器内部错误。</li>
+</ul>
+<hr>
+<ol start="4">
+<li>转发 与 重定向的区别？</li>
+</ol>
+<p>这个在现在的前后端分离开发中，基本上就不存在对应的转发操作 和 重定向操作了。</p>
+<ul>
+<li>转发是指服务器收到用户请求后，在服务器端将请求转发给另一个资源进行处理，然后将处理结果返回给用户，用户并不知道这个过程，是服务器内部完成的，整个过程只有一次请求。</li>
+<li>重定向是指当用户访问某个URL时，服务器返回一个特殊的响应码（3xx），并通过响应头（Location）告诉浏览器需要跳转到另一个URL。浏览器收到重定向响应后，会向新的URL发起新的请求，然后显示新页面的内容。整个过程对于浏览器来说是两次请求。</li>
+</ul>
+<p>总的来说，重定向是在客户端发生的，浏览器需要重新发送请求；而转发是在服务器端发生的，对于客户端来说是透明的。</p>
+<hr>
+<ol start="5">
+<li>Cookie会话跟踪的原理？
+会话跟踪的方案有很多，比如像 Cookie、Session、以及令牌技术，都可以进行会话跟踪。</li>
+</ol>
+<p>Cookie是属于客户端会话跟踪方案，是存储在客户端浏览器的。 当我们第一次访问服务器的时候，服务器会创建Cookie，并在响应头 set-Cookie 中将Cookie响应给浏览器，浏览器接收到响应头之后，会自动将Cookie的值存储在浏览器中。</p>
+<p>然后在后续的每一次请求中，浏览器都会自动的获取浏览器存储的Cookie值，并在请求头 Cookie 中将其携带到服务器，服务器就可以获取到Cookie中的数据了，从而完成会话跟踪.</p>
+<p>所以，总的来说，Cookie会话跟踪的原理，其实就是HTTP协议中规定的两个头信息：一个是响应头 Set-Cookie，一个是请求头 Cookie。 但是由于Cookie存储在客户端浏览器，所以这种会话跟踪方案其实并不安全，因为用户是可以操作Cookie的（比如用户可以自己删除、禁用Cookie）。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/java/index.md"
+    href="/post/interview/java/3.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/java/3.webp"
+      srcset="/post/interview/java/3.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<hr>
+<ol start="6">
+<li>Session会话跟踪的原理？
+Session是服务端会话跟踪方案，具体的机制是这样的：</li>
+</ol>
+<ul>
+<li>首先，当用户首次访问网站的时候，服务器会为该用户创建一个会话对象Session，而每一个Session对象都有一个唯一标识ID，同一次会话中需要共享的数据，就可以存储在Session中。然后在服务器给客户端浏览器响应的时候，会将会话对象Session的ID在响应头 Set-Cookie 中响应给浏览器。（Cookie的名字为JSESSIONID，Cookie的值为服务端会话对象Session的ID值）</li>
+<li>浏览器接收到Cookie之后，就会自动将Cookie的值（JSESSIONID）存储起来，然后在后续访问服务器的时候，再将Cookie的值（JSESSIONID）携带到服务器。 在服务器中，就可以根据 JSESSIONID的值，找到对应的会话对象Session，从而操作会话对象Session中的数据了。</li>
+</ul>
+<p>所以，总的来说，Sesssion会话跟踪的底层，其实还是基于Cookie实现的。 在Session会话跟踪的过程中，基于Cookie传递的其实就是Session会话对象的ID。
+那这种方案，虽然Session存储在服务器端，用户无法操作，比较安全。 但是，在集群环境下Session的共享却是一个问题。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/java/index.md"
+    href="/post/interview/java/4.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/java/4.webp"
+      srcset="/post/interview/java/4.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<hr>
+<ol start="7">
+<li>MySQL数据库中的 char 与 varchar的区别是什么?
+MySQL中的 char 和 varchar 都是用于存储字符串的数据类型，但它们在存储方式和性能上有所不同。以下是它们的主要区别：</li>
+</ol>
+<p>第一点呢，就是存储方式不同：</p>
+<ul>
+<li>char：定长字符串，长度是固定的，不管实际存储的字符串长度如何，都会占用固定长度的存储空间。如：char(10) 会始终占用10个字符的空间。</li>
+<li>varchar：变长字符串，长度不固定。占用的空间与实际存储的字段长度有关。 如：varchar(10) 表示最多可以存储10个字符，如果存储的字符串长度不足10，假设为5，只会占用5个字符空间。</li>
+</ul>
+<p>第二点呢，就是性能不同：</p>
+<ul>
+<li>对于char，由于其固定长度，操作会快些，但是会存储浪费磁盘空间的问题。</li>
+<li>对于varchar，由于长度可变，操作时会相对慢一点，但是可以节省磁盘空间，尤其是存储的数据长度不固定时。</li>
+</ul>
+<p>所以呢，我们在设计表结构的时候，需要根据具体的场景来选择具体的数据类型。 就比如啊，如果是手机号、身份证号这样的字段，由于长度固定，我们就直接选择char类型即可，并指定长度，如：char(11)、char(18)。再比如，像用户名、备注信息这类长度不固定的，我们直接选择varchar类型，长度根据页面原型和需求文档确定。</p>
+<hr>
+<ol start="8">
+<li>什么是事务以及事务的四大特性？</li>
+</ol>
+<ul>
+<li>必答内容：
+事务是数据库中的基本概念，是指一组操作的集合，而这一组操作要么同时成功，要么同时失败，从而保证数据库中数据的正确性和完整性。</li>
+</ul>
+<p>那事务呢，具有四大特性，也就是我们常说的ACID，分别是：原子性、一致性、隔离性、持久性。 那接下来，我就分别来聊聊这四大特性。</p>
+<ol>
+<li>原子性指的是事务中的这一组操作，是不可分割的最小操作单元了，操作要么全部成功，要么全部失败。</li>
+<li>一致性是指在事务操作的前后，必须使数据处于一致的状态。</li>
+<li>隔离性指的是数据库中提供了隔离机制，保证事务在不受外部并发操作的影响的独立环境中运行。</li>
+<li>持久性就比较简单了，就是事务一旦提交或回滚了，它对数据库的改变就是永久的。</li>
+</ol>
+<ul>
+<li><strong>可能继续发问的问题：</strong>
+<ol>
+<li>你刚才提到了并发事务，那并发事务回引发哪些问题?<br>
+并发事务引发的问题，主要有这么几个：</li>
+</ol>
+<ul>
+<li>脏读：就是一个事务，读取到了另一个事务还没有提交的数据。</li>
+<li>不可重复读：指的是在同一个事务中，先后读取同一条记录，但两次读取的数据不同。</li>
+<li>幻读：指的是一个事务按照条件查询数据时，没有对应的行，但是插入时，又发现这行数据已经存在了好像出现了幻觉。</li>
+</ul>
+<ol start="2">
+<li>如何解决这些问题呢?<br>
+那这些问题，在数据库系统中都已经解决了。在数据库中提供了不同的隔离级别来解决这些问题， 分别有以下几种：</li>
+</ol>
+<ul>
+<li>READ UNCOMMITED ：读未提交。 这种隔离级别下，会出现脏读、不可重复读、幻读问题。</li>
+<li>READ COMMITED：读已提交。 这种隔离级别，解决了脏读问题，但是会出现不可重复读、幻读问题。</li>
+<li>REPEATABLE READ：可重复读。这种隔离级别，解决了脏读、不可重复读问题，但是会出现幻读问题。</li>
+<li>SERIALIZABLE：串行化。解决了上述所有的并发事务问题。
+而在MySQL数据库中，默认的隔离级别是 REPEATABLE READ（可重复读）。</li>
+</ul>
+<ol start="3">
+<li>那为什么没有用SERIALIZABLE(串行化) 这种隔离级别呢?<br>
+其实，隔离级别，也不是越高越好。因为隔离级别高了，确实可以解决并发事务引发的问题，但是隔离级别越高，性能也越低。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<ol start="9">
+<li>maven 用来做什么？<br>
+Maven 是一个流行的项目管理工具，主要用于 Java 项目的构建、依赖管理和项目信息管理。以下是 Maven 的主要用途：</li>
+<li>项目构建：</li>
+</ol>
+<ul>
+<li>Maven 可以帮助开发者对 Java 项目进行自动化构建。通过 Maven 的约定优于配置的原则，开发者只需定义项目的基本结构和依赖关系，Maven 就可以自动完成项目的编译、测试、打包等构建工作。</li>
+</ul>
+<ol start="2">
+<li>依赖管理：</li>
+</ol>
+<ul>
+<li>Maven 通过中央仓库和本地仓库来管理项目的依赖库。开发者可以在项目的配置文件中声明所需的依赖，Maven 将自动下载并管理这些依赖库。</li>
+</ul>
+<ol start="3">
+<li>项目信息管理：</li>
+</ol>
+<ul>
+<li>通过 Maven，开发者可以方便地管理项目的元数据信息，如项目名称、版本号、作者、许可证等。这些信息可以被用于生成项目文档、发布到中央仓库等操作。</li>
+</ul>
+<hr>
+<ol start="10">
+<li>maven的规约说一下</li>
+</ol>
+<ul>
+<li><code>/src/main/java/</code>：Java 源码。</li>
+<li><code>/src/main/resource</code>：Java 配置文件，资源文件。</li>
+<li><code>/src/test/java/</code>：Java 测试代码。</li>
+<li><code>/src/test/resource</code>：Java 测试配置文件，资源文件。</li>
+<li><code>/target</code>：文件编译过程中生成的 .class 文件、jar、war 等等。</li>
+<li><code>pom.xml</code>：配置文件</li>
+</ul>
+<hr>
+<ol start="11">
+<li>Maven的生命周期<br>
+Maven 生命周期按照构建过程分为三个部分，即 清理(clean)、构建(default) 和 站点生成(site)。每个部分包含不同的阶段(phase)，执行的顺序是固定的，也就是说 Maven 在执行构建时会依次运行每个阶段。</li>
+</ol>
+<p>以下是 Maven 的生命周期和各个阶段的简要说明：</p>
+<ul>
+<li>clean：清理上一次构建生成的文件</li>
+<li>compile：编译项目的源代码</li>
+<li>test：测试编译后的代码</li>
+<li>package：将编译后的代码打包成可发布的格式，如 JAR、WAR 等</li>
+<li>install：将打包好的代码安装到本地仓库，方便其他项目进行依赖管理</li>
+<li>deploy：将打包好的代码部署到远程仓库，方便其他人使用</li>
+</ul>
+<hr>
+<ol start="12">
+<li>谈谈你对Spring IOC 与 DI的理解 ？</li>
+</ol>
+<ul>
+<li>Spring的IOC，翻译过来，叫控制反转。 指的是在Spring中使用工厂模式，为我们创建了对象，并且将这些对象放在了一个容器中，我们在使用的时候，就不用每次都去new对象了，直接让容器为我们提供这些对象就可以了。 这就是控制反转的思想。</li>
+<li>而DI，翻译过来，叫依赖注入。 那刚才提到，现在对象已经交给容器管理了，那程序运行时，需要用到某个对象，此时就需要让容器给我们提供，这个过程呢，称之为依赖注入。</li>
+</ul>
+<p><strong>可能继续追问的问题</strong>：</p>
+<ul>
+<li>
+<p>那如何将一个对象，交给IOC容器管理呢？<br>
+那现在项目开发，都是基于Springboot构建的项目，所以呢，声明bean对象，我们只需要在对应的类上加上注解就可以了。 比如：</p>
+<ul>
+<li>如果是controller层，直接在类上加上 @Controller  或  @RestController 注解。</li>
+<li>如果是service层，直接在类上加上 @Service 注解。</li>
+<li>如果是dao层，直接在类上加上 @Repository 注解。当然现在基本都是Mybatis 或 MybatisPlus，所以这个注解很少用了，都用的是 @Mapper 注解。</li>
+<li>如果是一些其他的工具类、配置类啊，我们可以通过 @Component 、@Configuration 来声明。</li>
+</ul>
+</li>
+<li>
+<p>那如何完成依赖注入操作呢？<br>
+依赖注入的方式比较多，我们可以使用构造函数注入 或 成员变量输入，也是使用对应的注解就可以了。常用的注解有两个：</p>
+<ul>
+<li><code>@Autowired</code> 和 <code>@Resource</code> 注解。那<code>@Autowired</code>默认是根据类型注入，而<code>@Resource</code>注解默认是根据名称注入。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ol start="13">
+<li>Spring容器中的bean是线程安全的吗?
+不是线程安全的。<br>
+针对于这个问题呢，首先我们知道spring容器的bean默认是单例的。 当多用户同时请求一个服务时，容器会给每一个请求分配一个线程，这时多个线程会并发执行该请求对应的业务逻辑，也就是bean对象的业务方法，那如果在业务方法中操作了共享的成员变量，那可能就会存在线程安全问题。</li>
+</ol>
+<p>而在Spring框架中并没有对单例bean进行任何多线程的封装处理，关于单例bean的线程安全和并发问题需要我们自行去搞定。但实际上，大部分情况下Spring 的bean并没有可变的状态(比如Controller、Service、Dao)，所以在某种程度上说Spring的单例bean是线程安全的。<br>
+如果说存在这种情况，那就需要开发人员自行保证线程安全。要么，通过编码保证线程安全，要么，设置bean的作用域为 prototype。</p>
+<hr>
+<ol start="14">
+<li>Spring Bean的作用域如何设置，常见的取值有哪些？</li>
+</ol>
+<p>Spring Bean的作用域可以通过 @Scope 注解来设置。常见的取值如下：</p>
+<ul>
+<li>singleton ：这种bean范围是默认的，这种范围确保不管接受到多少个请求，每个容器中同一个名称的bean只有一个实例，也就是单例的 。</li>
+<li>prototype ：这种范围，表示非单例的。也就是说每一次用到的bean都是一个新的 。</li>
+<li>request ：同一个请求，使用的是同一个bean。会为每一个来自客户端的请求都创建一个实例，在请求完成以后， bean会失效并被垃圾回收器回收 。</li>
+<li>session：与request 请求范围类似，确保每个session会话范围内，是同一个实例，在session过期后， bean会随之失效。</li>
+</ul>
+<p>虽然，bean作用域可以设置这些值，但是在项目开发中，绝大部分的bean都不会添加这个 @Scope 注解，也就是说默认都是用的是单例的bean。</p>
+<hr>
+<ol start="15">
+<li>Spring容器的bean什么时候初始化的?</li>
+</ol>
+<ul>
+<li>如果是单例的bean，默认是Spring容器启动的时候，就完成bean的初始化操作，那这是默认情况，我们可以通过 @Lazy 注解来延迟bean的初始化，延迟到第一次使用的时候。</li>
+<li>而如果是非单例的bean（也就是prototype），则是在每次使用这个bean的时候，都会重新实例化一个新的bean。</li>
+</ul>
+<hr>
+<ol start="16">
+<li>聊一聊Bean的生命周期 ？
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/java/index.md"
+    href="/post/interview/java/5.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/java/5.webp"
+      srcset="/post/interview/java/5.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+首先会通过一个非常重要的类，叫做BeanDefinition获取bean的定义信息，这里面就封装了bean的所有信息，比如，类的全路径，是否是延迟加载，是否是单例等这些信息。</li>
+</ol>
+<ul>
+<li>第一步在创建bean的时候，就是调用构造函数实例化bean。</li>
+<li>第二步是bean的依赖注入，比如一些set方法注入，像平时开发用的@Autowired都是这一步完成。</li>
+<li>第三步是处理Aware接口，如果某一个bean实现了Aware接口（包括BeanNameAware、BeanFactoryAware、ApplicationContextAware）就会重写方法执行。</li>
+<li>第四步是bean的后置处理器BeanPostProcessor的postProcessBeforeInitialization方法运行，这个是前置增强。</li>
+<li>第五步是初始化方法执行，比如实现了接口InitializingBean或者自定义了方法init-method标签或@PostContruct。</li>
+<li>第六步是执行了bean的后置处理器BeanPostProcessor的postProcessAfterInitialization方法运行，这个是前置增强主要是对bean进行增强，有可能在这里产生代理对象。</li>
+<li>到此，spring容器的bean已经创建完毕了，业务逻辑运行。</li>
+<li>最后一步是销毁bean，比如自定义的方法destroy-method或@PreDestroy执行。</li>
+</ul>
+<hr>
+<ol start="17">
+<li>
+<p>聊一聊Spring中bean的循环依赖问题？<br>
+循环依赖其实就是循环引用,也就是两个或两个以上的bean互相持有对方，最终形成闭环，比如A依赖于B，B依赖于A。
+循环依赖在spring中是允许存在，spring框架通过内部的三级缓存来解决了大部分的循环依赖问题。三级缓存，每一级缓存的作用如下：</p>
+<ol>
+<li>一级缓存：singletonObjects 单例池，缓存已经经历了完整的生命周期，已经初始化完成的bean对象</li>
+<li>二级缓存：earlySingletonObjects 缓存早期的bean对象（生命周期还没走完，半成品的bean）</li>
+<li>三级缓存：singletonFactories 缓存的是ObjectFactory，表示对象工厂，用来创建某个对象的（比如创建代理对象）</li>
+</ol>
+<p>具体的流程大概是这个样子的 ：</p>
+<ol>
+<li>先实例A对象，同时会创建ObjectFactory对象存入三级缓存singletonFactories</li>
+<li>A在初始化的时候需要B对象，这个走B的创建的逻辑</li>
+<li>B实例化完成，也会创建ObjectFactory对象存入三级缓存singletonFactories</li>
+<li>B需要注入A，通过三级缓存中获取ObjectFactory来生成一个A的对象同时存入二级缓存，这个是有两种情况，一个是可能是A的普通对象，另外一个是A的代理对象，都可以让ObjectFactory来生产对应的对象，这也是三级缓存的关键</li>
+<li>B通过从通过二级缓存earlySingletonObjects  获得到A的对象后可以正常注入，B创建成功，存入一级缓存singletonObjects</li>
+<li>回到A对象初始化，因为B对象已经创建完成，则可以直接注入B，A创建成功存入一次缓存singletonObjects</li>
+<li>二级缓存中的临时对象A清除</li>
+</ol>
+<blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">private</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">B</span><span class="w"> </span><span class="p">{</span><span class="w">   
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">private</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">   
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></blockquote>
+<p>就比如A类中，需要依赖注入一个属性B; 而B类中，也需要依赖注入一个A属性。 那么当在实例化bean的时候就会出现如下现象：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/java/index.md"
+    href="/post/interview/java/6.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/java/6.webp"
+      srcset="/post/interview/java/6.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<ol>
+<li>假设先获取到A的构造函数，然后通过构建函数创建A对象。</li>
+<li>然后A对象创建后，根据A的生命周期，还需要为其注入依赖的bean对象，A中依赖了B对象，所以此时会到一级缓存singletonObjects 单例池中查找B类对象的bean对象，拿来赋值给A对象的b属性。如果一级缓存(单例池)中，没有这个对象，紧接着就会去创建B对象。</li>
+<li>那么在创建B类的Bean的过程中，首先调用B类的构造函数，来创建B对象，然后接下来就要进行依赖注入，注入属性A，此时发现，一级缓存singletonObjects 单例池中并没有A类对应的B，那么此时，又会去创建类A这个bean。 此时，就出现了循环依赖。</li>
+</ol>
+<p>那如何解决循环依赖呢? 要想打破上述的缓存，就需要一个中间人的参与，这个中间人就是二级缓存。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/java/index.md"
+    href="/post/interview/java/7.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/java/7.webp"
+      srcset="/post/interview/java/7.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+A类的Bean在创建过程中，在进行依赖注入之前，先把A的原始对象放入二级缓存（提早暴露，只要放到缓存了，其他Bean需要时就可以从缓存中拿了）。<br>
+放入缓存后，再进行依赖注入，此时A类的Bean依赖了B类的Bean，如果B类的Bean不存在，则需要创建B类的Bean，而创建B类的Bean的过程和A类一样，也是先创建一个B类的原始对象，然后把B类的原始对象提早暴露出来放入缓存中，然后在对B类的原始对象进行依赖注入A，此时能从二级缓存中拿到A类的原始对象（虽然是A类的原始对象，还不是最终的Bean），B类的原始对象依赖注入完了之后，B类的生命周期结束，那么A类的生命周期也能结束。<br>
+因为整个过程中，都只有一个A原始对象，所以对于B而言，就算在属性注入时，注入的是A原始对象，也没有关系，因为A原始对象在后续的生命周期中在堆中没有发生变化。<br>
+这样，就解决了循环依赖的问题。</p>
+<p>如果我们在项目中使用了AOP，基于AOP为类生成了代理对象，此时，靠上述的两级缓存就解决不了循环依赖问题了，那这个时候就需要借助于第三级缓存 singletonFactories 来解决了。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/java/index.md"
+    href="/post/interview/java/8.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/java/8.webp"
+      srcset="/post/interview/java/8.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<blockquote>
+<ol>
+<li>singletonObjects :  一级缓存，缓存经过了完整生命周期的bean</li>
+<li>earlySingletonObjects :  二级缓存，缓存原始对象，也就是半成品的bean</li>
+<li>singletonFactories : 三级缓存，缓存的是一个ObjectFactory，主要用来去生成原始对象进行了AOP之后得到的代理对象，在每个Bean的生成过程中，都会提前暴露一个工厂，这个工厂可能用到，也可能用不到，如果没有出现循环依赖依赖本bean，那么这个工厂无用，本bean按照自己的生命周期执行，执行完后直接把本bean放入singletonObjects中即可，如果出现了循环依赖依赖了本bean，则另外那个bean执行ObjectFactory提交得到一个AOP之后的代理对象(如果有AOP的话，如果无需AOP，则直接得到一个原始对象)。</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<hr>
+<ol start="18">
+<li>构造函数的循环依赖，三级缓存可以解决吗？
+构造函数的循环依赖，三级缓存是解决不了的。<br>
+这是因为，由于bean的生命周期中，构造函数是第一个执行的，如果在执行构造函数的时候，发现依赖了另外一个bean，并且是循环依赖，spring框架是解决不了的，此时就需要我们手动解决，当然解决方案，也很简单，通过一个注解就搞定了， 就是 @Lazy 注解，通过这个注解实现延迟加载，什么时候需要对象，再进行bean对象的创建。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">A</span><span class="p">(</span><span class="nd">@Lazy</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="n">b</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;A的构造函数执行了...&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">B</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">B</span><span class="p">(</span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;B的构造函数执行了...&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><hr>
+<ol start="19">
+<li>什么是AOP？<br>
+aop是面向切面编程，在spring中用于将那些与业务无关，但却对多个对象产生影响的公共行为和逻辑，抽取公共模块复用，降低耦合，一般像系统的公共日志记录，事务处理，权限的控制等都可以通过AOP来实现。</li>
+</ol>
+<p><strong>可能继续追问的问题：</strong></p>
+<ol>
+<li>你们项目中有没有使用到AOP？<br>
+这个很多地方都用到了，比如我们当时在后台管理系统中，就是使用aop来记录了系统的操作日志、以及权限控制。那就来说一下，记录日志的操作思路吧。<br>
+主要思路是这样的，使用aop中的环绕通知 加上 基于注解@annotation 的切点表达式来实现的。
+<ul>
+<li>首先，自定义了一个注解，比如叫 @Log，然后哪些操作需要记录日志，我们就在哪些方法上加上这个注解。</li>
+<li>然后再定义一个切面类，通过环绕通知，来获取原始方法在运行的各项信息，比如：类信息、方法信息、注解、请求方式、请求参数、当前操作人、操作时间、返回值等信息，全部记录下来，保存在数据库中。<br>
+当时，我们主要记录的是一些核心业务模块的增删改的操作日志，主要便于数据追踪。</li>
+</ul>
+</li>
+<li>AOP的底层是如何实现的？<br>
+SpringAOP的底层主要是通过动态代理技术实现的，主要是两种代理技术。一种是JDK的动态代理，而JDK的动态代理呢，有限制，只能针对于实现了接口的类做代理，所以，在spring中还有一种是Cglib动态代理，那Cglib动态代理呢，就没有这个限制。</li>
+<li>JDK动态代理 与 Cglib动态代理有什么区别呢？</li>
+</ol>
+<ul>
+<li>限制不同。 JDK动态代理，要求被代理对象必须实现了接口才可以。 而Cglib动态代理，无论是否实现接口都可以（只要类不是final修饰即可）。</li>
+<li>代理对象不同。 JDK动态代理生成的代理对象，与被代理对象其实是实现了相同的接口，可以说是兄弟关系。 而Cglib动态代理生成的代理对象，其实是继承了被代理类，是基于继承体系的，所以是父子关系。 也正是因为此，所以Cglib不能为被final修饰的类做代理。</li>
+</ul>
+<hr>
+<ol start="20">
+<li>Spring中的事务是如何实现的？<br>
+spring实现的事务本质就是aop完成，对方法前后进行拦截，在执行方法之前开启事务，在执行完目标方法之后根据执行情况提交或者回滚事务。 而如果我们进行项目开发，不存在分布式事务问题，我们就可以直接使用Spring提供的@Transactional注解来控制事务即可。</li>
+</ol>
+<p><strong>可能继续发问的问题</strong>:</p>
+<ol>
+<li>在开发中，有没有遇到事务失效的场景？<br>
+在刚开始上班做项目时，遇到过，但是现在在做项目，写代码时，都会规避这些坑。 事务失效比较典型的场景呢就是：</li>
+</ol>
+<ul>
+<li>第一个，如果业务方法上try、catch处理，自己处理了异常，没有抛出，就会导致事务失效，所以一般处理了异常以后，别忘了抛出去就行。</li>
+<li>第二个，如果方法抛出检查异常，如果报错也会导致事务失效，因为默认spring事务管理只会针对于RuntimeException进行回滚。那这个呢，就可以在spring事务的注解上，就是@Transactional上配置rollbackFor属性为Exception.class，这样别管是什么异常，都会回滚事务。</li>
+<li>第三个，是我早期开发中遇到的一个，如果业务方法上不是public修饰的，也会导致事务失效。</li>
+</ul>
+<ol start="2">
+<li>什么是事务的传播行为？<br>
+Spring的事务传播行为，指的是两个被事务控制的方法，相互调用的过程中，到底是加入到已存在的事务，还是创建一个新的事务，控制的是这个事儿。 我们设置事务的传播行为，可以通过 @Transactional 注解的propagation属性来设置，可取值有很多啊，但是常见的就只有两个：</li>
+</ol>
+<ul>
+<li>REQUIRED：也是默认值，表示如果没有事务，就新建一个事务，如果有事务，就加入到已存在的事务中。</li>
+<li>REQIRES_NEW：表示需要一个新的事务，无论当前环境是否存在事务，都会开启一个新的事务。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">OrderServiceImpl</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">OrderService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">OrderMapper</span><span class="w"> </span><span class="n">orderMapper</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">OrderLogService</span><span class="w"> </span><span class="n">orderLogService</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Transactional</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">submitOrder</span><span class="p">(</span><span class="n">Order</span><span class="w"> </span><span class="n">order</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//.... 订单数据处理</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//....</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">orderMapper</span><span class="p">.</span><span class="na">insert</span><span class="p">(</span><span class="n">order</span><span class="p">);</span><span class="w">   </span><span class="c1">//保存订单数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//.... 构造订单日志数据OrderLog</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">orderLogService</span><span class="p">.</span><span class="na">insertLog</span><span class="p">(</span><span class="n">orderLog</span><span class="p">);</span><span class="w"> </span><span class="c1">//记录订单日志, 无论是否下单成功, 都需要记录</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">OrderLogServiceImpl</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">OrderLogService</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">OrderLogMapper</span><span class="w"> </span><span class="n">orderLogMapper</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Transactional</span><span class="p">(</span><span class="n">propagation</span><span class="o">=</span><span class="n">Propagation</span><span class="p">.</span><span class="na">REQUIRES_NEW</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">insertLog</span><span class="p">(</span><span class="n">OrderLogorderLog</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">orderLogMapper</span><span class="p">.</span><span class="na">insert</span><span class="p">(</span><span class="n">orderLog</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><hr>
+<ol start="21">
+<li>聊聊Spring框架中的常用注解？<br>
+额，这个就很多很多了。 我就分为这么几类，说一下吧。<br>
+第一类是：声明bean，有@Component、@Service、@Repository、@Controller<br>
+第二类是：依赖注入相关的，有@Autowired、@Qualifier、@Resourse<br>
+第三类是：设置作用域 @Scope<br>
+第四类是：spring配置相关的，比如@Configuration，@ComponentScan 和 @Bean<br>
+第五类是：跟aop相关做增强的注解  @Aspect，@Before，@After，@Around，@AfterReturning，@AfterThrowing，@Pointcut</li>
+</ol>
+<hr>
+<ol start="22">
+<li>SpringMVC的拦截器用过没有？</li>
+</ol>
+<ul>
+<li>
+<p>必答内容：<br>
+拦截器的应用场景还是很多的，比如在项目中，我们基于拦截器实现登录校验的功能、参数统一转换处理、数据的脱敏、统一编码处理等功能。 在SpringBoot项目拦截器的使用分为两步进行：<br>
+第一步呢，需要定义一个类实现HandlerInterceptor接口，然后再实现接口中的方法，比如：preHandle、postHandle、afterCompletion。<br>
+第二步呢，就是需要定义一个配置类，然后实现WebMvcConfigure，然后在这个配置类中配置拦截器，指定拦截器的拦截路径、排除哪些路径等信息。</p>
+</li>
+<li>
+<p><strong>可能继续追问的问题</strong>：<br>
+你说的这些个功能，过滤器好像也能干，那拦截器Interceptor 与 过滤器Filter有什么区别?</p>
+<ul>
+<li>接口规范不同：过滤器需要实现Filter接口，而拦截器需要实现HandlerInterceptor接口。</li>
+<li>拦截范围不同：过滤器Filter会拦截web服务器中的所有资源，而Interceptor只会拦截Spring环境的资源，主要就是Controller。</li>
+<li>实现机制不同：过滤器在实现上是基于函数回调的，拦截器是基于java的反射机制的，属于面向切面编程的一种运用。</li>
+</ul>
+</li>
+</ul>
+<p>那其实在开发中，很多的功能，我们既可以通过过滤器Filter来实现，也可以通过拦截器Interceptor来实现。</p>
+<hr>
+<ol start="23">
+<li>SpringMVC怎么处理异常？<br>
+SpringMVC的异常处理，就比较简单了，可以直接使用Spring MVC中的全局异常处理器对异常进行统一处理，此时在我们的三层架构中，都不需要处理异常了，如果运行过程中出现异常，最终会被全局异常处理器捕获，然后返回统一的错误信息。<br>
+开发一个全局异常处理器需要使用到两个注解：@RestControllerAdvice 、@ExceptionHandler，@RestControllerAdvice加在全局异常处理器的这个类上，而@ExceptionHandler加在异常处理的方法上，来指定这个方法捕获什么样的异常。<br>
+那在定义异常处理方法的时候，可以也定义多个，根据业务的需求，可以针对不同类型的异常，进行不同的处理。</li>
+</ol>
+<hr>
+<ol start="24">
+<li>聊聊SpringMVC中的常用注解?
+SpringMVC中的注解就比较多了，平时项目开发中比较常用的注解有以下几个：
+<ol>
+<li>@RequestMapping：用于映射请求路径，可以定义在类上和方法上。用于类上，则表示类中的所有的方法都是以该地址作为父路径 。我们也可以基于该注解中的method属性，来限定请求方式，由此也衍生了几个注解，如：@GetMapping、@PostMapping、@PutMapping、@DeleteMapping。</li>
+<li>@RequestBody：该注解实现接收请求的json数据，将json转换为java对象。</li>
+<li>@RequestParam：指定请求参数的名称 ，如果请求参数名与方法形参不一致，可以使用此注解映射绑定。也可以使用该注解来设置参数的默认值。</li>
+<li>@PathViriable：从请求路径中获取请求参数(/user/{id})，传递给方法的形式参数。</li>
+<li>@ResponseBody：注解实现将controller方法返回值直接作为请求体响应，如果返回值是对象/集合，会转化为json对象响应给客户端 。</li>
+<li>@RequestHeader：获取指定的请求头数据。</li>
+</ol>
+</li>
+</ol>
+<hr>
+<ol start="25">
+<li>聊聊你对SpringBoot框架的理解？
+SpringBoot是现在Spring家族最为流行的子项目，因为采用原始的SpringFramework框架开发项目，配置起来非常的繁琐，所以在Spring的4.0版本之后，Spring家族推出了SpringBoot框架，而Springboot就是来解决Spring框架开发繁琐的问题的，是用来简化spring框架开发的。<br>
+主要提供了这么三大块功能：</li>
+</ol>
+<ul>
+<li>starter起步依赖。springboot提供了各种各样的starter，在starter起步依赖中，就封装了常用的依赖配置，大大简化了项目引入依赖坐标的复杂度。</li>
+<li>自动配置。 这也是springboot中最核心的功能，springboot可以根据特定的条件（当前环境是否引入对应的依赖、配置文件中是否有某个配置项、当前环境是否已经有了某个bean）来创建对象的bean，从而完成bean的自动配置。</li>
+<li>jar包方式运行。 springboot中内嵌了web服务器，所以我们开发的web项目，也可以直接打成一个jar包，直接基于java -jar 执行运行，非常的方便。</li>
+</ul>
+<p>当然，这些呢，只是Springboot中提供的核心功能，还有其他的一些小功能，都是非常实用的 。</p>
+<hr>
+<ol start="26">
+<li>SpringBoot框架常见的starter你都用过哪些 ？</li>
+</ol>
+<ul>
+<li>spring-boot-starter-web (嵌入tomcat和web开发需要servlet与jsp支持)</li>
+<li>spring-boot-starter-aop (aop开发支持)</li>
+<li>spring-boot-starter-data-redis (redis支持)</li>
+<li>spring-boot-starter-data-elasticsearch (es支持)</li>
+<li>spring-boot-starter-amqp(消息队列支持)</li>
+<li>spring-boot-starter-data-mongodb (mongodb的支持)</li>
+<li>mybatis-plus-boot-starter(mybatis plus的支持)</li>
+<li>mybatis-spring-boot-starter(mybatis的支持)</li>
+</ul>
+<p>那这些个starter，其实分为两类，一类是springboot官方提供的，命名都是：spring-boot-starter-xxxx；另一类是第三方框架提供的，命名都是：xxxx-spring-boot-starter。</p>
+<hr>
+<ol start="27">
+<li>Spring Boot配置的优先级？<br>
+SpringBoot项目中，可以在很多地方来配置项目中的配置项，那这里我主要说两个方面：一个是配置文件，一个是外部配置。</li>
+</ol>
+<ul>
+<li>在springboot项目中，支持三类配置文件，分别是：application.properties、application.yml、application.yaml。 而这三类配置文件的优先级最高的是 application.properties，其次是 application.yml，最后是 application.yaml。</li>
+<li>而外部配置呢，常用的有两种配置形式，一种是java系统属性，比如：-Dserver.port=9001；另一种是命令行参数，比如：&ndash;server.port=10010。而命令行参数的优先级要高于java系统属性。</li>
+<li>而整体上，外部配置的优先级要高于项目内部的配置文件中的配置，所以整体来说配置文件的优先级由高到低的顺序为：
+<ul>
+<li>命令行参数 &gt; java系统属性 &gt; application.properties &gt; application.yml &gt; application.yaml</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ol start="28">
+<li>SpringBoot自动配置的原理是什么？<br>
+其实SpringBoot自动配置的核心，是引导类上加的注解@SpringBootApplication 底层封装的一个注解，叫@EnableAutoConfiguration，这个注解才是实现自动化配置的核心注解。<br>
+该注解通过@Import注解导入对应的配置选择器，导入了一个ImportSelector接口的实现类。 而在这个类的内部呢，读取了该项目和该项目引用的Jar包中的classpath路径下META-INF/spring.factories文件中的所配置的类的全类名。<br>
+在这些配置类中所定义的Bean，会根据条件注解@Condition系列注解所<strong>指定的条件来决定</strong>是否需要将其导入到Spring容器中。<br>
+一般条件判断会有像@ConditionalOnClass这样的注解，判断是否有对应的class文件，如果有则加载该类，把这个配置类的所有的Bean放入spring容器中使用。</li>
+</ol>
+<p>但是这里要说明一点哈，就是刚才提到的系统配置类声明的配置文件 META-INF/spring.factories， 在springboot3.0版本之后，就已经废除了，不会在这个文件中配置自动配置类了，替换成了一份新的配置文件，配置文件名比较长，记不住，后缀名为：XXxxxSpringAutoConfiguration.imports。</p>
+<hr>
+<ol start="29">
+<li>SpringBoot中如何自定义starter？
+嗯，这个我知道，之前在项目中，我们封装过的，像阿里云OSS操作的starter。</li>
+</ol>
+<ul>
+<li>首先，先说模块哈，自定义starter，我们通常会定义两个maven模块。
+<ul>
+<li>一个是：xxx-spring-boot-starter ，这个模块主要负责管理依赖，最后项目中引入的就是这个模块。</li>
+<li>另一个是：xxx-spring-boot-autoconfigure，这个模块负责自动配置功能，所有的自动配置的核心代码，都定义在这个模块中。并在在starter模块中，还要引入autoconfigure这个模块的依赖。</li>
+</ul>
+</li>
+<li>然后再来说核心的autoconfigure模块的实现。
+<ul>
+<li>第一步呢，就是要根据具体的需求，编写自动配置类。 基于@Configuration注解定义配置类，然后使用@Bean注解来声明bean，可以通过@Conditional系列的注解，根据条件决定是否声明这个bean。</li>
+<li>第二步，就是需要在META-INF/spring.factories配置文件中，根据规则配置自动配置类的全类名。 如果是SpringBoot3.x版本，则需要在新的配置文件，META-INF/spring/xxxx.SpringAutoConfiguration.imports文件中配置自动配置类的全类名。</li>
+</ul>
+</li>
+</ul>
+<p>基本上，就这么两块儿。定义好了之后，在各个项目中，就可以引入对应的starter直接使用了。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span><a href="https://www.steamedfish.top/">©2025 SteamedFish&rsquo;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+<script src="https://unpkg.com/@barba/core"></script>
+
+
+<script>
+window.PaperMod = window.PaperMod || {};
+PaperMod.state = { once: false };
+
+PaperMod.initOnce = function () {
+  
+  if (PaperMod.state.once) return;
+  PaperMod.state.once = true;
+  console.log("PaperMod initOnce");
+
+  
+  if (PaperMod.initAPlayer && !window.__aplayer_inited__) {
+    PaperMod.initAPlayer();
+  }
+};
+
+PaperMod.initPage = function (container = document) {
+  console.log("PaperMod initPage");
+
+  PaperMod.initFancybox && PaperMod.initFancybox(container);
+  PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
+  
+  
+  
+  if (window.initSearch && document.getElementById('searchInput')) {
+    console.log("Initializing search from Barba");
+    window.initSearch(document);
+  }
+};
+
+
+barba.init({
+  transitions: [
+    {
+      name: "default",
+      leave(data) {
+        
+        return Promise.resolve();
+      },
+      enter(data) {
+        
+        PaperMod.initOnce();
+        
+        PaperMod.initPage(data.next.container);
+      },
+      afterEnter(data) {
+        
+        
+        if (window.initSearch && document.getElementById('searchInput')) {
+          console.log("AfterEnter: Re-initializing search");
+          window.initSearch(document);
+        }
+      }
+    },
+  ],
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  PaperMod.initOnce();
+  PaperMod.initPage(document);
+});
+
+</script>
+
+
+
+
+
+
+
+<link
+  href="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.css"
+  rel="stylesheet"
+/>
+<script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.2/Meting.min.js"></script>
+
+<meting-js
+  server="netease"
+  fixed="true"
+  lrc-type="1"
+  type="playlist"
+  id="2245453903"
+  api="https://api.qijieya.cn/meting/?type=:type&id=:id"
+  >
+  
+  
+         
+  
+  
+  
+</meting-js>
+<script>
+  if (window.Barba) {
+    Barba.hooks.afterEnter(function () {
+      const metingPlayer = document.querySelector('meting-js');
+      if (metingPlayer) {
+        metingPlayer.load();  
+      }
+    });
+  }
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+</script>
+
+
+
+
+<script>
+  window.PaperMod = window.PaperMod || {};
+
+  PaperMod.initCodeCopyButtons = function (root = document) {
+    root.querySelectorAll("pre > code").forEach((codeblock) => {
+      const container = codeblock.parentNode.parentNode;
+
+      
+      if (container.querySelector(".copy-code")) return;
+
+      const copybutton = document.createElement("button");
+      copybutton.classList.add("copy-code");
+      copybutton.innerHTML = '复制';
+
+      function copyingDone() {
+        copybutton.innerHTML = '已复制！';
+        setTimeout(() => {
+          copybutton.innerHTML = '复制';
+        }, 2000);
+      }
+
+      copybutton.addEventListener("click", (cb) => {
+        if ("clipboard" in navigator) {
+          navigator.clipboard.writeText(codeblock.textContent);
+          copyingDone();
+          return;
+        }
+
+        const range = document.createRange();
+        range.selectNodeContents(codeblock);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        try {
+          document.execCommand("copy");
+          copyingDone();
+        } catch (e) {}
+        selection.removeRange(range);
+      });
+      container.appendChild(copybutton);
+    });
+  };
+</script>
+
+
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css" />
+<script src="/lib/fancybox/fancybox.umd.js"></script>
+<script>
+  function initFancybox() {
+    Fancybox.unbind("[data-fancybox]");
+
+    Fancybox.bind("[data-fancybox]", {
+      animated: true,
+      showClass: "fancybox-fadeIn",
+      hideClass: "fancybox-fadeOut",
+      dragToClose: true,
+    });
+  }
+
+  
+  if (document.readyState !== "loading") {
+    initFancybox();
+  } else {
+    document.addEventListener("DOMContentLoaded", initFancybox);
+  }
+  
+  document.addEventListener("barba:afterEnter", initFancybox);
+</script>
+
+
+
+
+
+
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

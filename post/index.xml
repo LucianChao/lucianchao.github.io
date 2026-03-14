@@ -7,7 +7,7 @@
     <generator>Hugo -- 0.157.0</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sun, 15 Mar 2026 03:17:36 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 13 Mar 2026 00:06:38 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【OpenClaw】小龙虾的成神之路——更换模型、安装skills</title>
@@ -8714,13 +8714,6 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
 
 &lt;/p&gt;
 &lt;p&gt;Markdown 是一种轻量级标记语言，由 John Gruber 在 2004 年创建。它使用纯文本格式编写文档，通过简单的符号标记实现格式化，例如标题、列表、加粗、斜体等。Markdown 可以方便地转换为 HTML、PDF、Word等格式，广泛应用于博客、文档和笔记工具。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title></title>
-      <link>https://www.steamedfish.top/post/interview/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://www.steamedfish.top/post/interview/</guid>
-      <description>&lt;p&gt;java/jvm/mysql/redis&lt;/p&gt;</description>
     </item>
     <item>
       <title>1.md</title>

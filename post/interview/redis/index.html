@@ -1,0 +1,2672 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>【面试八股】Redis | SteamedFish&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="面试题汇总
+
+
+如何保证缓存的双写一致性？
+
+缓存的双写一致性很难保证强一致，只能尽可能降低不一致的概率，确保最终一致。我们项目中采用的是Cache Aside模式。简单来说就是在更新数据库之后删除缓存；在查询时先查询缓存，如果未命中则查询数据库并写入缓存。同时我们会给缓存设置过期时间作为兜底方案。如果真的出现了不一致的情况，也可以通过缓存过期来保证最终一致。
+为什么不采用延迟双删机制？
+
+延迟双删的第一次删除并没有实际意义，第二次采用删除删除主要是解决数据库主从同步的延迟问题，我认为这是数据库主从的一致性问题，与缓存同步无关。既然主节点数据已经更新，Redis的缓存也应该更新。而且延迟双删会增加缓存业务的复杂度，也没能完全避免缓存一致性问题（延时时间的不确定性）。
+
+
+延迟双删：">
+<meta name="author" content="Lucian Chao">
+<link rel="canonical" href="https://www.steamedfish.top/post/interview/redis/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.48569ef1d09dace3351ba549c3a7d634e59d1a68544f48e0de83f555e5c3e16e.css" integrity="sha256-SFae8dCdrOM1G6VJw6fWNOWdGmhUT0jg3oP1VeXD4W4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" rel="preload" as="fetch" href="/index.json">
+
+<script>
+window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"includematches\":true,\"iscasesensitive\":false,\"keys\":[\"title\",\"permalink\",\"summary\",\"content\"],\"minmatchcharlength\":1,\"shouldsort\":true,\"threshold\":0.4}";
+</script>
+<script defer crossorigin="anonymous" src="/assets/js/search.aa96b9ed792bef70ea680e2e0f4d593dbf24e70f57adc89aa9312336ed219778.js" integrity=""></script>
+<link rel="icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
+<link rel="apple-touch-icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="mask-icon" href="https://www.steamedfish.top/favicon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://www.steamedfish.top/post/interview/redis/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+
+
+
+
+<link
+  href="/fonts/lxgw/style.css"
+  rel="stylesheet"
+/><meta property="og:url" content="https://www.steamedfish.top/post/interview/redis/">
+  <meta property="og:site_name" content="SteamedFish&#39;s Blog">
+  <meta property="og:title" content="【面试八股】Redis">
+  <meta property="og:description" content="面试题汇总 如何保证缓存的双写一致性？
+缓存的双写一致性很难保证强一致，只能尽可能降低不一致的概率，确保最终一致。我们项目中采用的是Cache Aside模式。简单来说就是在更新数据库之后删除缓存；在查询时先查询缓存，如果未命中则查询数据库并写入缓存。同时我们会给缓存设置过期时间作为兜底方案。如果真的出现了不一致的情况，也可以通过缓存过期来保证最终一致。 为什么不采用延迟双删机制？ 延迟双删的第一次删除并没有实际意义，第二次采用删除删除主要是解决数据库主从同步的延迟问题，我认为这是数据库主从的一致性问题，与缓存同步无关。既然主节点数据已经更新，Redis的缓存也应该更新。而且延迟双删会增加缓存业务的复杂度，也没能完全避免缓存一致性问题（延时时间的不确定性）。 延迟双删：">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2026-03-11T18:41:39+08:00">
+    <meta property="article:modified_time" content="2026-03-13T16:48:35+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【面试八股】Redis">
+<meta name="twitter:description" content="面试题汇总
+
+
+如何保证缓存的双写一致性？
+
+缓存的双写一致性很难保证强一致，只能尽可能降低不一致的概率，确保最终一致。我们项目中采用的是Cache Aside模式。简单来说就是在更新数据库之后删除缓存；在查询时先查询缓存，如果未命中则查询数据库并写入缓存。同时我们会给缓存设置过期时间作为兜底方案。如果真的出现了不一致的情况，也可以通过缓存过期来保证最终一致。
+为什么不采用延迟双删机制？
+
+延迟双删的第一次删除并没有实际意义，第二次采用删除删除主要是解决数据库主从同步的延迟问题，我认为这是数据库主从的一致性问题，与缓存同步无关。既然主节点数据已经更新，Redis的缓存也应该更新。而且延迟双删会增加缓存业务的复杂度，也没能完全避免缓存一致性问题（延时时间的不确定性）。
+
+
+延迟双删：">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.steamedfish.top/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "",
+      "item": "https://www.steamedfish.top/post/interview/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "【面试八股】Redis",
+      "item": "https://www.steamedfish.top/post/interview/redis/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【面试八股】Redis",
+  "name": "【面试八股】Redis",
+  "description": "面试题汇总 如何保证缓存的双写一致性？\n缓存的双写一致性很难保证强一致，只能尽可能降低不一致的概率，确保最终一致。我们项目中采用的是Cache Aside模式。简单来说就是在更新数据库之后删除缓存；在查询时先查询缓存，如果未命中则查询数据库并写入缓存。同时我们会给缓存设置过期时间作为兜底方案。如果真的出现了不一致的情况，也可以通过缓存过期来保证最终一致。 为什么不采用延迟双删机制？ 延迟双删的第一次删除并没有实际意义，第二次采用删除删除主要是解决数据库主从同步的延迟问题，我认为这是数据库主从的一致性问题，与缓存同步无关。既然主节点数据已经更新，Redis的缓存也应该更新。而且延迟双删会增加缓存业务的复杂度，也没能完全避免缓存一致性问题（延时时间的不确定性）。 延迟双删：\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "面试题汇总 如何保证缓存的双写一致性？\n缓存的双写一致性很难保证强一致，只能尽可能降低不一致的概率，确保最终一致。我们项目中采用的是Cache Aside模式。简单来说就是在更新数据库之后删除缓存；在查询时先查询缓存，如果未命中则查询数据库并写入缓存。同时我们会给缓存设置过期时间作为兜底方案。如果真的出现了不一致的情况，也可以通过缓存过期来保证最终一致。 为什么不采用延迟双删机制？ 延迟双删的第一次删除并没有实际意义，第二次采用删除删除主要是解决数据库主从同步的延迟问题，我认为这是数据库主从的一致性问题，与缓存同步无关。既然主节点数据已经更新，Redis的缓存也应该更新。而且延迟双删会增加缓存业务的复杂度，也没能完全避免缓存一致性问题（延时时间的不确定性）。 延迟双删：\n删除缓存：首先执行删除缓存的操作 更新数据库：然后执行更新数据库的操作 延时等待：在删除缓存之后，等待一段时间，避免更新数据库期间的脏数据被写入到缓存，这个时间可以根据业务读取平均耗时来设置 再次删除缓存：等待时间结束后，再次执行删除缓存的操作 为什么不先删除缓存再更新数据库？ 因为删除缓存到数据库更新完成之间存在一个时间窗口，其他线程可能会读取旧数据并重新写入缓存，从而导致长期不一致。 误区：Cache Aside模式写操作不会主动更新缓存，读操作没有命中缓存才会写入缓存，这是一个懒加载 描述一下redis的雪崩问题，如何解决？\n缓存雪崩的常见原因有两个，第一是因为大量的key同时过时。针对这个问题我们可以给缓存key设置不同的TTL值（随机），避免key同时过期。\n第二个原因是Redis宕机导致缓存不可用。针对这个问题我们可以用集群提高Redis的可用性。也可以添加多级缓存，当Redis宕机时还有本地缓存的可用。 描述一下redis的穿透问题，如何解决？\n缓存穿透也可以说是穿透攻击，具体来说就是因为请求访问到了数据库不存在的值，这样缓存无法命中，必然访问数据库。如果高并发的访问这样的接口，会给数据库带来巨大压力。\n我们项目中是基于布隆过滤器来解决缓存穿透问题的，当缓存未命中时，基于布隆过滤器判断数据是否存在。如果不存在则不去访问数据库。\n当然也可以缓存空值来解决，不过这种方案比较浪费内存 用户请求的数据在缓存中和数据库都不存在，不断发出请求，给数据库带来巨大压力 解决方案 缓存null值 布隆过滤 做好数据的基础格式校验 加强用户权限校验 做好热点参数的限流 对某个访问频率异常高的参数值进行单独限流，防止缓存穿透请求持续冲击数据库 生产环境中的组合方案（请求→参数校验→布隆过滤器→Redis缓存→热点参数限流→数据库） 描述一下redis的击穿问题，如何解决？\n缓存击穿往往是热点Key引起的，当热点Key过期时，大量请求涌入同时查询，发现缓存未命中都会去访问数据库，导致数据库压力激增。\n解决这个问题的主要思路就是避免多线程并发去重建缓存。因此方案有两种。\n第一种是基于互斥锁，当发现缓存未命中时需要先获取互斥锁，再重建缓存，缓存重建完成释放锁。这样就可用保证缓存重建同一时刻只有一个线程执行。不过这种做法会导致缓存重建时的性能严重下降。\n第二种是基于逻辑过期，也就是不给热点Key设置过期时间而是给数据添加一个过期时间的字段。这样热点Key就不会过期，缓存中永远有数据。\n查询到数据时基于其中的过期时间判断key是否过期，如果过期开启新线程异步重建缓存，而查询请求先返回旧数据即可。当然这个过程也要加互斥锁，但由于重建缓存是异步的。而且获取锁失败也无需等待，而是返回旧数据，这样性能几乎不受影响。\n无论采用哪种方式，在获取互斥锁后一定要再次判断缓存是否命中，做double check，因为当你获取锁成功时，可能在你之前有其他线程已经重建缓存了。 Redis常见的数据类型有哪些？\nString、Hash、List、Set、ZSet Redis分布式锁是如何实现的？\nSET NX PX：原子操作，保证同一时刻只有一个客户端获取锁 Set key value NX：set if not exists，当key不存在时设置key-value返回1，已存在则不操作，返回0。这条命令把判断key是否存在和设置key两个操作合并为了一个原子操作。 PX xxx：过期时间 value：唯一标识（通常是UUID），确保锁被正确释放 Redis分片集群与主从集群的区别\n分片集群用于突破单机内存限制，实现水平扩展，每个节点只存一部分数据；主从集群用于高可用和读写分离，每个节点保存完整数据副本。分片解决容量问题，主从解决可用性和读性能问题。 Reids的主从集群、哨兵集群模式分别解决什么问题？\n主从集群主要解决读写分离和数据冗余问题，提高读性能和数据安全性；哨兵集群是在主从基础上解决高可用问题，通过监控和自动故障转移保证主节点宕机时服务不中断。 Redis的单线程还是多线程？如果都是的话，怎么理解？\nRedis 核心数据操作是单线程的，利用事件循环和 IO 多路复用保证命令原子性和高性能。但从 Redis 6 开始，网络 I/O、持久化等操作可以多线程执行，用来提升吞吐量，因此可以说 Redis 既是单线程又是多线程，需要区分核心操作和后台任务。 Redis有哪些持久化方式？怎么配置？\nRedis 支持 RDB（快照）、AOF（操作日志）和混合持久化。RDB 性能高，适合备份；AOF 数据安全性高，支持重放；混合模式兼顾启动速度和数据安全。可以通过 redis.conf 配置快照策略、AOF 同步方式和文件路径。 redis中怎么解决分片集群中的数据倾斜问题？\nRedis 分片集群的数据倾斜是指某些节点数据或请求过多，形成热点。解决方法有四点： 一是保证 hash slot 均匀分布，必要时迁移 slot； 二是用哈希标签合理分组 key，避免热点集中； 三是对热点 key 做拆分、复制或本地/多级缓存，分流请求压力； 四是监控节点负载，动态迁移热点 slot 或增加节点。 核心思想就是 均衡存储 + 分流请求 + 热点拆分 + 动态调节。 Redis的SortedSet的底层数据结构是怎样的？\nSortedSet是有序集合，底层存储的每个数据都包含element和score两个值。score是得分，element是字符串。SortedSet会根据每个element的score值排序，形成有序集合。 它支持很多操作，比如：\n根据element查询score值 按照score值升序或降序查询element 要实现根据element查询对应的score值，就必须实现element与score之间的键值映射。SortedSet底层是基于HashTable来实现的。\n要实现对score值排序，并且查询效率还高，就需要有一种高效的有序数据结构。SortedSet是基于跳表实现的。\n因为SortedSet底层需要用到两种数据结构，对内存占用比较高。因此Redis底层会对SortedSet中的元素大小做判断。如果元素大小小于128，并且每个元素都小于64字节，SortedSet底层会采用ZipList，也就是压缩列表来代替HashTable和SkipList\n因为ZipList存在连锁更新问题，因此在Redis 7.0以后，ZipList又被替换为Listpack（紧凑列表） redis内存淘汰策略有哪些？（至少3个）\n基于LRU，最近最少使用 基于LFU 基于随机 无淘汰策略 Redis主从集群 搭建主从集群 单节点Redis的并发能力是有上限的，要进一步提高Redis的并发能力，就需要搭建主从集群，实现读写分离 准备容器 虽然我们创建了3个Redis实例，但是它们没有形成主从关系。我们需要通过命令来配置主从关系 建立集群 # Redis5.0以前 slaveof \u003cmasterip\u003e # Redis5.0以后 replicaof \u003cmasterip\u003e 有临时和永久两种模式 永久生效：在redis.conf文件中利用slaveof命令指定master节点 临时生效：直接利用redis-cli控制台输入slaveof命令指定master节点 测试临时模式 # 连接r2 docker exec -it r2 redis-cli -p 7002 # 认r1主，也就是7001 slaveof 127.0.0.1 7001 # 连接r3 docker exec -it r3 redis-cli -p 7003 # 认r1主，也就是7001 slaveof 127.0.0.1 7001 # 连接r1 docker exec -it r1 redis-cli -p 7001 # 查看集群状态 info replication 测试 依次在r1、r2、r3节点上执行下面命令 set num 123 get num 发现只在主节点r1上可以执行set命令，从节点只能执行get命令 主从同步原理 当主从第一次同步连接或断开重连，从节点都会发送psync请求，尝试数据同步 master如何判断slave是否是第一次同步数据？这里有两个概念\nReplication Id：简称replid，是数据集的标记，id一致则说明是同一数据集。每一个master都有唯一的replid，slave则会继承master节点的replid offset：偏移量，随着记录在repl_baklog中的数据增多而逐渐增大。slave完成同步时也会记录当前同步的offset。如果slave的offset小于master的offset，说明slave数据落后于master，需要更新 因此slave做数据同步，必须向master声明自己的replication id和offset，master才可以判断到底需要同步哪些数据\n信息\nrepl_baklog大小有上限，写满后会覆盖最早的数据。如果slave断开时间过久，导致尚未备份的数据被覆盖，则无法基于log做增量同步，只能再次全量同步\n主从同步优化 可以从以下几个方面来优化Redis主从集群：\n在master中配置repl-diskless-sync yes启用无磁盘复制，避免全量同步时的磁盘IO。 直接通过内存同步数据（socket） Redis单节点上的内存占用不要太大，减少RDB导致的过多磁盘IO。 RDB持久化时fork和磁盘IO开销大 适当提高repl_baklog的大小，发现slave宕机时尽快实现故障恢复，尽可能避免全量同步 减小 从节点断线后baklog中的数据被覆盖 的概率 -\u003e 减少全量同步概率 限制一个master上的slave节点数量，如果实在太多slave，则可以采用主-从-从链式结构，减少master压力 减少网络压力和复制压力 哨兵原理 Redis提供了哨兵（Sentinel）机制来实现主从集群的自动故障恢复。哨兵的结构和作用如下： 监控：Sentinel会不断检查您的master和slave是否按预期工作 自动故障恢复：如果master故障，Sentinel会将一个slave提升为master。当故障实例恢复后也以新的master为主 通知：Sentinel充当Redis客户端的服务发现来源，当集群发生故障转移时，会将最新信息推送给Redis的客户端 服务状态监控 Sentinel基于心跳机制监测服务状态，每隔1秒向集群的每个实例发送ping命令\n主观下线：如果某sentinel节点发现某实例未在规定时间响应，则认为该实例主观下线 客观下线：若超过指定数量（quorum）的sentinel都认为该实例主观下线，则该实例客观下线。quorum值最好超过Sentinel实例数量的一半 选举leader Sentinel集群要选出一个执行failover的Sentinel节点，可以成为leader。要成为leader要满足两个条件：\n最先获得超过半数的投票 获得的投票数不小于quorum值 而sentinel投票的原理有两条\n优先投票给得票最多的 如果目前没有任何节点得票。就投给自己。 不难看出，最后的结果是：第一个确认master客观下线的人会立刻发起投票，一定会成为leader\nsentinel找到leader之后，需要完成failover来进行故障转移\nfailover 一旦发现master故障，sentinel需要在slave中选择一个作为新的master，选择依据是这样的：\n首先会判断slave节点于master节点断开时间长短，如果超过指定值（down-after-millisecond*10），则会排除该slave节点 然后判断slave节点的slave-prority值，越小优先级越高，如果是0则永不参与选举 如果slave-prority一样，则判断slave节点的offset值，越大说明数据越新，优先级越高 最后判断slave节点的运行id大小 故障转移 当选中一个新的master之后，故障转移的步骤如下 sentinel给备选的slave1节点发送slaveof no one命令，让该节点成为master sentinel给其他所有slave发送slaveof 192.168.150.101 7002命令，让这些slave成为新master的从节点，开始从新的master上同步数据 最后，sentinel将故障节点标记为slave，当故障节点恢复后会自动成为新的master的slave节点 搭建哨兵集群 sentinel.conf sentinel announce-ip \"192.168.150.101\" sentinel monitor hmaster 192.168.150.101 7001 2 sentinel down-after-milliseconds hmaster 5000 sentinel failover-timeout hmaster 60000 说明： sentinel announce-ip \"192.168.150.101\"：声明当前sentinel的ip sentinel monitor hmaster 192.168.150.101 7001 2：指定集群的主节点信息 hmaster：主节点名称。自定义。 192.169.150.101 7001：主节点的ip和端口 2：认定master下线的quorum值 sentinel down-after-milliseconds hmaster 5000：声明master节点超时多久后被标记下线 sentinel failover-timeout hmaster 60000：在第一次故障转移失败后多久再次重试 在wsl中创建s1、s2、s3并放入sentinel.conf\n再修改docker-compose.yaml\nversion: \"3.2\" services: r1: image: redis container_name: r1 network_mode: \"host\" entrypoint: [\"redis-server\", \"--port\", \"7001\"] r2: image: redis container_name: r2 network_mode: \"host\" entrypoint: [\"redis-server\", \"--port\", \"7002\", \"--slaveof\", \"192.168.150.101\", \"7001\"] r3: image: redis container_name: r3 network_mode: \"host\" entrypoint: [\"redis-server\", \"--port\", \"7003\", \"--slaveof\", \"192.168.150.101\", \"7001\"] s1: image: redis container_name: s1 volumes: - /root/redis/s1:/etc/redis network_mode: \"host\" entrypoint: [\"redis-sentinel\", \"/etc/redis/sentinel.conf\", \"--port\", \"27001\"] s2: image: redis container_name: s2 volumes: - /root/redis/s2:/etc/redis network_mode: \"host\" entrypoint: [\"redis-sentinel\", \"/etc/redis/sentinel.conf\", \"--port\", \"27002\"] s3: image: redis container_name: s3 volumes: - /root/redis/s3:/etc/redis network_mode: \"host\" entrypoint: [\"redis-sentinel\", \"/etc/redis/sentinel.conf\", \"--port\", \"27003\"] 运行命令，启动集群\ndocker compose up -d Redis分片集群 主从和哨兵可以解决高可用、高并发读的问题。但是依然有两个问题没有解决\n海量数据存储问题 高并发写的问题 使用分片集群可以解决上述问题，分片集群特征：\n集群中有多个master，每个master保存不同数据 每个master都可以有多个slave节点 master之间通过ping监测彼此健康状态 客户端请求可以访问集群任意节点，最终都会被转发到数据所在节点 搭建分片集群 集群配置 分片集群中的Redis节点必须开启集群模式，一般在配置文件中添加下面参数 port 7000 cluster-enabled yes cluster-config-file nodes.conf cluster-node-timeout 5000 appendonly yes cluster-enabled：是否开启集群模式 cluster-config-file：集群模式的配置文件名称。无需手动创建，由集群自动维护 cluster-node-timeout：集群中节点之间心跳超时时间 一般搭建部署集群需要给每个节点都配置上述参数\n不过也可以用docker-compose部署，因此可以直接在启动命令中指定参数\ndocker-compose.yaml version: \"3.2\" services: r1: image: redis container_name: r1 network_mode: \"host\" entrypoint: [\"redis-server\", \"--port\", \"7001\", \"--cluster-enabled\", \"yes\", \"--cluster-config-file\", \"node.conf\"] r2: image: redis container_name: r2 network_mode: \"host\" entrypoint: [\"redis-server\", \"--port\", \"7002\", \"--cluster-enabled\", \"yes\", \"--cluster-config-file\", \"node.conf\"] r3: image: redis container_name: r3 network_mode: \"host\" entrypoint: [\"redis-server\", \"--port\", \"7003\", \"--cluster-enabled\", \"yes\", \"--cluster-config-file\", \"node.conf\"] r4: image: redis container_name: r4 network_mode: \"host\" entrypoint: [\"redis-server\", \"--port\", \"7004\", \"--cluster-enabled\", \"yes\", \"--cluster-config-file\", \"node.conf\"] r5: image: redis container_name: r5 network_mode: \"host\" entrypoint: [\"redis-server\", \"--port\", \"7005\", \"--cluster-enabled\", \"yes\", \"--cluster-config-file\", \"node.conf\"] r6: image: redis container_name: r6 network_mode: \"host\" entrypoint: [\"redis-server\", \"--port\", \"7006\", \"--cluster-enabled\", \"yes\", \"--cluster-config-file\", \"node.conf\"] 信息\n注意：使用Docker部署Redis集群，network模式必须采用host\n启动集群 进入/root/redis-cluster目录，使用命令启动redis： docker compose up -d 目前redis节点都以cluster模式运行。不过节点之间还没有建立连接。\n使用命令创建集群 # 进入任意节点容器 docker exec -it r1 bash # 然后，执行命令 redis-cli --cluster create --cluster-replicas 1 \\ 192.168.150.101:7001 192.168.150.101:7002 192.168.150.101:7003 \\ 192.168.150.101:7004 192.168.150.101:7005 192.168.150.101:7006 说明： redis-cli --cluster：集群操作命令 create：创建集群 --cluster-replicas 1：指定集群中每个master的副本个数为1 此时节点总数 ÷ (replicas + 1)得到的就是master的数量n\n因此节点列表中的前n个节点就是master，其他节点都是slave节点，随机分配到不同的master 散列插槽 数据要分片存储到不同的Redis节点，需要有分片的依据，这样下次查询的时候才能知道去哪个节点查询。很多数据分片都会采用一致性hash算法。而Redis则是利用散列插槽（hash slot）的方式实现数据分片。\n(官方文档)[https://redis.io/tutorials/operate/redis-at-scale/scalability/]\n在Redis集群中，共有16384个hash slots，集群中的每一个master节点都会分配一定数量的hash slots。具体的分配在集群创建时就已经指定了\n当我们读写数据时，Redis基于CRC16算法对key做hash运算，得到的结果与16384取余，就计算出了这个key的slot值。然后到slot所在的Redis节点执行读写操作。\nredis在计算key的hash值是不一定根据整个key计算，分两种情况\n当key中包含{}时，根据{}之间的字符串计算hash slot 当key中不包含{}时，根据整个key字符串计算hash slot 故障转移 分片集群的节点之间会互相通过ping的方式做心跳检测，超时未回应的节点会被标记为下线状态。当发现master下线时，会将这个master的某个slave提升为master。\nJava客户端连接分片集群 RedisTemplate底层同样基于lettuce实现了分片集群的支持，而使用的步骤与哨兵模式基本一致：\n引入redis的starter依赖 配置分片集群地址 配置读写分离 与哨兵模式相比，其中只有分片集群的配置方式略有差异，如下：\nspring: redis: cluster: nodes: - 192.168.150.101:7001 - 192.168.150.101:7002 - 192.168.150.101:7003 - 192.168.150.101:8001 - 192.168.150.101:8002 - 192.168.150.101:8003 Redis数据结构 我们常用的Redis数据类型有5种，分别是：\nString List Set SortedSet Hash 还有一些高级数据类型，比如Bitmap、HyperLogLog、GEO等，其底层都是基于上述5种基本数据类型。因此在Redis的源码中，其实只有5种数据类型\nRedisObject Redis中的任意数据类型的键和值都会被封装为一个RedisObject，也叫做Redis对象，源码如下 可以看到整个结构体中并不包含真实的数据，仅仅是对象头信息，内存占用的大小为4+4+24+32+64 = 128bit\n也就是16字节，然后指针ptr指针指向的才是真实数据存储的内存地址。所以RedisObject的内存开销是很大的。\nRedis的编码方式 Redis中会根据存储的数据类型不同，选择不同的编码方式，共包含12种不同类型：\n编号\r编码方式\r说明\r0\rOBJ_ENCODING_RAW\rraw编码动态字符串\r1\rOBJ_ENCODING_INT\rlong类型的整数的字符串\r2\rOBJ_ENCODING_HT\rhash表（字典dict）\r3\rOBJ_ENCODING_ZIPMAP\r已废弃\r4\rOBJ_ENCODING_LINKEDLIST\r双端链表\r5\rOBJ_ENCODING_ZIPLIST\r压缩列表\r6\rOBJ_ENCODING_INTSET\r整数集合\r7\rOBJ_ENCODING_SKIPLIST\r跳表\r8\rOBJ_ENCODING_EMBSTR\rembstr的动态字符串\r9\rOBJ_ENCODING_QUICKLIST\r快速列表\r10\rOBJ_ENCODING_STREAM\rStream流\r11\rOBJ_ENCODING_LISTPACK\r紧凑列表\r五种常见数据结构 Redis中的5种不同的数据类型采用的底层数据结构和编码方式如下：\n数据类型\r编码方式\rSTRING\rint、embstr、raw\rLIST\rLinkedList和ZipList(3.2以前)、QuickList（3.2以后）\rSET\rintset、HT\rZSET\rZipList（7.0以前）、Listpack（7.0以后）、HT、SkipList\rHASH\rZipList（7.0以前）、Listpack（7.0以后）、HT\rSkipList SkipList（跳表）首先是链表，但与传统链表相比有几点差异：\n元素按照升序排列存储 节点可能包括多层指针，指针跨度不同，层数是1~32之间的随机数 层级越高，跨度越大 SortedSet SortedSet数据结构的特点是：\n每组数据都包含score和member member唯一 可根据score排序 Redis内存回收 Redis之所以性能强，最主要的原因就是基于内存存储。然而单节点的Redis其内存大小不宜过大，会影响持久化或主从同步性能。\n我们可以通过修改redis.conf文件，添加下面的配置来配置Redis的最大内存：\nmaxmemory 1gb 当内存达到上限，就无法存储更多数据了。因此，Redis内部会有两套内存回收的策略：\n内存过期策略 内存淘汰策略 过期KEY处理 在学习Redis缓存的时候，我们可以通过expire命令给Redis的key设置TTL（存活时间） 可以发现，当key的TTL到期以后，再次访问name返回的是nil，说明这个key已经不存在了，对应的内存也得到了释放。从而起到内存回收的目的。\nRedis的本身是键值型数据库，所有数据都存在一个redisDB的结构体中，其中包含两个哈希表： dict：保存Redis中所有的键值对 expires：保存Redis中所有设置了过期时间的KEY及其TTL值 Redis并不会实时监测key的过期时间，在key过期后立刻删除。而是采用两种延迟删除的策略：\n惰性删除：当有命令需要操作一个key时，检查该key的存货时间，如果已经过期才执行删除 周期删除：通过一个定时任务，周期性的抽样部分有TTL的key，如果过期则执行删除 周期删除的定时任务执行周期有两种：\nSLOW模式：默认执行频率为每秒10次，但每次执行时长不能超过25ms，受server.hz参数影响 FAST模式：频率不固定，跟随Redis内部IO事件循环执行。两次任务之间间隔不低于2ms，执行时长不超过1ms。 内存淘汰策略 内存淘汰：就是当Redis内存使用达到设置的阈值时，Redis主动挑选部分key删除以释放更多内存的流程，Redis会在处理客户端命令时都会对内存使用情况做判断，如果必要则执行内存淘汰。内存淘汰的策略有：\nnoeviction：不淘汰任何key，但是内存满时不允许写入新数据，默认就是这种策略。 volatile-ttl：对设置了TTL的key，比较key剩余TTL值，TTL越小越先被淘汰。 allkeys-random：对全体key，随机进行淘汰。也就是直接从db→dict中随机挑选。 volatile-random：对设置了TTL的key，随机进行淘汰。也就是从db→expires中随机淘汰。 allkeys-lru：对全体key，基于LRU算法进行淘汰 volatile-lru：对设置了TTL的key，基于LRU算法进行淘汰 allkeys-lfu：对全体key，基于LFU算法进行淘汰 volatile-lfu：对设置了TTL的key，基于LFU算法进行淘汰 比较容易混淆的两个：\nLRU（Least Recently Used）最近最少使用。用当前时间减去最后一次访问时间，这个值越大则淘汰优先级越高 以秒为单位记录最近一次访问时间，长度24bit LFU（Least Frequently Used）最少频率使用。会统计每个key的访问频率，值越小淘汰优先级越高 高16位以分钟为单位记录最近一次访问时间，低8位记录逻辑访问次数 逻辑访问次数 8位的无符号数最大是255，访问次数超过255怎么办？\nRedis的逻辑访问次数算法，并不是每次key被访问都计数，而是通过运算：\n生成[0,1)之间的随机数R 计算1/（旧次数*lfu_log_factor + 1），记录为P，lfu_log_factor默认为10 如果R \u003c P，则计数器 +1，且最大不超过255 访问次数会随时间衰减，距离上一次访问时间每隔luf_decay_time分钟（默认1），计数器-1 官方更推荐使用LFU算法 Redis缓存 缓存一致性 内存淘汰\r超时剔除\r主动更新\r说明\r不用自己维护，利用Redis的内存淘汰机制，当内存不足时自动淘汰部分数据。下次查询时更新缓存\r给缓存数据添加TTL时间，到期后自动删除缓存。下次查询时更新缓存。\r编写业务逻辑，在修改数据库的同时，更新缓存\r一致性\r差\r一般\r好\r维护成本\r无\r低\r高\r业务场景：\n低一致性需求：使用内存淘汰机制。例如商品分类、菜品分类等 高一致性需求：主动更新，并以超时提出作为兜底方案。例如商品、菜品查询的缓存 主动更新策略 操作缓存和数据库时有三个问题需要考虑：\n删除缓存还是更新缓存？ 更新缓存：每次更新数据库都更新缓存，无效写操作较多 ❌ 删除缓存：更新数据库时让缓存失效，查询时再更新缓存 ✅ 如何保证缓存操作与数据库操作的同时成功或失败？ 单体系统，将缓存与数据库操作放在一个事务 分布式系统，利用TCC或消息通知等最终一致性方案 缓存设置过期时间，作为兜底方案 先操作缓存还是先操作数据库？ 先删除缓存，再操作数据库 ❌ 先操作数据库，再删除缓存 ✅ 缓存穿透 缓存穿透是指客户端请求的数据在缓存中和数据库中都不存在，这样缓存永远不会生效，这些请求都会打到数据库。\n常见的解决方案有两种： 缓存空对象 优点：实现简单，维护方便 缺点： 额外的内存消耗 可能造成短期的不一致 布隆过滤 优点：内存占用较少，没有多余key 缺点： 实现复杂 存在误判可能 布隆过滤器 布隆过滤器是一种数据统计的算法，用于检索一个元素是否存在一个集合中。但是布隆过滤器无需存储元素到集合，而是把元素映射到一个很长的二进制数位上。\n首先需要一个很长很长的二进制数，默认每一位都是0。 然后需要N个不同算法的哈希函数 将集合中的元素根据N个哈希函数做运算，得到N个数字。然后将每个数字对应的bit位标记为1 要判断某个元素是否存在，只需要把元素按照上述方式运算，判断对应的bit位是否是1即可 缓存雪崩 缓存雪崩是指在同一时段大量的缓存key同时失效或者Redis服务宕机，导致大量请求到达数据库，带来巨大压力 解决方案：\n给不同key的TTL添加随机值 利用Redis集群提高服务的可用性 给缓存业务添加降级限流策略 给业务添加多级缓存 缓存击穿 缓存击穿问题也叫热点Key问题，就是一个高并发访问并且缓存重建业务较复杂的key突然失效了，无数的请求访问会在瞬间给数据库带来巨大的冲击。 常见的解决方案有两种：\n分布式锁（互斥锁的一种） 逻辑过期 KEY\rVALUE\rheima:user:1\r{name:“Jack”,age:21,expire:152141223}\r解决方案\r优点\r缺点\r互斥锁\r没有额外的内存消耗\n保证一致性\n实现简单\r线程需要等待，性能受影响\n可能有死锁风险\r逻辑过期\r线程无需等待，性能较好\r不保证一致性\n有额外内存消耗\n实现复杂\r",
+  "wordCount" : "10203",
+  "inLanguage": "zh",
+  "datePublished": "2026-03-11T18:41:39+08:00",
+  "dateModified": "2026-03-13T16:48:35+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Lucian Chao"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.steamedfish.top/post/interview/redis/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SteamedFish's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.steamedfish.top/favicon.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body data-barba="wrapper" class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://www.steamedfish.top/" accesskey="h" title="SteamedFish&#39;s Blog (Alt + H)">SteamedFish&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                    <ul class="lang-switch"><li>|</li>
+                        <li>
+                            <a href="https://www.steamedfish.top/en/" title="English"
+                                aria-label="English">En</a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://www.steamedfish.top/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    <main class="main" data-barba="container" data-barba-namespace="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      【面试八股】Redis
+    </h1>
+    <div class="post-meta">
+
+
+
+
+
+
+<span title='2026-03-11 18:41:39 +0800 +0800'>2026-03-11</span>&nbsp;·&nbsp;<span title='2026-03-13 16:48:35 +0800 +0800'>(最后修改于 2026-03-13)</span>&nbsp;·&nbsp;<span>21 分钟</span>&nbsp;·&nbsp;<span>Lucian Chao</span>&nbsp;|&nbsp;<span>
+    <a href="https://github.com/LucianChao/Hugo_Blog/tree/main/content/post/interview/redis/index.md" rel="noopener noreferrer edit" target="_blank">编辑此文章</a>
+</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e9%9d%a2%e8%af%95%e9%a2%98%e6%b1%87%e6%80%bb" aria-label="面试题汇总">面试题汇总</a></li>
+                <li>
+                    <a href="#redis%e4%b8%bb%e4%bb%8e%e9%9b%86%e7%be%a4" aria-label="Redis主从集群">Redis主从集群</a><ul>
+                        
+                <li>
+                    <a href="#%e6%90%ad%e5%bb%ba%e4%b8%bb%e4%bb%8e%e9%9b%86%e7%be%a4" aria-label="搭建主从集群">搭建主从集群</a></li>
+                <li>
+                    <a href="#%e4%b8%bb%e4%bb%8e%e5%90%8c%e6%ad%a5%e5%8e%9f%e7%90%86" aria-label="主从同步原理">主从同步原理</a></li>
+                <li>
+                    <a href="#%e4%b8%bb%e4%bb%8e%e5%90%8c%e6%ad%a5%e4%bc%98%e5%8c%96" aria-label="主从同步优化">主从同步优化</a></li>
+                <li>
+                    <a href="#%e5%93%a8%e5%85%b5%e5%8e%9f%e7%90%86" aria-label="哨兵原理">哨兵原理</a></li>
+                <li>
+                    <a href="#%e6%9c%8d%e5%8a%a1%e7%8a%b6%e6%80%81%e7%9b%91%e6%8e%a7" aria-label="服务状态监控">服务状态监控</a></li>
+                <li>
+                    <a href="#%e9%80%89%e4%b8%beleader" aria-label="选举leader">选举leader</a></li>
+                <li>
+                    <a href="#failover" aria-label="failover">failover</a></li>
+                <li>
+                    <a href="#%e6%95%85%e9%9a%9c%e8%bd%ac%e7%a7%bb" aria-label="故障转移">故障转移</a></li>
+                <li>
+                    <a href="#%e6%90%ad%e5%bb%ba%e5%93%a8%e5%85%b5%e9%9b%86%e7%be%a4" aria-label="搭建哨兵集群">搭建哨兵集群</a></li></ul>
+                </li>
+                <li>
+                    <a href="#redis%e5%88%86%e7%89%87%e9%9b%86%e7%be%a4" aria-label="Redis分片集群">Redis分片集群</a><ul>
+                        
+                <li>
+                    <a href="#%e6%90%ad%e5%bb%ba%e5%88%86%e7%89%87%e9%9b%86%e7%be%a4" aria-label="搭建分片集群">搭建分片集群</a></li>
+                <li>
+                    <a href="#%e6%95%a3%e5%88%97%e6%8f%92%e6%a7%bd" aria-label="散列插槽">散列插槽</a></li>
+                <li>
+                    <a href="#%e6%95%85%e9%9a%9c%e8%bd%ac%e7%a7%bb-1" aria-label="故障转移">故障转移</a></li>
+                <li>
+                    <a href="#java%e5%ae%a2%e6%88%b7%e7%ab%af%e8%bf%9e%e6%8e%a5%e5%88%86%e7%89%87%e9%9b%86%e7%be%a4" aria-label="Java客户端连接分片集群">Java客户端连接分片集群</a></li></ul>
+                </li>
+                <li>
+                    <a href="#redis%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" aria-label="Redis数据结构">Redis数据结构</a><ul>
+                        
+                <li>
+                    <a href="#redisobject" aria-label="RedisObject">RedisObject</a><ul>
+                        
+                <li>
+                    <a href="#redis%e7%9a%84%e7%bc%96%e7%a0%81%e6%96%b9%e5%bc%8f" aria-label="Redis的编码方式">Redis的编码方式</a></li>
+                <li>
+                    <a href="#%e4%ba%94%e7%a7%8d%e5%b8%b8%e8%a7%81%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" aria-label="五种常见数据结构">五种常见数据结构</a></li></ul>
+                </li>
+                <li>
+                    <a href="#skiplist" aria-label="SkipList">SkipList</a></li>
+                <li>
+                    <a href="#sortedset" aria-label="SortedSet">SortedSet</a></li></ul>
+                </li>
+                <li>
+                    <a href="#redis%e5%86%85%e5%ad%98%e5%9b%9e%e6%94%b6" aria-label="Redis内存回收">Redis内存回收</a><ul>
+                        
+                <li>
+                    <a href="#%e8%bf%87%e6%9c%9fkey%e5%a4%84%e7%90%86" aria-label="过期KEY处理">过期KEY处理</a></li>
+                <li>
+                    <a href="#%e5%86%85%e5%ad%98%e6%b7%98%e6%b1%b0%e7%ad%96%e7%95%a5" aria-label="内存淘汰策略">内存淘汰策略</a><ul>
+                        
+                <li>
+                    <a href="#%e9%80%bb%e8%be%91%e8%ae%bf%e9%97%ae%e6%ac%a1%e6%95%b0" aria-label="逻辑访问次数">逻辑访问次数</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%ae%98%e6%96%b9%e6%9b%b4%e6%8e%a8%e8%8d%90%e4%bd%bf%e7%94%a8lfu%e7%ae%97%e6%b3%95" aria-label="官方更推荐使用LFU算法">官方更推荐使用LFU算法</a></li>
+                <li>
+                    <a href="#redis%e7%bc%93%e5%ad%98" aria-label="Redis缓存">Redis缓存</a><ul>
+                        
+                <li>
+                    <a href="#%e7%bc%93%e5%ad%98%e4%b8%80%e8%87%b4%e6%80%a7" aria-label="缓存一致性">缓存一致性</a><ul>
+                        
+                <li>
+                    <a href="#%e4%b8%bb%e5%8a%a8%e6%9b%b4%e6%96%b0%e7%ad%96%e7%95%a5" aria-label="主动更新策略">主动更新策略</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e7%bc%93%e5%ad%98%e7%a9%bf%e9%80%8f" aria-label="缓存穿透">缓存穿透</a><ul>
+                        
+                <li>
+                    <a href="#%e5%b8%83%e9%9a%86%e8%bf%87%e6%bb%a4%e5%99%a8" aria-label="布隆过滤器">布隆过滤器</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e7%bc%93%e5%ad%98%e9%9b%aa%e5%b4%a9" aria-label="缓存雪崩">缓存雪崩</a></li>
+                <li>
+                    <a href="#%e7%bc%93%e5%ad%98%e5%87%bb%e7%a9%bf" aria-label="缓存击穿">缓存击穿</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="面试题汇总">面试题汇总<a hidden class="anchor" aria-hidden="true" href="#面试题汇总">#</a></h2>
+<ol>
+<li>
+<p>如何保证缓存的双写一致性？</p>
+<ul>
+<li>缓存的双写一致性很难保证强一致，只能尽可能降低不一致的概率，确保最终一致。我们项目中采用的是<code>Cache Aside</code>模式。简单来说就是在<strong>更新数据库之后删除缓存</strong>；在查询时先查询缓存，如果未命中则查询数据库并写入缓存。同时我们会给缓存设置过期时间作为兜底方案。如果真的出现了不一致的情况，也可以通过缓存过期来保证最终一致。</li>
+<li>为什么不采用延迟双删机制？
+<ul>
+<li>延迟双删的第一次删除并没有实际意义，第二次采用删除删除主要是解决数据库主从同步的延迟问题，我认为这是数据库主从的一致性问题，与缓存同步无关。既然主节点数据已经更新，Redis的缓存也应该更新。而且延迟双删会增加缓存业务的复杂度，也没能完全避免缓存一致性问题（延时时间的不确定性）。</li>
+</ul>
+<blockquote>
+<p>延迟双删：</p>
+<ol>
+<li>删除缓存：首先执行删除缓存的操作</li>
+<li>更新数据库：然后执行更新数据库的操作</li>
+<li>延时等待：在删除缓存之后，等待一段时间，避免更新数据库期间的脏数据被写入到缓存，这个时间可以根据业务读取平均耗时来设置</li>
+<li>再次删除缓存：等待时间结束后，再次执行删除缓存的操作</li>
+</ol>
+</blockquote>
+<ul>
+<li>为什么不先删除缓存再更新数据库？
+<ul>
+<li>因为删除缓存到数据库更新完成之间存在一个时间窗口，其他线程可能会读取旧数据并重新写入缓存，从而导致长期不一致。
+<ul>
+<li>误区：<code>Cache Aside</code>模式写操作不会主动更新缓存，读操作没有命中缓存才会写入缓存，这是一个懒加载</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>描述一下redis的雪崩问题，如何解决？</p>
+<ul>
+<li>缓存雪崩的常见原因有两个，第一是因为大量的key同时过时。针对这个问题我们可以给缓存key设置不同的TTL值（随机），避免key同时过期。<br>
+第二个原因是Redis宕机导致缓存不可用。针对这个问题我们可以用集群提高Redis的可用性。也可以添加多级缓存，当Redis宕机时还有本地缓存的可用。</li>
+</ul>
+</li>
+<li>
+<p>描述一下redis的穿透问题，如何解决？</p>
+<ul>
+<li>缓存穿透也可以说是穿透攻击，具体来说就是因为请求<strong>访问到了数据库不存在的值</strong>，这样缓存无法命中，必然访问数据库。如果高并发的访问这样的接口，会给数据库带来巨大压力。<br>
+我们项目中是基于布隆过滤器来解决缓存穿透问题的，当缓存未命中时，基于布隆过滤器判断数据是否存在。如果不存在则不去访问数据库。<br>
+当然也可以缓存空值来解决，不过这种方案比较浪费内存</li>
+<li>用户请求的数据在缓存中和数据库都不存在，不断发出请求，给数据库带来巨大压力</li>
+<li>解决方案
+<ul>
+<li>缓存<code>null</code>值</li>
+<li>布隆过滤</li>
+<li>做好数据的基础格式校验</li>
+<li>加强用户权限校验</li>
+<li>做好热点参数的限流
+<ul>
+<li>对某个访问频率异常高的参数值进行单独限流，防止缓存穿透请求持续冲击数据库</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>生产环境中的组合方案（请求→参数校验→布隆过滤器→Redis缓存→热点参数限流→数据库）</li>
+</ul>
+</li>
+<li>
+<p>描述一下redis的击穿问题，如何解决？</p>
+<ul>
+<li>缓存击穿往往是热点Key引起的，当<strong>热点Key过期</strong>时，大量请求涌入同时查询，发现缓存未命中都会去访问数据库，导致数据库压力激增。<br>
+解决这个问题的主要思路就是避免多线程并发去重建缓存。因此方案有两种。<br>
+第一种是基于互斥锁，当发现缓存未命中时需要先获取互斥锁，再重建缓存，缓存重建完成释放锁。这样就可用保证缓存重建同一时刻只有一个线程执行。不过这种做法会导致缓存重建时的性能严重下降。<br>
+第二种是基于逻辑过期，也就是不给热点Key设置过期时间而是给数据添加一个过期时间的字段。这样热点Key就不会过期，缓存中永远有数据。<br>
+查询到数据时基于其中的过期时间判断key是否过期，如果过期开启新线程异步重建缓存，而查询请求先返回旧数据即可。当然这个过程也要加互斥锁，但由于重建缓存是异步的。而且获取锁失败也无需等待，而是返回旧数据，这样性能几乎不受影响。<br>
+无论采用哪种方式，在获取互斥锁后一定要再次判断缓存是否命中，做double check，因为当你获取锁成功时，可能在你之前有其他线程已经重建缓存了。</li>
+</ul>
+</li>
+<li>
+<p>Redis常见的数据类型有哪些？</p>
+<ul>
+<li><code>String</code>、<code>Hash</code>、<code>List</code>、<code>Set</code>、<code>ZSet</code></li>
+</ul>
+</li>
+<li>
+<p>Redis分布式锁是如何实现的？</p>
+<ul>
+<li><code>SET NX PX</code>：原子操作，保证同一时刻只有一个客户端获取锁
+<ul>
+<li><code>Set key value NX</code>：<code>set if not exists</code>，当<code>key</code>不存在时设置<code>key-value</code>返回<code>1</code>，已存在则不操作，返回<code>0</code>。这条命令把<strong>判断key是否存在</strong>和<strong>设置key</strong>两个操作合并为了一个原子操作。</li>
+<li><code>PX xxx</code>：过期时间</li>
+<li><code>value</code>：唯一标识（通常是UUID），确保锁被正确释放</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Redis分片集群与主从集群的区别</p>
+<ul>
+<li>分片集群用于突破单机内存限制，实现水平扩展，每个节点只存一部分数据；主从集群用于高可用和读写分离，每个节点保存完整数据副本。分片解决容量问题，主从解决可用性和读性能问题。</li>
+</ul>
+</li>
+<li>
+<p>Reids的主从集群、哨兵集群模式分别解决什么问题？</p>
+<ul>
+<li>主从集群主要解决读写分离和数据冗余问题，提高读性能和数据安全性；哨兵集群是在主从基础上解决高可用问题，通过监控和自动故障转移保证主节点宕机时服务不中断。</li>
+</ul>
+</li>
+<li>
+<p>Redis的单线程还是多线程？如果都是的话，怎么理解？</p>
+<ul>
+<li>Redis 核心数据操作是单线程的，利用事件循环和 IO 多路复用保证命令原子性和高性能。但从 Redis 6 开始，网络 I/O、持久化等操作可以多线程执行，用来提升吞吐量，因此可以说 Redis 既是单线程又是多线程，需要区分核心操作和后台任务。</li>
+</ul>
+</li>
+<li>
+<p>Redis有哪些持久化方式？怎么配置？</p>
+<ul>
+<li>Redis 支持 RDB（快照）、AOF（操作日志）和混合持久化。RDB 性能高，适合备份；AOF 数据安全性高，支持重放；混合模式兼顾启动速度和数据安全。可以通过 redis.conf 配置快照策略、AOF 同步方式和文件路径。</li>
+</ul>
+</li>
+<li>
+<p>redis中怎么解决分片集群中的数据倾斜问题？</p>
+<ul>
+<li>Redis 分片集群的数据倾斜是指某些节点数据或请求过多，形成热点。解决方法有四点：
+<ul>
+<li>一是保证 hash slot 均匀分布，必要时迁移 slot；</li>
+<li>二是用哈希标签合理分组 key，避免热点集中；</li>
+<li>三是对热点 key 做拆分、复制或本地/多级缓存，分流请求压力；</li>
+<li>四是监控节点负载，动态迁移热点 slot 或增加节点。</li>
+<li>核心思想就是 均衡存储 + 分流请求 + 热点拆分 + 动态调节。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Redis的<code>SortedSet</code>的底层数据结构是怎样的？</p>
+<ul>
+<li>SortedSet是有序集合，底层存储的每个数据都包含<code>element</code>和<code>score</code>两个值。<code>score</code>是得分，<code>element</code>是字符串。<code>SortedSet</code>会根据每个<code>element</code>的<code>score</code>值排序，形成有序集合。</li>
+</ul>
+<p>它支持很多操作，比如：</p>
+<ul>
+<li>根据<code>element</code>查询<code>score</code>值</li>
+<li>按照<code>score</code>值升序或降序查询<code>element</code></li>
+</ul>
+<p>要实现根据<code>element</code>查询对应的<code>score</code>值，就必须实现<code>element</code>与<code>score</code>之间的键值映射。<code>SortedSet</code>底层是基于<code>HashTable</code>来实现的。<br>
+要实现对<code>score</code>值排序，并且查询效率还高，就需要有一种高效的有序数据结构。<code>SortedSet</code>是基于跳表实现的。</p>
+<ul>
+<li>因为<code>SortedSet</code>底层需要用到两种数据结构，对内存占用比较高。因此<code>Redis</code>底层会对<code>SortedSet</code>中的元素大小做判断。如果<strong>元素大小小于128</strong>，并且<strong>每个元素都小于64字节</strong>，<code>SortedSet</code>底层会采用<code>ZipList</code>，也就是<strong>压缩列表</strong>来代替<code>HashTable</code>和<code>SkipList</code><br>
+因为<code>ZipList</code>存在连锁更新问题，因此在<code>Redis 7.0</code>以后，<code>ZipList</code>又被替换为<code>Listpack</code>（紧凑列表）</li>
+</ul>
+</li>
+<li>
+<p>redis内存淘汰策略有哪些？（至少3个）</p>
+<ul>
+<li>基于LRU，最近最少使用</li>
+<li>基于LFU</li>
+<li>基于随机</li>
+<li>无淘汰策略</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="redis主从集群">Redis主从集群<a hidden class="anchor" aria-hidden="true" href="#redis主从集群">#</a></h2>
+<h3 id="搭建主从集群">搭建主从集群<a hidden class="anchor" aria-hidden="true" href="#搭建主从集群">#</a></h3>
+<p>单节点Redis的并发能力是有上限的，要进一步提高Redis的并发能力，就需要搭建主从集群，实现读写分离
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/1.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/1.png"
+      srcset="/post/interview/redis/1.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<ol>
+<li>准备容器
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/2.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/2.webp"
+      srcset="/post/interview/redis/2.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+虽然我们创建了3个<code>Redis</code>实例，但是它们没有形成主从关系。我们需要通过命令来配置主从关系</li>
+<li>建立集群
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"># Redis5.0以前
+</span></span><span class="line"><span class="cl">slaveof <span class="p">&lt;</span>masterip<span class="p">&gt;</span> &lt;masterport&gt;
+</span></span><span class="line"><span class="cl"># Redis5.0以后
+</span></span><span class="line"><span class="cl">replicaof <span class="p">&lt;</span>masterip<span class="p">&gt;</span> &lt;masterport&gt;
+</span></span></code></pre></div>有临时和永久两种模式
+<ul>
+<li>永久生效：在<code>redis.conf</code>文件中利用<code>slaveof</code>命令指定<code>master</code>节点</li>
+<li>临时生效：直接利用<code>redis-cli</code>控制台输入<code>slaveof</code>命令指定<code>master</code>节点</li>
+</ul>
+</li>
+<li>测试临时模式
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"># 连接r2
+</span></span><span class="line"><span class="cl">docker exec -it r2 redis-cli -p 7002
+</span></span><span class="line"><span class="cl"># 认r1主，也就是7001
+</span></span><span class="line"><span class="cl">slaveof 127.0.0.1 7001
+</span></span><span class="line"><span class="cl"># 连接r3
+</span></span><span class="line"><span class="cl">docker exec -it r3 redis-cli -p 7003
+</span></span><span class="line"><span class="cl"># 认r1主，也就是7001
+</span></span><span class="line"><span class="cl">slaveof 127.0.0.1 7001
+</span></span><span class="line"><span class="cl"># 连接r1
+</span></span><span class="line"><span class="cl">docker exec -it r1 redis-cli -p 7001
+</span></span><span class="line"><span class="cl"># 查看集群状态
+</span></span><span class="line"><span class="cl">info replication
+</span></span></code></pre></div>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/3.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/3.webp"
+      srcset="/post/interview/redis/3.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>测试
+依次在<code>r1</code>、<code>r2</code>、<code>r3</code>节点上执行下面命令
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">num 123</span>
+</span></span><span class="line"><span class="cl">get num
+</span></span></code></pre></div>发现只在主节点<code>r1</code>上可以执行<code>set</code>命令，从节点只能执行<code>get</code>命令
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/4.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/4.webp"
+      srcset="/post/interview/redis/4.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+</ol>
+<hr>
+<h3 id="主从同步原理">主从同步原理<a hidden class="anchor" aria-hidden="true" href="#主从同步原理">#</a></h3>
+<p>当主从<strong>第一次同步连接</strong>或<strong>断开重连</strong>，从节点都会发送<code>psync</code>请求，尝试数据同步
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/5.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/5.png"
+      srcset="/post/interview/redis/5.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+<code>master</code>如何判断<code>slave</code>是否是第一次同步数据？这里有两个概念</p>
+<ul>
+<li><code>Replication Id</code>：简称<code>replid</code>，是数据集的标记，<code>id</code>一致则说明是同一数据集。每一个<code>master</code>都有唯一的<code>replid</code>，<code>slave</code>则会继承<code>master</code>节点的<code>replid</code></li>
+<li><code>offset</code>：偏移量，随着记录在<code>repl_baklog</code>中的数据增多而逐渐增大。<code>slave</code>完成同步时也会记录当前同步的<code>offset</code>。如果<code>slave</code>的<code>offset</code>小于<code>master</code>的<code>offset</code>，说明<code>slave</code>数据落后于<code>master</code>，需要更新</li>
+</ul>
+<p>因此<code>slave</code>做数据同步，必须向<code>master</code>声明自己的<code>replication id</code>和<code>offset</code>，<code>master</code>才可以判断到底需要同步哪些数据</p>
+<!-- FM:Snippet:Start data:{"id":"st-notice","fields":[]} -->
+<style type="text/css">
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+</style><div class="notice info" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+        </span>信息</p><p><code>repl_baklog</code>大小有上限，写满后会覆盖最早的数据。如果<code>slave</code>断开时间过久，导致尚未备份的数据被覆盖，则无法基于<code>log</code>做增量同步，只能再次全量同步</p></div>
+<!-- FM:Snippet:End -->
+<hr>
+<h3 id="主从同步优化">主从同步优化<a hidden class="anchor" aria-hidden="true" href="#主从同步优化">#</a></h3>
+<p>可以从以下几个方面来优化<code>Redis</code>主从集群：</p>
+<ul>
+<li>在<code>master</code>中配置<code>repl-diskless-sync yes</code>启用无磁盘复制，避免全量同步时的磁盘IO。
+<ul>
+<li>直接通过内存同步数据（socket）</li>
+</ul>
+</li>
+<li><code>Redis</code>单节点上的内存占用不要太大，减少<code>RDB</code>导致的过多磁盘IO。
+<ul>
+<li><code>RDB</code>持久化时<code>fork</code>和磁盘IO开销大</li>
+</ul>
+</li>
+<li>适当提高<code>repl_baklog</code>的大小，发现<code>slave</code>宕机时尽快实现故障恢复，尽可能避免全量同步
+<ul>
+<li>减小 从节点断线后<code>baklog</code>中的数据被覆盖 的概率 <code>-&gt;</code> 减少全量同步概率</li>
+</ul>
+</li>
+<li>限制一个<code>master</code>上的<code>slave</code>节点数量，如果实在太多<code>slave</code>，则可以采用主-从-从链式结构，减少<code>master</code>压力
+<ul>
+<li>减少网络压力和复制压力</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="哨兵原理">哨兵原理<a hidden class="anchor" aria-hidden="true" href="#哨兵原理">#</a></h3>
+<p><code>Redis</code>提供了哨兵（<code>Sentinel</code>）机制来实现主从集群的自动故障恢复。哨兵的结构和作用如下：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/6.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/6.png"
+      srcset="/post/interview/redis/6.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<ul>
+<li>监控：<code>Sentinel</code>会不断检查您的<code>master</code>和<code>slave</code>是否按预期工作</li>
+<li>自动故障恢复：如果<code>master</code>故障，<code>Sentinel</code>会将一个<code>slave</code>提升为<code>master</code>。当故障实例恢复后也以新的<code>master</code>为主</li>
+<li>通知：<code>Sentinel</code>充当<code>Redis</code>客户端的服务发现来源，当集群发生故障转移时，会将最新信息推送给<code>Redis</code>的客户端</li>
+</ul>
+<hr>
+<h3 id="服务状态监控">服务状态监控<a hidden class="anchor" aria-hidden="true" href="#服务状态监控">#</a></h3>
+<p><code>Sentinel</code>基于心跳机制监测服务状态，每隔<code>1</code>秒向集群的每个实例发送<code>ping</code>命令</p>
+<ul>
+<li>主观下线：如果某<code>sentinel</code>节点发现某实例未在规定时间响应，则认为该实例<strong>主观下线</strong></li>
+<li>客观下线：若超过指定数量（<code>quorum</code>）的<code>sentinel</code>都认为该实例主观下线，则该实例<strong>客观下线</strong>。<code>quorum</code>值最好超过<code>Sentinel</code>实例数量的一半</li>
+</ul>
+<hr>
+<h3 id="选举leader">选举leader<a hidden class="anchor" aria-hidden="true" href="#选举leader">#</a></h3>
+<p><code>Sentinel</code>集群要选出一个执行<code>failover</code>的<code>Sentinel</code>节点，可以成为<code>leader</code>。要成为<code>leader</code>要满足两个条件：</p>
+<ul>
+<li>最先获得超过半数的投票</li>
+<li>获得的投票数不小于<code>quorum</code>值</li>
+</ul>
+<p>而<code>sentinel</code>投票的原理有两条</p>
+<ul>
+<li>优先投票给得票最多的</li>
+<li>如果目前没有任何节点得票。就投给自己。</li>
+</ul>
+<p>不难看出，最后的结果是：<strong>第一个确认master客观下线的人会立刻发起投票，一定会成为leader</strong></p>
+<p><code>sentinel</code>找到<code>leader</code>之后，需要完成<code>failover</code>来进行故障转移</p>
+<h3 id="failover">failover<a hidden class="anchor" aria-hidden="true" href="#failover">#</a></h3>
+<p>一旦发现<code>master</code>故障，<code>sentinel</code>需要在<code>slave</code>中选择一个作为新的<code>master</code>，选择依据是这样的：</p>
+<ul>
+<li>首先会判断<code>slave</code>节点于<code>master</code>节点断开时间长短，如果超过指定值（<code>down-after-millisecond*10</code>），则会排除该<code>slave</code>节点</li>
+<li>然后判断<code>slave</code>节点的<code>slave-prority</code>值，越小优先级越高，如果是<code>0</code>则永不参与选举</li>
+<li>如果<code>slave-prority</code>一样，则判断<code>slave</code>节点的<code>offset</code>值，越大说明数据越新，优先级越高</li>
+<li>最后判断<code>slave</code>节点的运行<code>id</code>大小</li>
+</ul>
+<hr>
+<h3 id="故障转移">故障转移<a hidden class="anchor" aria-hidden="true" href="#故障转移">#</a></h3>
+<p>当选中一个新的<code>master</code>之后，故障转移的步骤如下
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/7.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/7.png"
+      srcset="/post/interview/redis/7.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<ul>
+<li><code>sentinel</code>给备选的<code>slave1</code>节点发送<code>slaveof no one</code>命令，让该节点成为<code>master</code></li>
+<li><code>sentinel</code>给其他所有<code>slave</code>发送<code>slaveof 192.168.150.101 7002</code>命令，让这些<code>slave</code>成为新<code>master</code>的从节点，开始从新的<code>master</code>上同步数据</li>
+<li>最后，<code>sentinel</code>将故障节点标记为<code>slave</code>，当故障节点恢复后会自动成为新的<code>master</code>的<code>slave</code>节点</li>
+</ul>
+<hr>
+<h3 id="搭建哨兵集群">搭建哨兵集群<a hidden class="anchor" aria-hidden="true" href="#搭建哨兵集群">#</a></h3>
+<ul>
+<li>sentinel.conf
+<pre tabindex="0"><code class="language-conf" data-lang="conf">sentinel announce-ip &#34;192.168.150.101&#34;
+sentinel monitor hmaster 192.168.150.101 7001 2
+sentinel down-after-milliseconds hmaster 5000
+sentinel failover-timeout hmaster 60000
+</code></pre>说明：
+<ul>
+<li><code>sentinel announce-ip &quot;192.168.150.101&quot;</code>：声明当前<code>sentinel</code>的<code>ip</code></li>
+<li><code>sentinel monitor hmaster 192.168.150.101 7001 2</code>：指定集群的主节点信息
+<ul>
+<li><code>hmaster</code>：主节点名称。自定义。</li>
+<li><code>192.169.150.101 7001</code>：主节点的<code>ip</code>和端口</li>
+<li><code>2</code>：认定<code>master</code>下线的<code>quorum</code>值</li>
+</ul>
+</li>
+<li><code>sentinel down-after-milliseconds hmaster 5000</code>：声明<code>master</code>节点超时多久后被标记下线</li>
+<li><code>sentinel failover-timeout hmaster 60000</code>：在第一次故障转移失败后多久再次重试</li>
+</ul>
+</li>
+</ul>
+<p>在<code>wsl</code>中创建<code>s1</code>、<code>s2</code>、<code>s3</code>并放入<code>sentinel.conf</code><br>
+再修改<code>docker-compose.yaml</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">r1</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">r1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;redis-server&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--port&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;7001&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">r2</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">r2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;redis-server&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--port&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;7002&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--slaveof&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;192.168.150.101&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;7001&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">r3</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">r3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;redis-server&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--port&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;7003&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--slaveof&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;192.168.150.101&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;7001&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">s1</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">s1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">/root/redis/s1:/etc/redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;redis-sentinel&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;/etc/redis/sentinel.conf&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--port&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;27001&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">s2</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">s2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">/root/redis/s2:/etc/redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;redis-sentinel&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;/etc/redis/sentinel.conf&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--port&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;27002&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">s3</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">s3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">/root/redis/s3:/etc/redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;redis-sentinel&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;/etc/redis/sentinel.conf&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--port&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;27003&#34;</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></div><p>运行命令，启动集群</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">docker compose up -d
+</span></span></code></pre></div><hr>
+<h2 id="redis分片集群">Redis分片集群<a hidden class="anchor" aria-hidden="true" href="#redis分片集群">#</a></h2>
+<p>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/8.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/8.png"
+      srcset="/post/interview/redis/8.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+主从和哨兵可以解决高可用、高并发读的问题。但是依然有两个问题没有解决</p>
+<ul>
+<li>海量数据存储问题</li>
+<li>高并发写的问题</li>
+</ul>
+<p>使用分片集群可以解决上述问题，分片集群特征：</p>
+<ul>
+<li>集群中有多个<code>master</code>，每个<code>master</code>保存不同数据</li>
+<li>每个<code>master</code>都可以有多个<code>slave</code>节点</li>
+<li><code>master</code>之间通过<code>ping</code>监测彼此健康状态</li>
+<li>客户端请求可以访问集群任意节点，最终都会被转发到数据所在节点</li>
+</ul>
+<hr>
+<h3 id="搭建分片集群">搭建分片集群<a hidden class="anchor" aria-hidden="true" href="#搭建分片集群">#</a></h3>
+<ol>
+<li>集群配置
+分片集群中的Redis节点必须开启集群模式，一般在配置文件中添加下面参数
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">port 7000
+</span></span><span class="line"><span class="cl">cluster-enabled yes
+</span></span><span class="line"><span class="cl">cluster-config-file nodes.conf
+</span></span><span class="line"><span class="cl">cluster-node-timeout 5000
+</span></span><span class="line"><span class="cl">appendonly yes
+</span></span></code></pre></div><ul>
+<li><code>cluster-enabled</code>：是否开启集群模式</li>
+<li><code>cluster-config-file</code>：集群模式的配置文件名称。无需手动创建，由集群自动维护</li>
+<li><code>cluster-node-timeout</code>：集群中节点之间心跳超时时间</li>
+</ul>
+</li>
+</ol>
+<p>一般搭建部署集群需要给每个节点都配置上述参数<br>
+不过也可以用<code>docker-compose</code>部署，因此可以直接在启动命令中指定参数</p>
+<ul>
+<li><code>docker-compose.yaml</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">r1</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">r1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;redis-server&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--port&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;7001&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--cluster-enabled&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;yes&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--cluster-config-file&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;node.conf&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">r2</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">r2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;redis-server&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--port&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;7002&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--cluster-enabled&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;yes&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--cluster-config-file&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;node.conf&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">r3</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">r3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;redis-server&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--port&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;7003&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--cluster-enabled&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;yes&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--cluster-config-file&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;node.conf&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">r4</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">r4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;redis-server&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--port&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;7004&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--cluster-enabled&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;yes&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--cluster-config-file&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;node.conf&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">r5</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">r5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;redis-server&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--port&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;7005&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--cluster-enabled&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;yes&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--cluster-config-file&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;node.conf&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">r6</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">r6</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;redis-server&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--port&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;7006&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--cluster-enabled&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;yes&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--cluster-config-file&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;node.conf&#34;</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></div><!-- FM:Snippet:Start data:{"id":"st-notice","fields":[]} -->
+<div class="notice info" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+        </span>信息</p><p>注意：使用<code>Docker</code>部署<code>Redis</code>集群，<code>network</code>模式必须采用<code>host</code></p></div>
+<!-- FM:Snippet:End -->
+</li>
+</ul>
+<ol start="2">
+<li>启动集群
+进入<code>/root/redis-cluster</code>目录，使用命令启动<code>redis</code>：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">docker compose up -d
+</span></span></code></pre></div>目前<code>redis</code>节点都以<code>cluster</code>模式运行。不过节点之间还没有建立连接。<br>
+使用命令创建集群
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"># 进入任意节点容器
+</span></span><span class="line"><span class="cl">docker exec -it r1 bash
+</span></span><span class="line"><span class="cl"># 然后，执行命令
+</span></span><span class="line"><span class="cl">redis-cli --cluster create --cluster-replicas 1 \
+</span></span><span class="line"><span class="cl">192.168.150.101:7001 192.168.150.101:7002 192.168.150.101:7003 \
+</span></span><span class="line"><span class="cl">192.168.150.101:7004 192.168.150.101:7005 192.168.150.101:7006
+</span></span></code></pre></div>说明：
+<ul>
+<li><code>redis-cli --cluster</code>：集群操作命令</li>
+<li><code>create</code>：创建集群</li>
+<li><code>--cluster-replicas 1</code>：指定集群中每个<code>master</code>的副本个数为1
+<ul>
+<li>此时<code>节点总数 ÷ (replicas + 1)</code>得到的就是<code>master</code>的数量<code>n</code><br>
+因此节点列表中的前<code>n</code>个节点就是<code>master</code>，其他节点都是<code>slave</code>节点，随机分配到不同的<code>master</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="散列插槽">散列插槽<a hidden class="anchor" aria-hidden="true" href="#散列插槽">#</a></h3>
+<p>数据要分片存储到不同的Redis节点，需要有分片的依据，这样下次查询的时候才能知道去哪个节点查询。很多数据分片都会采用一致性<code>hash</code>算法。而<code>Redis</code>则是利用散列插槽（<code>hash slot</code>）的方式实现数据分片。</p>
+<p>(官方文档)[https://redis.io/tutorials/operate/redis-at-scale/scalability/]</p>
+<p>在<code>Redis</code>集群中，共有16384个<code>hash slots</code>，集群中的每一个<code>master</code>节点都会分配一定数量的<code>hash slots</code>。具体的分配在集群创建时就已经指定了<br>
+当我们读写数据时，<code>Redis</code>基于<code>CRC16</code>算法对<code>key</code>做<code>hash</code>运算，得到的结果与16384取余，就计算出了这个<code>key</code>的<code>slot</code>值。然后到<code>slot</code>所在的<code>Redis</code>节点执行读写操作。<br>
+<code>redis</code>在计算<code>key</code>的<code>hash</code>值是不一定根据整个<code>key</code>计算，分两种情况</p>
+<ul>
+<li>当<code>key</code>中包含<code>{}</code>时，根据<code>{}</code>之间的字符串计算<code>hash slot</code></li>
+<li>当<code>key</code>中不包含<code>{}</code>时，根据整个<code>key</code>字符串计算<code>hash slot</code></li>
+</ul>
+<hr>
+<h3 id="故障转移-1">故障转移<a hidden class="anchor" aria-hidden="true" href="#故障转移-1">#</a></h3>
+<p>分片集群的节点之间会互相通过<code>ping</code>的方式做心跳检测，超时未回应的节点会被标记为下线状态。当发现<code>master</code>下线时，会将这个<code>master</code>的某个<code>slave</code>提升为<code>master</code>。</p>
+<hr>
+<h3 id="java客户端连接分片集群">Java客户端连接分片集群<a hidden class="anchor" aria-hidden="true" href="#java客户端连接分片集群">#</a></h3>
+<p><code>RedisTemplate</code>底层同样基于<code>lettuce</code>实现了分片集群的支持，而使用的步骤与哨兵模式基本一致：</p>
+<ol>
+<li>引入<code>redis</code>的<code>starter</code>依赖</li>
+<li>配置分片集群地址</li>
+<li>配置读写分离</li>
+</ol>
+<p>与哨兵模式相比，其中只有分片集群的配置方式略有差异，如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">redis</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">cluster</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="m">192.168.150.101</span><span class="p">:</span><span class="m">7001</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="m">192.168.150.101</span><span class="p">:</span><span class="m">7002</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="m">192.168.150.101</span><span class="p">:</span><span class="m">7003</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="m">192.168.150.101</span><span class="p">:</span><span class="m">8001</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="m">192.168.150.101</span><span class="p">:</span><span class="m">8002</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="m">192.168.150.101</span><span class="p">:</span><span class="m">8003</span><span class="w">
+</span></span></span></code></pre></div><hr>
+<h2 id="redis数据结构">Redis数据结构<a hidden class="anchor" aria-hidden="true" href="#redis数据结构">#</a></h2>
+<p>我们常用的Redis数据类型有5种，分别是：</p>
+<ul>
+<li>String</li>
+<li>List</li>
+<li>Set</li>
+<li>SortedSet</li>
+<li>Hash</li>
+</ul>
+<p>还有一些高级数据类型，比如<code>Bitmap</code>、<code>HyperLogLog</code>、<code>GEO</code>等，其底层都是基于上述5种基本数据类型。因此在<code>Redis</code>的源码中，其实只有5种数据类型</p>
+<h3 id="redisobject">RedisObject<a hidden class="anchor" aria-hidden="true" href="#redisobject">#</a></h3>
+<p><code>Redis</code>中的任意数据类型的键和值都会被封装为一个<code>RedisObject</code>，也叫做<code>Redis</code>对象，源码如下
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/9.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/9.png"
+      srcset="/post/interview/redis/9.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+可以看到整个结构体中并不包含真实的数据，仅仅是对象头信息，内存占用的大小为4+4+24+32+64 = 128bit<br>
+也就是16字节，然后指针ptr指针指向的才是真实数据存储的内存地址。所以<code>RedisObject</code>的<strong>内存开销是很大的</strong>。</p>
+<hr>
+<h4 id="redis的编码方式">Redis的编码方式<a hidden class="anchor" aria-hidden="true" href="#redis的编码方式">#</a></h4>
+<p><code>Redis</code>中会根据存储的数据类型不同，选择不同的编码方式，共包含<code>12</code>种不同类型：</p>
+<table class="table table-striped table-bordered table-hover">
+
+  <thead>
+      <tr>
+          <th style="text-align: center">编号</th>
+          <th style="text-align: center">编码方式</th>
+          <th style="text-align: center">说明</th>
+      </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+
+        
+<td style="text-align: center">0</td>
+
+        
+<td style="text-align: center"><code>OBJ_ENCODING_RAW</code></td>
+
+        
+<td style="text-align: center">raw编码动态字符串</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">1</td>
+
+        
+<td style="text-align: center"><code>OBJ_ENCODING_INT</code></td>
+
+        
+<td style="text-align: center">long类型的整数的字符串</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">2</td>
+
+        
+<td style="text-align: center"><code>OBJ_ENCODING_HT</code></td>
+
+        
+<td style="text-align: center">hash表（字典dict）</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">3</td>
+
+        
+<td style="text-align: center"><code>OBJ_ENCODING_ZIPMAP</code></td>
+
+        
+<td style="text-align: center">已废弃</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">4</td>
+
+        
+<td style="text-align: center"><code>OBJ_ENCODING_LINKEDLIST</code></td>
+
+        
+<td style="text-align: center">双端链表</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">5</td>
+
+        
+<td style="text-align: center"><code>OBJ_ENCODING_ZIPLIST</code></td>
+
+        
+<td style="text-align: center">压缩列表</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">6</td>
+
+        
+<td style="text-align: center"><code>OBJ_ENCODING_INTSET</code></td>
+
+        
+<td style="text-align: center">整数集合</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">7</td>
+
+        
+<td style="text-align: center"><code>OBJ_ENCODING_SKIPLIST</code></td>
+
+        
+<td style="text-align: center">跳表</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">8</td>
+
+        
+<td style="text-align: center"><code>OBJ_ENCODING_EMBSTR</code></td>
+
+        
+<td style="text-align: center">embstr的动态字符串</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">9</td>
+
+        
+<td style="text-align: center"><code>OBJ_ENCODING_QUICKLIST</code></td>
+
+        
+<td style="text-align: center">快速列表</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">10</td>
+
+        
+<td style="text-align: center"><code>OBJ_ENCODING_STREAM</code></td>
+
+        
+<td style="text-align: center">Stream流</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">11</td>
+
+        
+<td style="text-align: center"><code>OBJ_ENCODING_LISTPACK</code></td>
+
+        
+<td style="text-align: center">紧凑列表</td>
+    </tr>
+  </tbody>
+</table><hr>
+<h4 id="五种常见数据结构">五种常见数据结构<a hidden class="anchor" aria-hidden="true" href="#五种常见数据结构">#</a></h4>
+<p>Redis中的5种不同的数据类型采用的底层数据结构和编码方式如下：</p>
+<table class="table table-striped table-bordered table-hover">
+
+  <thead>
+      <tr>
+          <th style="text-align: center">数据类型</th>
+          <th style="text-align: center">编码方式</th>
+      </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+
+        
+<td style="text-align: center"><code>STRING</code></td>
+
+        
+<td style="text-align: center"><code>int</code>、<code>embstr</code>、<code>raw</code></td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center"><code>LIST</code></td>
+
+        
+<td style="text-align: center"><code>LinkedList</code>和<code>ZipList</code>(3.2以前)、<code>QuickList</code>（3.2以后）</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center"><code>SET</code></td>
+
+        
+<td style="text-align: center"><code>intset</code>、<code>HT</code></td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center"><code>ZSET</code></td>
+
+        
+<td style="text-align: center"><code>ZipList</code>（7.0以前）、<code>Listpack</code>（7.0以后）、<code>HT</code>、<code>SkipList</code></td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center"><code>HASH</code></td>
+
+        
+<td style="text-align: center"><code>ZipList</code>（7.0以前）、<code>Listpack</code>（7.0以后）、<code>HT</code></td>
+    </tr>
+  </tbody>
+</table><hr>
+<h3 id="skiplist">SkipList<a hidden class="anchor" aria-hidden="true" href="#skiplist">#</a></h3>
+<p>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/10.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/10.png"
+      srcset="/post/interview/redis/10.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+<code>SkipList</code>（跳表）首先是链表，但与传统链表相比有几点差异：</p>
+<ul>
+<li>元素按照升序排列存储</li>
+<li>节点可能包括多层指针，指针跨度不同，层数是<code>1</code>~<code>32</code>之间的随机数
+<ul>
+<li>层级越高，跨度越大</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="sortedset">SortedSet<a hidden class="anchor" aria-hidden="true" href="#sortedset">#</a></h3>
+<p>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/11.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/11.png"
+      srcset="/post/interview/redis/11.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+<code>SortedSet</code>数据结构的特点是：</p>
+<ul>
+<li>每组数据都包含<code>score</code>和<code>member</code></li>
+<li><code>member</code>唯一</li>
+<li>可根据<code>score</code>排序</li>
+</ul>
+<hr>
+<h2 id="redis内存回收">Redis内存回收<a hidden class="anchor" aria-hidden="true" href="#redis内存回收">#</a></h2>
+<p><code>Redis</code>之所以性能强，最主要的原因就是基于内存存储。然而单节点的<code>Redis</code>其内存大小不宜过大，会影响持久化或主从同步性能。<br>
+我们可以通过修改<code>redis.conf</code>文件，添加下面的配置来配置<code>Redis</code>的最大内存：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">maxmemory 1gb
+</span></span></code></pre></div><p>当内存达到上限，就无法存储更多数据了。因此，Redis内部会有两套内存回收的策略：</p>
+<ul>
+<li>内存过期策略</li>
+<li>内存淘汰策略</li>
+</ul>
+<hr>
+<h3 id="过期key处理">过期KEY处理<a hidden class="anchor" aria-hidden="true" href="#过期key处理">#</a></h3>
+<p>在学习<code>Redis</code>缓存的时候，我们可以通过<code>expire</code>命令给<code>Redis</code>的<code>key</code>设置<code>TTL</code>（存活时间）
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/12.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/12.webp"
+      srcset="/post/interview/redis/12.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+可以发现，当<code>key</code>的TTL到期以后，再次访问<code>name</code>返回的是<code>nil</code>，说明这个<code>key</code>已经不存在了，对应的内存也得到了释放。从而起到内存回收的目的。</p>
+<p><code>Redis</code>的本身是键值型数据库，所有数据都存在一个<code>redisDB</code>的结构体中，其中包含两个哈希表：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/13.webp"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/13.webp"
+      srcset="/post/interview/redis/13.webp 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<ul>
+<li><code>dict</code>：保存<code>Redis</code>中所有的键值对</li>
+<li><code>expires</code>：保存<code>Redis</code>中所有设置了过期时间的<code>KEY</code>及其<code>TTL</code>值</li>
+</ul>
+<p><code>Redis</code>并不会实时监测<code>key</code>的过期时间，在<code>key</code>过期后立刻删除。而是采用两种延迟删除的策略：</p>
+<ul>
+<li><strong>惰性删除</strong>：当有命令需要操作一个<code>key</code>时，检查该<code>key</code>的存货时间，如果已经过期才执行删除</li>
+<li><strong>周期删除</strong>：通过一个定时任务，周期性的抽样部分有<code>TTL</code>的<code>key</code>，如果过期则执行删除</li>
+</ul>
+<p>周期删除的定时任务执行周期有两种：</p>
+<ul>
+<li><code>SLOW</code>模式：默认执行频率为每秒<code>10</code>次，但每次执行时长不能超过<code>25</code>ms，受<code>server.hz</code>参数影响</li>
+<li><code>FAST</code>模式：频率不固定，跟随<code>Redis</code>内部<code>IO</code>事件循环执行。两次任务之间间隔不低于<code>2</code>ms，执行时长不超过<code>1</code>ms。</li>
+</ul>
+<hr>
+<h3 id="内存淘汰策略">内存淘汰策略<a hidden class="anchor" aria-hidden="true" href="#内存淘汰策略">#</a></h3>
+<p>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/14.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/14.png"
+      srcset="/post/interview/redis/14.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+<strong>内存淘汰</strong>：就是当<code>Redis</code>内存使用达到设置的阈值时，<code>Redis</code>主动挑选部分<code>key</code>删除以释放更多内存的流程，<code>Redis</code>会在处理客户端命令时都会对内存使用情况做判断，如果必要则执行内存淘汰。内存淘汰的策略有：</p>
+<ul>
+<li><code>noeviction</code>：不淘汰任何<code>key</code>，但是内存满时不允许写入新数据，默认就是这种策略。</li>
+<li><code>volatile-ttl</code>：对设置了TTL的<code>key</code>，比较<code>key</code>剩余TTL值，TTL越小越先被淘汰。</li>
+<li><code>allkeys-random</code>：对全体<code>key</code>，随机进行淘汰。也就是直接从<code>db</code>→<code>dict</code>中随机挑选。</li>
+<li><code>volatile-random</code>：对设置了TTL的<code>key</code>，随机进行淘汰。也就是从<code>db</code>→<code>expires</code>中随机淘汰。</li>
+<li><code>allkeys-lru</code>：对全体<code>key</code>，基于LRU算法进行淘汰</li>
+<li><code>volatile-lru</code>：对设置了TTL的<code>key</code>，基于LRU算法进行淘汰</li>
+<li><code>allkeys-lfu</code>：对全体<code>key</code>，基于LFU算法进行淘汰</li>
+<li><code>volatile-lfu</code>：对设置了TTL的<code>key</code>，基于LFU算法进行淘汰</li>
+</ul>
+<p>比较容易混淆的两个：</p>
+<ul>
+<li><strong>LRU</strong>（<strong>L</strong>east <strong>R</strong>ecently <strong>U</strong>sed）最近最少使用。用当前时间减去最后一次访问时间，这个值越大则淘汰优先级越高
+<ul>
+<li>以秒为单位记录最近一次访问时间，长度<code>24</code>bit</li>
+</ul>
+</li>
+<li><strong>LFU</strong>（<strong>L</strong>east <strong>F</strong>requently <strong>U</strong>sed）最少频率使用。会统计每个<code>key</code>的访问频率，值越小淘汰优先级越高
+<ul>
+<li>高<code>16</code>位以分钟为单位记录最近一次访问时间，低<code>8</code>位记录<strong>逻辑访问次数</strong></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="逻辑访问次数">逻辑访问次数<a hidden class="anchor" aria-hidden="true" href="#逻辑访问次数">#</a></h4>
+<p>8位的无符号数最大是255，访问次数超过255怎么办？<br>
+Redis的逻辑访问次数算法，并不是每次<code>key</code>被访问都计数，而是通过运算：</p>
+<ol>
+<li>生成<code>[0,1)</code>之间的随机数<code>R</code></li>
+<li>计算<code>1/（旧次数*lfu_log_factor + 1）</code>，记录为<code>P</code>，<code>lfu_log_factor</code>默认为<code>10</code></li>
+<li>如果<code>R</code> &lt; <code>P</code>，则计数器 <code>+1</code>，且最大不超过<code>255</code></li>
+<li>访问次数会随时间衰减，距离上一次访问时间每隔<code>luf_decay_time</code>分钟（默认<code>1</code>），计数器<code>-1</code></li>
+</ol>
+<h2 id="官方更推荐使用lfu算法">官方更推荐使用<code>LFU</code>算法<a hidden class="anchor" aria-hidden="true" href="#官方更推荐使用lfu算法">#</a></h2>
+<h2 id="redis缓存">Redis缓存<a hidden class="anchor" aria-hidden="true" href="#redis缓存">#</a></h2>
+<h3 id="缓存一致性">缓存一致性<a hidden class="anchor" aria-hidden="true" href="#缓存一致性">#</a></h3>
+<table class="table table-striped table-bordered table-hover">
+
+  <thead>
+      <tr>
+          <th style="text-align: center"></th>
+          <th style="text-align: center">内存淘汰</th>
+          <th style="text-align: center">超时剔除</th>
+          <th style="text-align: center">主动更新</th>
+      </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+
+        
+<td style="text-align: center">说明</td>
+
+        
+<td style="text-align: center">不用自己维护，利用<code>Redis</code>的内存淘汰机制，当内存不足时自动淘汰部分数据。下次查询时更新缓存</td>
+
+        
+<td style="text-align: center">给缓存数据添加TTL时间，到期后自动删除缓存。下次查询时更新缓存。</td>
+
+        
+<td style="text-align: center">编写业务逻辑，在修改数据库的同时，更新缓存</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">一致性</td>
+
+        
+<td style="text-align: center">差</td>
+
+        
+<td style="text-align: center">一般</td>
+
+        
+<td style="text-align: center">好</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">维护成本</td>
+
+        
+<td style="text-align: center">无</td>
+
+        
+<td style="text-align: center">低</td>
+
+        
+<td style="text-align: center">高</td>
+    </tr>
+  </tbody>
+</table><p>业务场景：</p>
+<ul>
+<li>低一致性需求：使用内存淘汰机制。例如商品分类、菜品分类等</li>
+<li>高一致性需求：主动更新，并以超时提出作为兜底方案。例如商品、菜品查询的缓存</li>
+</ul>
+<hr>
+<h4 id="主动更新策略">主动更新策略<a hidden class="anchor" aria-hidden="true" href="#主动更新策略">#</a></h4>
+<p>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/15.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/15.png"
+      srcset="/post/interview/redis/15.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+操作缓存和数据库时有三个问题需要考虑：</p>
+<ol>
+<li>删除缓存还是更新缓存？
+<ul>
+<li>更新缓存：每次更新数据库都更新缓存，无效写操作较多 ❌</li>
+<li>删除缓存：更新数据库时让缓存失效，查询时再更新缓存 ✅</li>
+</ul>
+</li>
+<li>如何保证缓存操作与数据库操作的同时成功或失败？
+<ul>
+<li>单体系统，将缓存与数据库操作放在一个事务</li>
+<li>分布式系统，利用<code>TCC</code>或消息通知等最终一致性方案</li>
+<li>缓存设置过期时间，作为兜底方案</li>
+</ul>
+</li>
+<li>先操作缓存还是先操作数据库？
+<ul>
+<li>先删除缓存，再操作数据库 ❌
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/16.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/16.png"
+      srcset="/post/interview/redis/16.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>先操作数据库，再删除缓存 ✅</li>
+<li>
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/17.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/17.png"
+      srcset="/post/interview/redis/17.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="缓存穿透">缓存穿透<a hidden class="anchor" aria-hidden="true" href="#缓存穿透">#</a></h3>
+<p><strong>缓存穿透</strong>是指客户端请求的数据在缓存中和数据库中都不存在，这样缓存永远不会生效，这些请求都会打到数据库。<br>
+常见的解决方案有两种：
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/18.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/18.png"
+      srcset="/post/interview/redis/18.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</p>
+<ul>
+<li>缓存空对象
+<ul>
+<li>优点：实现简单，维护方便</li>
+<li>缺点：
+<ul>
+<li>额外的内存消耗</li>
+<li>可能造成短期的不一致
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/19.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/19.png"
+      srcset="/post/interview/redis/19.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>布隆过滤
+<ul>
+<li>优点：内存占用较少，没有多余<code>key</code></li>
+<li>缺点：
+<ul>
+<li>实现复杂</li>
+<li>存在误判可能</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="布隆过滤器">布隆过滤器<a hidden class="anchor" aria-hidden="true" href="#布隆过滤器">#</a></h4>
+<p>布隆过滤器是一种数据统计的算法，用于检索一个元素是否存在一个集合中。但是布隆过滤器无需存储元素到集合，而是把元素映射到一个很长的二进制数位上。</p>
+<ul>
+<li>首先需要一个很长很长的二进制数，默认每一位都是<code>0</code>。</li>
+<li>然后需要<code>N</code>个不同算法的哈希函数</li>
+<li>将集合中的元素根据<code>N</code>个哈希函数做运算，得到<code>N</code>个数字。然后将每个数字对应的<code>bit</code>位标记为<code>1</code></li>
+<li>要判断某个元素是否存在，只需要把元素按照上述方式运算，判断对应的<code>bit</code>位是否是<code>1</code>即可
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/20.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/20.png"
+      srcset="/post/interview/redis/20.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+</ul>
+<hr>
+<h3 id="缓存雪崩">缓存雪崩<a hidden class="anchor" aria-hidden="true" href="#缓存雪崩">#</a></h3>
+<p>缓存雪崩是指在同一时段大量的缓存<code>key</code>同时失效或者<code>Redis</code>服务宕机，导致大量请求到达数据库，带来巨大压力
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/21.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/21.png"
+      srcset="/post/interview/redis/21.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+解决方案：</p>
+<ul>
+<li>给不同<code>key</code>的TTL添加随机值</li>
+<li>利用Redis集群提高服务的可用性</li>
+<li>给缓存业务添加降级限流策略</li>
+<li>给业务添加多级缓存</li>
+</ul>
+<hr>
+<h3 id="缓存击穿">缓存击穿<a hidden class="anchor" aria-hidden="true" href="#缓存击穿">#</a></h3>
+<p><strong>缓存击穿问题</strong>也叫<strong>热点Key问题</strong>，就是一个<strong>高并发访问</strong>并且<strong>缓存重建业务较复杂</strong>的key突然失效了，无数的请求访问会在瞬间给数据库带来巨大的冲击。
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/22.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/22.png"
+      srcset="/post/interview/redis/22.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+
+常见的解决方案有两种：</p>
+<ul>
+<li>分布式锁（互斥锁的一种）
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/23.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/23.png"
+      srcset="/post/interview/redis/23.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</li>
+<li>逻辑过期
+<table class="table table-striped table-bordered table-hover">
+
+  <thead>
+      <tr>
+          <th style="text-align: center">KEY</th>
+          <th style="text-align: center">VALUE</th>
+      </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+
+        
+<td style="text-align: center">heima:user:1</td>
+
+        
+<td style="text-align: center">{name:&ldquo;Jack&rdquo;,age:21,expire:152141223}</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+<div class="post-img-view">
+  <a
+    data-fancybox="post-post/interview/redis/index.md"
+    href="/post/interview/redis/24.png"
+    data-caption=""
+    data-barba-prevent="all"
+  >
+    <img
+      src="/post/interview/redis/24.png"
+      srcset="/post/interview/redis/24.png 2x"
+      alt=""
+      loading="lazy"
+      style="max-width: 100%; height: auto;"
+    />
+  </a>
+    
+  
+</div>
+
+
+</td>
+
+        
+<td></td>
+    </tr>
+  </tbody>
+</table></li>
+</ul>
+<table class="table table-striped table-bordered table-hover">
+
+  <thead>
+      <tr>
+          <th style="text-align: center">解决方案</th>
+          <th style="text-align: center">优点</th>
+          <th style="text-align: center">缺点</th>
+      </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+
+        
+<td style="text-align: center">互斥锁</td>
+
+        
+<td style="text-align: center">没有额外的内存消耗<br>保证一致性<br>实现简单</td>
+
+        
+<td style="text-align: center">线程需要等待，性能受影响<br>可能有死锁风险</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">逻辑过期</td>
+
+        
+<td style="text-align: center">线程无需等待，性能较好</td>
+
+        
+<td style="text-align: center">不保证一致性<br>有额外内存消耗<br>实现复杂</td>
+    </tr>
+  </tbody>
+</table>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span><a href="https://www.steamedfish.top/">©2025 SteamedFish&rsquo;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+<script src="https://unpkg.com/@barba/core"></script>
+
+
+<script>
+window.PaperMod = window.PaperMod || {};
+PaperMod.state = { once: false };
+
+PaperMod.initOnce = function () {
+  
+  if (PaperMod.state.once) return;
+  PaperMod.state.once = true;
+  console.log("PaperMod initOnce");
+
+  
+  if (PaperMod.initAPlayer && !window.__aplayer_inited__) {
+    PaperMod.initAPlayer();
+  }
+};
+
+PaperMod.initPage = function (container = document) {
+  console.log("PaperMod initPage");
+
+  PaperMod.initFancybox && PaperMod.initFancybox(container);
+  PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
+  
+  
+  
+  if (window.initSearch && document.getElementById('searchInput')) {
+    console.log("Initializing search from Barba");
+    window.initSearch(document);
+  }
+};
+
+
+barba.init({
+  transitions: [
+    {
+      name: "default",
+      leave(data) {
+        
+        return Promise.resolve();
+      },
+      enter(data) {
+        
+        PaperMod.initOnce();
+        
+        PaperMod.initPage(data.next.container);
+      },
+      afterEnter(data) {
+        
+        
+        if (window.initSearch && document.getElementById('searchInput')) {
+          console.log("AfterEnter: Re-initializing search");
+          window.initSearch(document);
+        }
+      }
+    },
+  ],
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  PaperMod.initOnce();
+  PaperMod.initPage(document);
+});
+
+</script>
+
+
+
+
+
+
+
+<link
+  href="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.css"
+  rel="stylesheet"
+/>
+<script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.2/Meting.min.js"></script>
+
+<meting-js
+  server="netease"
+  fixed="true"
+  lrc-type="1"
+  type="playlist"
+  id="2245453903"
+  api="https://api.qijieya.cn/meting/?type=:type&id=:id"
+  >
+  
+  
+         
+  
+  
+  
+</meting-js>
+<script>
+  if (window.Barba) {
+    Barba.hooks.afterEnter(function () {
+      const metingPlayer = document.querySelector('meting-js');
+      if (metingPlayer) {
+        metingPlayer.load();  
+      }
+    });
+  }
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+</script>
+
+
+
+
+<script>
+  window.PaperMod = window.PaperMod || {};
+
+  PaperMod.initCodeCopyButtons = function (root = document) {
+    root.querySelectorAll("pre > code").forEach((codeblock) => {
+      const container = codeblock.parentNode.parentNode;
+
+      
+      if (container.querySelector(".copy-code")) return;
+
+      const copybutton = document.createElement("button");
+      copybutton.classList.add("copy-code");
+      copybutton.innerHTML = '复制';
+
+      function copyingDone() {
+        copybutton.innerHTML = '已复制！';
+        setTimeout(() => {
+          copybutton.innerHTML = '复制';
+        }, 2000);
+      }
+
+      copybutton.addEventListener("click", (cb) => {
+        if ("clipboard" in navigator) {
+          navigator.clipboard.writeText(codeblock.textContent);
+          copyingDone();
+          return;
+        }
+
+        const range = document.createRange();
+        range.selectNodeContents(codeblock);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        try {
+          document.execCommand("copy");
+          copyingDone();
+        } catch (e) {}
+        selection.removeRange(range);
+      });
+      container.appendChild(copybutton);
+    });
+  };
+</script>
+
+
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css" />
+<script src="/lib/fancybox/fancybox.umd.js"></script>
+<script>
+  function initFancybox() {
+    Fancybox.unbind("[data-fancybox]");
+
+    Fancybox.bind("[data-fancybox]", {
+      animated: true,
+      showClass: "fancybox-fadeIn",
+      hideClass: "fancybox-fadeOut",
+      dragToClose: true,
+    });
+  }
+
+  
+  if (document.readyState !== "loading") {
+    initFancybox();
+  } else {
+    document.addEventListener("DOMContentLoaded", initFancybox);
+  }
+  
+  document.addEventListener("barba:afterEnter", initFancybox);
+</script>
+
+
+
+
+
+
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
