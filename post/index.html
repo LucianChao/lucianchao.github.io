@@ -187,11 +187,14 @@ window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"include
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">【面试八股】MySQL
+    <h2 class="entry-hint-parent">【面试八股】JVM
     </h2>
   </header>
   <div class="entry-content">
-    <p>面试题汇总 MySQL的常见存储引擎有哪些？ InnoDB MyISAM MySQL 常见的存储引擎主要有 InnoDB、MyISAM、Memory、Archive、CSV、NDB 等。其中最常用的是 InnoDB，它支持事务、行锁和外键，是 MySQL 5.5 之后的默认存储引擎；MyISAM 不支持事务，使用表锁，适合读多写少的场景；Memory 引擎数据存储在内存中，查询速度很快，但重启会丢失数据；Archive 主要用于历史数据归档。 MySQL怎么存数据？ MySQL数据保存在磁盘上，数据处理发生在内存中，数据页是磁盘与内存之间交互的基本单位，也是MySQL管理存储空间的基本单位，大小默认为16KB
+    <p>Java基础 重载与重写的区别 重载是对象的方法之间，它们方法名相同，但方法的参数列表不同 重写是父子类（包括接口与实现类）中两个同名方法，它们方法名相同，且方法的参数列表相同 重载在编译阶段，由编译器根据传递给方法的参数来区分方法，例如 MyObject obj = ... obj.test(123); // 应该是调用 test(int x) 这个方法 obj.test(&#34;abc&#34;); // 应该是调用 test(String x) 这个方法 而重写是在运行阶段，由虚拟机解释器去获取引用对象的实际类型，根据类型才能确定该调用哪个方法，例如 Super obj = ... obj.test(); // 到底是调用父类，还是子类的 test 方法，必须检查引用对象的实际类型才能确定 有没有发生重写，可以使用 @Override 来检查 括号内的说明是为了严谨，了解就行，回答时不必说出，这样比较简洁
+在回答方法重载时，不必细说什么参数的类型、个数、顺序，直接说参数列表不同就行
+问题的重点说出：重载是编译器来区分方法，而重写是运行时由解释器来区分方法
+语法细节（问了再说，没问不必说）
 ...</p>
   </div>
   <footer class="entry-footer">
@@ -201,7 +204,32 @@ window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"include
 
 
 
-<span title='2026-03-13 17:08:22 +0800 +0800'>2026-03-13</span>&nbsp;·&nbsp;<span>6 分钟</span>&nbsp;·&nbsp;<span>Lucian Chao</span></footer>
+<span title='2026-03-14 18:14:18 +0800 +0800'>2026-03-14</span>&nbsp;·&nbsp;<span>7 分钟</span>&nbsp;·&nbsp;<span>Lucian Chao</span></footer>
+  <a class="entry-link" aria-label="post link to 【面试八股】JVM" href="https://www.steamedfish.top/post/interview/jvm/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">【面试八股】MySQL
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>面试题汇总 数据库优化经验或慢SQL优化经验 表结构上的设计优化
+当看到SQL数据连接的表超过5张的时候，基本上可以考虑从库表结构上思考优化，一般情况是：
+业务的不必要拆分 例如：新闻表（新闻id，标题，作者）；新闻详情表（新闻id，图片，发布时间，来源，内容）
+如果再App端需要展示新闻列表需要：（新闻id，标题，图片），这时需要从两个海量数据表中进行关联查询才能获得图片，因为新闻表中不存在图片的字段只能关联查询。
+上述的业务是否可以不拆分？或者拆分更合理一些。
+解决方案：表设计不合理，将图片字段放到新闻表，或者两张表合二为一。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2026-03-13 17:08:22 +0800 +0800'>2026-03-13</span>&nbsp;·&nbsp;<span title='2026-03-14 19:27:15 +0800 +0800'>(最后修改于 2026-03-14)</span>&nbsp;·&nbsp;<span>11 分钟</span>&nbsp;·&nbsp;<span>Lucian Chao</span></footer>
   <a class="entry-link" aria-label="post link to 【面试八股】MySQL" href="https://www.steamedfish.top/post/interview/mysql/"></a>
 </article>
 
@@ -372,28 +400,6 @@ spring: rabbitmq: connection-timeout: 1s template: retry: enabled: true # 开启
 
 <span title='2026-01-06 15:59:06 +0800 +0800'>2026-01-06</span>&nbsp;·&nbsp;<span title='2026-03-04 03:05:06 +0800 +0800'>(最后修改于 2026-03-04)</span>&nbsp;·&nbsp;<span>8 分钟</span>&nbsp;·&nbsp;<span>Lucian Chao</span></footer>
   <a class="entry-link" aria-label="post link to 【微服务】服务保护和分布式事务" href="https://www.steamedfish.top/post/microservices/5-service-prodect/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">【debug日记-黑马商城】订单支付超时
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>问题描述 在使用OpenFeign传递用户信息时（使用OpenFeign的拦截器在请求头中加入&#34;user-info“记录userid）报错支付超时
-超时页面原因与解决办法 WSL时区与主机不同步导致的mysql容器时间与主机不同步，进而导致订单生成时create_time与update_time的时间与本地时间不同，导致一旦读取出订单信息，就会认为订单超时。
-需要把WSL与Mysql容器的时区设置成与主机一样的(UTC&#43;8:00)
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-
-
-
-
-
-<span title='2026-01-04 18:56:16 +0800 +0800'>2026-01-04</span>&nbsp;·&nbsp;<span>2 分钟</span>&nbsp;·&nbsp;<span>Lucian Chao</span></footer>
-  <a class="entry-link" aria-label="post link to 【debug日记-黑马商城】订单支付超时" href="https://www.steamedfish.top/post/debug-note/hmall-pay-order-time-out/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

@@ -7,8 +7,38 @@
     <generator>Hugo -- 0.157.0</generator>
     <language>zh</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Fri, 13 Mar 2026 23:14:12 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 14 Mar 2026 19:27:15 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【面试八股】JVM</title>
+      <link>https://www.steamedfish.top/post/interview/jvm/</link>
+      <pubDate>Sat, 14 Mar 2026 18:14:18 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/interview/jvm/</guid>
+      <description>&lt;h2 id=&#34;java基础&#34;&gt;Java基础&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;重载与重写的区别
+&lt;ul&gt;
+&lt;li&gt;重载是对象的方法之间，它们方法名相同，但方法的参数列表不同&lt;/li&gt;
+&lt;li&gt;重写是父子类（包括接口与实现类）中两个同名方法，它们方法名相同，且方法的参数列表相同&lt;/li&gt;
+&lt;li&gt;重载在&lt;strong&gt;编译阶段&lt;/strong&gt;，由&lt;strong&gt;编译器&lt;/strong&gt;根据传递给方法的参数来区分方法，例如&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;MyObject&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;obj&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;obj&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;123&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 应该是调用 test(int x) 这个方法&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;obj&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;abc&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 应该是调用 test(String x) 这个方法&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;而重写是在&lt;strong&gt;运行阶段&lt;/strong&gt;，由虚拟机&lt;strong&gt;解释器&lt;/strong&gt;去获取引用对象的实际类型，根据类型才能确定该调用哪个方法，例如&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Super&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;obj&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;obj&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;     &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 到底是调用父类，还是子类的 test 方法，必须检查引用对象的实际类型才能确定&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;有没有发生重写，可以使用 @Override 来检查&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;括号内的说明是为了严谨，了解就行，回答时不必说出，这样比较简洁&lt;br&gt;
+在回答方法重载时，不必细说什么参数的类型、个数、顺序，直接说&lt;strong&gt;参数列表不同&lt;/strong&gt;就行&lt;br&gt;
+问题的重点说出：重载是&lt;strong&gt;编译器&lt;/strong&gt;来区分方法，而重写是运行时由&lt;strong&gt;解释器&lt;/strong&gt;来区分方法&lt;br&gt;
+语法细节（问了再说，没问不必说）&lt;/p&gt;</description>
+    </item>
     <item>
       <title>【面试八股】MySQL</title>
       <link>https://www.steamedfish.top/post/interview/mysql/</link>
@@ -16,17 +46,18 @@
       <guid>https://www.steamedfish.top/post/interview/mysql/</guid>
       <description>&lt;h2 id=&#34;面试题汇总&#34;&gt;面试题汇总&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;MySQL的常见存储引擎有哪些？
+&lt;li&gt;数据库优化经验或慢SQL优化经验
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;表结构上的设计优化&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当看到SQL数据连接的表超过5张的时候，基本上可以考虑从库表结构上思考优化，一般情况是：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;InnoDB&lt;/li&gt;
-&lt;li&gt;MyISAM&lt;/li&gt;
-&lt;li&gt;MySQL 常见的存储引擎主要有 InnoDB、MyISAM、Memory、Archive、CSV、NDB 等。其中最常用的是 InnoDB，它支持事务、行锁和外键，是 MySQL 5.5 之后的默认存储引擎；MyISAM 不支持事务，使用表锁，适合读多写少的场景；Memory 引擎数据存储在内存中，查询速度很快，但重启会丢失数据；Archive 主要用于历史数据归档。&lt;/li&gt;
+&lt;li&gt;业务的不必要拆分&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;mysql怎么存数据&#34;&gt;MySQL怎么存数据？&lt;/h3&gt;
-&lt;p&gt;&lt;code&gt;MySQL&lt;/code&gt;数据保存在&lt;strong&gt;磁盘&lt;/strong&gt;上，数据处理发生在内存中，&lt;strong&gt;数据页&lt;/strong&gt;是磁盘与内存之间交互的基本单位，也是&lt;code&gt;MySQL&lt;/code&gt;管理存储空间的基本单位，大小默认为&lt;code&gt;16KB&lt;/code&gt;&lt;/p&gt;</description>
+&lt;p&gt;例如：新闻表（新闻id，标题，作者）；新闻详情表（新闻id，图片，发布时间，来源，内容）&lt;br&gt;
+如果再App端需要展示新闻列表需要：（新闻id，标题，图片），这时需要从两个海量数据表中进行关联查询才能获得图片，因为新闻表中不存在图片的字段只能关联查询。&lt;br&gt;
+上述的业务是否可以不拆分？或者拆分更合理一些。&lt;br&gt;
+解决方案：表设计不合理，将图片字段放到新闻表，或者两张表合二为一。&lt;/p&gt;</description>
     </item>
     <item>
       <title>【面试八股】Redis</title>
