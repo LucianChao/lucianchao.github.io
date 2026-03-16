@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>【面试八股】微服务 | SteamedFish&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="Mysql篇
+
+mysql优化心得
+1、配置并分析慢查询日志
+2、Explain查看执行计划
+3、索引有效利用，最左匹配原则。
+4、大数据量时进行分页优化
+5、编写复杂SQL语句使用小表驱动大表
+-------------
+索引优化：添加适当索引（index）（重点）
+sql优化：写出高质量sql，避免索引失效
+设计优化：表的设计合理化（复合3NF，有时候要进行反三范式操作）
+配置优化：对mysql配置优化（配置最大并发数my.ini，调整缓存大小）
+硬件优化：服务器的硬件优化
+架构优化：读写分离、分库分表
+实际项目优化：
+1、 文章数据库标题、自媒体作者id创建了索引
+2、 文章评论数据量多转移到MongoDB，立刻的的售货机的点位、合作商id都创建索引加快关联表查询
+3、 后台查询订单时，使用子查询查询分页数据，加快加载分页数据
+4、 冗余字段，减少与大表的联合。语句上建立索引，代码上分开查询，加缓存。
+关于数据量读写分离
+使用spring aop与mysql的主从复制功能实现读写分离
+读写分离：将程序中对数据库的写操作对于一个数据库，读操作读取另外一个，两个数据库的数据需要保证一致。
+在程序中，可以使用spring aop对将要执行业务方法的特征进行判断，如：包含query、find、select等的操作归类为读操作。具体需要在spring的配置文件中可以指定多个读库和写库的数据源datasourse，如果本次操作是读数据，那么可以指定持久层的操作对象的数据源为读库数据源（可以多个）。写库同理。从应用层面做到读写分离，减轻数据库压力。
+为了保证读库与写库的数据一致，需要在安装mysql的时候配置mysql的主从复制功能，让多个数据库的数据一致。
+数据库死锁如何排查
+-- 查询是否锁表
+show OPEN TABLES where in_use &gt; 0
+-- 查询进程
+show processlist
+-- 杀死进程
+kill id
+
+mysql什么情况下出发表锁，行锁
+一般情况下，innoDB有索引的时候就是行锁，没有索引就是表锁
+在mysql中，默认使用innodb，则锁的情况如下：
+select&hellip; for update,insert,update,delete操作都会触发锁，只要涉及到表的改动，都会触发锁。
+
+select&hellip;for update 等等行锁释放之后，返回查询结果">
+<meta name="author" content="Lucian Chao">
+<link rel="canonical" href="https://www.steamedfish.top/post/interview/microservice/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.48569ef1d09dace3351ba549c3a7d634e59d1a68544f48e0de83f555e5c3e16e.css" integrity="sha256-SFae8dCdrOM1G6VJw6fWNOWdGmhUT0jg3oP1VeXD4W4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" rel="preload" as="fetch" href="/index.json">
+
+<script>
+window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"includematches\":true,\"iscasesensitive\":false,\"keys\":[\"title\",\"permalink\",\"summary\",\"content\"],\"minmatchcharlength\":1,\"shouldsort\":true,\"threshold\":0.4}";
+</script>
+<script defer crossorigin="anonymous" src="/assets/js/search.aa96b9ed792bef70ea680e2e0f4d593dbf24e70f57adc89aa9312336ed219778.js" integrity=""></script>
+<link rel="icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.steamedfish.top/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.steamedfish.top/favicon.png">
+<link rel="apple-touch-icon" href="https://www.steamedfish.top/favicon.png">
+<link rel="mask-icon" href="https://www.steamedfish.top/favicon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://www.steamedfish.top/post/interview/microservice/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+
+
+
+
+<link
+  href="/fonts/lxgw/style.css"
+  rel="stylesheet"
+/><meta property="og:url" content="https://www.steamedfish.top/post/interview/microservice/">
+  <meta property="og:site_name" content="SteamedFish&#39;s Blog">
+  <meta property="og:title" content="【面试八股】微服务">
+  <meta property="og:description" content="Mysql篇 mysql优化心得 1、配置并分析慢查询日志 2、Explain查看执行计划 3、索引有效利用，最左匹配原则。 4、大数据量时进行分页优化 5、编写复杂SQL语句使用小表驱动大表 ------------- 索引优化：添加适当索引（index）（重点） sql优化：写出高质量sql，避免索引失效 设计优化：表的设计合理化（复合3NF，有时候要进行反三范式操作） 配置优化：对mysql配置优化（配置最大并发数my.ini，调整缓存大小） 硬件优化：服务器的硬件优化 架构优化：读写分离、分库分表 实际项目优化：
+1、 文章数据库标题、自媒体作者id创建了索引
+2、 文章评论数据量多转移到MongoDB，立刻的的售货机的点位、合作商id都创建索引加快关联表查询
+3、 后台查询订单时，使用子查询查询分页数据，加快加载分页数据
+4、 冗余字段，减少与大表的联合。语句上建立索引，代码上分开查询，加缓存。 关于数据量读写分离 使用spring aop与mysql的主从复制功能实现读写分离 读写分离：将程序中对数据库的写操作对于一个数据库，读操作读取另外一个，两个数据库的数据需要保证一致。
+在程序中，可以使用spring aop对将要执行业务方法的特征进行判断，如：包含query、find、select等的操作归类为读操作。具体需要在spring的配置文件中可以指定多个读库和写库的数据源datasourse，如果本次操作是读数据，那么可以指定持久层的操作对象的数据源为读库数据源（可以多个）。写库同理。从应用层面做到读写分离，减轻数据库压力。
+为了保证读库与写库的数据一致，需要在安装mysql的时候配置mysql的主从复制功能，让多个数据库的数据一致。 数据库死锁如何排查 -- 查询是否锁表 show OPEN TABLES where in_use &gt; 0 -- 查询进程 show processlist -- 杀死进程 kill id mysql什么情况下出发表锁，行锁 一般情况下，innoDB有索引的时候就是行锁，没有索引就是表锁 在mysql中，默认使用innodb，则锁的情况如下： select… for update,insert,update,delete操作都会触发锁，只要涉及到表的改动，都会触发锁。 select…for update 等等行锁释放之后，返回查询结果">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2026-03-16T17:03:04+08:00">
+    <meta property="article:modified_time" content="2026-03-17T00:10:18+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【面试八股】微服务">
+<meta name="twitter:description" content="Mysql篇
+
+mysql优化心得
+1、配置并分析慢查询日志
+2、Explain查看执行计划
+3、索引有效利用，最左匹配原则。
+4、大数据量时进行分页优化
+5、编写复杂SQL语句使用小表驱动大表
+-------------
+索引优化：添加适当索引（index）（重点）
+sql优化：写出高质量sql，避免索引失效
+设计优化：表的设计合理化（复合3NF，有时候要进行反三范式操作）
+配置优化：对mysql配置优化（配置最大并发数my.ini，调整缓存大小）
+硬件优化：服务器的硬件优化
+架构优化：读写分离、分库分表
+实际项目优化：
+1、 文章数据库标题、自媒体作者id创建了索引
+2、 文章评论数据量多转移到MongoDB，立刻的的售货机的点位、合作商id都创建索引加快关联表查询
+3、 后台查询订单时，使用子查询查询分页数据，加快加载分页数据
+4、 冗余字段，减少与大表的联合。语句上建立索引，代码上分开查询，加缓存。
+关于数据量读写分离
+使用spring aop与mysql的主从复制功能实现读写分离
+读写分离：将程序中对数据库的写操作对于一个数据库，读操作读取另外一个，两个数据库的数据需要保证一致。
+在程序中，可以使用spring aop对将要执行业务方法的特征进行判断，如：包含query、find、select等的操作归类为读操作。具体需要在spring的配置文件中可以指定多个读库和写库的数据源datasourse，如果本次操作是读数据，那么可以指定持久层的操作对象的数据源为读库数据源（可以多个）。写库同理。从应用层面做到读写分离，减轻数据库压力。
+为了保证读库与写库的数据一致，需要在安装mysql的时候配置mysql的主从复制功能，让多个数据库的数据一致。
+数据库死锁如何排查
+-- 查询是否锁表
+show OPEN TABLES where in_use &gt; 0
+-- 查询进程
+show processlist
+-- 杀死进程
+kill id
+
+mysql什么情况下出发表锁，行锁
+一般情况下，innoDB有索引的时候就是行锁，没有索引就是表锁
+在mysql中，默认使用innodb，则锁的情况如下：
+select&hellip; for update,insert,update,delete操作都会触发锁，只要涉及到表的改动，都会触发锁。
+
+select&hellip;for update 等等行锁释放之后，返回查询结果">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.steamedfish.top/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "",
+      "item": "https://www.steamedfish.top/post/interview/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "【面试八股】微服务",
+      "item": "https://www.steamedfish.top/post/interview/microservice/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【面试八股】微服务",
+  "name": "【面试八股】微服务",
+  "description": "Mysql篇 mysql优化心得 1、配置并分析慢查询日志 2、Explain查看执行计划 3、索引有效利用，最左匹配原则。 4、大数据量时进行分页优化 5、编写复杂SQL语句使用小表驱动大表 ------------- 索引优化：添加适当索引（index）（重点） sql优化：写出高质量sql，避免索引失效 设计优化：表的设计合理化（复合3NF，有时候要进行反三范式操作） 配置优化：对mysql配置优化（配置最大并发数my.ini，调整缓存大小） 硬件优化：服务器的硬件优化 架构优化：读写分离、分库分表 实际项目优化：\n1、 文章数据库标题、自媒体作者id创建了索引\n2、 文章评论数据量多转移到MongoDB，立刻的的售货机的点位、合作商id都创建索引加快关联表查询\n3、 后台查询订单时，使用子查询查询分页数据，加快加载分页数据\n4、 冗余字段，减少与大表的联合。语句上建立索引，代码上分开查询，加缓存。 关于数据量读写分离 使用spring aop与mysql的主从复制功能实现读写分离 读写分离：将程序中对数据库的写操作对于一个数据库，读操作读取另外一个，两个数据库的数据需要保证一致。\n在程序中，可以使用spring aop对将要执行业务方法的特征进行判断，如：包含query、find、select等的操作归类为读操作。具体需要在spring的配置文件中可以指定多个读库和写库的数据源datasourse，如果本次操作是读数据，那么可以指定持久层的操作对象的数据源为读库数据源（可以多个）。写库同理。从应用层面做到读写分离，减轻数据库压力。\n为了保证读库与写库的数据一致，需要在安装mysql的时候配置mysql的主从复制功能，让多个数据库的数据一致。 数据库死锁如何排查 -- 查询是否锁表 show OPEN TABLES where in_use \u0026gt; 0 -- 查询进程 show processlist -- 杀死进程 kill id mysql什么情况下出发表锁，行锁 一般情况下，innoDB有索引的时候就是行锁，没有索引就是表锁 在mysql中，默认使用innodb，则锁的情况如下： select\u0026hellip; for update,insert,update,delete操作都会触发锁，只要涉及到表的改动，都会触发锁。 select\u0026hellip;for update 等等行锁释放之后，返回查询结果\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "Mysql篇 mysql优化心得 1、配置并分析慢查询日志 2、Explain查看执行计划 3、索引有效利用，最左匹配原则。 4、大数据量时进行分页优化 5、编写复杂SQL语句使用小表驱动大表 ------------- 索引优化：添加适当索引（index）（重点） sql优化：写出高质量sql，避免索引失效 设计优化：表的设计合理化（复合3NF，有时候要进行反三范式操作） 配置优化：对mysql配置优化（配置最大并发数my.ini，调整缓存大小） 硬件优化：服务器的硬件优化 架构优化：读写分离、分库分表 实际项目优化：\n1、 文章数据库标题、自媒体作者id创建了索引\n2、 文章评论数据量多转移到MongoDB，立刻的的售货机的点位、合作商id都创建索引加快关联表查询\n3、 后台查询订单时，使用子查询查询分页数据，加快加载分页数据\n4、 冗余字段，减少与大表的联合。语句上建立索引，代码上分开查询，加缓存。 关于数据量读写分离 使用spring aop与mysql的主从复制功能实现读写分离 读写分离：将程序中对数据库的写操作对于一个数据库，读操作读取另外一个，两个数据库的数据需要保证一致。\n在程序中，可以使用spring aop对将要执行业务方法的特征进行判断，如：包含query、find、select等的操作归类为读操作。具体需要在spring的配置文件中可以指定多个读库和写库的数据源datasourse，如果本次操作是读数据，那么可以指定持久层的操作对象的数据源为读库数据源（可以多个）。写库同理。从应用层面做到读写分离，减轻数据库压力。\n为了保证读库与写库的数据一致，需要在安装mysql的时候配置mysql的主从复制功能，让多个数据库的数据一致。 数据库死锁如何排查 -- 查询是否锁表 show OPEN TABLES where in_use \u003e 0 -- 查询进程 show processlist -- 杀死进程 kill id mysql什么情况下出发表锁，行锁 一般情况下，innoDB有索引的时候就是行锁，没有索引就是表锁 在mysql中，默认使用innodb，则锁的情况如下： select… for update,insert,update,delete操作都会触发锁，只要涉及到表的改动，都会触发锁。 select…for update 等等行锁释放之后，返回查询结果\nmysql隔离级别：\nread uncommitted（读未提交）\n所有事务都可以看到其他未提交事务的执行结果，读取未提交的数据，也被称之为脏读。\nread commited（读已提交）\n一个事务智能看见已经提交事务所作的改变\nrepeatable read（可重读–mysql默认）\n这是mysl的默认事务隔离级别，它确保同一事务的多个实例在并发读取数据时，会看到同样的数据行。不过理论上，这回导致另一个问题：幻读（Phantom Read），简单地说，幻读就是当用户读取某一行范围的数据行时，另一个事务又在该范围内插入了新行，当用户再读取该范围的数据行时，会发现有新的幻影行。\nserializable（可串行化）\n这是最高的隔离级别，它通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。简言之，它是在每个读的数据行上加上共享锁，在这个级别，可能导致大量的超时现象和锁竞争。 mysql判断有没有走索引\ntype、key、ref、extra这几个列都可以判断是否走了索引 InnoDB和myisam有什么区别？\n非聚簇MyISAM索引文件和数据文件是分离的，叶子节点存储的是数据的磁盘地址，非主键索引和主键索引类似，不支持事务\nInnoDB聚簇索引-叶子节点包含了完整的数据记录，非主键索引的叶子节点指向主键。支持事务 索引的作用与类型 索引就是数据结构，通过这种数据结构可以大大提高mysql的查询效率 1. 普通索引index：加速查找 create index 2. 唯一索引 主键索引：primary key ：加速查找+约束（不为空且唯一） 唯一索引：unique：加速查找+约束（唯一） 3. 联合索引（组合索引） where A=? and B=? and C=? create index A on 表(A,B,C) -primary key(id,name)：联合主键索引 -unique(id,name)：联合唯一索引 -index(id,name)：联合普通索引 4. 全文索引fulltext：用于搜索长文本的时候，效果最好。 索引的优缺点 优点： 1.可以通过建立唯一索引或者主键索引，保证数据库表中每一行数据的唯一性。 2.建立索引可以大大提高检索的数据，以及减少表的检索行数。 3.在表连接的连接条件，可以加速表与表的直接的相连 4.在分组和排序字句进行数据检索，可以减少查询时间中 分组 和 排序 时所消耗的时间（数据库的记录会重新排序） 5.建立索引，在查询中使用索引 可以提高性能 缺点： 1.在创建索引和维护索引 会耗费时间，随着数据量的增加而增加。 2.索引文件会占用物理空间，除了数据表需要占用物理空间之外，每一个索引还会占用一定的物理空间 3.当对表的数据进行insert,update,delete的时候，索引也要做动态的维护，这样就会降低数据的维护速度 聚簇与非聚簇索引 聚簇索引（基于主键创建的索引）的主索引的叶子节点存储的是键值对应的数据本身，非聚簇索引（非主键字段创建的索引）的叶子节点存储的是键值对应的数据的主键键值。 聚簇索引的优势在于查询速度快，因为一旦找到索引中的值，就能直接获取到对应的数据行。非聚簇索引则需要额外的查找（回表），以找到数据行的实际地址。 对Mybatis的理解？和Mybatis-plus有什么区别？\nMybatis是ORM持久层框架，通过简单的xml或者注解来配置和映射原始类型、接口和Java POJO(Plain Old Java Objects，普通老式java对象)为数据库中的记录。\nMybatis-plus基于Mybatis基础上做了很多便捷的拓展，如单表所有操作，分页等。 Mybatis的缓存级别，和它的作用域，怎么开启？\n一级缓存：作用域SqlSession，默认开启\n二级缓存：作用域NameSpace命名空间。默认关闭。需要在总配置文件中开启，并在映射文件中添加标签 MQ消息队列篇 为什么要使用MQ？\n项目中使用MQ，可以实现系统之间的异步通信和消息的持久化，从而实现业务的解耦和执行效率的提升。\n程序解耦 并发高时的削峰填谷 MQ应用场景\n应用场景1：当后台系统对数据进行添加、删除、修改后，将会发送一个消息，接收到此消息的微服务可执行对应业务。如：更新ElasticSearch的数据，更新动态，支付状态检查\n应用场景2：用户登录、注册时，向用户发送短信验证码。\nMQ如何保障消息可靠生产\n简易快速做法：\n开启生产者重试机制 启用生产者发送消息后确认机制（ConfirmCallback） 理论上方案： 3. 把消息数据写入数据库，用状态码来控制消息发送状态 4. 开启定时任务，间隔3秒，查询未发送的消息 5. 调用消息生产者，发送消息到MQ中间件。 6. 消息生产者，设置ConfirmCallback确认回调对象，判断ack\ntrue：消息发送成功，修改消息发送状态为：已发送 false：消息发送失败 MQ保障可靠消费 现实常见做法：\n消费者确认机制 失败重试机制 重试失败后投递到其他交换机再处理 业务幂等 主动查询业务（兜底方案） 理论上方案： 6. 手动ACK确认机制 7. 防止消息重复消费 8. 消息重投、拒绝确认的消息，再丢弃之后存入死信队列 9. 死信队列中的消息还消费失败的话，需要人为干预或预警\nMQ死信队列\n当我们的业务队列处理消息失败(业务异常重试次数达到上限、消息被拒绝、消息过期、队列已满)，就会将这些消息重新投递到一个新的队列，该队列存储的都是处理失败的消息，该队列就叫死信队列DLQ(Dead LetterQueue)。\n消息被拒绝(basic.rejectorbasic.nack) 消息过期TTL(TimeToLive) 队列已满 MQ如何防止消息重复消费\n利用去重表来解决，每次接收到消息之后，先去去重表查询该消息是否已经消费，如果已经消费就不处理本来的业务，否则处理本来的业务并且往去重表添加一行消息去重记录\nMQ如何解决消息积压的问题\n消息过多，消费者消费速度太慢 多个消费者并发消费 多线程并发消费 设置消息存活时间(TTL)Time To Live 设置队列中存储消息的界限(Lim)limit 消费者消费失败，消息还在业务队列中 再重试一次，如果还不行，扔到死信队列，避免队列阻塞 分布式系统中数据同步问题 比如：mysql中数据修改了，需要及时同步es中的数据，同步另外一个系统对应的另外一个数据库中数据？\n解决方式一：使用MQ，也是最常用的手段；\n解决方式二：使用canal，监听数据库数据变更然后再同步其它服务\n解决方式三：直接在修改数据之后通过远程调用修改其它服务接口同步数据\nMQ消息类型 普通消息、顺序消息、广播消息、延时消息、批量消息、事务消息\nRedis篇 redis挂了数据如何处理 redis有集群，不会轻易不可用，若某个主节点挂了则通过sentinel哨兵自动将从节点替换为主节点 若真的不可用，可以支持查询数据库，业务还是一样可执行，然后再修复redis 如果要完整的思考redis挂断的情况下，微服务需要高效稳定运行，那么在每台微服务中都设置本地缓存（hashMap、memcache、caffeineCache都可以） 分布式锁解决几千人抢一张票的问题\n几千人抢一张票，属于高并发下操作共享资源，针对这类问题可以采用： 分布式锁（reddison、或者zookeeper都可以实现） 队列（将资源加到一个队列中，每次抢就出队，也不会超卖） 如何提速分布式锁性能 锁定的代码块尽量的少，和尽早的释放锁； redis集群有助于redis的处理效率； 库存数据不一定使用分布式锁，而是可将库存放入redis中，然后递减方式来实现扣减；（redis的原子性/单线程） 复杂一点的实现也可以采用：分段分布式锁，将库存分成好几个数据，然后锁这几个数据，也能提高性能 缓存的数据类型\n缓存在redis中的数据有： 字符类型的常规缓存内容（验证码） 列表类型的有首页广告列表 集合类型的热门商品 有没有用到分布式锁\n避免重复支付加锁 redis红锁\n问题：\n在redis集群中；如果请求一个分布式锁成功，但slave还没有复制同步这个锁，master宕机了；再次去加锁的时候会从继任了master的原slave上申请加锁，也会成功。导致同一个锁被获取了不止一次。 解决：\n对集群的每个节点进行加锁，如果大多数（N/2+1）加锁成功了，则认为获取锁成功。Redisson实现了红锁；但是它对每个加锁的实现，不能保证每个锁落在不同的master上。不建议使用\n直接使用Redisson的普通锁即可。 redis主从和集群有什么区别\n主从：主节点与从节点的数据是一模一样的\n集群：redis各个集群节点的数据是不一样的 数据库村里两千万数据，redis只能存20万，怎么保证它的数据都是热点数据？\nredis的数据都有过期时间，且数据容量达到阈值时，根据置换策略，淘汰指定的数据 redis淘汰策略 volatile-lru allkeys-lru volatile-lfu allkey-lfu volatile-random allkeys-random volatile-ttl noeviction（默认） lru-最近最少使用 lfu-最少频繁使用 redis是单线程吗？\nredis4.0 以前是完全单线程\nredis从4.0开始，也会有后台线程工作，处理一些较为缓慢的操作：无用连接的释放、大key的删除（bgsave，rdb）\nredis6.0引入多线程IO，只是用来处理网络数据的读写和协议的解析，执行命令依旧是单线程，所有不需要区考虑set/get、事务、lua等的并发问题 为什么单线程快 纯内存操作，避免大量访问数据库，减少直接读取磁盘数据，redis将数据都存储在内存里，读写数据不会收到I/O速度的限制，所以速度快 单线程操作，避免了不必要的上下文切换和竞争条件，也不存在多进程或者多线程的切换而消耗CPU，不用去考虑各种锁的问题。不存在加锁释放锁操作，没有因为可能出现死锁而导致的性能消耗 采用了非阻塞I/O多路复用机制 微服务组件篇 SpringCloud和SpringCloudAlibaba的区别\n组件\rSpring Cloud/Netfilx\rSpring Cloud Alibaba\r注册中心\rEureka\rNacos\r消息中间件\rSpring Cloud Stream\rRocketMQ\r配置中心\rSpring Cloud Config\rNacos\r熔断降级\rHystrix\rSentinel\r网关\rZuul/Gateway\rDubbo+Servlet\r服务调用\rFeign\rDubbo RPC\r消息总线\rSpring Cloud Bus\rSCB RocketMQ\r负载均衡\rRibbon/LoadBalancer\rDubbo LB\r事务\r无\rSeata\rNacos修改配置后如何及时刷新\n在需要动态修改的配置值所在的类上方添加@Refreshscope注解；项目微服务中维护了一个长轮询的任务，定时去拉取发生变更的配置信息。\n发送了一个http的post请求等待30s，然后再如此往复。\nSeata是强一致性事务吗\n一般使用的是SEATA的AT模式；而AT模式是每个分支事务独立提交事务；所以是非强一致性事务。\n参与者将操作成败通知协调者，再由协调者根据所有参与者的反馈情报决定各参与者是否要提交操作还是回滚操作。\n如果协调者宕机，参与者没有协调者指挥，则会一直阻塞。导致各个参与者状态不同，所以也有人称它不是强一致性事务\n柔性事务与刚性事务区别\n柔性事务满足BASE理论（基本可用，最终一致）\nBasicallyAvailable基本可用 Soft-state软状态/柔性事务 Eventualconsistency最终一致性 刚性事务满足ACID理论\nAtomic（原子性)：要么都成功，要么都失败 consistent（一致性）：数据应该不被破坏 Isolate（隔离性)：用户间操作不相混淆 Durable(持久性)：永久保存 Ribbon的默认负载均衡的机制是什么？还有其他的吗\nRibbon默认的负载均衡策略是轮询；其它还有：随机、并发量最小、响应时间加权重、过滤等\n怎么理解spring深入一点\nspring的核心是IOC(反转控制）容器，IOC也是一种编程思想，用于实现模块之间的解耦，在Spring中它的作用是对对象的创建，维护和销毁等生命周期的控制。IOC:把对象的创建、初始化、销毁交给spring来管理，而不是由开发者控制，实现控制反转。\nAOP（Aspect-OrientedProgramming，面向切面编程）能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任（例如事务处理、日志管理、权限控制等）封装起来，便于减少系统的重复代码，降低模块间的耦合度，并有利于未来的可扩展性和可维护性。\nSpringAOP是基于动态代理的，如果要代理的对象实现了某个接口，那么SpringAOP就会使用JDK动态代理去创建代理对象；而对于没有实现接口的对象，就无法使用DK动态代理，转而使用CGlib动态代理生成一个被代理对象的子类来作为代理。\n适配器模式 SpringMvc中的适配器HandlerAdatper。 根据HandlerMapping中反馈的Handler的类型来选择对于的适配器接口的实现类，最终实现不同的处理逻辑 具体：DispatcherServ1et根据HandlerMapping返回的handler，向HandlerAdatper发起请求，处理Handler。HandlerAdapter根据规则找到对应的Handler并让其执行，执行完毕后Handler会向HandlerAdapter返回一个ModelAndview，最后由HandlerAdapter向DispatchServelet返回一个ModelAndview。 怎么通过nginx实现负载均衡与限流\n负载均衡\n在nginx的配置文件中，针对不同的集群节点设置upstream即可；不同的集群节点还可以设置不同的权限 限流：\n如果在问到电商项目流量过大的问题；那么可以通过配置nginx的ginxlimit_req_zone和limit_req两个指令，限制单个ip的请求处理速率。如：可以设置每秒钟只处理1个请求，也可以设置一个队列，如队列大小10；设置之后可以在不延迟请求的情况下10个请求处理，处理完一个再空出有队列位置再接受新请求。\n如果有服务器要在限流之外，还可以配置nginx的白名单；白名单里面的ip不会受到限制\nSpringBoot的自动配置怎么实现的\nSpringBoot启动的时候会通过@EnableAutoConfiguration注解找到META-INF/spring.factories配置文件中的所有自动配置类，并对其进行加载，而这些自动配置类都是以AutoConfiguration结尾来命名的，它实际上就是一个JavaConfig形式的Spring容器配置类，它能通过以Properties结尾命名的类中取得在全局配置文件中配置的属性如：\nserver.port，而XxxxProperties类是通过@ConfigurationProperties注解与全局配置文件中对应的属性进行绑定的。\nes相对mysql的特点是什么\nMySQL更擅长的是事务类型的操作，存储结构化数据；\nES更擅长的是海量数据的搜索，分析和计算，不支持事务；存储非结构化数据：\nElasticSearch集群情况\nES集群架构6个节点，索引：3分片；ES调优：在设计映射阶段针对数据搜索情况合理设置数据类型，尽可能多的设置keyword类型域；根据需要设置不同域的索引、查询分词器；查询时尽可能少使用模糊和相似查询。\n如果数据量增长迅速，数据过大如何解决？可以重新创建索引（指定更多的集群节点和分片），然后将原数据导入再次导入。（注意：es在创建索引后不能直接扩容）\nes有哪些节点类型\nMaster主节点\n创建或删除索引，跟踪哪些节点是集群的一部分，并决定哪些分片分配给相关的节点。 Data数据节点\n存储索引数据。对文档进行增删改查，聚合操作 Client客户端节点\n处理路由和搜索请求。协调主节点和数据节点，客户端节点加入集群可以得到集群的状态，根据集群的状态可以直接路由请求 es采用什么数据结构\n由索引、类型、文档、字段构成。\n1.index索引 数据属于哪个索引？不同的数据用不同的索引来区分。 比如当前有两个索引： Account：这个索引是用来存放账户数据的 Book：这个索引是用来存放书本数据的。 2.type类型 指明数据的类型，一个索引里可以有多个类型 比如Account类型有：访客、普通用户、管理员 比如Book类型有：小说、写真、教材 3.document文档 描述的是具体的一条数据记录，一个类型里可以有多个文档。 4.field字段 描述具体记录中的某个字段，一条文档记录中可以有多个字段。 nacos服务注册与发现\nNacos是一个服务注册与发现的组件，用在分布式微服务系统间作为注册中心。服务的注册与发现的流程如下：\n服务启动时就会注册自己的服务信息（服务名、IP、端口）到注册中心 调用者可以从注册中心订阅想要的服务，获取服务对应的实例列表（1个服务可能多实例部署） 调用者自己对实例列表负载均衡，挑选一个实例 调用者向该实例发起远程调用 当服务提供者的实例岩机或者启动新实例时，调用者如何得知呢？\n服务提供者会定期向注册中心发送请求，报告自已的健康状态（心跳请求） 当注册中心长时间收不到提供者的心跳时，会认为该实例宕机，将其从服务的实例列表中剔除 当服务有新实例启动时，会发送注册服务请求，其信息会被记录在注册中心的服务实例列表 当注册中心服务列表变更时，会主动通知微服务，更新本地服务列表 基础篇 怎么创建线程池\n通过ThreadPoolExecutor创建线程池；并且可以在创建过程中设置核心线程池大小、最大线程池大小、线程最大空闲时间、时间单位、线程等待队列、线程创建工厂、拒绝策略\nMap和HashMap的区别\nMap是一个接口，Map提供key到value的映射。一个Map中不能包含相同的key，每个key只能映射一个value。HashMap是实现了Map接口的具体类。\nMapm=newHashMap\u003c\u003e();对代码有什么好处\nMapmap=newHashMap();定义的是一个接口，调用这个接口来实现你要完成的动作，直接用接口就可以，而不用关心具体是怎么实现这个接口的，假如以后有变动的话，不用在去管这个接口，只去改下实现类就可以了，方便维护，隔离性强。\nHashMapmap=newHashMap();定义的就是一个实现类，把这个实现类给别人用，在出现问题和改动的话，那么程序就无法运行，凡是用到这个类的地方都要修改，维护起来很麻烦，而上面的接口，只需要改实现这个接口的实现类就可以了。\n多态的好处：可以使程序有良好的扩展，并可以对所有类的对象进行通用处理\n什么情况下会导致事务失效\n方法不是public类型的\n@Transactional可以用在类上、接口上、public方法上，如果将@Trasaction用在了非public方法上，事务将无效。 自身调用问题\nspring是通过aop的方式，对需要spring管理事务的bean生成了代理对象，然后通过代理对象拦截了目标方法的执行，在方法前后添加了事务的功能，所以必须通过代理对象调用目标方法的时候，事务才会起效。 下述的method1调用method2是不会开启事务的\npublic class UserService{ public void method1(){ //不会开启事务 this.method2(）; } @Transactional public void method2(){ //执行数据库操作 } } 异常被捕获\n如果在业务方法中，出现异常而被try…catch的话；那么事务不会回滚。\n业务和spring事务代码必须在一个线程中\n//方法内部的子线程内部执行的事务操作将不受methodl方法上spring事务的控制 @Transactional public void method1(){ new Thread（）{ //一系列事务操作 }.start(); } Linux下如何看当前有哪些网络连接\nnetstat -anp #查看linux的端口使用情况 netstat -tln 查看当前当前进程id最高的使用什么命令？查看哪个进程耗费cpu最高的命令\nps-ef #查看内存、CPU都可以使用 top 怎么查看最后一百行日志\n--查看最后100行 tail -n 100 文件 --查看头100行 head -n 100 文件 log.txt，查询所有含有error的行\ngrep'error' log.txt | grep -v 'warming Arraylist和Linkedlist区别\nArrayList是Array(动态数组)的数据结构，LinkedList是Link(链表)双向链表的数据结构。\n对于随机访问get和set，ArrayList觉得优于LinkedList，因为LinkedList要移动指针。\n对于新增和删除操作add和remove，LinedList比较占优势，因为ArrayList要移动数据。\n老年代中默认采用什么垃圾回收器，怎么配置\n老年代中的对象存活时间比较久，每次垃圾回收之后，存活对象比较多，而需要回收的垃圾对象比较少，所以适合采用标记-清除、标记-整理算法。\n-XX：MaxTenuringThresho1d：决定了对象多大年龄可以进入老年代 -XX：PretenureSizeThreshold：决定了多大的对象可以进入老年代 -Xx:HandlePromotionFailure：是否设置空间分配担保 新生代和老年代中分别用什么样的垃圾回收算法进行垃圾回收最合适\n新生代采用的垃圾回收算法是：复制算法。正是因为存活的对象比较少，所以需要复制的对象自然就少，所以效率高，而标记-清除、标记-整理都需要对垃圾对象进行清除工作，更适合老年代。\n事务传播行为\n传播行为\r含义\rPROPAGATION_REQUIRED\r表示当前方法必须运行在事务中，如果当前事务存在，方法将会在该事务中运行，否则，会启动一个新的事务\rPROPAGATION_SUPPORTS\r表示该方法不需要事务上下文，但是如果存在当前的事务的话，那么该方法会在这个事务汇总运行\rPROPAGATION_MANDATORY\r表示该方法必须在事务中运行，如果当前事务不存在，则\r会抛出一个异常\rPROPAGATION_REQUIRED_NEW\r表示当前方法必须运行在它自己的事务中。一个新的事务将被启动，如果存在当前事务，在该方法执行期间，当期事务会被挂起。如果使用TATransactionManager的话，则需要访问TransactionManager\rPROPAGATION_NOT_SUPPORTED\r表示当前方法不应该运行在事务中，如果存在当前事务，在该方法运行期间，当前事务将被挂起，如果使用JTATransactionManager的话，则需要访问TransactionManager\rPROPAGATION_NEVER\r表示当前方法不应该运行在事务上下文中，如果当前正有一个事务在运行，则抛出异常\rPROPAGATION_NESTED\r表示如果当前已经存在一个事务，那么该方法将会在嵌套事务中运行。嵌套的事务可以独立于当前事务进行单独的提交或回滚。如果当前事务不存在，那么其行为和PROPAGATION_REQUIRED一样。注意各厂商对这种传播行为的支持是有所差异的，可以参考资源管理器的文档来确认它们是够支持嵌套事务\r字节流和字符流有什么区别\n1、定义不同；2、结尾不同；3、处理方式不同；4、缓冲区不同；5、编码方式不同。字节流默认不使用缓冲区，而字符流使用缓冲区。字节流采用ASCII编码，字符流采用unicode编码。\nAIO,BIO，NIO是什么\nJAVABIO：同步并阻塞，服务器实现模式为一个连接一个线程，即客户端有连接请求时服务器端就需要启动一个线程并处理，如果这个连接不做任何事情会造成不必要的开销，当然可以通过线程池机制改善\nJAVANIO：同步非阻塞，服务器实现模式为一个请求一个线程，即客户端发送的连接请求都会注册到多路复用器上，多路复用器轮询到连接有IO请求时才启动一个线程进行处理\nJAVAAIO(NIO2)：异步非阻塞，服务器实现模式为一个有效请求一个线程，客户端的I/O请求都是由OS先完成了再通知服务器应用去启动线程进行处理；\nhashtable和hashmap的区别\n线程安全性：Hashtable是线程安全的，而HashMap不是线程安全的\nnull键和null值：Hashtable不允许键或值为null，而HashMap允许一个null键和任意数量的null值。\n性能：由于Hashtable提供了线程安全，因此在单线程环境下，HashMap通常比Hashtable具有更好的性能。\n总的来说，如果你需要线程安全或不希望有nul键或值，可以选择Hashtable。但在大多数情况下，HashMap是一个更好的选择，因为它提供了更好的性能和更多的功能。对于需要线程安全的情况，可以考虑使用concurrentHashMap，它专门为多线程环境设计，提供了更好的性能和扩展性。\nspring怎么解决循环依赖问题\nSpring使用了一种称为\"延迟解析\"的策略来解决循环依赖问题。\n当Spring容器初始化时，它会先实例化Bean（但不会调用其初始化方法），然后将Bean放入一个临时的Map中。\n当一个Bean请求另一个Bean作为其依赖时，Spring会首先检查这个临时Map中是否有已经实例化但未完全初始化的Bean。\n如果有，就会直接返回这个Bean的引用，从而解决了循环依赖问题。\n项目篇 各个子系统是如何协调工作的 同步：Open Feign 异步：MQ（RabbitMQ、kafka、EMQX） 如何对接其他系统？OA系统、财务系统 如果提供了api的话，那么调用api 如果没有提供的话就直接操作数据库。 如果是同一个开发团队，可以调用代码。 项目中遇到的问题 Redis单点故障问题：搭建Redis集群，启用哨兵 es数据同步问题：引入MQ及时高效同步。 频繁查询的评论、反馈、足迹、收藏等引起数据库性能问题：MongoDB 数据迁移：xxl-job+hbase 智能派单：日期+区域+完单率+算法 -\u003e 提高整体完单率和效率 EMQX消息处理 -\u003e 策略模式应用。 再次封装微信支付 -\u003e 提供支付工具类。 复制了令牌就可以访问微服务，怎么保证安全？ 令牌是有时效的，在时效内可以访问，超时则不可用。 每个令牌产生的时候会携带ip与其max物理地址。 ",
+  "wordCount" : "11041",
+  "inLanguage": "zh",
+  "datePublished": "2026-03-16T17:03:04+08:00",
+  "dateModified": "2026-03-17T00:10:18+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Lucian Chao"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.steamedfish.top/post/interview/microservice/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SteamedFish's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.steamedfish.top/favicon.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body data-barba="wrapper" class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://www.steamedfish.top/" accesskey="h" title="SteamedFish&#39;s Blog (Alt + H)">SteamedFish&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                    <ul class="lang-switch"><li>|</li>
+                        <li>
+                            <a href="https://www.steamedfish.top/en/" title="English"
+                                aria-label="English">En</a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://www.steamedfish.top/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.steamedfish.top/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    <main class="main" data-barba="container" data-barba-namespace="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      【面试八股】微服务
+    </h1>
+    <div class="post-meta">
+
+
+
+
+
+
+<span title='2026-03-16 17:03:04 +0800 +0800'>2026-03-16</span>&nbsp;·&nbsp;<span title='2026-03-17 00:10:18 +0800 +0800'>(最后修改于 2026-03-17)</span>&nbsp;·&nbsp;<span>23 分钟</span>&nbsp;·&nbsp;<span>Lucian Chao</span>&nbsp;|&nbsp;<span>
+    <a href="https://github.com/LucianChao/Hugo_Blog/tree/main/content/post/interview/microservice/index.md" rel="noopener noreferrer edit" target="_blank">编辑此文章</a>
+</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#mysql%e7%af%87" aria-label="Mysql篇">Mysql篇</a></li>
+                <li>
+                    <a href="#mq%e6%b6%88%e6%81%af%e9%98%9f%e5%88%97%e7%af%87" aria-label="MQ消息队列篇">MQ消息队列篇</a></li>
+                <li>
+                    <a href="#redis%e7%af%87" aria-label="Redis篇">Redis篇</a></li>
+                <li>
+                    <a href="#%e5%be%ae%e6%9c%8d%e5%8a%a1%e7%bb%84%e4%bb%b6%e7%af%87" aria-label="微服务组件篇">微服务组件篇</a></li>
+                <li>
+                    <a href="#%e5%9f%ba%e7%a1%80%e7%af%87" aria-label="基础篇">基础篇</a></li>
+                <li>
+                    <a href="#%e9%a1%b9%e7%9b%ae%e7%af%87" aria-label="项目篇">项目篇</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="mysql篇">Mysql篇<a hidden class="anchor" aria-hidden="true" href="#mysql篇">#</a></h2>
+<ol>
+<li>mysql优化心得
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">1、配置并分析慢查询日志
+</span></span><span class="line"><span class="cl">2、Explain查看执行计划
+</span></span><span class="line"><span class="cl">3、索引有效利用，最左匹配原则。
+</span></span><span class="line"><span class="cl">4、大数据量时进行分页优化
+</span></span><span class="line"><span class="cl">5、编写复杂SQL语句使用小表驱动大表
+</span></span><span class="line"><span class="cl">-------------
+</span></span><span class="line"><span class="cl">索引优化：添加适当索引（index）（重点）
+</span></span><span class="line"><span class="cl">sql优化：写出高质量sql，避免索引失效
+</span></span><span class="line"><span class="cl">设计优化：表的设计合理化（复合3NF，有时候要进行反三范式操作）
+</span></span><span class="line"><span class="cl">配置优化：对mysql配置优化（配置最大并发数my.ini，调整缓存大小）
+</span></span><span class="line"><span class="cl">硬件优化：服务器的硬件优化
+</span></span><span class="line"><span class="cl">架构优化：读写分离、分库分表
+</span></span></code></pre></div>实际项目优化：<br>
+1、 文章数据库标题、自媒体作者id创建了索引<br>
+2、 文章评论数据量多转移到MongoDB，立刻的的售货机的点位、合作商id都创建索引加快关联表查询<br>
+3、 后台查询订单时，使用子查询查询分页数据，加快加载分页数据<br>
+4、 冗余字段，减少与大表的联合。语句上建立索引，代码上分开查询，加缓存。</li>
+<li>关于数据量读写分离
+使用spring aop与mysql的主从复制功能实现读写分离
+<strong>读写分离</strong>：将程序中对数据库的写操作对于一个数据库，读操作读取另外一个，两个数据库的数据需要保证一致。<br>
+在程序中，可以使用spring aop对将要执行业务方法的特征进行判断，如：包含query、find、select等的操作归类为读操作。具体需要在spring的配置文件中可以指定多个读库和写库的数据源datasourse，如果本次操作是读数据，那么可以指定持久层的操作对象的数据源为读库数据源（可以多个）。写库同理。从应用层面做到读写分离，减轻数据库压力。<br>
+为了保证读库与写库的数据一致，需要在安装mysql的时候配置mysql的主从复制功能，让多个数据库的数据一致。</li>
+<li>数据库死锁如何排查
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 查询是否锁表
+</span></span></span><span class="line"><span class="cl"><span class="k">show</span><span class="w"> </span><span class="k">OPEN</span><span class="w"> </span><span class="n">TABLES</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">in_use</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">-- 查询进程
+</span></span></span><span class="line"><span class="cl"><span class="k">show</span><span class="w"> </span><span class="n">processlist</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">-- 杀死进程
+</span></span></span><span class="line"><span class="cl"><span class="n">kill</span><span class="w"> </span><span class="n">id</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>mysql什么情况下出发表锁，行锁
+一般情况下，innoDB有索引的时候就是行锁，没有索引就是表锁
+在mysql中，默认使用innodb，则锁的情况如下：
+select&hellip; for update,insert,update,delete操作都会触发锁，只要涉及到表的改动，都会触发锁。
+<blockquote>
+<p>select&hellip;for update 等等行锁释放之后，返回查询结果</p>
+</blockquote>
+</li>
+<li>mysql隔离级别：<br>
+read uncommitted（读未提交）<br>
+所有事务都可以看到其他未提交事务的执行结果，读取未提交的数据，也被称之为脏读。<br>
+read commited（读已提交）<br>
+一个事务智能看见已经提交事务所作的改变<br>
+repeatable read（可重读&ndash;mysql默认）<br>
+这是mysl的默认事务隔离级别，它确保同一事务的多个实例在并发读取数据时，会看到同样的数据行。不过理论上，这回导致另一个问题：幻读（Phantom Read），简单地说，幻读就是当用户读取某一行范围的数据行时，另一个事务又在该范围内插入了新行，当用户再读取该范围的数据行时，会发现有新的幻影行。<br>
+serializable（可串行化）<br>
+这是最高的隔离级别，它通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。简言之，它是在每个读的数据行上加上共享锁，在这个级别，可能导致大量的超时现象和锁竞争。</li>
+<li>mysql判断有没有走索引<br>
+type、key、ref、extra这几个列都可以判断是否走了索引</li>
+<li>InnoDB和myisam有什么区别？<br>
+非聚簇<code>MyISAM</code>索引文件和数据文件是分离的，叶子节点存储的是数据的磁盘地址，非主键索引和主键索引类似，<strong>不支持事务</strong><br>
+InnoDB聚簇索引-叶子节点包含了完整的数据记录，非主键索引的叶子节点指向主键。<strong>支持事务</strong></li>
+<li>索引的作用与类型
+索引就是数据结构，通过这种数据结构可以大大提高mysql的查询效率
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="mi">1</span><span class="p">.</span><span class="w"> </span><span class="err">普通索引</span><span class="k">index</span><span class="err">：加速查找</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">2</span><span class="p">.</span><span class="w"> </span><span class="err">唯一索引</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="err">主键索引：</span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="err">：加速查找</span><span class="o">+</span><span class="err">约束（不为空且唯一）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="err">唯一索引：</span><span class="k">unique</span><span class="err">：加速查找</span><span class="o">+</span><span class="err">约束（唯一）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">3</span><span class="p">.</span><span class="w"> </span><span class="err">联合索引（组合索引）</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">A</span><span class="o">=?</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">B</span><span class="o">=?</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">C</span><span class="o">=?</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="err">表</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="k">C</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">-</span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">name</span><span class="p">)</span><span class="err">：联合主键索引</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">-</span><span class="k">unique</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">name</span><span class="p">)</span><span class="err">：联合唯一索引</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">-</span><span class="k">index</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">name</span><span class="p">)</span><span class="err">：联合普通索引</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">4</span><span class="p">.</span><span class="w"> </span><span class="err">全文索引</span><span class="n">fulltext</span><span class="err">：用于搜索长文本的时候，效果最好。</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>索引的优缺点
+优点：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">1.可以通过建立唯一索引或者主键索引，保证数据库表中每一行数据的唯一性。
+</span></span><span class="line"><span class="cl">2.建立索引可以大大提高检索的数据，以及减少表的检索行数。
+</span></span><span class="line"><span class="cl">3.在表连接的连接条件，可以加速表与表的直接的相连
+</span></span><span class="line"><span class="cl">4.在分组和排序字句进行数据检索，可以减少查询时间中 分组 和 排序 时所消耗的时间（数据库的记录会重新排序）
+</span></span><span class="line"><span class="cl">5.建立索引，在查询中使用索引 可以提高性能
+</span></span></code></pre></div>缺点：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">1.在创建索引和维护索引 会耗费时间，随着数据量的增加而增加。
+</span></span><span class="line"><span class="cl">2.索引文件会占用物理空间，除了数据表需要占用物理空间之外，每一个索引还会占用一定的物理空间
+</span></span><span class="line"><span class="cl">3.当对表的数据进行insert,update,delete的时候，索引也要做动态的维护，这样就会降低数据的维护速度
+</span></span></code></pre></div></li>
+<li>聚簇与非聚簇索引
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">聚簇索引（基于主键创建的索引）的主索引的叶子节点存储的是键值对应的数据本身，非聚簇索引（非主键字段创建的索引）的叶子节点存储的是键值对应的数据的主键键值。  
+</span></span><span class="line"><span class="cl">聚簇索引的优势在于查询速度快，因为一旦找到索引中的值，就能直接获取到对应的数据行。非聚簇索引则需要额外的查找（回表），以找到数据行的实际地址。
+</span></span></code></pre></div></li>
+<li>对Mybatis的理解？和Mybatis-plus有什么区别？<br>
+Mybatis是ORM持久层框架，通过简单的xml或者注解来配置和映射原始类型、接口和Java POJO(Plain Old Java Objects，普通老式java对象)为数据库中的记录。<br>
+Mybatis-plus基于Mybatis基础上做了很多便捷的拓展，如单表所有操作，分页等。</li>
+<li>Mybatis的缓存级别，和它的作用域，怎么开启？<br>
+一级缓存：作用域SqlSession，默认开启<br>
+二级缓存：作用域NameSpace命名空间。默认关闭。需要在总配置文件中开启，并在映射文件中添加<code>&lt;cache/&gt;</code>标签</li>
+</ol>
+<hr>
+<h2 id="mq消息队列篇">MQ消息队列篇<a hidden class="anchor" aria-hidden="true" href="#mq消息队列篇">#</a></h2>
+<ol>
+<li>
+<p>为什么要使用MQ？<br>
+项目中使用MQ，可以实现系统之间的异步通信和消息的持久化，从而实现业务的解耦和执行效率的提升。</p>
+<ul>
+<li>程序解耦</li>
+<li>并发高时的削峰填谷</li>
+</ul>
+</li>
+<li>
+<p>MQ应用场景<br>
+应用场景1：当后台系统对数据进行添加、删除、修改后，将会发送一个消息，接收到此消息的微服务可执行对应业务。如：更新ElasticSearch的数据，更新动态，支付状态检查<br>
+应用场景2：用户登录、注册时，向用户发送短信验证码。</p>
+</li>
+<li>
+<p>MQ如何保障消息可靠生产<br>
+<strong>简易快速做法：</strong></p>
+<ol>
+<li>开启生产者重试机制</li>
+<li>启用生产者发送消息后确认机制（ConfirmCallback）</li>
+</ol>
+<p><strong>理论上方案：</strong>
+3. 把消息数据写入数据库，用状态码来控制消息发送状态
+4. 开启定时任务，间隔3秒，查询未发送的消息
+5. 调用消息生产者，发送消息到MQ中间件。
+6.  消息生产者，设置ConfirmCallback确认回调对象，判断ack</p>
+<ul>
+<li>true：消息发送成功，修改消息发送状态为：已发送</li>
+<li>false：消息发送失败</li>
+</ul>
+</li>
+<li>
+<p>MQ保障可靠消费
+<strong>现实常见做法：</strong></p>
+<ol>
+<li>消费者确认机制</li>
+<li>失败重试机制</li>
+<li>重试失败后投递到其他交换机再处理</li>
+<li>业务幂等</li>
+<li>主动查询业务（兜底方案）</li>
+</ol>
+<p>理论上方案：
+6. 手动ACK确认机制
+7. 防止消息重复消费
+8. 消息重投、拒绝确认的消息，再丢弃之后存入死信队列
+9. 死信队列中的消息还消费失败的话，需要人为干预或预警</p>
+</li>
+<li>
+<p>MQ死信队列<br>
+当我们的业务队列处理消息失败(业务异常重试次数达到上限、消息被拒绝、消息过期、队列已满)，就会将这些消息重新投递到一个新的队列，该队列存储的都是处理失败的消息，该队列就叫死信队列DLQ(Dead LetterQueue)。</p>
+<ul>
+<li>消息被拒绝(basic.rejectorbasic.nack)</li>
+<li>消息过期TTL(TimeToLive)</li>
+<li>队列已满</li>
+</ul>
+</li>
+<li>
+<p>MQ如何防止消息重复消费<br>
+利用去重表来解决，每次接收到消息之后，先去去重表查询该消息是否已经消费，如果已经消费就不处理本来的业务，否则处理本来的业务并且往去重表添加一行消息去重记录</p>
+</li>
+<li>
+<p>MQ如何解决消息积压的问题</p>
+<ol>
+<li>消息过多，消费者消费速度太慢
+<ul>
+<li>多个消费者并发消费</li>
+<li>多线程并发消费</li>
+<li>设置消息存活时间(TTL)Time To Live</li>
+<li>设置队列中存储消息的界限(Lim)limit</li>
+</ul>
+</li>
+<li>消费者消费失败，消息还在业务队列中
+<ul>
+<li>再重试一次，如果还不行，扔到死信队列，避免队列阻塞</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>分布式系统中数据同步问题
+比如：mysql中数据修改了，需要及时同步es中的数据，同步另外一个系统对应的另外一个数据库中数据？<br>
+解决方式一：使用MQ，也是最常用的手段；<br>
+解决方式二：使用canal，监听数据库数据变更然后再同步其它服务<br>
+解决方式三：直接在修改数据之后通过远程调用修改其它服务接口同步数据</p>
+</li>
+<li>
+<p>MQ消息类型
+普通消息、顺序消息、广播消息、延时消息、批量消息、事务消息</p>
+</li>
+</ol>
+<hr>
+<h2 id="redis篇">Redis篇<a hidden class="anchor" aria-hidden="true" href="#redis篇">#</a></h2>
+<ol>
+<li>redis挂了数据如何处理
+<ol>
+<li>redis有集群，不会轻易不可用，若某个主节点挂了则通过sentinel哨兵自动将从节点替换为主节点</li>
+<li>若真的不可用，可以支持查询数据库，业务还是一样可执行，然后再修复redis</li>
+<li>如果要完整的思考redis挂断的情况下，微服务需要高效稳定运行，那么在每台微服务中都设置本地缓存（hashMap、memcache、caffeineCache都可以）</li>
+</ol>
+</li>
+<li>分布式锁解决几千人抢一张票的问题<br>
+几千人抢一张票，属于高并发下操作共享资源，针对这类问题可以采用：
+<ol>
+<li>分布式锁（reddison、或者zookeeper都可以实现）</li>
+<li>队列（将资源加到一个队列中，每次抢就出队，也不会超卖）</li>
+</ol>
+</li>
+<li>如何提速分布式锁性能
+<ol>
+<li>锁定的代码块尽量的少，和尽早的释放锁；</li>
+<li>redis集群有助于redis的处理效率；</li>
+<li>库存数据不一定使用分布式锁，而是可将库存放入redis中，然后递减方式来实现扣减；（redis的原子性/单线程）</li>
+<li>复杂一点的实现也可以采用：分段分布式锁，将库存分成好几个数据，然后锁这几个数据，也能提高性能</li>
+</ol>
+</li>
+<li>缓存的数据类型<br>
+缓存在redis中的数据有：
+<ul>
+<li>字符类型的常规缓存内容（验证码）</li>
+<li>列表类型的有首页广告列表</li>
+<li>集合类型的热门商品</li>
+</ul>
+</li>
+<li>有没有用到分布式锁<br>
+避免重复支付加锁</li>
+<li>redis红锁<br>
+<strong>问题：</strong><br>
+在redis集群中；如果请求一个分布式锁成功，但slave还没有复制同步这个锁，master宕机了；再次去加锁的时候会从继任了master的原slave上申请加锁，也会成功。导致同一个锁被获取了不止一次。
+<strong>解决：</strong><br>
+对集群的每个节点进行加锁，如果大多数（N/2+1）加锁成功了，则认为获取锁成功。Redisson实现了红锁；但是它对每个加锁的实现，不能保证每个锁落在不同的master上。不建议使用<br>
+直接使用Redisson的普通锁即可。</li>
+<li>redis主从和集群有什么区别<br>
+主从：主节点与从节点的数据是一模一样的<br>
+集群：redis各个集群节点的数据是不一样的</li>
+<li>数据库村里两千万数据，redis只能存20万，怎么保证它的数据都是热点数据？<br>
+redis的数据都有过期时间，且数据容量达到阈值时，根据置换策略，淘汰指定的数据</li>
+<li>redis淘汰策略
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">volatile-lru
+</span></span><span class="line"><span class="cl">allkeys-lru
+</span></span><span class="line"><span class="cl">volatile-lfu
+</span></span><span class="line"><span class="cl">allkey-lfu
+</span></span><span class="line"><span class="cl">volatile-random
+</span></span><span class="line"><span class="cl">allkeys-random
+</span></span><span class="line"><span class="cl">volatile-ttl
+</span></span><span class="line"><span class="cl">noeviction（默认）
+</span></span><span class="line"><span class="cl">lru-最近最少使用
+</span></span><span class="line"><span class="cl">lfu-最少频繁使用
+</span></span></code></pre></div></li>
+<li>redis是单线程吗？<br>
+redis4.0 以前是完全单线程<br>
+redis从4.0开始，也会有后台线程工作，处理一些较为缓慢的操作：无用连接的释放、大key的删除（bgsave，rdb）<br>
+redis6.0引入多线程IO，只是用来处理网络数据的读写和协议的解析，执行命令依旧是单线程，所有不需要区考虑set/get、事务、lua等的并发问题</li>
+<li>为什么单线程快
+<ul>
+<li>纯内存操作，避免大量访问数据库，减少直接读取磁盘数据，redis将数据都存储在内存里，读写数据不会收到I/O速度的限制，所以速度快</li>
+<li>单线程操作，避免了不必要的上下文切换和竞争条件，也不存在多进程或者多线程的切换而消耗CPU，不用去考虑各种锁的问题。不存在加锁释放锁操作，没有因为可能出现死锁而导致的性能消耗</li>
+<li>采用了非阻塞I/O多路复用机制</li>
+</ul>
+</li>
+</ol>
+<h2 id="微服务组件篇">微服务组件篇<a hidden class="anchor" aria-hidden="true" href="#微服务组件篇">#</a></h2>
+<ol>
+<li>
+<p>SpringCloud和SpringCloudAlibaba的区别</p>
+<table class="table table-striped table-bordered table-hover">
+
+  <thead>
+      <tr>
+          <th style="text-align: center">组件</th>
+          <th style="text-align: center">Spring Cloud/Netfilx</th>
+          <th style="text-align: center">Spring Cloud Alibaba</th>
+      </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+
+        
+<td style="text-align: center">注册中心</td>
+
+        
+<td style="text-align: center">Eureka</td>
+
+        
+<td style="text-align: center">Nacos</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">消息中间件</td>
+
+        
+<td style="text-align: center">Spring Cloud Stream</td>
+
+        
+<td style="text-align: center">RocketMQ</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">配置中心</td>
+
+        
+<td style="text-align: center">Spring Cloud Config</td>
+
+        
+<td style="text-align: center">Nacos</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">熔断降级</td>
+
+        
+<td style="text-align: center">Hystrix</td>
+
+        
+<td style="text-align: center">Sentinel</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">网关</td>
+
+        
+<td style="text-align: center">Zuul/Gateway</td>
+
+        
+<td style="text-align: center">Dubbo+Servlet</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">服务调用</td>
+
+        
+<td style="text-align: center">Feign</td>
+
+        
+<td style="text-align: center">Dubbo RPC</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">消息总线</td>
+
+        
+<td style="text-align: center">Spring Cloud Bus</td>
+
+        
+<td style="text-align: center">SCB RocketMQ</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">负载均衡</td>
+
+        
+<td style="text-align: center">Ribbon/LoadBalancer</td>
+
+        
+<td style="text-align: center">Dubbo LB</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: center">事务</td>
+
+        
+<td style="text-align: center">无</td>
+
+        
+<td style="text-align: center">Seata</td>
+    </tr>
+  </tbody>
+</table></li>
+<li>
+<p>Nacos修改配置后如何及时刷新<br>
+在需要动态修改的配置值所在的类上方添加@Refreshscope注解；项目微服务中维护了一个长轮询的任务，定时去拉取发生变更的配置信息。<br>
+发送了一个http的post请求等待30s，然后再如此往复。</p>
+</li>
+<li>
+<p>Seata是强一致性事务吗<br>
+一般使用的是SEATA的AT模式；而AT模式是每个分支事务独立提交事务；所以是非强一致性事务。<br>
+参与者将操作成败通知协调者，再由协调者根据所有参与者的反馈情报决定各参与者是否要提交操作还是回滚操作。</p>
+<blockquote>
+<p>如果协调者宕机，参与者没有协调者指挥，则会一直阻塞。导致各个参与者状态不同，所以也有人称它不是强一致性事务</p>
+</blockquote>
+</li>
+<li>
+<p>柔性事务与刚性事务区别<br>
+柔性事务满足BASE理论（基本可用，最终一致）</p>
+<pre tabindex="0"><code>BasicallyAvailable基本可用
+Soft-state软状态/柔性事务
+Eventualconsistency最终一致性
+</code></pre><p>刚性事务满足ACID理论</p>
+<pre tabindex="0"><code>Atomic（原子性)：要么都成功，要么都失败
+consistent（一致性）：数据应该不被破坏
+Isolate（隔离性)：用户间操作不相混淆
+Durable(持久性)：永久保存
+</code></pre></li>
+<li>
+<p>Ribbon的默认负载均衡的机制是什么？还有其他的吗<br>
+Ribbon默认的负载均衡策略是轮询；其它还有：随机、并发量最小、响应时间加权重、过滤等</p>
+</li>
+<li>
+<p>怎么理解spring深入一点<br>
+spring的核心是IOC(反转控制）容器，IOC也是一种编程思想，用于实现模块之间的解耦，在Spring中它的作用是对对象的创建，维护和销毁等生命周期的控制。IOC:把对象的创建、初始化、销毁交给spring来管理，而不是由开发者控制，实现控制反转。<br>
+AOP（Aspect-OrientedProgramming，面向切面编程）能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任（例如事务处理、日志管理、权限控制等）封装起来，便于减少系统的重复代码，降低模块间的耦合度，并有利于未来的可扩展性和可维护性。<br>
+SpringAOP是基于动态代理的，如果要代理的对象实现了某个接口，那么SpringAOP就会使用JDK动态代理去创建代理对象；而对于没有实现接口的对象，就无法使用DK动态代理，转而使用CGlib动态代理生成一个被代理对象的子类来作为代理。</p>
+<pre tabindex="0"><code>适配器模式
+SpringMvc中的适配器HandlerAdatper。
+
+根据HandlerMapping中反馈的Handler的类型来选择对于的适配器接口的实现类，最终实现不同的处理逻辑
+
+具体：DispatcherServ1et根据HandlerMapping返回的handler，向HandlerAdatper发起请求，处理Handler。HandlerAdapter根据规则找到对应的Handler并让其执行，执行完毕后Handler会向HandlerAdapter返回一个ModelAndview，最后由HandlerAdapter向DispatchServelet返回一个ModelAndview。
+</code></pre></li>
+<li>
+<p>怎么通过nginx实现负载均衡与限流<br>
+<strong>负载均衡</strong><br>
+在nginx的配置文件中，针对不同的集群节点设置upstream即可；不同的集群节点还可以设置不同的权限
+<strong>限流：</strong><br>
+如果在问到电商项目流量过大的问题；那么可以通过配置nginx的ginxlimit_req_zone和limit_req两个指令，限制单个ip的请求处理速率。如：可以设置每秒钟只处理1个请求，也可以设置一个队列，如队列大小10；设置之后可以在不延迟请求的情况下10个请求处理，处理完一个再空出有队列位置再接受新请求。<br>
+如果有服务器要在限流之外，还可以配置nginx的白名单；白名单里面的ip不会受到限制</p>
+</li>
+<li>
+<p>SpringBoot的自动配置怎么实现的<br>
+SpringBoot启动的时候会通过@EnableAutoConfiguration注解找到META-INF/spring.factories配置文件中的所有自动配置类，并对其进行加载，而这些自动配置类都是以AutoConfiguration结尾来命名的，它实际上就是一个JavaConfig形式的Spring容器配置类，它能通过以Properties结尾命名的类中取得在全局配置文件中配置的属性如：<br>
+server.port，而XxxxProperties类是通过@ConfigurationProperties注解与全局配置文件中对应的属性进行绑定的。</p>
+</li>
+<li>
+<p>es相对mysql的特点是什么<br>
+MySQL更擅长的是事务类型的操作，存储结构化数据；<br>
+ES更擅长的是海量数据的搜索，分析和计算，不支持事务；存储非结构化数据：</p>
+</li>
+<li>
+<p>ElasticSearch集群情况<br>
+ES集群架构6个节点，索引：3分片；ES调优：在设计映射阶段针对数据搜索情况合理设置数据类型，尽可能多的设置keyword类型域；根据需要设置不同域的索引、查询分词器；查询时尽可能少使用模糊和相似查询。<br>
+如果数据量增长迅速，数据过大如何解决？可以重新创建索引（指定更多的集群节点和分片），然后将原数据导入再次导入。（注意：es在创建索引后不能直接扩容）</p>
+</li>
+<li>
+<p>es有哪些节点类型</p>
+<ul>
+<li>Master主节点<br>
+创建或删除索引，跟踪哪些节点是集群的一部分，并决定哪些分片分配给相关的节点。</li>
+<li>Data数据节点<br>
+存储索引数据。对文档进行增删改查，聚合操作</li>
+<li>Client客户端节点<br>
+处理路由和搜索请求。协调主节点和数据节点，客户端节点加入集群可以得到集群的状态，根据集群的状态可以直接路由请求</li>
+</ul>
+</li>
+<li>
+<p>es采用什么数据结构<br>
+由索引、类型、文档、字段构成。</p>
+<pre tabindex="0"><code>1.index索引
+数据属于哪个索引？不同的数据用不同的索引来区分。
+比如当前有两个索引：
+    Account：这个索引是用来存放账户数据的
+    Book：这个索引是用来存放书本数据的。
+2.type类型
+指明数据的类型，一个索引里可以有多个类型
+比如Account类型有：访客、普通用户、管理员
+比如Book类型有：小说、写真、教材
+3.document文档
+描述的是具体的一条数据记录，一个类型里可以有多个文档。
+4.field字段
+描述具体记录中的某个字段，一条文档记录中可以有多个字段。
+</code></pre></li>
+<li>
+<p>nacos服务注册与发现<br>
+Nacos是一个服务注册与发现的组件，用在分布式微服务系统间作为注册中心。服务的注册与发现的流程如下：</p>
+<ul>
+<li>服务启动时就会注册自己的服务信息（服务名、IP、端口）到注册中心</li>
+<li>调用者可以从注册中心订阅想要的服务，获取服务对应的实例列表（1个服务可能多实例部署）</li>
+<li>调用者自己对实例列表负载均衡，挑选一个实例</li>
+<li>调用者向该实例发起远程调用</li>
+</ul>
+<p>当服务提供者的实例岩机或者启动新实例时，调用者如何得知呢？</p>
+<ul>
+<li>服务提供者会定期向注册中心发送请求，报告自已的健康状态（心跳请求）</li>
+<li>当注册中心长时间收不到提供者的心跳时，会认为该实例宕机，将其从服务的实例列表中剔除</li>
+<li>当服务有新实例启动时，会发送注册服务请求，其信息会被记录在注册中心的服务实例列表</li>
+<li>当注册中心服务列表变更时，会主动通知微服务，更新本地服务列表</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="基础篇">基础篇<a hidden class="anchor" aria-hidden="true" href="#基础篇">#</a></h2>
+<ol>
+<li>
+<p>怎么创建线程池<br>
+通过<code>ThreadPoolExecutor</code>创建线程池；并且可以在创建过程中设置核心线程池大小、最大线程池大小、线程最大空闲时间、时间单位、线程等待队列、线程创建工厂、拒绝策略</p>
+</li>
+<li>
+<p>Map和HashMap的区别<br>
+Map是一个接口，Map提供key到value的映射。一个Map中不能包含相同的key，每个key只能映射一个value。HashMap是实现了Map接口的具体类。</p>
+<p>Map&lt;String,String&gt;m=newHashMap&lt;&gt;();对代码有什么好处</p>
+<p>Mapmap=newHashMap();定义的是一个接口，调用这个接口来实现你要完成的动作，直接用接口就可以，而不用关心具体是怎么实现这个接口的，假如以后有变动的话，不用在去管这个接口，只去改下实现类就可以了，方便维护，隔离性强。</p>
+<p>HashMapmap=newHashMap();定义的就是一个实现类，把这个实现类给别人用，在出现问题和改动的话，那么程序就无法运行，凡是用到这个类的地方都要修改，维护起来很麻烦，而上面的接口，只需要改实现这个接口的实现类就可以了。</p>
+<blockquote>
+<p>多态的好处：可以使程序有良好的扩展，并可以对所有类的对象进行通用处理</p>
+</blockquote>
+</li>
+<li>
+<p>什么情况下会导致事务失效<br>
+<strong>方法不是public类型的</strong></p>
+<pre tabindex="0"><code>@Transactional可以用在类上、接口上、public方法上，如果将@Trasaction用在了非public方法上，事务将无效。
+</code></pre><p><strong>自身调用问题</strong><br>
+spring是通过aop的方式，对需要spring管理事务的bean生成了代理对象，然后通过代理对象拦截了目标方法的执行，在方法前后添加了事务的功能，所以必须通过代理对象调用目标方法的时候，事务才会起效。
+下述的method1调用method2是不会开启事务的</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UserService</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">method1</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c1">//不会开启事务</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="na">method2</span><span class="p">(</span><span class="err">）</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nd">@Transactional</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">method2</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c1">//执行数据库操作</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p><strong>异常被捕获</strong><br>
+如果在业务方法中，出现异常而被try&hellip;catch的话；那么事务不会回滚。</p>
+<p><strong>业务和spring事务代码必须在一个线程中</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//方法内部的子线程内部执行的事务操作将不受methodl方法上spring事务的控制</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Transactional</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">method1</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="k">new</span><span class="w"> </span><span class="n">Thread</span><span class="err">（）</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c1">//一系列事务操作</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="p">}.</span><span class="na">start</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>
+<p>Linux下如何看当前有哪些网络连接</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">netstat -anp
+</span></span><span class="line"><span class="cl">#查看linux的端口使用情况
+</span></span><span class="line"><span class="cl">netstat -tln
+</span></span></code></pre></div><p>查看当前当前进程id最高的使用什么命令？查看哪个进程耗费cpu最高的命令</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">ps-ef
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#查看内存、CPU都可以使用
+</span></span><span class="line"><span class="cl">top
+</span></span></code></pre></div></li>
+<li>
+<p>怎么查看最后一百行日志</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">--查看最后100行
+</span></span><span class="line"><span class="cl">tail -n 100 文件
+</span></span><span class="line"><span class="cl">--查看头100行
+</span></span><span class="line"><span class="cl">head -n 100 文件
+</span></span></code></pre></div></li>
+<li>
+<p>log.txt，查询所有含有error的行</p>
+<pre tabindex="0"><code class="language-c,d" data-lang="c,d">grep&#39;error&#39; log.txt | grep -v &#39;warming
+</code></pre></li>
+<li>
+<p>Arraylist和Linkedlist区别<br>
+ArrayList是Array(动态数组)的数据结构，LinkedList是Link(链表)双向链表的数据结构。<br>
+对于随机访问get和set，ArrayList觉得优于LinkedList，因为LinkedList要移动指针。<br>
+对于新增和删除操作add和remove，LinedList比较占优势，因为ArrayList要移动数据。</p>
+</li>
+<li>
+<p>老年代中默认采用什么垃圾回收器，怎么配置<br>
+老年代中的对象存活时间比较久，每次垃圾回收之后，存活对象比较多，而需要回收的垃圾对象比较少，所以适合采用标记-清除、标记-整理算法。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">-XX：MaxTenuringThresho1d：决定了对象多大年龄可以进入老年代
+</span></span><span class="line"><span class="cl">-XX：PretenureSizeThreshold：决定了多大的对象可以进入老年代
+</span></span><span class="line"><span class="cl">-Xx:HandlePromotionFailure：是否设置空间分配担保
+</span></span></code></pre></div></li>
+<li>
+<p>新生代和老年代中分别用什么样的垃圾回收算法进行垃圾回收最合适<br>
+新生代采用的垃圾回收算法是：复制算法。正是因为存活的对象比较少，所以需要复制的对象自然就少，所以效率高，而标记-清除、标记-整理都需要对垃圾对象进行清除工作，更适合老年代。</p>
+</li>
+<li>
+<p>事务传播行为</p>
+<table class="table table-striped table-bordered table-hover">
+
+  <thead>
+      <tr>
+          <th style="text-align: left">传播行为</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+
+        
+<td style="text-align: left">PROPAGATION_REQUIRED</td>
+
+        
+<td style="text-align: left">表示当前方法必须运行在事务中，如果当前事务存在，方法将会在该事务中运行，否则，会启动一个新的事务</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: left">PROPAGATION_SUPPORTS</td>
+
+        
+<td style="text-align: left">表示该方法不需要事务上下文，但是如果存在当前的事务的话，那么该方法会在这个事务汇总运行</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: left">PROPAGATION_MANDATORY</td>
+
+        
+<td style="text-align: left">表示该方法必须在事务中运行，如果当前事务不存在，则</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: left">会抛出一个异常</td>
+
+        
+<td></td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: left">PROPAGATION_REQUIRED_NEW</td>
+
+        
+<td style="text-align: left">表示当前方法必须运行在它自己的事务中。一个新的事务将被启动，如果存在当前事务，在该方法执行期间，当期事务会被挂起。如果使用TATransactionManager的话，则需要访问TransactionManager</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: left">PROPAGATION_NOT_SUPPORTED</td>
+
+        
+<td style="text-align: left">表示当前方法不应该运行在事务中，如果存在当前事务，在该方法运行期间，当前事务将被挂起，如果使用JTATransactionManager的话，则需要访问TransactionManager</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: left">PROPAGATION_NEVER</td>
+
+        
+<td style="text-align: left">表示当前方法不应该运行在事务上下文中，如果当前正有一个事务在运行，则抛出异常</td>
+    </tr>
+    <tr>
+
+        
+<td style="text-align: left">PROPAGATION_NESTED</td>
+
+        
+<td style="text-align: left">表示如果当前已经存在一个事务，那么该方法将会在嵌套事务中运行。嵌套的事务可以独立于当前事务进行单独的提交或回滚。如果当前事务不存在，那么其行为和PROPAGATION_REQUIRED一样。注意各厂商对这种传播行为的支持是有所差异的，可以参考资源管理器的文档来确认它们是够支持嵌套事务</td>
+    </tr>
+  </tbody>
+</table></li>
+<li>
+<p>字节流和字符流有什么区别<br>
+1、定义不同；2、结尾不同；3、处理方式不同；4、缓冲区不同；5、编码方式不同。字节流默认不使用缓冲区，而字符流使用缓冲区。字节流采用ASCII编码，字符流采用unicode编码。</p>
+</li>
+<li>
+<p>AIO,BIO，NIO是什么<br>
+JAVABIO：同步并阻塞，服务器实现模式为一个连接一个线程，即客户端有连接请求时服务器端就需要启动一个线程并处理，如果这个连接不做任何事情会造成不必要的开销，当然可以通过线程池机制改善<br>
+JAVANIO：同步非阻塞，服务器实现模式为一个请求一个线程，即客户端发送的连接请求都会注册到多路复用器上，多路复用器轮询到连接有IO请求时才启动一个线程进行处理<br>
+JAVAAIO(NIO2)：异步非阻塞，服务器实现模式为一个有效请求一个线程，客户端的I/O请求都是由OS先完成了再通知服务器应用去启动线程进行处理；</p>
+</li>
+<li>
+<p>hashtable和hashmap的区别<br>
+<strong>线程安全性</strong>：Hashtable是线程安全的，而HashMap不是线程安全的<br>
+<strong>null键和null值</strong>：Hashtable不允许键或值为null，而HashMap允许一个null键和任意数量的null值。<br>
+<strong>性能</strong>：由于Hashtable提供了线程安全，因此在单线程环境下，HashMap通常比Hashtable具有更好的性能。<br>
+总的来说，如果你需要线程安全或不希望有nul键或值，可以选择Hashtable。但在大多数情况下，HashMap是一个更好的选择，因为它提供了更好的性能和更多的功能。对于需要线程安全的情况，可以考虑使用concurrentHashMap，它专门为多线程环境设计，提供了更好的性能和扩展性。</p>
+</li>
+<li>
+<p>spring怎么解决循环依赖问题<br>
+Spring使用了一种称为&quot;延迟解析&quot;的策略来解决循环依赖问题。<br>
+当Spring容器初始化时，它会先实例化Bean（但不会调用其初始化方法），然后将Bean放入一个临时的Map中。<br>
+当一个Bean请求另一个Bean作为其依赖时，Spring会首先检查这个临时Map中是否有已经实例化但未完全初始化的Bean。<br>
+如果有，就会直接返回这个Bean的引用，从而解决了循环依赖问题。</p>
+</li>
+</ol>
+<h2 id="项目篇">项目篇<a hidden class="anchor" aria-hidden="true" href="#项目篇">#</a></h2>
+<ol>
+<li>各个子系统是如何协调工作的
+同步：<code>Open Feign</code>
+异步：<code>MQ（RabbitMQ、kafka、EMQX）</code>
+<ul>
+<li>如何对接其他系统？OA系统、财务系统
+<ul>
+<li>如果提供了api的话，那么调用api</li>
+<li>如果没有提供的话就直接操作数据库。</li>
+<li>如果是同一个开发团队，可以调用代码。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>项目中遇到的问题
+<ol>
+<li>Redis单点故障问题：搭建Redis集群，启用哨兵</li>
+<li>es数据同步问题：引入MQ及时高效同步。</li>
+<li>频繁查询的评论、反馈、足迹、收藏等引起数据库性能问题：MongoDB</li>
+<li>数据迁移：<code>xxl-job</code>+<code>hbase</code></li>
+<li>智能派单：日期+区域+完单率+算法 -&gt; 提高整体完单率和效率</li>
+<li>EMQX消息处理 -&gt; 策略模式应用。</li>
+<li>再次封装微信支付 -&gt; 提供支付工具类。</li>
+</ol>
+</li>
+<li>复制了令牌就可以访问微服务，怎么保证安全？
+<ol>
+<li>令牌是有时效的，在时效内可以访问，超时则不可用。</li>
+<li>每个令牌产生的时候会携带ip与其max物理地址。</li>
+</ol>
+</li>
+</ol>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span><a href="https://www.steamedfish.top/">©2025 SteamedFish&rsquo;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+<script src="https://unpkg.com/@barba/core"></script>
+
+
+<script>
+window.PaperMod = window.PaperMod || {};
+PaperMod.state = { once: false };
+
+PaperMod.initOnce = function () {
+  
+  if (PaperMod.state.once) return;
+  PaperMod.state.once = true;
+  console.log("PaperMod initOnce");
+
+  
+  if (PaperMod.initAPlayer && !window.__aplayer_inited__) {
+    PaperMod.initAPlayer();
+  }
+};
+
+PaperMod.initPage = function (container = document) {
+  console.log("PaperMod initPage");
+
+  PaperMod.initFancybox && PaperMod.initFancybox(container);
+  PaperMod.initCodeCopyButtons && PaperMod.initCodeCopyButtons(container);
+  
+  
+  
+  if (window.initSearch && document.getElementById('searchInput')) {
+    console.log("Initializing search from Barba");
+    window.initSearch(document);
+  }
+};
+
+
+barba.init({
+  transitions: [
+    {
+      name: "default",
+      leave(data) {
+        
+        return Promise.resolve();
+      },
+      enter(data) {
+        
+        PaperMod.initOnce();
+        
+        PaperMod.initPage(data.next.container);
+      },
+      afterEnter(data) {
+        
+        
+        if (window.initSearch && document.getElementById('searchInput')) {
+          console.log("AfterEnter: Re-initializing search");
+          window.initSearch(document);
+        }
+      }
+    },
+  ],
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  PaperMod.initOnce();
+  PaperMod.initPage(document);
+});
+
+</script>
+
+
+
+
+
+
+
+<link
+  href="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.css"
+  rel="stylesheet"
+/>
+<script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.2/Meting.min.js"></script>
+
+<meting-js
+  server="netease"
+  fixed="true"
+  lrc-type="1"
+  type="playlist"
+  id="2245453903"
+  api="https://api.qijieya.cn/meting/?type=:type&id=:id"
+  >
+  
+  
+         
+  
+  
+  
+</meting-js>
+<script>
+  if (window.Barba) {
+    Barba.hooks.afterEnter(function () {
+      const metingPlayer = document.querySelector('meting-js');
+      if (metingPlayer) {
+        metingPlayer.load();  
+      }
+    });
+  }
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+</script>
+
+
+
+
+<script>
+  window.PaperMod = window.PaperMod || {};
+
+  PaperMod.initCodeCopyButtons = function (root = document) {
+    root.querySelectorAll("pre > code").forEach((codeblock) => {
+      const container = codeblock.parentNode.parentNode;
+
+      
+      if (container.querySelector(".copy-code")) return;
+
+      const copybutton = document.createElement("button");
+      copybutton.classList.add("copy-code");
+      copybutton.innerHTML = '复制';
+
+      function copyingDone() {
+        copybutton.innerHTML = '已复制！';
+        setTimeout(() => {
+          copybutton.innerHTML = '复制';
+        }, 2000);
+      }
+
+      copybutton.addEventListener("click", (cb) => {
+        if ("clipboard" in navigator) {
+          navigator.clipboard.writeText(codeblock.textContent);
+          copyingDone();
+          return;
+        }
+
+        const range = document.createRange();
+        range.selectNodeContents(codeblock);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        try {
+          document.execCommand("copy");
+          copyingDone();
+        } catch (e) {}
+        selection.removeRange(range);
+      });
+      container.appendChild(copybutton);
+    });
+  };
+</script>
+
+
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css" />
+<script src="/lib/fancybox/fancybox.umd.js"></script>
+<script>
+  function initFancybox() {
+    Fancybox.unbind("[data-fancybox]");
+
+    Fancybox.bind("[data-fancybox]", {
+      animated: true,
+      showClass: "fancybox-fadeIn",
+      hideClass: "fancybox-fadeOut",
+      dragToClose: true,
+    });
+  }
+
+  
+  if (document.readyState !== "loading") {
+    initFancybox();
+  } else {
+    document.addEventListener("DOMContentLoaded", initFancybox);
+  }
+  
+  document.addEventListener("barba:afterEnter", initFancybox);
+</script>
+
+
+
+
+
+
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

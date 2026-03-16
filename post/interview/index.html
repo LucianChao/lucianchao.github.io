@@ -193,6 +193,32 @@ window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"include
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">【面试八股】微服务
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Mysql篇 mysql优化心得 1、配置并分析慢查询日志 2、Explain查看执行计划 3、索引有效利用，最左匹配原则。 4、大数据量时进行分页优化 5、编写复杂SQL语句使用小表驱动大表 ------------- 索引优化：添加适当索引（index）（重点） sql优化：写出高质量sql，避免索引失效 设计优化：表的设计合理化（复合3NF，有时候要进行反三范式操作） 配置优化：对mysql配置优化（配置最大并发数my.ini，调整缓存大小） 硬件优化：服务器的硬件优化 架构优化：读写分离、分库分表 实际项目优化：
+1、 文章数据库标题、自媒体作者id创建了索引
+2、 文章评论数据量多转移到MongoDB，立刻的的售货机的点位、合作商id都创建索引加快关联表查询
+3、 后台查询订单时，使用子查询查询分页数据，加快加载分页数据
+4、 冗余字段，减少与大表的联合。语句上建立索引，代码上分开查询，加缓存。 关于数据量读写分离 使用spring aop与mysql的主从复制功能实现读写分离 读写分离：将程序中对数据库的写操作对于一个数据库，读操作读取另外一个，两个数据库的数据需要保证一致。
+在程序中，可以使用spring aop对将要执行业务方法的特征进行判断，如：包含query、find、select等的操作归类为读操作。具体需要在spring的配置文件中可以指定多个读库和写库的数据源datasourse，如果本次操作是读数据，那么可以指定持久层的操作对象的数据源为读库数据源（可以多个）。写库同理。从应用层面做到读写分离，减轻数据库压力。
+为了保证读库与写库的数据一致，需要在安装mysql的时候配置mysql的主从复制功能，让多个数据库的数据一致。 数据库死锁如何排查 -- 查询是否锁表 show OPEN TABLES where in_use &gt; 0 -- 查询进程 show processlist -- 杀死进程 kill id mysql什么情况下出发表锁，行锁 一般情况下，innoDB有索引的时候就是行锁，没有索引就是表锁 在mysql中，默认使用innodb，则锁的情况如下： select… for update,insert,update,delete操作都会触发锁，只要涉及到表的改动，都会触发锁。 select…for update 等等行锁释放之后，返回查询结果
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+
+
+
+
+
+<span title='2026-03-16 17:03:04 +0800 +0800'>2026-03-16</span>&nbsp;·&nbsp;<span title='2026-03-17 00:10:18 +0800 +0800'>(最后修改于 2026-03-17)</span>&nbsp;·&nbsp;<span>23 分钟</span>&nbsp;·&nbsp;<span>Lucian Chao</span></footer>
+  <a class="entry-link" aria-label="post link to 【面试八股】微服务" href="https://www.steamedfish.top/post/interview/microservice/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">【面试八股】JVM
     </h2>
   </header>
@@ -209,7 +235,7 @@ window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"include
 
 
 
-<span title='2026-03-15 02:33:15 +0800 +0800'>2026-03-15</span>&nbsp;·&nbsp;<span>3 分钟</span>&nbsp;·&nbsp;<span>Lucian Chao</span></footer>
+<span title='2026-03-15 02:33:15 +0800 +0800'>2026-03-15</span>&nbsp;·&nbsp;<span title='2026-03-17 00:10:18 +0800 +0800'>(最后修改于 2026-03-17)</span>&nbsp;·&nbsp;<span>6 分钟</span>&nbsp;·&nbsp;<span>Lucian Chao</span></footer>
   <a class="entry-link" aria-label="post link to 【面试八股】JVM" href="https://www.steamedfish.top/post/interview/jvm/"></a>
 </article>
 

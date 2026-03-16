@@ -9,6 +9,51 @@
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <atom:link href="https://www.steamedfish.top/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>【面试八股】微服务</title>
+      <link>https://www.steamedfish.top/post/interview/microservice/</link>
+      <pubDate>Mon, 16 Mar 2026 17:03:04 +0800</pubDate>
+      <guid>https://www.steamedfish.top/post/interview/microservice/</guid>
+      <description>&lt;h2 id=&#34;mysql篇&#34;&gt;Mysql篇&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;mysql优化心得
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1、配置并分析慢查询日志
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2、Explain查看执行计划
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;3、索引有效利用，最左匹配原则。
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;4、大数据量时进行分页优化
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;5、编写复杂SQL语句使用小表驱动大表
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-------------
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;索引优化：添加适当索引（index）（重点）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sql优化：写出高质量sql，避免索引失效
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;设计优化：表的设计合理化（复合3NF，有时候要进行反三范式操作）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;配置优化：对mysql配置优化（配置最大并发数my.ini，调整缓存大小）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;硬件优化：服务器的硬件优化
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;架构优化：读写分离、分库分表
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;实际项目优化：&lt;br&gt;
+1、 文章数据库标题、自媒体作者id创建了索引&lt;br&gt;
+2、 文章评论数据量多转移到MongoDB，立刻的的售货机的点位、合作商id都创建索引加快关联表查询&lt;br&gt;
+3、 后台查询订单时，使用子查询查询分页数据，加快加载分页数据&lt;br&gt;
+4、 冗余字段，减少与大表的联合。语句上建立索引，代码上分开查询，加缓存。&lt;/li&gt;
+&lt;li&gt;关于数据量读写分离
+使用spring aop与mysql的主从复制功能实现读写分离
+&lt;strong&gt;读写分离&lt;/strong&gt;：将程序中对数据库的写操作对于一个数据库，读操作读取另外一个，两个数据库的数据需要保证一致。&lt;br&gt;
+在程序中，可以使用spring aop对将要执行业务方法的特征进行判断，如：包含query、find、select等的操作归类为读操作。具体需要在spring的配置文件中可以指定多个读库和写库的数据源datasourse，如果本次操作是读数据，那么可以指定持久层的操作对象的数据源为读库数据源（可以多个）。写库同理。从应用层面做到读写分离，减轻数据库压力。&lt;br&gt;
+为了保证读库与写库的数据一致，需要在安装mysql的时候配置mysql的主从复制功能，让多个数据库的数据一致。&lt;/li&gt;
+&lt;li&gt;数据库死锁如何排查
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;-- 查询是否锁表
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;show&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;OPEN&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TABLES&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;where&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;in_use&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;-- 查询进程
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;show&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;processlist&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;-- 杀死进程
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;kill&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;mysql什么情况下出发表锁，行锁
+一般情况下，innoDB有索引的时候就是行锁，没有索引就是表锁
+在mysql中，默认使用innodb，则锁的情况如下：
+select&amp;hellip; for update,insert,update,delete操作都会触发锁，只要涉及到表的改动，都会触发锁。
+&lt;blockquote&gt;
+&lt;p&gt;select&amp;hellip;for update 等等行锁释放之后，返回查询结果&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>【面试八股】JVM</title>
       <link>https://www.steamedfish.top/post/interview/jvm/</link>
       <pubDate>Sun, 15 Mar 2026 02:33:15 +0800</pubDate>
