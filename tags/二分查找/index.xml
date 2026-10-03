@@ -4,8 +4,8 @@
     <title>二分查找 on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</link>
     <description>Recent content in 二分查找 on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.157.0</generator>
-    <language>zh</language>
+    <generator>Hugo -- 0.167.0</generator>
+    <language>zh-cn</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Tue, 30 Dec 2025 16:08:01 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/index.xml" rel="self" type="application/rss+xml" />
@@ -27,7 +27,8 @@
 &lt;blockquote&gt;
 &lt;p&gt;输入：&lt;code&gt;nums1 = [1,2], nums2 = [3,4]&lt;/code&gt;&lt;br&gt;
 输出：&lt;code&gt;2.50000&lt;/code&gt;&lt;br&gt;
-解释：&lt;code&gt;合并数组 = [1,2,3,4] ，中位数 (2 + 3) / 2 = 2.5&lt;/code&gt;&lt;/p&gt;</description>
+解释：&lt;code&gt;合并数组 = [1,2,3,4] ，中位数 (2 + 3) / 2 = 2.5&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
   </channel>
 </rss>

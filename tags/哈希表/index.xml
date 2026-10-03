@@ -4,8 +4,8 @@
     <title>哈希表 on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/</link>
     <description>Recent content in 哈希表 on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.157.0</generator>
-    <language>zh</language>
+    <generator>Hugo -- 0.167.0</generator>
+    <language>zh-cn</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Tue, 30 Dec 2025 16:08:01 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/index.xml" rel="self" type="application/rss+xml" />
@@ -26,7 +26,8 @@
 &lt;blockquote&gt;
 &lt;p&gt;输入: &lt;code&gt;s = &amp;quot;bbbbb&amp;quot;&lt;/code&gt;&lt;br&gt;
 输出: &lt;code&gt;1&lt;/code&gt;&lt;br&gt;
-解释: &lt;code&gt;因为无重复字符的最长子串是 &amp;quot;b&amp;quot;，所以其长度为 1。&lt;/code&gt;&lt;/p&gt;</description>
+解释: &lt;code&gt;因为无重复字符的最长子串是 &amp;quot;b&amp;quot;，所以其长度为 1。&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>【HOT100】1.两数之和</title>
@@ -41,7 +42,8 @@
 &lt;blockquote&gt;
 &lt;p&gt;输入：&lt;code&gt;nums = [2,7,11,15], target = 9&lt;/code&gt;&lt;br&gt;
 输出：&lt;code&gt;[0,1]&lt;/code&gt;&lt;br&gt;
-解释：&lt;code&gt;因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。&lt;/code&gt;&lt;/p&gt;</description>
+解释：&lt;code&gt;因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>【HOT100】160.相交链表</title>

@@ -2,7 +2,7 @@
 <html lang="zh" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.157.0">
+	<meta name="generator" content="Hugo 0.167.0">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,7 +12,7 @@
 <meta name="description" content="欢迎来到 SteamedFish 的博客！这里记录技术、生活和学习笔记。">
 <meta name="author" content="Lucian Chao">
 <link rel="canonical" href="https://www.steamedfish.top/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.48569ef1d09dace3351ba549c3a7d634e59d1a68544f48e0de83f555e5c3e16e.css" integrity="sha256-SFae8dCdrOM1G6VJw6fWNOWdGmhUT0jg3oP1VeXD4W4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4d4c3a46ad80789b1069fa2f5b7865703b3eba30aec9e48c22075387e0f437f7.css" integrity="sha256-TUw6Rq2AeJsQafovW3hlcDs&#43;ujCuyeSMIgdTh&#43;D0N/c=" rel="preload stylesheet" as="style">
 <link crossorigin="anonymous" rel="preload" as="fetch" href="/index.json">
 
 <script>
@@ -79,7 +79,7 @@ window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"include
   <meta property="og:site_name" content="SteamedFish&#39;s Blog">
   <meta property="og:title" content="首页">
   <meta property="og:description" content="欢迎来到 SteamedFish 的博客！这里记录技术、生活和学习笔记。">
-  <meta property="og:locale" content="zh">
+  <meta property="og:locale" content="zh-cn">
   <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="首页">
@@ -297,6 +297,8 @@ window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"include
   <div class="entry-content">
     <p>生产者的可靠性 生产者重连 有的时候由于网络波动，可能会出现发送者连接MQ失败的情况。通过配置我们可以开启连接失败后的重连机制：
 spring: rabbitmq: connection-timeout: 1s template: retry: enabled: true # 开启重试 initial-interval: 1000ms # 初始等待时长 multiplier: 1 # 每次增加的间隔倍数 ：最终等待时长 = initial-interval * multiplier max-attempts: 1 # 最大重试次数 信息
+当网络不稳定的时候，利用重试机制可以有效提高消息发送的成功率。不过SpringAMQP提供的重试机制是阻塞式的重试，也就是说多次重试等待的过程中，当前线程是被阻塞的，会影响业务性能。
+如果对于业务性能有要求，建议禁用重试机制。如果一定要使用，请合理配置等待时长和重试次数，当然也可以考虑使用异步线程来执行发送消息的代码。（调用新线程发送消息，无需等待消息发送完毕）
 ...</p>
   </div>
   <footer class="entry-footer">

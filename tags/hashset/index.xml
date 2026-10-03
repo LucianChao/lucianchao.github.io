@@ -4,8 +4,8 @@
     <title>HashSet on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/hashset/</link>
     <description>Recent content in HashSet on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.157.0</generator>
-    <language>zh</language>
+    <generator>Hugo -- 0.167.0</generator>
+    <language>zh-cn</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Tue, 30 Dec 2025 16:08:01 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/hashset/index.xml" rel="self" type="application/rss+xml" />
@@ -26,7 +26,8 @@
 &lt;blockquote&gt;
 &lt;p&gt;输入: &lt;code&gt;s = &amp;quot;bbbbb&amp;quot;&lt;/code&gt;&lt;br&gt;
 输出: &lt;code&gt;1&lt;/code&gt;&lt;br&gt;
-解释: &lt;code&gt;因为无重复字符的最长子串是 &amp;quot;b&amp;quot;，所以其长度为 1。&lt;/code&gt;&lt;/p&gt;</description>
+解释: &lt;code&gt;因为无重复字符的最长子串是 &amp;quot;b&amp;quot;，所以其长度为 1。&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
   </channel>
 </rss>

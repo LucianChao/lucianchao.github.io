@@ -4,8 +4,8 @@
     <title>Filter on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/filter/</link>
     <description>Recent content in Filter on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.157.0</generator>
-    <language>zh</language>
+    <generator>Hugo -- 0.167.0</generator>
+    <language>zh-cn</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Wed, 10 Dec 2025 02:45:12 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/filter/index.xml" rel="self" type="application/rss+xml" />
@@ -196,7 +196,10 @@
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;注释&lt;/p&gt;</description>
+        &lt;/span&gt;注释&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;登录标记：用户登录成功之后，在后续的每一次请求中，都可以获取到该标记。【会话技术】&lt;/li&gt;
+&lt;li&gt;统一拦截：过滤器Filter、拦截器Interceptor&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

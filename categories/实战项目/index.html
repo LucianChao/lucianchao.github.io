@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="Lucian Chao">
 <link rel="canonical" href="https://www.steamedfish.top/categories/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.48569ef1d09dace3351ba549c3a7d634e59d1a68544f48e0de83f555e5c3e16e.css" integrity="sha256-SFae8dCdrOM1G6VJw6fWNOWdGmhUT0jg3oP1VeXD4W4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4d4c3a46ad80789b1069fa2f5b7865703b3eba30aec9e48c22075387e0f437f7.css" integrity="sha256-TUw6Rq2AeJsQafovW3hlcDs&#43;ujCuyeSMIgdTh&#43;D0N/c=" rel="preload stylesheet" as="style">
 <link crossorigin="anonymous" rel="preload" as="fetch" href="/index.json">
 
 <script>
@@ -75,7 +75,7 @@ window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"include
 /><meta property="og:url" content="https://www.steamedfish.top/categories/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/">
   <meta property="og:site_name" content="SteamedFish&#39;s Blog">
   <meta property="og:title" content="实战项目">
-  <meta property="og:locale" content="zh">
+  <meta property="og:locale" content="zh-cn">
   <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实战项目">
@@ -185,7 +185,7 @@ window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"include
 
 
 
-<span title='2025-12-13 02:27:43 +0800 +0800'>2025-12-13</span>&nbsp;·&nbsp;<span title='2025-12-16 04:55:00 +0800 +0800'>(最后修改于 2025-12-16)</span>&nbsp;·&nbsp;<span>20 分钟</span>&nbsp;·&nbsp;<span>Lucian Chao</span></footer>
+<span title='2025-12-13 02:27:43 +0800 +0800'>2025-12-13</span>&nbsp;·&nbsp;<span title='2025-12-16 04:55:00 +0800 +0800'>(最后修改于 2025-12-16)</span>&nbsp;·&nbsp;<span>21 分钟</span>&nbsp;·&nbsp;<span>Lucian Chao</span></footer>
   <a class="entry-link" aria-label="post link to Javaweb——(26)Tlias前端开发·员工管理" href="https://www.steamedfish.top/post/java-web/javaweb-26-tliasweb-emp/"></a>
 </article>
 
@@ -196,6 +196,7 @@ window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"include
   </header>
   <div class="entry-content">
     <p>配置优先级 SpringBoot中支持三种格式的配置文件： 信息
+虽然springboot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置（yml是主流）。
 ...</p>
   </div>
   <footer class="entry-footer">
@@ -222,6 +223,7 @@ window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"include
   </header>
   <div class="entry-content">
     <p>什么是AOP？ AOP：Aspect Oriented Programming（面向切面编程、面向方面编程），其实就是面向特定方法编程。 场景：案例中部分业务方法运行较慢，定位执行耗时较长的接口，此时需要统计每一个业务方法的执行耗时。 优势： 减少重复代码 代码无侵入 提高开发效率 维护方便 提示
+AOP是一种思想，而在Spring框架中对这种思想进行的实现，那我们要学习的就是Spring AOP。
 ...</p>
   </div>
   <footer class="entry-footer">
@@ -243,7 +245,7 @@ window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"include
   <div class="entry-content">
     <p>登录功能 分析 阅读接口文档——登录
 了解需求之后分析三层架构各自的任务 实体类 EmpLoginInfo.java package com.javaweb.entity; import lombok.AllArgsConstructor; import lombok.Data; import lombok.NoArgsConstructor; @Data @AllArgsConstructor @NoArgsConstructor public class EmpLoginInfo { private Integer id; private String username; private String name; private String token; } Controller LoginController.java package com.javaweb.controller; import com.javaweb.entity.Emp; import com.javaweb.entity.EmpLoginInfo; import com.javaweb.entity.Result; import com.javaweb.service.EmpService; import lombok.extern.slf4j.Slf4j; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.web.bind.annotation.PostMapping; import org.springframework.web.bind.annotation.RequestBody; import org.springframework.web.bind.annotation.RequestMapping; import org.springframework.web.bind.annotation.RestController; @Slf4j @RestController @RequestMapping(&#34;/login&#34;) public class LoginController { @Autowired private EmpService empService; /** * 员工登录 * * @param emp * @return */ @PostMapping public Result login(@RequestBody Emp emp) { log.info(&#34;员工登录：{}&#34;, emp); EmpLoginInfo loginInfo = empService.login(emp); if (loginInfo == null) { return Result.error(&#34;用户名或密码错误！！&#34;); } return Result.success(loginInfo); } } Service &amp; Mapper EmpServiceImpl.java /** * 员工登录 * * @param emp * @return */ @Override public EmpLoginInfo login(Emp emp) { //1.调用mapper方法查询 Emp empDB = empMapper.selectByUsernameAndPassword(emp); //2.判断登录数据是否正确 if (empDB != null) { //3.查到数据构造EmpLoginInfo对象并返回 //TODO return new EmpLoginInfo(empDB.getId(), empDB.getUsername(), empDB.getName(), null); } //3.如果数据为空，代表登录失败，返回null return null; } EmpMapper.xml &lt;!-- 登录--&gt; &lt;select id=&#34;selectByUsernameAndPassword&#34; resultType=&#34;com.javaweb.entity.Emp&#34;&gt; select * from emp where username = #{username} and password = #{password} &lt;/select&gt; 联调测试 问题：在未登录时，也能访问系统页面进行操作 解决方案：进行登录校验 登录校验 注释
-...</p>
+登录标记：用户登录成功之后，在后续的每一次请求中，都可以获取到该标记。【会话技术】 统一拦截：过滤器Filter、拦截器Interceptor ...</p>
   </div>
   <footer class="entry-footer">
 
@@ -265,7 +267,14 @@ window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"include
     <p>删除员工 分析 阅读文档——删除员工
 Controller接收请求参数 接收请求参数：
 DELETE /emps?ids=1,2,3 方式一：在Controller方法中通过数组来接收 方式二：在Controller方法中通过集合来接收 src/main/java/com/javaweb/controller/EmpController.java // public Result delete(Integer[] ids) // 通过数组即可接收前端传递的数组值 @DeleteMapping(&#34;/emps&#34;) // 通过集合类型接收前端传递的数组值，需要加注解 @RequestParam public Result delete(@RequestParam List&lt;Integer&gt; ids) { log.info(&#34;ids = {}&#34;, ids); empService.delete(ids); return Result.success(); } } Service &amp; Mapper EmpService.java
-...</p>
+/** * 删除员工 * @param ids */ void delete(List&lt;Integer&gt; ids); EmpServiceImpl.java
+@Override @Transactional //开启事务（涉及多表操作） public void delete(List&lt;Integer&gt; ids) { //1.删除员工基本信息 emp表 empMapper.deleteBatch(ids); //2.删除员工工作经历 emp_expr表 empExprMapper.deleteBatch(ids); } 注释
+由于删除员工信息，既要删除员工基本信息，又要删除工作经历信息，操作多次数据库的删除，所以要进行事务控制
+EmpMapper.java
+/** * 批量删除员工基本信息 * @param ids */ //基于XML开发- 动态SQL void deleteBatch(List&lt;Integer&gt; ids); EmpExprMapper.java
+/** * 批量删除员工工作经历 * @param ids */ //基于XML开发-动态SQL -- &lt;foreach&gt; void deleteBatch(List&lt;Integer&gt; ids); EmpMapper.xml
+&lt;!-- 批量删除员工--&gt; &lt;delete id=&#34;deleteBatch&#34;&gt; delete from emp where id in &lt;foreach collection=&#34;ids&#34; separator=&#34;,&#34; item=&#34;id&#34; open=&#34;(&#34; close=&#34;)&#34;&gt; #{id} &lt;/foreach&gt; &lt;/delete&gt; EmpExprMapper.xml
+&lt;!-- 批量删除数据--&gt; &lt;delete id=&#34;deleteBatch&#34;&gt; delete from emp_expr where emp_id in &lt;foreach collection=&#34;ids&#34; separator=&#34;,&#34; item=&#34;id&#34; open=&#34;(&#34; close=&#34;)&#34;&gt; #{id} &lt;/foreach&gt; &lt;/delete&gt; ...</p>
   </div>
   <footer class="entry-footer">
 
@@ -287,7 +296,9 @@ DELETE /emps?ids=1,2,3 方式一：在Controller方法中通过数组来接收 �
     <p>新增员工 分析 阅读接口文档
 接口文档——添加员工
 分析三层架构 步骤： 完成完成准备工作，引入实体类EmpExpr及对应的Mapper接口、XML映射文件，及接收请求参数的实体类 保存员工的基本信息 注释
-...</p>
+使用 @Options(useGeneratedKeys = true,keyProperty = “id”)
+获取主键值赋给id，拿回数据操作emp_expr表
+批量保存员工的工作经历信息 ...</p>
   </div>
   <footer class="entry-footer">
 
@@ -370,6 +381,7 @@ DELETE /emps?ids=1,2,3 方式一：在Controller方法中通过数组来接收 �
   </header>
   <div class="entry-content">
     <p>Java程序操作数据库 JDBC 概述 JDBC: (Java DataBase Connectivity)，就是使用Java语言操作关系型数据库的一套API。 本质： sun公司官方定义的一套操作所有关系型数据库的规范，即接口 各个数据库厂商去实现这套接口，提供数据库驱动jar包 我们可以使用这套接口（JDBC）编程，真正执行的代码时驱动jar包中的实现类 JDBC快速入门 通过JDBC程序，执行update语句，更新用户表中的数据 准备工作 创建项目，引入mysql的驱动、junit依赖 注册驱动 获取连接对象 Connection 获取SQL语句执行对象 Statement 执行SQL语句 package com.javaweb; import org.junit.jupiter.api.Test; import java.sql.Connection; import java.sql.DriverManager; import java.sql.Statement; /** * JDBC测试 */ public class JDBCTest { @Test public void testUpdate() throws Exception { //1.准备工作 //1.1 加载驱动 Class.forName(&#34;com.mysql.cj.jdbc.Driver&#34;);//固定的 //1.2 获取数据库的连接对象 Connection Connection connection = DriverManager.getConnection(&#34;jdbc:mysql://localhost:3306/javaweb_db02&#34;, &#34;root&#34;, &#34;20030420&#34;); //1.3 获取执行sql语句的对象 Statement Statement statement = connection.createStatement(); //2. 执行sql语句 //修改用户表id为1的密码，修改为12345678 int i = statement.executeUpdate(&#34;update user set password =&#39;12345678&#39; where id = 1&#34;); System.out.println(i); //3.释放资源 statement.close(); connection.close(); } } API详解 DriverManager DriverManager（驱动管理器）作用： 注册驱动：DriverManager.registerDriver() 当加载Driver驱动类时，会自动运行静态代码块中注册驱动的代码 Class.forName这部操作可以省略 获取数据库连接：DriverManger.getConnection(url,user,password) url：数据库连接url 语法：jbdc:mysql://ip地址(域名):端口号/数据库名?参数键值对1&amp;参数键值对2 说明：如果连接的是本地的默认端口的mysql，url可以简写为：jdbc:mysql:///数据库名?参数键值对... user：用户名 password：密码 信息
+SPI机制：Service Provider Interface，JDK内置的一种服务提供发现机制，可以轻松拓展你的程序（切换实现），实现接口与实现类之间的解耦。
 ...</p>
   </div>
   <footer class="entry-footer">

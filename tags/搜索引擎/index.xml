@@ -4,8 +4,8 @@
     <title>搜索引擎 on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/</link>
     <description>Recent content in 搜索引擎 on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.157.0</generator>
-    <language>zh</language>
+    <generator>Hugo -- 0.167.0</generator>
+    <language>zh-cn</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Fri, 05 Dec 2025 04:36:36 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/index.xml" rel="self" type="application/rss+xml" />
@@ -53,7 +53,163 @@
 &lt;/div&gt;
 
 
-&lt;/p&gt;</description>
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;初次登录会提示你添加网站，有两种添加方式：从 GSC 导入、手动添加。如果您的网站被 谷歌GSC 收录，可以用 GSC 直接导入。&lt;/p&gt;
+&lt;p&gt;这里我选择手动添加，输入自己的域名，点击添加（在笔者查阅资料时，有人说这里可能会出现网络问题，可以多试几次，不过我并没有遇到此类问题，或许是因为当时开启了科学上网工具）
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/hugo-log/hugo-blog-search-engine-indexing-guide.md&#34;
+    href=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/2.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/2.png&#34;
+      srcset=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/2.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;现在需要你验证网站的所有权，即验证这个网站是属于你的。&lt;/p&gt;
+&lt;p&gt;这里我选择第一种方式，使用XML文件验证
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/hugo-log/hugo-blog-search-engine-indexing-guide.md&#34;
+    href=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/3.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/3.png&#34;
+      srcset=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/3.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;下载XML文件，放在网站静态资源目录下：&lt;code&gt;/static/BingSiteAuth.xml&lt;/code&gt;，重新生成网站并推送到远程仓库中，可以检查远程仓库根目录中是否有&lt;code&gt;BingSiteAuth.xml&lt;/code&gt;
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/hugo-log/hugo-blog-search-engine-indexing-guide.md&#34;
+    href=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/4.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/4.png&#34;
+      srcset=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/4.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;点击验证，添加成功
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/hugo-log/hugo-blog-search-engine-indexing-guide.md&#34;
+    href=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/5.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/5.png&#34;
+      srcset=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/5.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
   </channel>
 </rss>

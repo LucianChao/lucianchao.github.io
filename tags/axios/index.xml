@@ -4,8 +4,8 @@
     <title>Axios on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/axios/</link>
     <description>Recent content in Axios on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.157.0</generator>
-    <language>zh</language>
+    <generator>Hugo -- 0.167.0</generator>
+    <language>zh-cn</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Tue, 18 Nov 2025 23:43:27 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/axios/index.xml" rel="self" type="application/rss+xml" />
@@ -55,7 +55,8 @@
 &lt;blockquote&gt;
 &lt;p&gt;省：https://web-server.itheima.net/province &lt;br&gt;
 市：https://web-server.itheima.net/city?pid=xxx &lt;br&gt;
-区：https://web-server.itheima.net/area?cid=xxx&lt;/p&gt;</description>
+区：https://web-server.itheima.net/area?cid=xxx&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>JavaWeb——(4)Vue框架基础</title>
@@ -164,41 +165,66 @@
 &lt;ul&gt;
 &lt;li&gt;Vue指令：HTML标签上带有 &lt;code&gt;v-&lt;/code&gt;前缀的特殊属性，不同的指令具有不同的含义，可以实现不同的功能&lt;/li&gt;
 &lt;li&gt;常用指令：
-&lt;table&gt;
+&lt;table class=&#34;table table-striped table-bordered table-hover&#34;&gt;
+
   &lt;thead&gt;
       &lt;tr&gt;
           &lt;th style=&#34;text-align: center&#34;&gt;指令&lt;/th&gt;
           &lt;th style=&#34;text-align: center&#34;&gt;作用&lt;/th&gt;
       &lt;/tr&gt;
   &lt;/thead&gt;
+
   &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-for&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;列表渲染，遍历容易的元素或者对象的属性&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-bind&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;为HTML标签绑定属性值，如设置 &lt;code&gt;href&lt;/code&gt;，&lt;code&gt;css&lt;/code&gt;样式等&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-if&lt;/code&gt;/&lt;code&gt;v-else-if&lt;/code&gt;/&lt;code&gt;v-else&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;条件性的渲染某元素，判断为&lt;code&gt;true&lt;/code&gt;时渲染，否则不渲染&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-show&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;根据条件展示某元素，区别在于切换的是&lt;code&gt;display&lt;/code&gt;的值&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-model&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;在表单元素上创建双向数据绑定&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-on&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;为HTML标签绑定事件&lt;/td&gt;
-      &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-for&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;列表渲染，遍历容易的元素或者对象的属性&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-bind&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;为HTML标签绑定属性值，如设置 &lt;code&gt;href&lt;/code&gt;，&lt;code&gt;css&lt;/code&gt;样式等&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-if&lt;/code&gt;/&lt;code&gt;v-else-if&lt;/code&gt;/&lt;code&gt;v-else&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;条件性的渲染某元素，判断为&lt;code&gt;true&lt;/code&gt;时渲染，否则不渲染&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-show&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;根据条件展示某元素，区别在于切换的是&lt;code&gt;display&lt;/code&gt;的值&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-model&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;在表单元素上创建双向数据绑定&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-on&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;为HTML标签绑定事件&lt;/td&gt;
+    &lt;/tr&gt;
   &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/li&gt;
+&lt;/table&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;v-for&#34;&gt;v-for&lt;/h3&gt;
@@ -225,7 +251,7 @@
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;注意：遍历的数组，必须在&lt;code&gt;data&lt;/code&gt;中定义；想让哪个标签循环多次，就在哪个标签上使用&lt;code&gt;v-for&lt;/code&gt;指令&lt;/p&gt;&lt;/div&gt;</description>
     </item>
   </channel>
 </rss>

@@ -4,8 +4,8 @@
     <title>File on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/file/</link>
     <description>Recent content in File on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.157.0</generator>
-    <language>zh</language>
+    <generator>Hugo -- 0.167.0</generator>
+    <language>zh-cn</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Thu, 06 Nov 2025 17:32:53 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/file/index.xml" rel="self" type="application/rss+xml" />
@@ -25,7 +25,31 @@
 &lt;p&gt;&lt;strong&gt;输出流&lt;/strong&gt;（OutputStream / Writer）：将数据写出到外部。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;字节流 vs 字符流：&lt;/p&gt;</description>
+&lt;p&gt;字节流 vs 字符流：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;字节流：InputStream / OutputStream，按字节处理，适合所有类型文件（文本、图片、视频）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;字符流：Reader / Writer，按字符处理，适合文本文件，自动处理字符编码。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;流操作基本步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;打开流（new 对象）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;读写数据（read()/write()）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;关闭流（close()），最好使用 try-with-resources 自动关闭&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
   </channel>
 </rss>

@@ -4,8 +4,8 @@
     <title>String on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/string/</link>
     <description>Recent content in String on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.157.0</generator>
-    <language>zh</language>
+    <generator>Hugo -- 0.167.0</generator>
+    <language>zh-cn</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Thu, 06 Nov 2025 17:32:53 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/string/index.xml" rel="self" type="application/rss+xml" />
@@ -20,7 +20,8 @@
 但有一个关键点必须记住：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;String 对象是不可变的（immutable）&lt;/strong&gt;
-也就是说，一旦创建，就不能修改。&lt;/p&gt;</description>
+也就是说，一旦创建，就不能修改。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
   </channel>
 </rss>

@@ -4,8 +4,8 @@
     <title>Socket on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/socket/</link>
     <description>Recent content in Socket on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.157.0</generator>
-    <language>zh</language>
+    <generator>Hugo -- 0.167.0</generator>
+    <language>zh-cn</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Thu, 06 Nov 2025 17:32:53 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/socket/index.xml" rel="self" type="application/rss+xml" />
@@ -33,7 +33,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;注意：URL 只是表示地址，不会主动去访问网络。要访问，需要配合 &lt;code&gt;URLConnection&lt;/code&gt; 或 &lt;code&gt;HttpURLConnection&lt;/code&gt;。&lt;/p&gt;</description>
+&lt;p&gt;注意：URL 只是表示地址，不会主动去访问网络。要访问，需要配合 &lt;code&gt;URLConnection&lt;/code&gt; 或 &lt;code&gt;HttpURLConnection&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
   </channel>
 </rss>

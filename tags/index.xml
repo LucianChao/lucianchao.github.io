@@ -4,8 +4,8 @@
     <title>Tags on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/</link>
     <description>Recent content in Tags on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.157.0</generator>
-    <language>zh</language>
+    <generator>Hugo -- 0.167.0</generator>
+    <language>zh-cn</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Thu, 05 Mar 2026 05:24:19 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/index.xml" rel="self" type="application/rss+xml" />
@@ -66,7 +66,7 @@
       <description></description>
     </item>
     <item>
-      <title>MySQL</title>
+      <title>Mysql</title>
       <link>https://www.steamedfish.top/tags/mysql/</link>
       <pubDate>Tue, 06 Jan 2026 15:59:06 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/mysql/</guid>
@@ -605,7 +605,7 @@
       <description></description>
     </item>
     <item>
-      <title>Mybatis</title>
+      <title>MyBatis</title>
       <link>https://www.steamedfish.top/tags/mybatis/</link>
       <pubDate>Thu, 27 Nov 2025 16:37:44 +0800</pubDate>
       <guid>https://www.steamedfish.top/tags/mybatis/</guid>

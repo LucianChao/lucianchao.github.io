@@ -6,7 +6,7 @@
     <lastmod>2026-03-17T00:10:18+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/post/</loc>
-    <lastmod>2026-03-17T00:10:18+08:00</lastmod>
+    <lastmod>2026-10-03T23:09:55+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/post/interview/jvm/</loc>
     <lastmod>2026-03-17T00:10:18+08:00</lastmod>
@@ -30,13 +30,13 @@
     <lastmod>2026-03-05T05:24:19+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en"
-                href="https://www.steamedfish.top/en/categories/"
+                hreflang="zh-cn"
+                href="https://www.steamedfish.top/categories/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh"
-                href="https://www.steamedfish.top/categories/"
+                hreflang="en"
+                href="https://www.steamedfish.top/en/categories/"
                 />
   </url><url>
     <loc>https://www.steamedfish.top/tags/openclaw/</loc>
@@ -46,13 +46,13 @@
     <lastmod>2026-03-05T05:24:19+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en"
-                href="https://www.steamedfish.top/en/tags/"
+                hreflang="zh-cn"
+                href="https://www.steamedfish.top/tags/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh"
-                href="https://www.steamedfish.top/tags/"
+                hreflang="en"
+                href="https://www.steamedfish.top/en/tags/"
                 />
   </url><url>
     <loc>https://www.steamedfish.top/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/</loc>
@@ -167,7 +167,7 @@
     <lastmod>2026-01-08T16:07:54+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/post/bye-2025/</loc>
-    <lastmod>2026-01-01T02:52:51+08:00</lastmod>
+    <lastmod>2026-10-03T23:09:55+08:00</lastmod>
   </url><url>
     <loc>https://www.steamedfish.top/post/microservices/1/</loc>
     <lastmod>2026-01-01T19:56:53+08:00</lastmod>
@@ -881,13 +881,13 @@
     <lastmod>2025-11-13T22:59:29+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en"
-                href="https://www.steamedfish.top/en/"
+                hreflang="zh-cn"
+                href="https://www.steamedfish.top/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh"
-                href="https://www.steamedfish.top/"
+                hreflang="en"
+                href="https://www.steamedfish.top/en/"
                 />
   </url><url>
     <loc>https://www.steamedfish.top/search/</loc>

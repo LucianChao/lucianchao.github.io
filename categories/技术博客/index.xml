@@ -4,8 +4,8 @@
     <title>技术博客 on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/</link>
     <description>Recent content in 技术博客 on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.157.0</generator>
-    <language>zh</language>
+    <generator>Hugo -- 0.167.0</generator>
+    <language>zh-cn</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Sat, 13 Dec 2025 03:53:05 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/index.xml" rel="self" type="application/rss+xml" />
@@ -321,7 +321,7 @@
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;分模块开发需要先针对模块功能进行设计，再进行编码。不会先将工程开发完毕，然后进行拆分。&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>Javaweb——(22)SpringBoot原理</title>
@@ -370,7 +370,7 @@
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;虽然springboot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置（&lt;strong&gt;yml是主流&lt;/strong&gt;）。&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;虽然springboot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置（&lt;strong&gt;yml是主流&lt;/strong&gt;）。&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>Javaweb——(21)SpringBoot实战·面向切面编程AOP</title>
@@ -487,7 +487,7 @@
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;提示&lt;/p&gt;</description>
+        &lt;/span&gt;提示&lt;/p&gt;&lt;p&gt;AOP是一种思想，而在Spring框架中对这种思想进行的实现，那我们要学习的就是Spring AOP。&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>Javaweb——(13)SpringBoot实战·Tlias智能学习辅助系统·部门管理开发</title>
@@ -904,7 +904,7 @@ npm run dev
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;SPI机制：Service Provider Interface，JDK内置的一种服务提供发现机制，可以轻松拓展你的程序（切换实现），实现接口与实现类之间的解耦。&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>Javaweb——(11)MySQL入门</title>
@@ -924,45 +924,74 @@ npm run dev
 &lt;li&gt;SQL：&lt;strong&gt;S&lt;/strong&gt;tructured &lt;strong&gt;Q&lt;/strong&gt;uery &lt;strong&gt;L&lt;/strong&gt;anguage，操作关系型数据库的编程语言，定义了一套操作关系型数据库的&lt;strong&gt;统一标准&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;常见数据库产品&#34;&gt;常见数据库产品&lt;/h3&gt;
-&lt;table&gt;
+&lt;table class=&#34;table table-striped table-bordered table-hover&#34;&gt;
+
   &lt;thead&gt;
       &lt;tr&gt;
           &lt;th style=&#34;text-align: center&#34;&gt;产品&lt;/th&gt;
           &lt;th style=&#34;text-align: center&#34;&gt;说明&lt;/th&gt;
       &lt;/tr&gt;
   &lt;/thead&gt;
+
   &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;Oracle&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;收费的大型数据库，Oracle公司的产品。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;MySQL&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;开源免费的中小型数据库。Sun公司收购了MySQL，Oracle收购Sun公司。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;SQL Server&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;MicroSoft公司收费的中型的数据库。C#、.net等语言常使用。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;PostgreSQL&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;开源免费中小型的数据库。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;DB2&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;IBM公司的大型收费数据库产品。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;SQLite&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;嵌入式的微型数据库。如：作为Android内置数据库&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;MariaDB&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;开源免费的中小型的数据库。&lt;/td&gt;
-      &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;Oracle&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;收费的大型数据库，Oracle公司的产品。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;MySQL&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;开源免费的中小型数据库。Sun公司收购了MySQL，Oracle收购Sun公司。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;SQL Server&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;MicroSoft公司收费的中型的数据库。C#、.net等语言常使用。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;PostgreSQL&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;开源免费中小型的数据库。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;DB2&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;IBM公司的大型收费数据库产品。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;SQLite&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;嵌入式的微型数据库。如：作为Android内置数据库&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;MariaDB&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;开源免费的中小型的数据库。&lt;/td&gt;
+    &lt;/tr&gt;
   &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h3 id=&#34;常见mysql客户端图形化工具&#34;&gt;常见MySQL客户端——图形化工具&lt;/h3&gt;
+&lt;/table&gt;&lt;h3 id=&#34;常见mysql客户端图形化工具&#34;&gt;常见MySQL客户端——图形化工具&lt;/h3&gt;
 &lt;p&gt;
 
 
@@ -1152,7 +1181,7 @@ JDBC、JNDI、EJB、RMI、JSP、Servlet、XML、JMS、JavaIDL、JTS、JTA、Java
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;如果Tomcat启动窗口一闪而过，需要检查JAVA_HOME环境变量是否正确配置&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>Javaweb——(6)Maven核心技术</title>
@@ -1202,7 +1231,8 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;Apache 软件基金会，成立于1999年7月，是目前世界上最大的最受欢迎的开源软件基金会，也是一个专门为支持开源项目而生的非盈利组织。 &lt;br&gt;
+开源项目：&lt;a href=&#34;https://www.apache.org/index.html#project-list&#34;&gt;https://www.apache.org/index.html#project-list&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>JavaWeb——(5)Vue基础实战案例</title>
@@ -1250,7 +1280,8 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
 &lt;blockquote&gt;
 &lt;p&gt;省：https://web-server.itheima.net/province &lt;br&gt;
 市：https://web-server.itheima.net/city?pid=xxx &lt;br&gt;
-区：https://web-server.itheima.net/area?cid=xxx&lt;/p&gt;</description>
+区：https://web-server.itheima.net/area?cid=xxx&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>JavaWeb——(4)Vue框架基础</title>
@@ -1359,41 +1390,66 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
 &lt;ul&gt;
 &lt;li&gt;Vue指令：HTML标签上带有 &lt;code&gt;v-&lt;/code&gt;前缀的特殊属性，不同的指令具有不同的含义，可以实现不同的功能&lt;/li&gt;
 &lt;li&gt;常用指令：
-&lt;table&gt;
+&lt;table class=&#34;table table-striped table-bordered table-hover&#34;&gt;
+
   &lt;thead&gt;
       &lt;tr&gt;
           &lt;th style=&#34;text-align: center&#34;&gt;指令&lt;/th&gt;
           &lt;th style=&#34;text-align: center&#34;&gt;作用&lt;/th&gt;
       &lt;/tr&gt;
   &lt;/thead&gt;
+
   &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-for&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;列表渲染，遍历容易的元素或者对象的属性&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-bind&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;为HTML标签绑定属性值，如设置 &lt;code&gt;href&lt;/code&gt;，&lt;code&gt;css&lt;/code&gt;样式等&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-if&lt;/code&gt;/&lt;code&gt;v-else-if&lt;/code&gt;/&lt;code&gt;v-else&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;条件性的渲染某元素，判断为&lt;code&gt;true&lt;/code&gt;时渲染，否则不渲染&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-show&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;根据条件展示某元素，区别在于切换的是&lt;code&gt;display&lt;/code&gt;的值&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-model&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;在表单元素上创建双向数据绑定&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-on&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;为HTML标签绑定事件&lt;/td&gt;
-      &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-for&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;列表渲染，遍历容易的元素或者对象的属性&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-bind&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;为HTML标签绑定属性值，如设置 &lt;code&gt;href&lt;/code&gt;，&lt;code&gt;css&lt;/code&gt;样式等&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-if&lt;/code&gt;/&lt;code&gt;v-else-if&lt;/code&gt;/&lt;code&gt;v-else&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;条件性的渲染某元素，判断为&lt;code&gt;true&lt;/code&gt;时渲染，否则不渲染&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-show&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;根据条件展示某元素，区别在于切换的是&lt;code&gt;display&lt;/code&gt;的值&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-model&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;在表单元素上创建双向数据绑定&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-on&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;为HTML标签绑定事件&lt;/td&gt;
+    &lt;/tr&gt;
   &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/li&gt;
+&lt;/table&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;v-for&#34;&gt;v-for&lt;/h3&gt;
@@ -1420,7 +1476,7 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;注意：遍历的数组，必须在&lt;code&gt;data&lt;/code&gt;中定义；想让哪个标签循环多次，就在哪个标签上使用&lt;code&gt;v-for&lt;/code&gt;指令&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>JavaWeb——(3)JavaScript</title>
@@ -1540,7 +1596,7 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;&lt;strong&gt;ECMA&lt;/strong&gt;：ECMA国际（前身为欧洲计算机制造商协会），制定了标准化的脚本程序设计语言 ECMAScript，这种语言得到广泛应用。而JavaScript是遵守ECMAScript的标准的。&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>JavaWeb——(2)HTML-CSS快速入门</title>
@@ -1552,7 +1608,7 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;提示&lt;/p&gt;&lt;p&gt;常见的html标签需要掌握，但是css属性过于庞杂，了解即可，别执迷不悟，浪费太多时间在上面，需要用时可去&lt;a href=&#34;https://www.w3school.com.cn&#34;&gt;w3school&lt;/a&gt;进行查阅&lt;/p&gt;</description>
+        &lt;/span&gt;提示&lt;/p&gt;&lt;p&gt;常见的html标签需要掌握，但是css属性过于庞杂，了解即可，别执迷不悟，浪费太多时间在上面，需要用时可去&lt;a href=&#34;https://www.w3school.com.cn&#34;&gt;w3school&lt;/a&gt;进行查阅&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>JavaWeb——(1)从环境配置走进JavaWeb</title>
@@ -1622,7 +1678,8 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;注意：URL 只是表示地址，不会主动去访问网络。要访问，需要配合 &lt;code&gt;URLConnection&lt;/code&gt; 或 &lt;code&gt;HttpURLConnection&lt;/code&gt;。&lt;/p&gt;</description>
+&lt;p&gt;注意：URL 只是表示地址，不会主动去访问网络。要访问，需要配合 &lt;code&gt;URLConnection&lt;/code&gt; 或 &lt;code&gt;HttpURLConnection&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（十五·I/O 与文件操作）</title>
@@ -1640,7 +1697,31 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
 &lt;p&gt;&lt;strong&gt;输出流&lt;/strong&gt;（OutputStream / Writer）：将数据写出到外部。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;字节流 vs 字符流：&lt;/p&gt;</description>
+&lt;p&gt;字节流 vs 字符流：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;字节流：InputStream / OutputStream，按字节处理，适合所有类型文件（文本、图片、视频）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;字符流：Reader / Writer，按字符处理，适合文本文件，自动处理字符编码。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;流操作基本步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;打开流（new 对象）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;读写数据（read()/write()）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;关闭流（close()），最好使用 try-with-resources 自动关闭&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（十四·Lambda 与 Stream API）</title>
@@ -1730,7 +1811,8 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
 但有一个关键点必须记住：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;String 对象是不可变的（immutable）&lt;/strong&gt;
-也就是说，一旦创建，就不能修改。&lt;/p&gt;</description>
+也就是说，一旦创建，就不能修改。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（十·包与访问控制）</title>
@@ -1891,7 +1973,8 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
 很多新手一上来就盯着语法，看得眼花缭乱，但其实理解程序的“骨架”比死记硬背语法更重要。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Think of it as building a house &lt;br&gt;
-你可以买很贵的材料，但没有合理的框架，房子也盖不稳。&lt;/p&gt;</description>
+你可以买很贵的材料，但没有合理的框架，房子也盖不稳。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（一·基础语法篇）</title>

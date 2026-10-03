@@ -4,8 +4,8 @@
     <title>后端开发 on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/</link>
     <description>Recent content in 后端开发 on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.157.0</generator>
-    <language>zh</language>
+    <generator>Hugo -- 0.167.0</generator>
+    <language>zh-cn</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Thu, 20 Nov 2025 23:49:21 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
@@ -57,7 +57,8 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;Apache 软件基金会，成立于1999年7月，是目前世界上最大的最受欢迎的开源软件基金会，也是一个专门为支持开源项目而生的非盈利组织。 &lt;br&gt;
+开源项目：&lt;a href=&#34;https://www.apache.org/index.html#project-list&#34;&gt;https://www.apache.org/index.html#project-list&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;</description>
     </item>
   </channel>
 </rss>

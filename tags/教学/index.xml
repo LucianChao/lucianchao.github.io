@@ -4,8 +4,8 @@
     <title>教学 on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/%E6%95%99%E5%AD%A6/</link>
     <description>Recent content in 教学 on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.157.0</generator>
-    <language>zh</language>
+    <generator>Hugo -- 0.167.0</generator>
+    <language>zh-cn</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Sat, 22 Nov 2025 22:47:47 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/%E6%95%99%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" />
@@ -59,7 +59,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;注意：URL 只是表示地址，不会主动去访问网络。要访问，需要配合 &lt;code&gt;URLConnection&lt;/code&gt; 或 &lt;code&gt;HttpURLConnection&lt;/code&gt;。&lt;/p&gt;</description>
+&lt;p&gt;注意：URL 只是表示地址，不会主动去访问网络。要访问，需要配合 &lt;code&gt;URLConnection&lt;/code&gt; 或 &lt;code&gt;HttpURLConnection&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（十五·I/O 与文件操作）</title>
@@ -77,7 +78,31 @@
 &lt;p&gt;&lt;strong&gt;输出流&lt;/strong&gt;（OutputStream / Writer）：将数据写出到外部。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;字节流 vs 字符流：&lt;/p&gt;</description>
+&lt;p&gt;字节流 vs 字符流：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;字节流：InputStream / OutputStream，按字节处理，适合所有类型文件（文本、图片、视频）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;字符流：Reader / Writer，按字符处理，适合文本文件，自动处理字符编码。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;流操作基本步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;打开流（new 对象）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;读写数据（read()/write()）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;关闭流（close()），最好使用 try-with-resources 自动关闭&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（十四·Lambda 与 Stream API）</title>
@@ -167,7 +192,8 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
 但有一个关键点必须记住：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;String 对象是不可变的（immutable）&lt;/strong&gt;
-也就是说，一旦创建，就不能修改。&lt;/p&gt;</description>
+也就是说，一旦创建，就不能修改。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（十·包与访问控制）</title>
@@ -315,7 +341,8 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
 很多新手一上来就盯着语法，看得眼花缭乱，但其实理解程序的“骨架”比死记硬背语法更重要。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Think of it as building a house &lt;br&gt;
-你可以买很贵的材料，但没有合理的框架，房子也盖不稳。&lt;/p&gt;</description>
+你可以买很贵的材料，但没有合理的框架，房子也盖不稳。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（一·基础语法篇）</title>

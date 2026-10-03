@@ -4,8 +4,8 @@
     <title>首页 on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/</link>
     <description>Recent content in 首页 on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.157.0</generator>
-    <language>zh</language>
+    <generator>Hugo -- 0.167.0</generator>
+    <language>zh-cn</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <atom:link href="https://www.steamedfish.top/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -51,7 +51,60 @@
 在mysql中，默认使用innodb，则锁的情况如下：
 select&amp;hellip; for update,insert,update,delete操作都会触发锁，只要涉及到表的改动，都会触发锁。
 &lt;blockquote&gt;
-&lt;p&gt;select&amp;hellip;for update 等等行锁释放之后，返回查询结果&lt;/p&gt;</description>
+&lt;p&gt;select&amp;hellip;for update 等等行锁释放之后，返回查询结果&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;mysql隔离级别：&lt;br&gt;
+read uncommitted（读未提交）&lt;br&gt;
+所有事务都可以看到其他未提交事务的执行结果，读取未提交的数据，也被称之为脏读。&lt;br&gt;
+read commited（读已提交）&lt;br&gt;
+一个事务智能看见已经提交事务所作的改变&lt;br&gt;
+repeatable read（可重读&amp;ndash;mysql默认）&lt;br&gt;
+这是mysl的默认事务隔离级别，它确保同一事务的多个实例在并发读取数据时，会看到同样的数据行。不过理论上，这回导致另一个问题：幻读（Phantom Read），简单地说，幻读就是当用户读取某一行范围的数据行时，另一个事务又在该范围内插入了新行，当用户再读取该范围的数据行时，会发现有新的幻影行。&lt;br&gt;
+serializable（可串行化）&lt;br&gt;
+这是最高的隔离级别，它通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。简言之，它是在每个读的数据行上加上共享锁，在这个级别，可能导致大量的超时现象和锁竞争。&lt;/li&gt;
+&lt;li&gt;mysql判断有没有走索引&lt;br&gt;
+type、key、ref、extra这几个列都可以判断是否走了索引&lt;/li&gt;
+&lt;li&gt;InnoDB和myisam有什么区别？&lt;br&gt;
+非聚簇&lt;code&gt;MyISAM&lt;/code&gt;索引文件和数据文件是分离的，叶子节点存储的是数据的磁盘地址，非主键索引和主键索引类似，&lt;strong&gt;不支持事务&lt;/strong&gt;&lt;br&gt;
+InnoDB聚簇索引-叶子节点包含了完整的数据记录，非主键索引的叶子节点指向主键。&lt;strong&gt;支持事务&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;索引的作用与类型
+索引就是数据结构，通过这种数据结构可以大大提高mysql的查询效率
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;普通索引&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：加速查找&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;唯一索引&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;     &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;主键索引：&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;primary&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：加速查找&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;约束（不为空且唯一）&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;     &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;唯一索引：&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;unique&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：加速查找&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;约束（唯一）&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;联合索引（组合索引）&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;where&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=?&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;and&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;B&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=?&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;and&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=?&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;     &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;表&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;B&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;primary&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：联合主键索引&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;unique&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：联合唯一索引&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：联合普通索引&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;全文索引&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fulltext&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：用于搜索长文本的时候，效果最好。&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;索引的优缺点
+优点：
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1.可以通过建立唯一索引或者主键索引，保证数据库表中每一行数据的唯一性。
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2.建立索引可以大大提高检索的数据，以及减少表的检索行数。
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;3.在表连接的连接条件，可以加速表与表的直接的相连
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;4.在分组和排序字句进行数据检索，可以减少查询时间中 分组 和 排序 时所消耗的时间（数据库的记录会重新排序）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;5.建立索引，在查询中使用索引 可以提高性能
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;缺点：
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1.在创建索引和维护索引 会耗费时间，随着数据量的增加而增加。
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2.索引文件会占用物理空间，除了数据表需要占用物理空间之外，每一个索引还会占用一定的物理空间
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;3.当对表的数据进行insert,update,delete的时候，索引也要做动态的维护，这样就会降低数据的维护速度
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;聚簇与非聚簇索引
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;聚簇索引（基于主键创建的索引）的主索引的叶子节点存储的是键值对应的数据本身，非聚簇索引（非主键字段创建的索引）的叶子节点存储的是键值对应的数据的主键键值。  
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;聚簇索引的优势在于查询速度快，因为一旦找到索引中的值，就能直接获取到对应的数据行。非聚簇索引则需要额外的查找（回表），以找到数据行的实际地址。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;对Mybatis的理解？和Mybatis-plus有什么区别？&lt;br&gt;
+Mybatis是ORM持久层框架，通过简单的xml或者注解来配置和映射原始类型、接口和Java POJO(Plain Old Java Objects，普通老式java对象)为数据库中的记录。&lt;br&gt;
+Mybatis-plus基于Mybatis基础上做了很多便捷的拓展，如单表所有操作，分页等。&lt;/li&gt;
+&lt;li&gt;Mybatis的缓存级别，和它的作用域，怎么开启？&lt;br&gt;
+一级缓存：作用域SqlSession，默认开启&lt;br&gt;
+二级缓存：作用域NameSpace命名空间。默认关闭。需要在总配置文件中开启，并在映射文件中添加&lt;code&gt;&amp;lt;cache/&amp;gt;&lt;/code&gt;标签&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     <item>
       <title>【面试八股】JVM</title>
@@ -90,7 +143,15 @@ select&amp;hellip; for update,insert,update,delete操作都会触发锁，只要
 &lt;p&gt;括号内的说明是为了严谨，了解就行，回答时不必说出，这样比较简洁&lt;br&gt;
 在回答方法重载时，不必细说什么参数的类型、个数、顺序，直接说&lt;strong&gt;参数列表不同&lt;/strong&gt;就行&lt;br&gt;
 问题的重点说出：重载是&lt;strong&gt;编译器&lt;/strong&gt;来区分方法，而重写是运行时由&lt;strong&gt;解释器&lt;/strong&gt;来区分方法&lt;br&gt;
-语法细节（问了再说，没问不必说）&lt;/p&gt;</description>
+语法细节（问了再说，没问不必说）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;重写时，子类方法的访问修饰符要 &amp;gt;= 父类方法的访问修饰符&lt;/li&gt;
+&lt;li&gt;重写时，子类方法抛出的检查异常类型要 &amp;lt;= 父类方法抛出的检查异常类型，或者子类不抛异常&lt;/li&gt;
+&lt;li&gt;重写时，父子类的方法返回值类型要一样，或子类方法返回值是父类方法返回值的子类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     <item>
       <title>【面试八股】MySQL</title>
@@ -110,7 +171,105 @@ select&amp;hellip; for update,insert,update,delete操作都会触发锁，只要
 &lt;p&gt;例如：新闻表（新闻id，标题，作者）；新闻详情表（新闻id，图片，发布时间，来源，内容）&lt;br&gt;
 如果再App端需要展示新闻列表需要：（新闻id，标题，图片），这时需要从两个海量数据表中进行关联查询才能获得图片，因为新闻表中不存在图片的字段只能关联查询。&lt;br&gt;
 上述的业务是否可以不拆分？或者拆分更合理一些。&lt;br&gt;
-解决方案：表设计不合理，将图片字段放到新闻表，或者两张表合二为一。&lt;/p&gt;</description>
+解决方案：表设计不合理，将图片字段放到新闻表，或者两张表合二为一。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;太过于规范的&lt;a href=&#34;https://www.steamedfish.top/post/interview/mysql/#%e4%b8%89%e8%8c%83%e5%bc%8f&#34;&gt;三范式&lt;/a&gt;设计&lt;br&gt;
+例如：查询一个学生时什么学院什么专业，需要查询4张表，如果查询专业频繁的话，非常耗时且没必要。&lt;br&gt;
+解决方案：反三范。&lt;br&gt;
+可以在班级表中添加一个专业的中文名（冗余字段），减少对于专业表的连接。&lt;/li&gt;
+&lt;li&gt;业务表、字段的缺失：旧业务没有考虑过新业务缺失的内容，从而需要关联非常多表影响性能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;例如：积分系统一开始没有考虑到排行榜的数量问题，每次统计月度排行榜时都需要实时计算（利用积分记录表根据用户分组统计某个时段积分值再排名），上线时，进行系统整体压测，发现首页加载速度有一定延迟，定位到几个查询比较耗时，排行榜便是其中之一。
+改造：新增赛季积分表定时统计积分信息到该表，需要时直接查询&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;索引优化&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;表的主键、外键必须有索引&lt;/li&gt;
+&lt;li&gt;数据量大的表应该有索引
+&lt;ul&gt;
+&lt;li&gt;对于常用的查询条件创建索引&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;经常与其他表进行连接的表，在连接字段上应该建立索引&lt;/li&gt;
+&lt;li&gt;经常出现在&lt;code&gt;where&lt;/code&gt;字句中的字段，特别是大表的字段，应该建立索引&lt;/li&gt;
+&lt;li&gt;索引应该建在&lt;strong&gt;区分度高&lt;/strong&gt;的字段上（sex性别，status状态等这种就不适合，但适当可创建联合索引达到覆盖索引效果）
+&lt;ul&gt;
+&lt;li&gt;如果这些区分度不高的字段需要在覆盖索引的时使用，也可以创建联合索引&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;索引应该建立在小字段上，对于大的文本字段甚至超长字段，不要建索引
+&lt;ul&gt;
+&lt;li&gt;如果&lt;code&gt;text&lt;/code&gt;、&lt;code&gt;varchar&lt;/code&gt;非常长、&lt;code&gt;json&lt;/code&gt;等类型的字段不建立索引&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;频繁进行数据操作的表，不要建立太多索引
+&lt;ul&gt;
+&lt;li&gt;会重新建立索引&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;删除无用的索引，避免对执行计划造成负面影响
+&lt;blockquote&gt;
+&lt;p&gt;删除数据使用&lt;code&gt;delete&lt;/code&gt;&lt;br&gt;
+删除数据库对象（&lt;code&gt;tb_表&lt;/code&gt;、&lt;code&gt;idx_索引&lt;/code&gt;、&lt;code&gt;fun_函数&lt;/code&gt;、&lt;code&gt;pro_存储过程&lt;/code&gt;、&lt;code&gt;v_视图&lt;/code&gt;）使用&lt;code&gt;drop&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;sql语句优化&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;select语句务必指明列的名称（避免直接使用&lt;code&gt;select *&lt;/code&gt;）
+&lt;ul&gt;
+&lt;li&gt;使用&lt;code&gt;*&lt;/code&gt;的话，很可能出现回表，影响性能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;sql语句要避免造成索引失效的写法
+&lt;ul&gt;
+&lt;li&gt;不符合最左匹配原则&lt;/li&gt;
+&lt;li&gt;where条件中使用函数&lt;/li&gt;
+&lt;li&gt;使用运算符&lt;/li&gt;
+&lt;li&gt;使用类型的隐式转换（表中存varchar，查询数字xxx，应该查询&amp;rsquo;xxx&#39;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;SQL语句中&lt;code&gt;IN&lt;/code&gt;包含的值不应该过多，可以的话使用&lt;code&gt;between&lt;/code&gt;、&lt;code&gt;and&lt;/code&gt;代替&lt;/li&gt;
+&lt;li&gt;如果排序字段没有用到索引，就尽量少排序&lt;/li&gt;
+&lt;li&gt;如果限制条件中其他列没有索引，尽量少用&lt;code&gt;or&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;尽量使用&lt;code&gt;union all&lt;/code&gt;（不去重）代替&lt;code&gt;union&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;不建议使用&lt;code&gt;%&lt;/code&gt;前缀模糊查询（最左匹配）&lt;/li&gt;
+&lt;li&gt;避免在&lt;code&gt;where&lt;/code&gt;子句中对列进行表达式操作&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Join&lt;/code&gt;优化能用&lt;code&gt;inner join&lt;/code&gt;就不用&lt;code&gt;left join&lt;/code&gt;、&lt;code&gt;right join&lt;/code&gt;小表驱动大表&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;缓存优化&lt;/strong&gt;
+为了提高查询速度，可以通过不同的方式去缓存我们的结果从而提高响应效率，使用redis就是最佳实践之一。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;读写分离&lt;/strong&gt;&lt;br&gt;
+如果数据库的使用场景读多写少的时候，为了避免写操作造成的性能影响。可以采用读写分离的架构，读写分离解决的是数据库的写入影响查询效率。&lt;br&gt;
+读写分离的基本原理是让主数据库处理事务性增、改、删操作，而从数据库处理select查询操作。利用&lt;code&gt;binlog&lt;/code&gt;日志把事务性操作导致的变更同步到集群中的从数据库。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;分库分表
+数据量越来越大，单体数据库无法满足要求，可以考虑分库分表。&lt;br&gt;
+两种拆分方案：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;垂直拆分：（分库）将业务细化，不同的小业务专门用一个库来维护&lt;/li&gt;
+&lt;li&gt;水平拆分：（分表）单个表数据太多，可以将该表拆分成多个。例如赛季排行榜相关业务。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;分库分表常用中间件：&lt;code&gt;MyCat&lt;/code&gt;（数据库中间件）、&lt;code&gt;Sharding-JDBC&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;MySQL的常见存储引擎有哪些？
+&lt;ul&gt;
+&lt;li&gt;InnoDB&lt;/li&gt;
+&lt;li&gt;MyISAM&lt;/li&gt;
+&lt;li&gt;MySQL 常见的存储引擎主要有 InnoDB、MyISAM、Memory、Archive、CSV、NDB 等。其中最常用的是 InnoDB，它支持事务、行锁和外键，是 MySQL 5.5 之后的默认存储引擎；MyISAM 不支持事务，使用表锁，适合读多写少的场景；Memory 引擎数据存储在内存中，查询速度很快，但重启会丢失数据；Archive 主要用于历史数据归档。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     <item>
       <title>【面试八股】Redis</title>
@@ -128,7 +287,152 @@ select&amp;hellip; for update,insert,update,delete操作都会触发锁，只要
 &lt;li&gt;延迟双删的第一次删除并没有实际意义，第二次采用删除删除主要是解决数据库主从同步的延迟问题，我认为这是数据库主从的一致性问题，与缓存同步无关。既然主节点数据已经更新，Redis的缓存也应该更新。而且延迟双删会增加缓存业务的复杂度，也没能完全避免缓存一致性问题（延时时间的不确定性）。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;延迟双删：&lt;/p&gt;</description>
+&lt;p&gt;延迟双删：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;删除缓存：首先执行删除缓存的操作&lt;/li&gt;
+&lt;li&gt;更新数据库：然后执行更新数据库的操作&lt;/li&gt;
+&lt;li&gt;延时等待：在删除缓存之后，等待一段时间，避免更新数据库期间的脏数据被写入到缓存，这个时间可以根据业务读取平均耗时来设置&lt;/li&gt;
+&lt;li&gt;再次删除缓存：等待时间结束后，再次执行删除缓存的操作&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;为什么不先删除缓存再更新数据库？
+&lt;ul&gt;
+&lt;li&gt;因为删除缓存到数据库更新完成之间存在一个时间窗口，其他线程可能会读取旧数据并重新写入缓存，从而导致长期不一致。
+&lt;ul&gt;
+&lt;li&gt;误区：&lt;code&gt;Cache Aside&lt;/code&gt;模式写操作不会主动更新缓存，读操作没有命中缓存才会写入缓存，这是一个懒加载&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;描述一下redis的雪崩问题，如何解决？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;缓存雪崩的常见原因有两个，第一是因为大量的key同时过时。针对这个问题我们可以给缓存key设置不同的TTL值（随机），避免key同时过期。&lt;br&gt;
+第二个原因是Redis宕机导致缓存不可用。针对这个问题我们可以用集群提高Redis的可用性。也可以添加多级缓存，当Redis宕机时还有本地缓存的可用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;描述一下redis的穿透问题，如何解决？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;缓存穿透也可以说是穿透攻击，具体来说就是因为请求&lt;strong&gt;访问到了数据库不存在的值&lt;/strong&gt;，这样缓存无法命中，必然访问数据库。如果高并发的访问这样的接口，会给数据库带来巨大压力。&lt;br&gt;
+我们项目中是基于布隆过滤器来解决缓存穿透问题的，当缓存未命中时，基于布隆过滤器判断数据是否存在。如果不存在则不去访问数据库。&lt;br&gt;
+当然也可以缓存空值来解决，不过这种方案比较浪费内存&lt;/li&gt;
+&lt;li&gt;用户请求的数据在缓存中和数据库都不存在，不断发出请求，给数据库带来巨大压力&lt;/li&gt;
+&lt;li&gt;解决方案
+&lt;ul&gt;
+&lt;li&gt;缓存&lt;code&gt;null&lt;/code&gt;值&lt;/li&gt;
+&lt;li&gt;布隆过滤&lt;/li&gt;
+&lt;li&gt;做好数据的基础格式校验&lt;/li&gt;
+&lt;li&gt;加强用户权限校验&lt;/li&gt;
+&lt;li&gt;做好热点参数的限流
+&lt;ul&gt;
+&lt;li&gt;对某个访问频率异常高的参数值进行单独限流，防止缓存穿透请求持续冲击数据库&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;生产环境中的组合方案（请求→参数校验→布隆过滤器→Redis缓存→热点参数限流→数据库）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;描述一下redis的击穿问题，如何解决？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;缓存击穿往往是热点Key引起的，当&lt;strong&gt;热点Key过期&lt;/strong&gt;时，大量请求涌入同时查询，发现缓存未命中都会去访问数据库，导致数据库压力激增。&lt;br&gt;
+解决这个问题的主要思路就是避免多线程并发去重建缓存。因此方案有两种。&lt;br&gt;
+第一种是基于互斥锁，当发现缓存未命中时需要先获取互斥锁，再重建缓存，缓存重建完成释放锁。这样就可用保证缓存重建同一时刻只有一个线程执行。不过这种做法会导致缓存重建时的性能严重下降。&lt;br&gt;
+第二种是基于逻辑过期，也就是不给热点Key设置过期时间而是给数据添加一个过期时间的字段。这样热点Key就不会过期，缓存中永远有数据。&lt;br&gt;
+查询到数据时基于其中的过期时间判断key是否过期，如果过期开启新线程异步重建缓存，而查询请求先返回旧数据即可。当然这个过程也要加互斥锁，但由于重建缓存是异步的。而且获取锁失败也无需等待，而是返回旧数据，这样性能几乎不受影响。&lt;br&gt;
+无论采用哪种方式，在获取互斥锁后一定要再次判断缓存是否命中，做double check，因为当你获取锁成功时，可能在你之前有其他线程已经重建缓存了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Redis常见的数据类型有哪些？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;String&lt;/code&gt;、&lt;code&gt;Hash&lt;/code&gt;、&lt;code&gt;List&lt;/code&gt;、&lt;code&gt;Set&lt;/code&gt;、&lt;code&gt;ZSet&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Redis分布式锁是如何实现的？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;SET NX PX&lt;/code&gt;：原子操作，保证同一时刻只有一个客户端获取锁
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Set key value NX&lt;/code&gt;：&lt;code&gt;set if not exists&lt;/code&gt;，当&lt;code&gt;key&lt;/code&gt;不存在时设置&lt;code&gt;key-value&lt;/code&gt;返回&lt;code&gt;1&lt;/code&gt;，已存在则不操作，返回&lt;code&gt;0&lt;/code&gt;。这条命令把&lt;strong&gt;判断key是否存在&lt;/strong&gt;和&lt;strong&gt;设置key&lt;/strong&gt;两个操作合并为了一个原子操作。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PX xxx&lt;/code&gt;：过期时间&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;value&lt;/code&gt;：唯一标识（通常是UUID），确保锁被正确释放&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Redis分片集群与主从集群的区别&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;分片集群用于突破单机内存限制，实现水平扩展，每个节点只存一部分数据；主从集群用于高可用和读写分离，每个节点保存完整数据副本。分片解决容量问题，主从解决可用性和读性能问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Reids的主从集群、哨兵集群模式分别解决什么问题？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;主从集群主要解决读写分离和数据冗余问题，提高读性能和数据安全性；哨兵集群是在主从基础上解决高可用问题，通过监控和自动故障转移保证主节点宕机时服务不中断。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Redis的单线程还是多线程？如果都是的话，怎么理解？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Redis 核心数据操作是单线程的，利用事件循环和 IO 多路复用保证命令原子性和高性能。但从 Redis 6 开始，网络 I/O、持久化等操作可以多线程执行，用来提升吞吐量，因此可以说 Redis 既是单线程又是多线程，需要区分核心操作和后台任务。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Redis有哪些持久化方式？怎么配置？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Redis 支持 RDB（快照）、AOF（操作日志）和混合持久化。RDB 性能高，适合备份；AOF 数据安全性高，支持重放；混合模式兼顾启动速度和数据安全。可以通过 redis.conf 配置快照策略、AOF 同步方式和文件路径。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;redis中怎么解决分片集群中的数据倾斜问题？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Redis 分片集群的数据倾斜是指某些节点数据或请求过多，形成热点。解决方法有四点：
+&lt;ul&gt;
+&lt;li&gt;一是保证 hash slot 均匀分布，必要时迁移 slot；&lt;/li&gt;
+&lt;li&gt;二是用哈希标签合理分组 key，避免热点集中；&lt;/li&gt;
+&lt;li&gt;三是对热点 key 做拆分、复制或本地/多级缓存，分流请求压力；&lt;/li&gt;
+&lt;li&gt;四是监控节点负载，动态迁移热点 slot 或增加节点。&lt;/li&gt;
+&lt;li&gt;核心思想就是 均衡存储 + 分流请求 + 热点拆分 + 动态调节。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Redis的&lt;code&gt;SortedSet&lt;/code&gt;的底层数据结构是怎样的？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SortedSet是有序集合，底层存储的每个数据都包含&lt;code&gt;element&lt;/code&gt;和&lt;code&gt;score&lt;/code&gt;两个值。&lt;code&gt;score&lt;/code&gt;是得分，&lt;code&gt;element&lt;/code&gt;是字符串。&lt;code&gt;SortedSet&lt;/code&gt;会根据每个&lt;code&gt;element&lt;/code&gt;的&lt;code&gt;score&lt;/code&gt;值排序，形成有序集合。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;它支持很多操作，比如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;根据&lt;code&gt;element&lt;/code&gt;查询&lt;code&gt;score&lt;/code&gt;值&lt;/li&gt;
+&lt;li&gt;按照&lt;code&gt;score&lt;/code&gt;值升序或降序查询&lt;code&gt;element&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;要实现根据&lt;code&gt;element&lt;/code&gt;查询对应的&lt;code&gt;score&lt;/code&gt;值，就必须实现&lt;code&gt;element&lt;/code&gt;与&lt;code&gt;score&lt;/code&gt;之间的键值映射。&lt;code&gt;SortedSet&lt;/code&gt;底层是基于&lt;code&gt;HashTable&lt;/code&gt;来实现的。&lt;br&gt;
+要实现对&lt;code&gt;score&lt;/code&gt;值排序，并且查询效率还高，就需要有一种高效的有序数据结构。&lt;code&gt;SortedSet&lt;/code&gt;是基于跳表实现的。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;因为&lt;code&gt;SortedSet&lt;/code&gt;底层需要用到两种数据结构，对内存占用比较高。因此&lt;code&gt;Redis&lt;/code&gt;底层会对&lt;code&gt;SortedSet&lt;/code&gt;中的元素大小做判断。如果&lt;strong&gt;元素大小小于128&lt;/strong&gt;，并且&lt;strong&gt;每个元素都小于64字节&lt;/strong&gt;，&lt;code&gt;SortedSet&lt;/code&gt;底层会采用&lt;code&gt;ZipList&lt;/code&gt;，也就是&lt;strong&gt;压缩列表&lt;/strong&gt;来代替&lt;code&gt;HashTable&lt;/code&gt;和&lt;code&gt;SkipList&lt;/code&gt;&lt;br&gt;
+因为&lt;code&gt;ZipList&lt;/code&gt;存在连锁更新问题，因此在&lt;code&gt;Redis 7.0&lt;/code&gt;以后，&lt;code&gt;ZipList&lt;/code&gt;又被替换为&lt;code&gt;Listpack&lt;/code&gt;（紧凑列表）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;redis内存淘汰策略有哪些？（至少3个）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基于LRU，最近最少使用&lt;/li&gt;
+&lt;li&gt;基于LFU&lt;/li&gt;
+&lt;li&gt;基于随机&lt;/li&gt;
+&lt;li&gt;无淘汰策略&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     <item>
       <title>【OpenClaw】小龙虾的成神之路——更换模型、安装skills</title>
@@ -158,7 +462,8 @@ select&amp;hellip; for update,insert,update,delete操作都会触发锁，只要
 &lt;li&gt;&lt;strong&gt;正常文本&lt;/strong&gt;：是 Light 的真实想法和操作&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;引用框（像我这样）&lt;/strong&gt;：是我的补充、建议或吐槽&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;希望这种形式能让你感受到 OpenClaw 的实际使用体验。那我们开始吧！&lt;/p&gt;</description>
+&lt;p&gt;希望这种形式能让你感受到 OpenClaw 的实际使用体验。那我们开始吧！&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>【OpenClaw】从零开始养一只自己的小龙虾</title>
@@ -653,7 +958,8 @@ select&amp;hellip; for update,insert,update,delete操作都会触发锁，只要
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;当网络不稳定的时候，利用重试机制可以有效提高消息发送的成功率。不过&lt;code&gt;SpringAMQP&lt;/code&gt;提供的重试机制是&lt;strong&gt;阻塞式&lt;/strong&gt;的重试，也就是说多次重试等待的过程中，当前线程是被阻塞的，会影响业务性能。&lt;br&gt;
+如果对于业务性能有要求，建议&lt;strong&gt;禁用&lt;/strong&gt;重试机制。如果一定要使用，请合理配置等待时长和重试次数，当然也可以考虑使用&lt;strong&gt;异步&lt;/strong&gt;线程来执行发送消息的代码。（调用新线程发送消息，无需等待消息发送完毕）&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>【微服务】RabbitMQ入门</title>
@@ -1236,8 +1542,8 @@ server=&#34;netease&#34;
 type=&#34;song&#34;
 id=&#34;340376&#34;
 fixed=&#34;false&#34;&gt;
-&lt;/meting-js&gt;
-2025就这样悄然结束，这一年太过匆忙&lt;br&gt;
+&lt;/meting-js&gt;&lt;/p&gt;
+&lt;p&gt;2025就这样悄然结束，这一年太过匆忙&lt;br&gt;
 如果要用一首歌来向他告别，那就这首《夜车》吧。&lt;/p&gt;
 &lt;p&gt;于我来说，&lt;br&gt;
 这是迷茫的一年、困顿的一年、像以往每一年的一年&lt;br&gt;
@@ -1546,7 +1852,8 @@ fixed=&#34;false&#34;&gt;
 &lt;blockquote&gt;
 &lt;p&gt;输入：&lt;code&gt;nums1 = [1,2], nums2 = [3,4]&lt;/code&gt;&lt;br&gt;
 输出：&lt;code&gt;2.50000&lt;/code&gt;&lt;br&gt;
-解释：&lt;code&gt;合并数组 = [1,2,3,4] ，中位数 (2 + 3) / 2 = 2.5&lt;/code&gt;&lt;/p&gt;</description>
+解释：&lt;code&gt;合并数组 = [1,2,3,4] ，中位数 (2 + 3) / 2 = 2.5&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>【HOT100】3.无重复字符的最长子串</title>
@@ -1565,7 +1872,8 @@ fixed=&#34;false&#34;&gt;
 &lt;blockquote&gt;
 &lt;p&gt;输入: &lt;code&gt;s = &amp;quot;bbbbb&amp;quot;&lt;/code&gt;&lt;br&gt;
 输出: &lt;code&gt;1&lt;/code&gt;&lt;br&gt;
-解释: &lt;code&gt;因为无重复字符的最长子串是 &amp;quot;b&amp;quot;，所以其长度为 1。&lt;/code&gt;&lt;/p&gt;</description>
+解释: &lt;code&gt;因为无重复字符的最长子串是 &amp;quot;b&amp;quot;，所以其长度为 1。&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>【HOT100】2.两数相加</title>
@@ -1614,7 +1922,8 @@ fixed=&#34;false&#34;&gt;
 &lt;blockquote&gt;
 &lt;p&gt;输入：&lt;code&gt;l1 = [2,4,3], l2 = [5,6,4]&lt;/code&gt;&lt;br&gt;
 输出：&lt;code&gt;[7,0,8]&lt;/code&gt;&lt;br&gt;
-解释：&lt;code&gt;342 + 465 = 807.&lt;/code&gt;&lt;/p&gt;</description>
+解释：&lt;code&gt;342 + 465 = 807.&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>【HOT100】1.两数之和</title>
@@ -1629,7 +1938,8 @@ fixed=&#34;false&#34;&gt;
 &lt;blockquote&gt;
 &lt;p&gt;输入：&lt;code&gt;nums = [2,7,11,15], target = 9&lt;/code&gt;&lt;br&gt;
 输出：&lt;code&gt;[0,1]&lt;/code&gt;&lt;br&gt;
-解释：&lt;code&gt;因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。&lt;/code&gt;&lt;/p&gt;</description>
+解释：&lt;code&gt;因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>【HOT100】160.相交链表</title>
@@ -1689,7 +1999,8 @@ fixed=&#34;false&#34;&gt;
 好在总算是结束了，这里附上项目需要的资源和我的项目仓库。&lt;br&gt;
 如果哪天你也在学习这个项目的话，希望能够帮到你，不懂的话可以在对应章节的评论区问我。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;已学完，这个老师讲的真他妈的好，什么叫抽丝剥茧，循循渐进，不像有的老师一上来就搞最终过程，根本听不懂，而且老师那还有很多面试题，笔试题我都买了，经过一个月的猛肝，终于在美团面试的时候一把过，美团的福利我就不多说了，免费换电瓶和充电，不说了老板叫我出餐了。&lt;/p&gt;</description>
+&lt;p&gt;已学完，这个老师讲的真他妈的好，什么叫抽丝剥茧，循循渐进，不像有的老师一上来就搞最终过程，根本听不懂，而且老师那还有很多面试题，笔试题我都买了，经过一个月的猛肝，终于在美团面试的时候一把过，美团的福利我就不多说了，免费换电瓶和充电，不说了老板叫我出餐了。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>【苍穹外卖】（13）数据统计（图像报表、Excel报表）</title>
@@ -1854,7 +2165,7 @@ Apache Echarts官方提供的快速入门： &lt;a href=&#34;https://echarts.apa
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;只要是需要定时处理的场景都可以使用Spring Task&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>【苍穹外卖】（11）优化用户下单功能</title>
@@ -1977,7 +2288,314 @@ Apache Echarts官方提供的快速入门： &lt;a href=&#34;https://echarts.apa
 
 
 功能用到了“地理编码”和“路线规划（骑行）”&lt;br&gt;
-阅读文档了解api基本使用方法&lt;/p&gt;</description>
+阅读文档了解api基本使用方法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;地理编码文档： &lt;a href=&#34;https://lbs.baidu.com/faq/api?title=webapi/guide/webservice-geocoding&#34;&gt;https://lbs.baidu.com/faq/api?title=webapi/guide/webservice-geocoding&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;轻量级路线规划： &lt;a href=&#34;https://lbs.baidu.com/faq/api?title=webapi/guide/webservice-lwrouteplanapi&#34;&gt;https://lbs.baidu.com/faq/api?title=webapi/guide/webservice-lwrouteplanapi&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;还可以在WebAPI示例中心发送请求查看回应&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;WebAPI示例中心： &lt;a href=&#34;https://lbsyun.baidu.com/webapi/demo-center&#34;&gt;https://lbsyun.baidu.com/webapi/demo-center&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在配置文件中配置ak和店铺地址
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-12/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-12/4.webp&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-12/4.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-12/4.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;创建配置类接收配置信息
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-12/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-12/5.webp&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-12/5.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-12/5.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;创建实体类接收API响应数据&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Location.java&lt;/code&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;com.sky.entity&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;lombok.Data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;java.math.BigDecimal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;java.math.RoundingMode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Data&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Location&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Double&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Double&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lng&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;lat&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;round&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;lat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;lng&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;round&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;lng&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Double&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;round&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Double&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BigDecimal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;valueOf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setScale&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RoundingMode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;HALF_UP&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;doubleValue&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GeoCodeResult.java&lt;/code&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;com.sky.entity&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;lombok.Data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Data&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;GeoCodeResult&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Location&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;location&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;precise&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;confidence&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;comprehension&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;level&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GeoCodeResponse.java&lt;/code&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;com.sky.entity&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;lombok.Data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Data&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;GeoCodeResponse&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;GeoCodeResult&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Routes.java&lt;/code&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;com.sky.entity&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;lombok.Data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Data&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Routes&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Double&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;distance&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//距离&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Double&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;duration&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//耗时&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DistanceResult.java&lt;/code&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;com.sky.entity&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;lombok.Data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;java.util.List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Data&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;DistanceResult&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Location&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;origin&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Location&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;destination&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Routes&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;routes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DistanceResponse.java&lt;/code&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;com.sky.entity&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;lombok.Data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Data&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;DistanceResponse&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DistanceResult&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;创建BauduMapUtils工具类&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;com.sky.utils&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;com.alibaba.fastjson.JSON&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;com.sky.entity.DistanceResponse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;com.sky.entity.Location&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;com.sky.properties.BaiduProoerties&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;com.sky.properties.ShopProperties&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;com.sky.entity.GeoCodeResponse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;org.springframework.beans.factory.annotation.Autowired&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;org.springframework.stereotype.Component&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;java.util.HashMap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;java.util.Map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt; * 百度地图工具类
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Component&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;BaiduMapUtils&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//    编码API&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CODINGAPI&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://api.map.baidu.com/geocoding/v3/&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//    路线规划API&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DISTANCEAPI&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://api.map.baidu.com/directionlite/v1/riding&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;@Autowired&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BaiduProoerties&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;baiduProoerties&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;@Autowired&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ShopProperties&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shopProperties&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;GeoCodeResponse&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;getCoding&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;address&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;ak&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;baiduProoerties&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;address&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;address&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;output&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;json&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;json&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HttpClientUtil&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;doGet&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CODINGAPI&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;JSON&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;parseObject&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;json&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;GeoCodeResponse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Double&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;getDistance&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Location&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;location&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;location&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;ak&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;baiduProoerties&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//        起点：门店&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;origin&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shopProperties&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getLat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;,&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shopProperties&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getLng&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//        终点：用户&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;destination&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;location&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getLat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;,&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;location&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getLng&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;steps_info&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;0&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;json&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HttpClientUtil&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;doGet&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DISTANCEAPI&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;JSON&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;parseObject&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;json&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DistanceResponse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getResult&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getRoutes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDistance&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;修改用户下单功能&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;`
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Autowired&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BaiduMapUtils&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;baiduMapUtils&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;* 用户下单
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;*
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;* @param dto
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;* @return
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;*/&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Transactional&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OrderSubmitVO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;submit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OrdersSubmitDTO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dto&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Long&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;userId&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BaseContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getCurrentId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AddressBook&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;addressBook&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;addressBookMapper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getById&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dto&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAddressBookId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;addressBook&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;       &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;throw&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AddressBookBusinessException&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MessageConstant&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ADDRESS_BOOK_IS_NULL&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;address&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;addressBook&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getProvinceName&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;addressBook&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getCityName&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;addressBook&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDistrictName&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;addressBook&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDetail&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//        距离校验&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;GeoCodeResponse&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;coding&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;baiduMapUtils&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getCoding&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;address&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Location&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;location&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;coding&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getResult&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getLocation&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Double&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;distance&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;baiduMapUtils&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDistance&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;location&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;info&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;距离：{}&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;distance&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;distance&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;5000&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;       &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;throw&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AddressBookBusinessException&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MessageConstant&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;DISTANCE_TOO_FAR&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;User&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;userMapper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getById&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;userId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ShoppingCart&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shoppingCartList&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shoppingCartMapper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;userId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shoppingCartList&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;||&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shoppingCartList&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;       &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;throw&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ShoppingCartBusinessException&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MessageConstant&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;SHOPPING_CART_IS_NULL&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//        构造订单数据&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Orders&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BeanUtils&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;copyProperties&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dto&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setNumber&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;valueOf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;currentTimeMillis&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()));&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setStatus&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;PENDING_PAYMENT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setUserId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;userId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setOrderTime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;LocalDateTime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;now&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setPhone&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;addressBook&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getPhone&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setAddress&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;address&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setUserName&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setConsignee&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;addressBook&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getConsignee&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setPayStatus&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;UN_PAID&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderMapper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;insert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OrderDetail&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderDetailList&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ShoppingCart&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shoppingCart&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shoppingCartList&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;       &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OrderDetail&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderDetail&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OrderDetail&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;       &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BeanUtils&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;copyProperties&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shoppingCart&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderDetail&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;       &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderDetail&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setOrderId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;       &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderDetailList&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderDetail&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderDetailMapper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;insertBatch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderDetailList&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OrderSubmitVO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderSubmitVO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OrderSubmitVO&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;           &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;           &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;orderNumber&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getNumber&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;           &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;orderAmount&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAmount&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;           &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;orderTime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orders&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getOrderTime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;           &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderSubmitVO&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     <item>
       <title>【苍穹外卖】（10）用户端历史订单、商家端订单管理</title>
@@ -4149,7 +4767,8 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
       <description>&lt;h2 id=&#34;公共字段自动填充&#34;&gt;公共字段自动填充&lt;/h2&gt;
 &lt;h3 id=&#34;问题分析&#34;&gt;问题分析&lt;/h3&gt;
 &lt;p&gt;业务表中的公共字段：&lt;/p&gt;
-&lt;table&gt;
+&lt;table class=&#34;table table-striped table-bordered table-hover&#34;&gt;
+
   &lt;thead&gt;
       &lt;tr&gt;
           &lt;th style=&#34;text-align: left&#34;&gt;序号&lt;/th&gt;
@@ -4158,34 +4777,66 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
           &lt;th style=&#34;text-align: left&#34;&gt;数据类型&lt;/th&gt;
       &lt;/tr&gt;
   &lt;/thead&gt;
+
   &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;1&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;create_time&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;创建时间&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;datetime&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;2&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;create_user&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;创建人 id&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;bigint&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;3&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;update_time&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;修改时间&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;datetime&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;4&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;update_user&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;修改人 id&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;bigint&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;1&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;create_time&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;创建时间&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;datetime&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;2&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;create_user&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;创建人 id&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;bigint&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;3&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;update_time&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;修改时间&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;datetime&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;4&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;update_user&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;修改人 id&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;bigint&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
   &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;
+&lt;/table&gt;&lt;p&gt;
 
 
 
@@ -4401,7 +5052,47 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;提示&lt;/p&gt;</description>
+        &lt;/span&gt;提示&lt;/p&gt;&lt;pre&gt;&lt;code&gt;  加密语句只能执行一次
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;修改Java代码，前端提交的密码进行MD5加密后再跟数据库中密码比对
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-project/sky-take-out/sky-take-out-2/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/3.webp&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/3.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-project/sky-take-out/sky-take-out-2/3.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     <item>
       <title>【苍穹外卖】（ 1 ）项目概览 </title>
@@ -4543,7 +5234,8 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
 &lt;hr&gt;
 &lt;h2 id=&#34;linux概述&#34;&gt;Linux概述&lt;/h2&gt;
 &lt;h3 id=&#34;主流操作系统&#34;&gt;主流操作系统&lt;/h3&gt;
-&lt;table&gt;
+&lt;table class=&#34;table table-striped table-bordered table-hover&#34;&gt;
+
   &lt;thead&gt;
       &lt;tr&gt;
           &lt;th style=&#34;text-align: center&#34;&gt;分类&lt;/th&gt;
@@ -4551,60 +5243,102 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
           &lt;th style=&#34;text-align: left&#34;&gt;特点&lt;/th&gt;
       &lt;/tr&gt;
   &lt;/thead&gt;
+
   &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;桌面操作系统&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;windows&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;用户数量最多&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;^&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;Mac OS&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;操作体验好，办公人士首选&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;^&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;Linux&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;用户数量少&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;服务器操作系统&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;Unix&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;安全、稳定、付费&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;^&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;Linux&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;安全、稳定、免费、占有率高&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;^&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;Windows Server&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;付费、占有率低&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;移动设备操作系统&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;Android&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;基于Linux、开源，主要用智能手机、平板、智能电视&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;^&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;IOS&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;苹果公司开发、不开源，用于苹果公司的产品&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;^&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;Harmonyos&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;华为公司开发、开源，目前用于华为公司的产品&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;/td&gt;
-      &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td rowspan=&#34;3&#34; style=&#34;text-align: center&#34;&gt;桌面操作系统&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;windows&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;用户数量最多&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;Mac OS&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;操作体验好，办公人士首选&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;Linux&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;用户数量少&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td rowspan=&#34;3&#34; style=&#34;text-align: center&#34;&gt;服务器操作系统&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;Unix&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;安全、稳定、付费&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;Linux&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;安全、稳定、免费、占有率高&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;Windows Server&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;付费、占有率低&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td rowspan=&#34;3&#34; style=&#34;text-align: center&#34;&gt;移动设备操作系统&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;Android&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;基于Linux、开源，主要用智能手机、平板、智能电视&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;IOS&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;苹果公司开发、不开源，用于苹果公司的产品&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;Harmonyos&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;华为公司开发、开源，目前用于华为公司的产品&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: left&#34;&gt;&lt;/td&gt;
+
+        
+&lt;td&gt;&lt;/td&gt;
+    &lt;/tr&gt;
   &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr&gt;
+&lt;/table&gt;&lt;hr&gt;
 &lt;h3 id=&#34;linux系统版本&#34;&gt;Linux系统版本&lt;/h3&gt;
 &lt;p&gt;Linux系统分为&lt;strong&gt;内核版&lt;/strong&gt;和&lt;strong&gt;发行版&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
@@ -5113,7 +5847,59 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
 &lt;/div&gt;
 
 
-&lt;/p&gt;</description>
+&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;el-container&amp;gt;&lt;/code&gt;：外层容器&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;el-header&amp;gt;&lt;/code&gt;：顶栏容器&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;el-aside&amp;gt;&lt;/code&gt;：侧边栏容器&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;el-main&amp;gt;&lt;/code&gt;：主要区域容器&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;el-footer&amp;gt;&lt;/code&gt;：底栏容器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CSS属性：&lt;code&gt;float&lt;/code&gt;
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-web/javaweb-25-tlias-web/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-web/javaweb-25-tlias-web/4.webp&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-web/javaweb-25-tlias-web/4.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-web/javaweb-25-tlias-web/4.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;作用：指定一个元素沿其容器的左侧或右侧放置&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;left&lt;/code&gt;：元素浮动在其所在容器的左侧&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;right&lt;/code&gt;：元素浮动在其所在容器的右侧&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     <item>
       <title>【建站日志|异常解决】hugo自动部署异常溯源过程及解决办法</title>
@@ -5475,7 +6261,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;分模块开发需要先针对模块功能进行设计，再进行编码。不会先将工程开发完毕，然后进行拆分。&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>Javaweb——(22)SpringBoot原理</title>
@@ -5524,7 +6310,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;虽然springboot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置（&lt;strong&gt;yml是主流&lt;/strong&gt;）。&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;虽然springboot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置（&lt;strong&gt;yml是主流&lt;/strong&gt;）。&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>Javaweb——(21)SpringBoot实战·面向切面编程AOP</title>
@@ -5641,7 +6427,7 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;提示&lt;/p&gt;</description>
+        &lt;/span&gt;提示&lt;/p&gt;&lt;p&gt;AOP是一种思想，而在Spring框架中对这种思想进行的实现，那我们要学习的就是Spring AOP。&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>Javaweb——(20)SpringBoot实战·Tlias智能学习辅助系统·登录认证</title>
@@ -5830,7 +6616,10 @@ Redis是一个基于&lt;strong&gt;内存&lt;/strong&gt;的 key-value 结构数�
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;注释&lt;/p&gt;</description>
+        &lt;/span&gt;注释&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;登录标记：用户登录成功之后，在后续的每一次请求中，都可以获取到该标记。【会话技术】&lt;/li&gt;
+&lt;li&gt;统一拦截：过滤器Filter、拦截器Interceptor&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Javaweb——(19)SpringBoot实战·Tlias智能学习辅助系统·数据统计【未完成】</title>
@@ -6528,7 +7317,160 @@ public void violation(Integer id, Integer score) {
 &lt;h3 id=&#34;service--mapper&#34;&gt;Service &amp;amp; Mapper&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;code&gt;EmpService.java&lt;/code&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;code&gt;EmpService.java&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt; * 删除员工
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt; * @param ids
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;delete&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ids&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;EmpServiceImpl.java&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;@Transactional&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//开启事务（涉及多表操作）&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;delete&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ids&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//1.删除员工基本信息 emp表&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;empMapper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;deleteBatch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ids&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//2.删除员工工作经历 emp_expr表&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;empExprMapper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;deleteBatch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ids&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;style type=&#34;text/css&#34;&gt;
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+&lt;/style&gt;&lt;div class=&#34;notice note&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z&#34;/&gt;&lt;/svg&gt;
+        &lt;/span&gt;注释&lt;/p&gt;&lt;p&gt;由于删除员工信息，既要删除员工基本信息，又要删除工作经历信息，操作多次数据库的删除，所以要进行事务控制&lt;/p&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;EmpMapper.java&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt; * 批量删除员工基本信息
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt; * @param ids
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//基于XML开发- 动态SQL&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;deleteBatch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ids&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;EmpExprMapper.java&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;* 批量删除员工工作经历
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;* @param ids
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;*/&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//基于XML开发-动态SQL -- &amp;lt;foreach&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;deleteBatch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ids&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;EmpMapper.xml&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c&#34;&gt;&amp;lt;!--    批量删除员工--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;delete&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;deleteBatch&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        delete from emp where id in
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;lt;foreach&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;collection=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;ids&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;separator=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;,&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;item=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;open=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;(&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;close=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;)&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            #{id}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/foreach&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/delete&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;EmpExprMapper.xml&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c&#34;&gt;&amp;lt;!--    批量删除数据--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;delete&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;deleteBatch&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      delete from emp_expr where emp_id in
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;lt;foreach&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;collection=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;ids&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;separator=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;,&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;item=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;open=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;(&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;close=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;)&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          #{id}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;lt;/foreach&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/delete&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     <item>
       <title>Javaweb——(15)SpringBoot实战·Tlias智能学习辅助系统·新增员工</title>
@@ -6655,7 +7597,48 @@ public void violation(Integer id, Integer score) {
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;注释&lt;/p&gt;</description>
+        &lt;/span&gt;注释&lt;/p&gt;&lt;p&gt;使用
+@Options(useGeneratedKeys = true,keyProperty = &amp;ldquo;id&amp;rdquo;)&lt;/p&gt;
+&lt;p&gt;获取主键值赋给id，拿回数据操作emp_expr表&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;批量保存员工的工作经历信息
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-web/javaweb-15-springboot-tlias4/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/4.webp&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/4.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/4.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     <item>
       <title>Javaweb——(14)SpringBoot实战·Tlias智能学习辅助系统·员工列表查询</title>
@@ -7345,7 +8328,7 @@ npm run dev
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;SPI机制：Service Provider Interface，JDK内置的一种服务提供发现机制，可以轻松拓展你的程序（切换实现），实现接口与实现类之间的解耦。&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>Javaweb——(11)MySQL入门</title>
@@ -7365,45 +8348,74 @@ npm run dev
 &lt;li&gt;SQL：&lt;strong&gt;S&lt;/strong&gt;tructured &lt;strong&gt;Q&lt;/strong&gt;uery &lt;strong&gt;L&lt;/strong&gt;anguage，操作关系型数据库的编程语言，定义了一套操作关系型数据库的&lt;strong&gt;统一标准&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;常见数据库产品&#34;&gt;常见数据库产品&lt;/h3&gt;
-&lt;table&gt;
+&lt;table class=&#34;table table-striped table-bordered table-hover&#34;&gt;
+
   &lt;thead&gt;
       &lt;tr&gt;
           &lt;th style=&#34;text-align: center&#34;&gt;产品&lt;/th&gt;
           &lt;th style=&#34;text-align: center&#34;&gt;说明&lt;/th&gt;
       &lt;/tr&gt;
   &lt;/thead&gt;
+
   &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;Oracle&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;收费的大型数据库，Oracle公司的产品。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;MySQL&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;开源免费的中小型数据库。Sun公司收购了MySQL，Oracle收购Sun公司。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;SQL Server&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;MicroSoft公司收费的中型的数据库。C#、.net等语言常使用。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;PostgreSQL&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;开源免费中小型的数据库。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;DB2&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;IBM公司的大型收费数据库产品。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;SQLite&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;嵌入式的微型数据库。如：作为Android内置数据库&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;MariaDB&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;开源免费的中小型的数据库。&lt;/td&gt;
-      &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;Oracle&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;收费的大型数据库，Oracle公司的产品。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;MySQL&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;开源免费的中小型数据库。Sun公司收购了MySQL，Oracle收购Sun公司。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;SQL Server&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;MicroSoft公司收费的中型的数据库。C#、.net等语言常使用。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;PostgreSQL&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;开源免费中小型的数据库。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;DB2&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;IBM公司的大型收费数据库产品。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;SQLite&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;嵌入式的微型数据库。如：作为Android内置数据库&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;MariaDB&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;开源免费的中小型的数据库。&lt;/td&gt;
+    &lt;/tr&gt;
   &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h3 id=&#34;常见mysql客户端图形化工具&#34;&gt;常见MySQL客户端——图形化工具&lt;/h3&gt;
+&lt;/table&gt;&lt;h3 id=&#34;常见mysql客户端图形化工具&#34;&gt;常见MySQL客户端——图形化工具&lt;/h3&gt;
 &lt;p&gt;
 
 
@@ -7542,7 +8554,163 @@ npm run dev
 &lt;/div&gt;
 
 
-&lt;/p&gt;</description>
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;初次登录会提示你添加网站，有两种添加方式：从 GSC 导入、手动添加。如果您的网站被 谷歌GSC 收录，可以用 GSC 直接导入。&lt;/p&gt;
+&lt;p&gt;这里我选择手动添加，输入自己的域名，点击添加（在笔者查阅资料时，有人说这里可能会出现网络问题，可以多试几次，不过我并没有遇到此类问题，或许是因为当时开启了科学上网工具）
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/hugo-log/hugo-blog-search-engine-indexing-guide.md&#34;
+    href=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/2.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/2.png&#34;
+      srcset=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/2.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;现在需要你验证网站的所有权，即验证这个网站是属于你的。&lt;/p&gt;
+&lt;p&gt;这里我选择第一种方式，使用XML文件验证
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/hugo-log/hugo-blog-search-engine-indexing-guide.md&#34;
+    href=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/3.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/3.png&#34;
+      srcset=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/3.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;下载XML文件，放在网站静态资源目录下：&lt;code&gt;/static/BingSiteAuth.xml&lt;/code&gt;，重新生成网站并推送到远程仓库中，可以检查远程仓库根目录中是否有&lt;code&gt;BingSiteAuth.xml&lt;/code&gt;
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/hugo-log/hugo-blog-search-engine-indexing-guide.md&#34;
+    href=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/4.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/4.png&#34;
+      srcset=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/4.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;点击验证，添加成功
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/hugo-log/hugo-blog-search-engine-indexing-guide.md&#34;
+    href=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/5.png&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/5.png&#34;
+      srcset=&#34;https://www.steamedfish.top/images/hugo-log/hugo-blog-search-engine-indexing-guide/5.png 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     <item>
       <title>Tlias智能学习辅助系统api接口文档</title>
@@ -7563,7 +8731,8 @@ npm run dev
 &lt;h4 id=&#34;113-响应数据&#34;&gt;1.1.3 响应数据&lt;/h4&gt;
 &lt;p&gt;参数格式：application/json&lt;/p&gt;
 &lt;p&gt;参数说明：&lt;/p&gt;
-&lt;table&gt;
+&lt;table class=&#34;table table-striped table-bordered table-hover&#34;&gt;
+
   &lt;thead&gt;
       &lt;tr&gt;
           &lt;th&gt;参数名&lt;/th&gt;
@@ -7572,52 +8741,108 @@ npm run dev
           &lt;th&gt;备注&lt;/th&gt;
       &lt;/tr&gt;
   &lt;/thead&gt;
+
   &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;code&lt;/td&gt;
-          &lt;td&gt;number&lt;/td&gt;
-          &lt;td&gt;必须&lt;/td&gt;
-          &lt;td&gt;响应码，1 代表成功，0 代表失败&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;msg&lt;/td&gt;
-          &lt;td&gt;string&lt;/td&gt;
-          &lt;td&gt;非必须&lt;/td&gt;
-          &lt;td&gt;提示信息&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;data&lt;/td&gt;
-          &lt;td&gt;object[ ]&lt;/td&gt;
-          &lt;td&gt;非必须&lt;/td&gt;
-          &lt;td&gt;返回的数据&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;|- id&lt;/td&gt;
-          &lt;td&gt;number&lt;/td&gt;
-          &lt;td&gt;非必须&lt;/td&gt;
-          &lt;td&gt;id&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;|- name&lt;/td&gt;
-          &lt;td&gt;string&lt;/td&gt;
-          &lt;td&gt;非必须&lt;/td&gt;
-          &lt;td&gt;部门名称&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;|- createTime&lt;/td&gt;
-          &lt;td&gt;string&lt;/td&gt;
-          &lt;td&gt;非必须&lt;/td&gt;
-          &lt;td&gt;创建时间&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;|- updateTime&lt;/td&gt;
-          &lt;td&gt;string&lt;/td&gt;
-          &lt;td&gt;非必须&lt;/td&gt;
-          &lt;td&gt;修改时间&lt;/td&gt;
-      &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td&gt;code&lt;/td&gt;
+
+        
+&lt;td&gt;number&lt;/td&gt;
+
+        
+&lt;td&gt;必须&lt;/td&gt;
+
+        
+&lt;td&gt;响应码，1 代表成功，0 代表失败&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td&gt;msg&lt;/td&gt;
+
+        
+&lt;td&gt;string&lt;/td&gt;
+
+        
+&lt;td&gt;非必须&lt;/td&gt;
+
+        
+&lt;td&gt;提示信息&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td&gt;data&lt;/td&gt;
+
+        
+&lt;td&gt;object[ ]&lt;/td&gt;
+
+        
+&lt;td&gt;非必须&lt;/td&gt;
+
+        
+&lt;td&gt;返回的数据&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td&gt;|- id&lt;/td&gt;
+
+        
+&lt;td&gt;number&lt;/td&gt;
+
+        
+&lt;td&gt;非必须&lt;/td&gt;
+
+        
+&lt;td&gt;id&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td&gt;|- name&lt;/td&gt;
+
+        
+&lt;td&gt;string&lt;/td&gt;
+
+        
+&lt;td&gt;非必须&lt;/td&gt;
+
+        
+&lt;td&gt;部门名称&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td&gt;|- createTime&lt;/td&gt;
+
+        
+&lt;td&gt;string&lt;/td&gt;
+
+        
+&lt;td&gt;非必须&lt;/td&gt;
+
+        
+&lt;td&gt;创建时间&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td&gt;|- updateTime&lt;/td&gt;
+
+        
+&lt;td&gt;string&lt;/td&gt;
+
+        
+&lt;td&gt;非必须&lt;/td&gt;
+
+        
+&lt;td&gt;修改时间&lt;/td&gt;
+    &lt;/tr&gt;
   &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;响应数据样例：&lt;/p&gt;</description>
+&lt;/table&gt;&lt;p&gt;响应数据样例：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Javaweb——(9)SpringbBoot实战·智能学习辅助系统</title>
@@ -7714,7 +8939,7 @@ JDBC、JNDI、EJB、RMI、JSP、Servlet、XML、JMS、JavaIDL、JTS、JTA、Java
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;如果Tomcat启动窗口一闪而过，需要检查JAVA_HOME环境变量是否正确配置&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>Javaweb——(6)Maven核心技术</title>
@@ -7764,7 +8989,8 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;Apache 软件基金会，成立于1999年7月，是目前世界上最大的最受欢迎的开源软件基金会，也是一个专门为支持开源项目而生的非盈利组织。 &lt;br&gt;
+开源项目：&lt;a href=&#34;https://www.apache.org/index.html#project-list&#34;&gt;https://www.apache.org/index.html#project-list&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>JavaWeb——(5)Vue基础实战案例</title>
@@ -7812,7 +9038,8 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
 &lt;blockquote&gt;
 &lt;p&gt;省：https://web-server.itheima.net/province &lt;br&gt;
 市：https://web-server.itheima.net/city?pid=xxx &lt;br&gt;
-区：https://web-server.itheima.net/area?cid=xxx&lt;/p&gt;</description>
+区：https://web-server.itheima.net/area?cid=xxx&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>JavaWeb——(4)Vue框架基础</title>
@@ -7921,41 +9148,66 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
 &lt;ul&gt;
 &lt;li&gt;Vue指令：HTML标签上带有 &lt;code&gt;v-&lt;/code&gt;前缀的特殊属性，不同的指令具有不同的含义，可以实现不同的功能&lt;/li&gt;
 &lt;li&gt;常用指令：
-&lt;table&gt;
+&lt;table class=&#34;table table-striped table-bordered table-hover&#34;&gt;
+
   &lt;thead&gt;
       &lt;tr&gt;
           &lt;th style=&#34;text-align: center&#34;&gt;指令&lt;/th&gt;
           &lt;th style=&#34;text-align: center&#34;&gt;作用&lt;/th&gt;
       &lt;/tr&gt;
   &lt;/thead&gt;
+
   &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-for&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;列表渲染，遍历容易的元素或者对象的属性&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-bind&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;为HTML标签绑定属性值，如设置 &lt;code&gt;href&lt;/code&gt;，&lt;code&gt;css&lt;/code&gt;样式等&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-if&lt;/code&gt;/&lt;code&gt;v-else-if&lt;/code&gt;/&lt;code&gt;v-else&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;条件性的渲染某元素，判断为&lt;code&gt;true&lt;/code&gt;时渲染，否则不渲染&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-show&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;根据条件展示某元素，区别在于切换的是&lt;code&gt;display&lt;/code&gt;的值&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-model&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;在表单元素上创建双向数据绑定&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-on&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;为HTML标签绑定事件&lt;/td&gt;
-      &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-for&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;列表渲染，遍历容易的元素或者对象的属性&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-bind&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;为HTML标签绑定属性值，如设置 &lt;code&gt;href&lt;/code&gt;，&lt;code&gt;css&lt;/code&gt;样式等&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-if&lt;/code&gt;/&lt;code&gt;v-else-if&lt;/code&gt;/&lt;code&gt;v-else&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;条件性的渲染某元素，判断为&lt;code&gt;true&lt;/code&gt;时渲染，否则不渲染&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-show&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;根据条件展示某元素，区别在于切换的是&lt;code&gt;display&lt;/code&gt;的值&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-model&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;在表单元素上创建双向数据绑定&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;v-on&lt;/code&gt;&lt;/td&gt;
+
+        
+&lt;td style=&#34;text-align: center&#34;&gt;为HTML标签绑定事件&lt;/td&gt;
+    &lt;/tr&gt;
   &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/li&gt;
+&lt;/table&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;v-for&#34;&gt;v-for&lt;/h3&gt;
@@ -7982,7 +9234,7 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;注意：遍历的数组，必须在&lt;code&gt;data&lt;/code&gt;中定义；想让哪个标签循环多次，就在哪个标签上使用&lt;code&gt;v-for&lt;/code&gt;指令&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>杂谈 | 待办</title>
@@ -8112,7 +9364,7 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;&lt;strong&gt;ECMA&lt;/strong&gt;：ECMA国际（前身为欧洲计算机制造商协会），制定了标准化的脚本程序设计语言 ECMAScript，这种语言得到广泛应用。而JavaScript是遵守ECMAScript的标准的。&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>JavaWeb——(2)HTML-CSS快速入门</title>
@@ -8124,7 +9376,7 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;提示&lt;/p&gt;&lt;p&gt;常见的html标签需要掌握，但是css属性过于庞杂，了解即可，别执迷不悟，浪费太多时间在上面，需要用时可去&lt;a href=&#34;https://www.w3school.com.cn&#34;&gt;w3school&lt;/a&gt;进行查阅&lt;/p&gt;</description>
+        &lt;/span&gt;提示&lt;/p&gt;&lt;p&gt;常见的html标签需要掌握，但是css属性过于庞杂，了解即可，别执迷不悟，浪费太多时间在上面，需要用时可去&lt;a href=&#34;https://www.w3school.com.cn&#34;&gt;w3school&lt;/a&gt;进行查阅&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>JavaWeb——(1)从环境配置走进JavaWeb</title>
@@ -8513,7 +9765,8 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;注意：URL 只是表示地址，不会主动去访问网络。要访问，需要配合 &lt;code&gt;URLConnection&lt;/code&gt; 或 &lt;code&gt;HttpURLConnection&lt;/code&gt;。&lt;/p&gt;</description>
+&lt;p&gt;注意：URL 只是表示地址，不会主动去访问网络。要访问，需要配合 &lt;code&gt;URLConnection&lt;/code&gt; 或 &lt;code&gt;HttpURLConnection&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（十五·I/O 与文件操作）</title>
@@ -8531,7 +9784,31 @@ Maven是一款用于管理和构建Java项目的工具，是apache旗下的一�
 &lt;p&gt;&lt;strong&gt;输出流&lt;/strong&gt;（OutputStream / Writer）：将数据写出到外部。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;字节流 vs 字符流：&lt;/p&gt;</description>
+&lt;p&gt;字节流 vs 字符流：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;字节流：InputStream / OutputStream，按字节处理，适合所有类型文件（文本、图片、视频）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;字符流：Reader / Writer，按字符处理，适合文本文件，自动处理字符编码。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;流操作基本步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;打开流（new 对象）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;读写数据（read()/write()）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;关闭流（close()），最好使用 try-with-resources 自动关闭&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（十四·Lambda 与 Stream API）</title>
@@ -8621,7 +9898,8 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
 但有一个关键点必须记住：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;String 对象是不可变的（immutable）&lt;/strong&gt;
-也就是说，一旦创建，就不能修改。&lt;/p&gt;</description>
+也就是说，一旦创建，就不能修改。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（十·包与访问控制）</title>
@@ -8782,7 +10060,8 @@ Java 内置了常用函数式接口：&lt;/p&gt;</description>
 很多新手一上来就盯着语法，看得眼花缭乱，但其实理解程序的“骨架”比死记硬背语法更重要。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Think of it as building a house &lt;br&gt;
-你可以买很贵的材料，但没有合理的框架，房子也盖不稳。&lt;/p&gt;</description>
+你可以买很贵的材料，但没有合理的框架，房子也盖不稳。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（一·基础语法篇）</title>

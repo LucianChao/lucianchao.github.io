@@ -4,8 +4,8 @@
     <title>实战项目 on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/categories/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/</link>
     <description>Recent content in 实战项目 on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.157.0</generator>
-    <language>zh</language>
+    <generator>Hugo -- 0.167.0</generator>
+    <language>zh-cn</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Tue, 16 Dec 2025 04:55:00 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/categories/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/index.xml" rel="self" type="application/rss+xml" />
@@ -185,7 +185,7 @@
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;虽然springboot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置（&lt;strong&gt;yml是主流&lt;/strong&gt;）。&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;虽然springboot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置（&lt;strong&gt;yml是主流&lt;/strong&gt;）。&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>Javaweb——(21)SpringBoot实战·面向切面编程AOP</title>
@@ -302,7 +302,7 @@
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;提示&lt;/p&gt;</description>
+        &lt;/span&gt;提示&lt;/p&gt;&lt;p&gt;AOP是一种思想，而在Spring框架中对这种思想进行的实现，那我们要学习的就是Spring AOP。&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>Javaweb——(20)SpringBoot实战·Tlias智能学习辅助系统·登录认证</title>
@@ -491,7 +491,10 @@
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;注释&lt;/p&gt;</description>
+        &lt;/span&gt;注释&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;登录标记：用户登录成功之后，在后续的每一次请求中，都可以获取到该标记。【会话技术】&lt;/li&gt;
+&lt;li&gt;统一拦截：过滤器Filter、拦截器Interceptor&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Javaweb——(16)SpringBoot实战·Tlias智能学习辅助系统·员工系统开发</title>
@@ -598,7 +601,160 @@
 &lt;h3 id=&#34;service--mapper&#34;&gt;Service &amp;amp; Mapper&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;code&gt;EmpService.java&lt;/code&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;code&gt;EmpService.java&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt; * 删除员工
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt; * @param ids
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;delete&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ids&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;EmpServiceImpl.java&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;@Transactional&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//开启事务（涉及多表操作）&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;delete&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ids&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//1.删除员工基本信息 emp表&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;empMapper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;deleteBatch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ids&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//2.删除员工工作经历 emp_expr表&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;empExprMapper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;deleteBatch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ids&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;style type=&#34;text/css&#34;&gt;
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+&lt;/style&gt;&lt;div class=&#34;notice note&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z&#34;/&gt;&lt;/svg&gt;
+        &lt;/span&gt;注释&lt;/p&gt;&lt;p&gt;由于删除员工信息，既要删除员工基本信息，又要删除工作经历信息，操作多次数据库的删除，所以要进行事务控制&lt;/p&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;EmpMapper.java&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt; * 批量删除员工基本信息
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt; * @param ids
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//基于XML开发- 动态SQL&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;deleteBatch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ids&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;EmpExprMapper.java&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;* 批量删除员工工作经历
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;* @param ids
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;*/&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//基于XML开发-动态SQL -- &amp;lt;foreach&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;deleteBatch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ids&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;EmpMapper.xml&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c&#34;&gt;&amp;lt;!--    批量删除员工--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;delete&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;deleteBatch&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        delete from emp where id in
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;lt;foreach&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;collection=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;ids&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;separator=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;,&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;item=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;open=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;(&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;close=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;)&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            #{id}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/foreach&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/delete&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;EmpExprMapper.xml&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c&#34;&gt;&amp;lt;!--    批量删除数据--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;delete&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;deleteBatch&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      delete from emp_expr where emp_id in
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;lt;foreach&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;collection=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;ids&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;separator=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;,&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;item=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;open=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;(&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;close=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;)&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          #{id}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;lt;/foreach&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/delete&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     <item>
       <title>Javaweb——(15)SpringBoot实战·Tlias智能学习辅助系统·新增员工</title>
@@ -725,7 +881,48 @@
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;注释&lt;/p&gt;</description>
+        &lt;/span&gt;注释&lt;/p&gt;&lt;p&gt;使用
+@Options(useGeneratedKeys = true,keyProperty = &amp;ldquo;id&amp;rdquo;)&lt;/p&gt;
+&lt;p&gt;获取主键值赋给id，拿回数据操作emp_expr表&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;批量保存员工的工作经历信息
+
+
+
+
+
+
+    
+
+
+       
+    
+
+
+
+&lt;div class=&#34;post-img-view&#34;&gt;
+  &lt;a
+    data-fancybox=&#34;post-post/java-web/javaweb-15-springboot-tlias4/index.md&#34;
+    href=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/4.webp&#34;
+    data-caption=&#34;&#34;
+    data-barba-prevent=&#34;all&#34;
+  &gt;
+    &lt;img
+      src=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/4.webp&#34;
+      srcset=&#34;https://www.steamedfish.top/post/java-web/javaweb-15-springboot-tlias4/4.webp 2x&#34;
+      alt=&#34;&#34;
+      loading=&#34;lazy&#34;
+      style=&#34;max-width: 100%; height: auto;&#34;
+    /&gt;
+  &lt;/a&gt;
+    
+  
+&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     <item>
       <title>Javaweb——(14)SpringBoot实战·Tlias智能学习辅助系统·员工列表查询</title>
@@ -1200,7 +1397,7 @@ npm run dev
     &lt;p class=&#34;notice-title&#34;&gt;
         &lt;span class=&#34;icon-notice baseline&#34;&gt;
             &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path d=&#34;M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z&#34;/&gt;&lt;/svg&gt;
-        &lt;/span&gt;信息&lt;/p&gt;</description>
+        &lt;/span&gt;信息&lt;/p&gt;&lt;p&gt;SPI机制：Service Provider Interface，JDK内置的一种服务提供发现机制，可以轻松拓展你的程序（切换实现），实现接口与实现类之间的解耦。&lt;/p&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>Javaweb——(10)SpringBoot实战·分层解耦</title>
@@ -1279,7 +1476,8 @@ npm run dev
 &lt;h4 id=&#34;113-响应数据&#34;&gt;1.1.3 响应数据&lt;/h4&gt;
 &lt;p&gt;参数格式：application/json&lt;/p&gt;
 &lt;p&gt;参数说明：&lt;/p&gt;
-&lt;table&gt;
+&lt;table class=&#34;table table-striped table-bordered table-hover&#34;&gt;
+
   &lt;thead&gt;
       &lt;tr&gt;
           &lt;th&gt;参数名&lt;/th&gt;
@@ -1288,52 +1486,108 @@ npm run dev
           &lt;th&gt;备注&lt;/th&gt;
       &lt;/tr&gt;
   &lt;/thead&gt;
+
   &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;code&lt;/td&gt;
-          &lt;td&gt;number&lt;/td&gt;
-          &lt;td&gt;必须&lt;/td&gt;
-          &lt;td&gt;响应码，1 代表成功，0 代表失败&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;msg&lt;/td&gt;
-          &lt;td&gt;string&lt;/td&gt;
-          &lt;td&gt;非必须&lt;/td&gt;
-          &lt;td&gt;提示信息&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;data&lt;/td&gt;
-          &lt;td&gt;object[ ]&lt;/td&gt;
-          &lt;td&gt;非必须&lt;/td&gt;
-          &lt;td&gt;返回的数据&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;|- id&lt;/td&gt;
-          &lt;td&gt;number&lt;/td&gt;
-          &lt;td&gt;非必须&lt;/td&gt;
-          &lt;td&gt;id&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;|- name&lt;/td&gt;
-          &lt;td&gt;string&lt;/td&gt;
-          &lt;td&gt;非必须&lt;/td&gt;
-          &lt;td&gt;部门名称&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;|- createTime&lt;/td&gt;
-          &lt;td&gt;string&lt;/td&gt;
-          &lt;td&gt;非必须&lt;/td&gt;
-          &lt;td&gt;创建时间&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;|- updateTime&lt;/td&gt;
-          &lt;td&gt;string&lt;/td&gt;
-          &lt;td&gt;非必须&lt;/td&gt;
-          &lt;td&gt;修改时间&lt;/td&gt;
-      &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td&gt;code&lt;/td&gt;
+
+        
+&lt;td&gt;number&lt;/td&gt;
+
+        
+&lt;td&gt;必须&lt;/td&gt;
+
+        
+&lt;td&gt;响应码，1 代表成功，0 代表失败&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td&gt;msg&lt;/td&gt;
+
+        
+&lt;td&gt;string&lt;/td&gt;
+
+        
+&lt;td&gt;非必须&lt;/td&gt;
+
+        
+&lt;td&gt;提示信息&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td&gt;data&lt;/td&gt;
+
+        
+&lt;td&gt;object[ ]&lt;/td&gt;
+
+        
+&lt;td&gt;非必须&lt;/td&gt;
+
+        
+&lt;td&gt;返回的数据&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td&gt;|- id&lt;/td&gt;
+
+        
+&lt;td&gt;number&lt;/td&gt;
+
+        
+&lt;td&gt;非必须&lt;/td&gt;
+
+        
+&lt;td&gt;id&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td&gt;|- name&lt;/td&gt;
+
+        
+&lt;td&gt;string&lt;/td&gt;
+
+        
+&lt;td&gt;非必须&lt;/td&gt;
+
+        
+&lt;td&gt;部门名称&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td&gt;|- createTime&lt;/td&gt;
+
+        
+&lt;td&gt;string&lt;/td&gt;
+
+        
+&lt;td&gt;非必须&lt;/td&gt;
+
+        
+&lt;td&gt;创建时间&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+
+        
+&lt;td&gt;|- updateTime&lt;/td&gt;
+
+        
+&lt;td&gt;string&lt;/td&gt;
+
+        
+&lt;td&gt;非必须&lt;/td&gt;
+
+        
+&lt;td&gt;修改时间&lt;/td&gt;
+    &lt;/tr&gt;
   &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;响应数据样例：&lt;/p&gt;</description>
+&lt;/table&gt;&lt;p&gt;响应数据样例：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Javaweb——(9)SpringbBoot实战·智能学习辅助系统</title>

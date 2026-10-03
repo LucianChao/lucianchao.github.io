@@ -4,8 +4,8 @@
     <title>数组 on SteamedFish&#39;s Blog</title>
     <link>https://www.steamedfish.top/tags/%E6%95%B0%E7%BB%84/</link>
     <description>Recent content in 数组 on SteamedFish&#39;s Blog</description>
-    <generator>Hugo -- 0.157.0</generator>
-    <language>zh</language>
+    <generator>Hugo -- 0.167.0</generator>
+    <language>zh-cn</language>
     <copyright>©2025 SteamedFish&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Tue, 30 Dec 2025 13:31:16 +0800</lastBuildDate>
     <atom:link href="https://www.steamedfish.top/tags/%E6%95%B0%E7%BB%84/index.xml" rel="self" type="application/rss+xml" />
@@ -22,7 +22,8 @@
 &lt;blockquote&gt;
 &lt;p&gt;输入：&lt;code&gt;nums = [2,7,11,15], target = 9&lt;/code&gt;&lt;br&gt;
 输出：&lt;code&gt;[0,1]&lt;/code&gt;&lt;br&gt;
-解释：&lt;code&gt;因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。&lt;/code&gt;&lt;/p&gt;</description>
+解释：&lt;code&gt;因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     <item>
       <title>Java SE从入门到跑路（三·数组与方法篇）</title>

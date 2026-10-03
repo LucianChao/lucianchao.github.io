@@ -31,10 +31,18 @@ obj.test();     // 到底是调用父类，还是子类的 test 方法，必须�
 括号内的说明是为了严谨，了解就行，回答时不必说出，这样比较简洁
 在回答方法重载时，不必细说什么参数的类型、个数、顺序，直接说参数列表不同就行
 问题的重点说出：重载是编译器来区分方法，而重写是运行时由解释器来区分方法
-语法细节（问了再说，没问不必说）">
+语法细节（问了再说，没问不必说）
+
+重写时，子类方法的访问修饰符要 &gt;= 父类方法的访问修饰符
+重写时，子类方法抛出的检查异常类型要 &lt;= 父类方法抛出的检查异常类型，或者子类不抛异常
+重写时，父子类的方法返回值类型要一样，或子类方法返回值是父类方法返回值的子类
+
+
+
+">
 <meta name="author" content="Lucian Chao">
 <link rel="canonical" href="https://www.steamedfish.top/post/interview/java/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.48569ef1d09dace3351ba549c3a7d634e59d1a68544f48e0de83f555e5c3e16e.css" integrity="sha256-SFae8dCdrOM1G6VJw6fWNOWdGmhUT0jg3oP1VeXD4W4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4d4c3a46ad80789b1069fa2f5b7865703b3eba30aec9e48c22075387e0f437f7.css" integrity="sha256-TUw6Rq2AeJsQafovW3hlcDs&#43;ujCuyeSMIgdTh&#43;D0N/c=" rel="preload stylesheet" as="style">
 <link crossorigin="anonymous" rel="preload" as="fetch" href="/index.json">
 
 <script>
@@ -100,8 +108,9 @@ window.__searchFuseOpts__ = "{\"distance\":100,\"ignorelocation\":true,\"include
   <meta property="og:description" content="Java基础 重载与重写的区别 重载是对象的方法之间，它们方法名相同，但方法的参数列表不同 重写是父子类（包括接口与实现类）中两个同名方法，它们方法名相同，且方法的参数列表相同 重载在编译阶段，由编译器根据传递给方法的参数来区分方法，例如 MyObject obj = ... obj.test(123); // 应该是调用 test(int x) 这个方法 obj.test(&#34;abc&#34;); // 应该是调用 test(String x) 这个方法 而重写是在运行阶段，由虚拟机解释器去获取引用对象的实际类型，根据类型才能确定该调用哪个方法，例如 Super obj = ... obj.test(); // 到底是调用父类，还是子类的 test 方法，必须检查引用对象的实际类型才能确定 有没有发生重写，可以使用 @Override 来检查 括号内的说明是为了严谨，了解就行，回答时不必说出，这样比较简洁
 在回答方法重载时，不必细说什么参数的类型、个数、顺序，直接说参数列表不同就行
 问题的重点说出：重载是编译器来区分方法，而重写是运行时由解释器来区分方法
-语法细节（问了再说，没问不必说）">
-  <meta property="og:locale" content="zh">
+语法细节（问了再说，没问不必说）
+重写时，子类方法的访问修饰符要 &gt;= 父类方法的访问修饰符 重写时，子类方法抛出的检查异常类型要 &lt;= 父类方法抛出的检查异常类型，或者子类不抛异常 重写时，父子类的方法返回值类型要一样，或子类方法返回值是父类方法返回值的子类 ">
+  <meta property="og:locale" content="zh-cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2026-03-14T18:14:18+08:00">
@@ -131,7 +140,15 @@ obj.test();     // 到底是调用父类，还是子类的 test 方法，必须�
 括号内的说明是为了严谨，了解就行，回答时不必说出，这样比较简洁
 在回答方法重载时，不必细说什么参数的类型、个数、顺序，直接说参数列表不同就行
 问题的重点说出：重载是编译器来区分方法，而重写是运行时由解释器来区分方法
-语法细节（问了再说，没问不必说）">
+语法细节（问了再说，没问不必说）
+
+重写时，子类方法的访问修饰符要 &gt;= 父类方法的访问修饰符
+重写时，子类方法抛出的检查异常类型要 &lt;= 父类方法抛出的检查异常类型，或者子类不抛异常
+重写时，父子类的方法返回值类型要一样，或子类方法返回值是父类方法返回值的子类
+
+
+
+">
 
 
 <script type="application/ld+json">
@@ -166,7 +183,7 @@ obj.test();     // 到底是调用父类，还是子类的 test 方法，必须�
   "@type": "BlogPosting",
   "headline": "【面试八股】Java",
   "name": "【面试八股】Java",
-  "description": "Java基础 重载与重写的区别 重载是对象的方法之间，它们方法名相同，但方法的参数列表不同 重写是父子类（包括接口与实现类）中两个同名方法，它们方法名相同，且方法的参数列表相同 重载在编译阶段，由编译器根据传递给方法的参数来区分方法，例如 MyObject obj = ... obj.test(123); // 应该是调用 test(int x) 这个方法 obj.test(\u0026#34;abc\u0026#34;); // 应该是调用 test(String x) 这个方法 而重写是在运行阶段，由虚拟机解释器去获取引用对象的实际类型，根据类型才能确定该调用哪个方法，例如 Super obj = ... obj.test(); // 到底是调用父类，还是子类的 test 方法，必须检查引用对象的实际类型才能确定 有没有发生重写，可以使用 @Override 来检查 括号内的说明是为了严谨，了解就行，回答时不必说出，这样比较简洁\n在回答方法重载时，不必细说什么参数的类型、个数、顺序，直接说参数列表不同就行\n问题的重点说出：重载是编译器来区分方法，而重写是运行时由解释器来区分方法\n语法细节（问了再说，没问不必说）\n",
+  "description": "Java基础 重载与重写的区别 重载是对象的方法之间，它们方法名相同，但方法的参数列表不同 重写是父子类（包括接口与实现类）中两个同名方法，它们方法名相同，且方法的参数列表相同 重载在编译阶段，由编译器根据传递给方法的参数来区分方法，例如 MyObject obj = ... obj.test(123); // 应该是调用 test(int x) 这个方法 obj.test(\u0026#34;abc\u0026#34;); // 应该是调用 test(String x) 这个方法 而重写是在运行阶段，由虚拟机解释器去获取引用对象的实际类型，根据类型才能确定该调用哪个方法，例如 Super obj = ... obj.test(); // 到底是调用父类，还是子类的 test 方法，必须检查引用对象的实际类型才能确定 有没有发生重写，可以使用 @Override 来检查 括号内的说明是为了严谨，了解就行，回答时不必说出，这样比较简洁\n在回答方法重载时，不必细说什么参数的类型、个数、顺序，直接说参数列表不同就行\n问题的重点说出：重载是编译器来区分方法，而重写是运行时由解释器来区分方法\n语法细节（问了再说，没问不必说）\n重写时，子类方法的访问修饰符要 \u0026gt;= 父类方法的访问修饰符 重写时，子类方法抛出的检查异常类型要 \u0026lt;= 父类方法抛出的检查异常类型，或者子类不抛异常 重写时，父子类的方法返回值类型要一样，或子类方法返回值是父类方法返回值的子类 ",
   "keywords": [
     
   ],
